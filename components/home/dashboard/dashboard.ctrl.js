@@ -9,13 +9,6 @@
   function HomeDashboardController($state, $cookies, $rootScope, $filter) {
     var vm = this;
 
-    vm.data = [
-      { name: "Greg", score: 98 },
-      { name: "Ari", score: 96 },
-      { name: 'Q', score: 75 },
-      { name: "Loser", score: 48 }
-    ];
-
     activate();
 
     ////////////////

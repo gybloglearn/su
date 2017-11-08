@@ -109,7 +109,7 @@
       controller: 'HomeDashboardController',
       controllerAs: 'vm',
       parent: 'home'
-    }).state('login', {
+		}).state('login', {
       url: '/login',
       templateUrl: './components/login/login.html',
       controller: 'LoginController',
@@ -118,7 +118,7 @@
     $stateProvider.state('logout', {
       url: '/logout',
       controller: function ($cookies, $rootScope, $state) {
-        $cookies.remove('user', {path: '/'});
+        $cookies.remove('user', { path: '/' });
         $rootScope.user = {};
         $state.go('home.dashboard', {}, { reload: true });
       }

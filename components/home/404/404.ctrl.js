@@ -15,12 +15,12 @@
     ////////////////
 
     function activate() {
-      if (!$cookies.getObject('iwpuser', {path: '/'})) {
+      if (!$cookies.getObject('user', {path: '/'})) {
         $state.go('login')
       } else {
         vm.loading = true;
-        $rootScope.user = $cookies.getObject('iwpuser',{path: '/'});
-        vm.user = $cookies.getObject('iwpuser', {path: '/'});
+        $rootScope.user = $cookies.getObject('user',{path: '/'});
+        vm.user = $cookies.getObject('user', {path: '/'});
       }
     }
   }
