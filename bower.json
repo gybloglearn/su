@@ -1,0 +1,34 @@
+{
+  "name": "iwp",
+  "description": "Intranet webpage package",
+  "main": "index.js",
+  "authors": [
+    "gyorfi.balogh@gmail.com"
+  ],
+  "license": "ISC",
+  "keywords": [],
+  "homepage": "https://github.com/gyblog/iwp",
+  "moduleType": [
+    "amd"
+  ],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-animate": "~1.6.2",
+    "angular-cookies": "~1.6.2",
+    "angular-material": "~1.1.3",
+    "angular-sanitize": "~1.6.2",
+    "angular-ui-router": "~0.4.2",
+    "angular": "~1.6.2",
+    "angular-aria": "~1.6.2",
+    "angular-messages": "~1.6.2",
+    "nvd3": "~1.8.6",
+    "moment": "~2.18.1",
+    "angular-material-data-table": "~0.10.10"
+  }
+}

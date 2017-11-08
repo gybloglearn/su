@@ -1,0 +1,39 @@
+<md-content layout-fill flex>
+  <md-toolbar class="md-whiteframe-2dp">
+    <div class="md-toolbar-tools">
+      <img src="../su_components/img/suez-water-logo.svg" alt="Suez Logo">&nbsp;
+      <h2 flex md-truncate>Production Dashboards</h2>
+      <!--<md-button aria-label="home" class="md-icon-button" ui-sref="home.dashboard" title="Vezérlőpult">
+        <md-icon md-menu-origin class="material-icons">home</md-icon>
+      </md-button>-->
+      <md-menu md-position-mode="target-right target">
+        <md-button aria-label="menu" class="md-icon-button" ng-click="vm.openMenu($mdMenu, $event)">
+          <md-icon md-menu-origin class="material-icons">menu</md-icon>
+        </md-button>
+        <md-menu-content width="4">
+          <md-menu-divider></md-menu-divider>
+          <md-menu-item ui-sref="home.dashboard">
+            <md-button>
+              <div layout="row" flex>
+                <p flex>Vezérlőpult</p>
+                <md-icon md-menu-align-target class="materia-icons">dashboard</md-icon>
+              </div>
+            </md-button>
+          </md-menu-item>
+          <md-menu-divider></md-menu-divider>
+          <md-menu-item>
+            <md-button aria-label="home" class="md-button" ui-sref="logout" title="Kijelentkezés">
+              <div layout="row" flex>
+                <p flex>Kijelentkezés</p>
+                <md-icon md-menu-alig-target class="material-icons">lock</md-icon>
+              </div>
+            </md-button>
+          </md-menu-item>
+        </md-menu-content>
+      </md-menu>
+    </div>
+  </md-toolbar>
+  <md-content flex>
+    <div ui-view layout-fill flex="60" flex-offset-gt-md="20" flex-md="80" flex-offset-md="10" flex-sm="100" flex-xs="100" layout-align="center center"></div>
+  </md-content>
+</md-content>

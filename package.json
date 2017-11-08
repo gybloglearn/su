@@ -1,0 +1,28 @@
+{
+  "name": "iwp",
+  "version": "0.0.1",
+  "description": "Intranet webpage package",
+  "main": "",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gyblob/iwp.git"
+  },
+  "keywords": [],
+  "author": "gyorfi.balogh@gmail.com",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gyblog/iwp/issues"
+  },
+  "homepage": "https://github.com/gyblog/iwp#readme",
+  "devDependencies": {
+    "fs-jetpack": "^0.12.0",
+    "gulp": "^3.9.1",
+    "gulp-cssmin": "^0.1.7",
+    "gulp-inject-string": "^1.1.0",
+    "gulp-uglify": "^2.0.1",
+    "gulp-usemin": "^0.3.28"
+  }
+}

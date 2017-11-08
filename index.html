@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<title>SUEZ - WTS - ORO</title>
+	<link rel="shortcut icon" href="../su_components/img/favicon.ico">
+	<link rel="stylesheet" href="../su_components/icons/material-icons.css">
+	<link rel="stylesheet" href="../su_components/fonts/fonts.css">
+	<!--<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans&subset=latin,latin-ext">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300&subset=latin,latin-ext">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,400&subset=latin,latin-ext">-->
+	<!--build:css style/vendor.css -->
+	<link rel="stylesheet" href="../su_components/bower_components/angular-material/angular-material.min.css">
+	<link rel="stylesheet" href="../su_components/bower_components/angular-material-data-table/dist/md-data-table.min.css">
+	<link rel="stylesheet" href="../su_components/bower_components/nvd3/build/nv.d3.min.css">
+
+	<link rel="stylesheet" href="app.css">
+	<!--endbuild-->
+</head>
+
+<body ng-cloak>
+	<div class="container" layout="row" layout-fill>
+
+		<div ui-view layout-fill layout-align="center center"></div>
+
+	</div>
+	<!--build:js script/vendor.js-->
+	<script src="../su_components/bower_components/angular/angular.min.js"></script>
+	<script src="../su_components/bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+	<script src="../su_components/bower_components/angular-cookies/angular-cookies.min.js"></script>
+	<script src="../su_components/bower_components/angular-aria/angular-aria.min.js"></script>
+	<script src="../su_components/bower_components/angular-sanitize/angular-sanitize.min.js"></script>
+	<script src="../su_components/bower_components/angular-messages/angular-messages.min.js"></script>
+	<script src="../su_components/bower_components/angular-animate/angular-animate.min.js"></script>
+	<script src="../su_components/bower_components/angular-material/angular-material.min.js"></script>
+	<script src="../su_components/bower_components/angular-material-data-table/dist/md-data-table.min.js"></script>
+	<script src="../su_components/bower_components/d3/d3.min.js"></script>
+	<script src="../su_components/bower_components/nvd3/build/nv.d3.min.js"></script>
+	<!--endbuild-->
+	<!--build:app script/app.js-->
+	<script src="app.js"></script>
+	<script src="config.js"></script>
+	<script src="run.js"></script>
+	<script src="components/services/login.service.js"></script>
+	<script src="components/filters/unique.js"></script>
+	<script src="components/login/login.ctrl.js"></script>
+	<script src="components/home/home.ctrl.js"></script>
+	<script src="components/home/404/404.ctrl.js"></script>
+	<script src="components/home/dashboard/dashboard.ctrl.js"></script>
+	<!--endbuild-->
+	<script>
+		angular.bootstrap(document, ['app']);
+	</script>
+</body>
+
+</html>

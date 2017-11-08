@@ -1,0 +1,31 @@
+<div layout-fill flex layout-align="center center" layout="column">
+  <h1 class="md-display-2">Oroszlány</h1>
+  <sup style="display: block;letter-spacing: 2px;text-align: center;margin-top: -40px; margin-bottom: 20px;">Production Dashboards</sup>
+  <md-content layout-padding style="background-color:transparent">
+    <div class="text-right" flex>
+      <img src="../su_components/img/logo_suez_intranet.png" alt="Suez Logo" style="width: 100px;">
+    </div>
+    <div>
+      <div ng-show="vm.err.message" class="text-center">
+        <md-button class="md-warn md-raised md-icon-button">
+          <md-icon class="material-icons">error</md-icon>
+        </md-button>
+        <p class="md-hue-1 text-center" md-colors="{color:'warn'}">{{vm.err.message}}</p>
+      </div>
+      <div>
+        <md-input-container class="md-block" flex-gt-xs>
+          <label>Felhasználó név:</label>
+          <input type="text" ng-model="vm.data.uname">
+        </md-input-container>
+        <md-input-container class="md-block" flex-gt-xs>
+          <label>Jelszó:</label>
+          <input type="password" ng-model="vm.data.passw">
+        </md-input-container>
+        <div layout="row">
+          <md-button class="md-raised md-accent md-hue-1" flex ng-click="vm.authenticate()">
+            <md-icon class="icon material-icons">lock_outline</md-icon> Bejelentkezés</md-button>
+        </div>
+      </div>
+    </div>
+  </md-content>
+</div>
