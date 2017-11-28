@@ -1,14 +1,13 @@
-(function() {
+(function () {
   'use strict';
 
   angular
     .module('app')
-    .controller('Home404Controller', Home404Controller);
+    .controller('DashboardController', DashboardController);
 
-  Home404Controller.$inject = ['$rootScope', '$state', '$cookies'];
-  function Home404Controller($rootScope, $state, $cookies) {
+  DashboardController.$inject = ['$state', '$cookies', '$rootScope', '$filter'];
+  function DashboardController($state, $cookies, $rootScope, $filter) {
     var vm = this;
-
 
     activate();
 

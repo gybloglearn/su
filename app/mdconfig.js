@@ -5,8 +5,9 @@
     .module('app')
     .config(Config);
 
-  Config.$inject = ['$urlRouterProvider', '$stateProvider', '$mdThemingProvider', '$locationProvider'];
-  function Config($urlRouterProvider, $stateProvider, $mdThemingProvider, $locationProvider) {
+  Config.$inject = ['$mdThemingProvider'];
+  function Config($mdThemingProvider) {
+
     $mdThemingProvider.theme('myCustom')
       .primaryPalette('mySL', {
         'hue-1': '900',
@@ -88,40 +89,6 @@
       ]
     });
     $mdThemingProvider.setDefaultTheme('myCustom');
-    // routing
-    $urlRouterProvider.otherwise('/404');
-    $locationProvider.hashPrefix('');
 
-    $stateProvider.state('home', {
-      url: '/',
-      templateUrl: './components/home/home.html',
-      controller: 'HomeController',
-      controllerAs: 'vm'
-    }).state('home.404', {
-      url: '404',
-      templateUrl: './components/home/404/404.html',
-      controller: 'Home404Controller',
-      controllerAs: 'vm',
-      parent: 'home'
-    }).state('home.dashboard', {
-      url: 'vezerlopult',
-      templateUrl: './components/home/dashboard/dashboard.html',
-      controller: 'HomeDashboardController',
-      controllerAs: 'vm',
-      parent: 'home'
-		}).state('login', {
-      url: '/login',
-      templateUrl: './components/login/login.html',
-      controller: 'LoginController',
-      controllerAs: 'vm'
-    });
-    $stateProvider.state('logout', {
-      url: '/logout',
-      controller: function ($cookies, $rootScope, $state) {
-        $cookies.remove('user', { path: '/' });
-        $rootScope.user = {};
-        $state.go('home.dashboard', {}, { reload: true });
-      }
-    });
   }
 })();

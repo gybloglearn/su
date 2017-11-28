@@ -17,10 +17,12 @@
           $cookies.putObject('user', resp.data, { path: "/" });
           $rootScope.user = resp.data;
           var redir = $cookies.get('redir');
-          if (redir) {
-            $window.location.href = '/#' + redir;
+          if(!redir || redir == '') {
+            $cookies.remove('redir');
+            $state.go('dashboard');
           } else {
-            $state.go('home.dashboard');
+            $cookies.remove('redir');
+            $state.go(redir);
           }
         }
       }).catch(function (error) {

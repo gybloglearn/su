@@ -3,10 +3,10 @@
 
   angular
     .module('app')
-    .controller('HomeDashboardController', HomeDashboardController);
+    .controller('NewrouteController', NewrouteController);
 
-  HomeDashboardController.$inject = ['$state', '$cookies', '$rootScope', '$filter'];
-  function HomeDashboardController($state, $cookies, $rootScope, $filter) {
+  NewrouteController.$inject = ['$state', '$cookies', '$rootScope', '$filter'];
+  function NewrouteController($state, $cookies, $rootScope, $filter) {
     var vm = this;
 
     activate();
@@ -15,7 +15,7 @@
 
     function activate() {
       if (!$cookies.getObject('user', {path: '/'})) {
-        $state.go('login')
+        $state.go('login');
       } else {
         vm.loading = true;
         $rootScope.user = $cookies.getObject('user',{path: '/'});

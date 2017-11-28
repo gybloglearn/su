@@ -4,19 +4,19 @@
   "description": "Intranet webpage package",
   "main": "",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "gulp"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/gyblob/iwp.git"
+    "url": "git+https://github.com/gybloglearn/su.git"
   },
   "keywords": [],
   "author": "gyorfi.balogh@gmail.com",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/gyblog/iwp/issues"
+    "url": "https://github.com/gybloglearn/su/issues"
   },
-  "homepage": "https://github.com/gyblog/iwp#readme",
+  "homepage": "https://github.com/gybloglearn/su#readme",
   "devDependencies": {
     "fs-jetpack": "^0.12.0",
     "gulp": "^3.9.1",
