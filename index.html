@@ -23,11 +23,13 @@
 				<div class="md-toolbar-tools">
 					<h1 class="md-toolbar-tools" flex>Navigáció</h1>
 					<md-button ng-click="close()" class="md-icon-button">
-						<md-icon><i class="material-icons">close</i></md-icon>
+						<md-icon>
+							<i class="material-icons">close</i>
+						</md-icon>
 					</md-button>
 				</div>
 			</md-toolbar>
-			<md-content layout-padding>
+			<md-content>
 				<md-list flex>
 					<md-list-item ui-sref="newroute" ng-click="close()">
 						<div flex class="md-list-item-text">Newroute</div>
@@ -46,7 +48,7 @@
 			</md-content>
 		</md-sidenav>
 		<md-content flex>
-			<md-toolbar ng-show="user">
+			<md-toolbar>
 				<div class="md-toolbar-tools">
 					<md-button class="md-icon-button" aria-label="More" ng-click="open()" ng-show="user">
 						<md-icon>
@@ -57,7 +59,7 @@
 					<h1 flex md-truncate>&nbsp;Water Technologies & Solutions</h1>
 				</div>
 			</md-toolbar>
-			<div ui-view layout-align="center center" layout-fill></div>
+			<div ui-view layout-align="center center"></div>
 		</md-content>
 	</div>
 	<!--build:js script/vendor.js-->
