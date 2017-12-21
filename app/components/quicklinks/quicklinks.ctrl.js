@@ -3,11 +3,18 @@
 
   angular
     .module('app')
-    .controller('DashboardController', DashboardController);
+    .controller('QuicklinksController', QuicklinksController);
 
-  DashboardController.$inject = ['$state', '$cookies', '$rootScope', '$filter'];
-  function DashboardController($state, $cookies, $rootScope, $filter) {
+  QuicklinksController.$inject = ['$state', '$cookies', '$rootScope', '$filter', '$mdSidenav', 'Login'];
+  function QuicklinksController($state, $cookies, $rootScope, $filter, $mdSidenav, Login) {
     var vm = this;
+
+    $rootScope.close = function(){
+      $mdSidenav('left').close();
+    }
+    $rootScope.open = function(){
+      $mdSidenav('left').open();
+    }
 
     activate();
 
@@ -20,7 +27,6 @@
         vm.loading = true;
         $rootScope.user = $cookies.getObject('user',{path: '/'});
         vm.user = $cookies.getObject('user', {path: '/'});
-        vm.shift = $filter('shift')(1, new Date());
       }
     }
   }

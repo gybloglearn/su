@@ -1,7 +1,18 @@
 html { font-family: 'Roboto', sans-serif; font-weight: 400}
-h1,h2,h3 { font-family: 'Open Sans Condensed'; font-weight: 100;}
+h1,h2 { font-family: 'Open Sans Condensed'; font-weight: 100;}
 .md-display-1, .md-display-2 {font-weight: 100;}
 .grey { color: #aaa;}
 .green { color: #4CAF50;}
 .text-center { text-align: center;}
 .text-right { text-align: right;}
+
+.md-toolbar-tools > .myhead {
+  height: 100%;
+}
+.myhead {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-image: url('../../su_components/img/bg.jpg');
+  color: rgb(155,205,65);
+}

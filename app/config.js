@@ -15,10 +15,10 @@
       templateUrl: './app/components/dashboard/dashboard.html',
       controller: 'DashboardController',
       controllerAs: 'vm'
-		}).state('newroute', {
-			url: 'newroute',
-			templateUrl: './app/components/newroute/newroute.html',
-			controller: 'NewrouteController',
+		}).state('quicklinks', {
+			url: 'quicklinks',
+			templateUrl: './app/components/quicklinks/quicklinks.html',
+			controller: 'QuicklinksController',
 			controllerAs: 'vm'
 		}).state('login', {
       url: '/login',

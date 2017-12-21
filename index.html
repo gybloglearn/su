@@ -31,10 +31,6 @@
 			</md-toolbar>
 			<md-content>
 				<md-list flex>
-					<md-list-item ui-sref="newroute" ng-click="close()">
-						<div flex class="md-list-item-text">Newroute</div>
-						<md-icon class="material-icons">list</md-icon>
-					</md-list-item>
 					<md-list-item ui-sref="dashboard" ng-click="close()">
 						<div flex class="md-list-item-text">Vezérlőpult</div>
 						<md-icon class="material-icons">dashboardk</md-icon>
@@ -45,18 +41,41 @@
 						<md-icon class="material-icons">lock</md-icon>
 					</md-list-item>
 				</md-list>
+				<md-divider></md-divider>
+				<h1 class="md-headline">&nbsp;Gyorslinkek</h1>
+				<md-grid-list class="gr" md-cols="1" md-row-height="2:1" md-gutter="0px">
+					<md-grid-tile ng-repeat="link in quicklinks" md-rowspan="1" md-colspan="1" style="background-color:{{link.color}};">
+						<p layout-padding="10" flex>
+							{{link.description}}
+						</p>
+						<md-button arial-label="uf" class="md-icon-button md-primary md-hue-2" href="{{link.url}}">
+							<md-icon class="material-icons">chevron_right</md-icon>
+						</md-button>
+						<md-grid-tile-footer>
+							<h3>{{link.title}}</h3>
+						</md-grid-tile-footer>
+					</md-grid-tile>
+				</md-grid-list>
+				<div layout="row">
+					<p flex></p>
+					<md-button class="md-icon-button" ui-sref="quicklinks" ng-click="close()">
+						<i class="material-icons">more_horiz</i>
+					</md-button>
+				</div>
 			</md-content>
 		</md-sidenav>
 		<md-content flex>
 			<md-toolbar>
 				<div class="md-toolbar-tools">
-					<md-button class="md-icon-button" aria-label="More" ng-click="open()" ng-show="user">
+					<md-button class="md-icon-button md-accent md-hue-2" aria-label="More" ng-click="open()" ng-show="user">
 						<md-icon>
-							<i class="material-icons">menu</i>
+							<i class="material-icons">apps</i>
 						</md-icon>
 					</md-button>
-					<img src="../su_components/img/suez-water-logo.svg" alt="SUES WTS">
-					<h1 flex md-truncate>&nbsp;Water Technologies & Solutions</h1>
+					<h1 flex md-truncate style="padding-left: 10px;font-size: 34px;" class="myhead">
+						<span hide-sm hide-xs style="line-height:64px;">WTS - ES - Oroszlány</span>
+						<span hide-gt-sm hide-xs style="line-height:55px;">WTS - ES - Oroszlány</span>
+					</h1>
 				</div>
 			</md-toolbar>
 			<div ui-view layout-align="center center"></div>
@@ -80,11 +99,11 @@
 	<script src="app/config.js"></script>
 	<script src="app/mdconfig.js"></script>
 	<script src="app/run.js"></script>
+	<script src="../su_components/filters/app.filters.js"></script>
 	<script src="app/components/services/login.service.js"></script>
-	<script src="app/components/filters/unique.js"></script>
 	<script src="app/components/login/login.ctrl.js"></script>
 	<script src="app/components/dashboard/dashboard.ctrl.js"></script>
-	<script src="app/components/newroute/newroute.ctrl.js"></script>
+	<script src="app/components/quicklinks/quicklinks.ctrl.js"></script>
 	<!--endbuild--><!--adds-->
 	<script>
 		angular.bootstrap(document, ['app']);

@@ -16,6 +16,12 @@
         if (resp.data.username) {
           $cookies.putObject('user', resp.data, { path: "/" });
           $rootScope.user = resp.data;
+          $rootScope.quicklinks = [];
+          Login.getQL($rootScope.user.username).then(function(resp){
+            if(resp.data.length > 0){
+              $rootScope.quicklinks = resp.data;
+            }
+          });
           var redir = $cookies.get('redir');
           if(!redir || redir == '') {
             $cookies.remove('redir');

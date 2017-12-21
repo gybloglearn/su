@@ -18,20 +18,28 @@ gulp.task('default', function () {
 });
 
 var knownOptions = {
-  default: { name: 'new_project' + new Date().getTime(), service: 'service', serviceUrl: './components/PHP/file.php', controller: 'Controller', icon: 'dashboard'}
+  default: {
+    name: 'new_project' + new Date().getTime(),
+    service: 'service',
+    serviceUrl: './app/components/PHP/file.php',
+    controller: 'Controller',
+    icon: 'dashboard',
+    serverurl: 'UFURL',
+    reporturl: '/MCS/',
+    reportname: 'report'
+  }
 }
 
 var options = minimist(process.argv.slice(2), knownOptions);
-var destDir = projectDir.cwd(options.name);
+var destDir = projectDir.cwd(options.name + '/');
 
 gulp.task('clean', function () {
   return destDir.dirAsync('.', { empty: true });
 });
 gulp.task('copy', ['clean'], function () {
-  return projectDir.copyAsync('.', destDir.path(), {
+  return projectDir.copyAsync('.', options.name + '/', {
     overwrite: true,
     matching: [
-      '*.html',
       './app/components/**/*.html'
     ]
   });
@@ -108,5 +116,21 @@ gulp.task('addservice', [], function () {
       extname: '.js'
     }))
     .pipe(gulp.dest('.'));
+
+});
+
+gulp.task('addphpreport', [], function() {
+
+  console.log('ADD PHP file to project');
+  gulp.src('../su_components/templates/report.php', { base: process.cwd() })
+  .pipe(inject.replace('serverurl', options.serverurl))
+  .pipe(inject.replace('reporturl', options.reporturl))
+  .pipe(rename({
+    dirname: './app/components/PHP',
+    basename: options.reportname,
+    suffix: '.report',
+    extname: '.php'
+  }))
+  .pipe(gulp.dest('.'));
 
 });
