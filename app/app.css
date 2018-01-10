@@ -2,7 +2,7 @@ html { font-family: 'Roboto', sans-serif; font-weight: 400}
 h1,h2 { font-family: 'Open Sans Condensed'; font-weight: 100;}
 .md-display-1, .md-display-2 {font-weight: 100;}
 .grey { color: #aaa;}
-.green { color: #4CAF50;}
+.green {color: #badb2a;}
 .text-center { text-align: center;}
 .text-right { text-align: right;}
 
@@ -14,5 +14,11 @@ h1,h2 { font-family: 'Open Sans Condensed'; font-weight: 100;}
   background-repeat: no-repeat;
   background-size: cover;
   background-image: url('../../su_components/img/bg.jpg');
-  color: rgb(155,205,65);
+  color: #badb2a;
+}
+.quicklinks {
+  overflow:hidden;
+}
+.quicklinks p{
+  font-size: 10px;
 }

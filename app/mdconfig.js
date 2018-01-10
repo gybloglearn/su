@@ -54,22 +54,21 @@
         'A700'
       ]
     });
-
     $mdThemingProvider.definePalette('myGR', {
-      '50': 'f3f9e8',
-      '100': 'e1f0c6',
-      '200': 'cde6a0',
-      '300': 'b9dc7a',
-      '400': 'aad55e',
-      '500': '9bcd41',
-      '600': '93c83b',
-      '700': '89c132',
-      '800': '7fba2a',
-      '900': '6dae1c',
-      'A100': 'e1f0c6',
-      'A200': 'cde6a0',
-      'A400': 'aad55e',
-      'A700': '89c132',
+      '50': 'f7fbe5',
+      '100': 'eaf4bf',
+      '200': 'dded95',
+      '300': 'cfe66a',
+      '400': 'c4e04a',
+      '500': 'badb2a',
+      '600': 'b3d725',
+      '700': 'abd21f',
+      '800': 'a3cd19',
+      '900': '94c40f',
+      'A100': 'fbfff1',
+      'A200': 'ecffbe',
+      'A400': 'ddff8b',
+      'A700': 'd6ff72',
       'contrastDefaultColor': 'light',
       'contrastDarkColors': [
         '50',
@@ -85,9 +84,12 @@
         'A700'
       ],
       'contrastLightColors': [
-        '700', '800', '900'
+        '700',
+        '800',
+        '900'
       ]
     });
+
     $mdThemingProvider.setDefaultTheme('myCustom');
 
   }
