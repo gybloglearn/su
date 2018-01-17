@@ -5,8 +5,11 @@
     .module('app')
     .config(Config);
 
-  Config.$inject = ['$urlRouterProvider', '$stateProvider', '$locationProvider'];
-  function Config($urlRouterProvider, $stateProvider, $locationProvider) {
+  Config.$inject = ['$urlRouterProvider', '$stateProvider', '$locationProvider', '$mdDateLocaleProvider'];
+  function Config($urlRouterProvider, $stateProvider, $locationProviderm, $mdDateLocaleProvider) {
+    $mdDateLocaleProvider.formatDate = function(date){
+      return moment(date).format('YYYY-MM-DD');
+    }
     // routing
     //$urlRouterProvider.otherwise('/');
     $locationProvider.hashPrefix('');
