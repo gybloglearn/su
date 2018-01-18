@@ -6,6 +6,14 @@ h1,h2 { font-family: 'Open Sans Condensed'; font-weight: 100;}
 .text-center { text-align: center;}
 .text-right { text-align: right;}
 
+md-toolbar.md-myCustom-theme:not(.md-menu-icon) md-icon{
+  fill: rgba(0,0,0,.57);
+}
+
+.myDatepicker .md-datepicker-input{
+  font-size: 1em;
+  font-family: 'Open Sans Condensed';
+}
 .md-toolbar-tools > .myhead {
   height: 100%;
 }

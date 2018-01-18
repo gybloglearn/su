@@ -5,9 +5,13 @@
     .module('app')
     .config(Config);
 
-  Config.$inject = ['$urlRouterProvider', '$stateProvider', '$locationProvider'];
-  function Config($urlRouterProvider, $stateProvider, $locationProvider) {
+  Config.$inject = ['$urlRouterProvider', '$stateProvider', '$locationProvider', '$mdDateLocaleProvider'];
+  function Config($urlRouterProvider, $stateProvider, $locationProvider, $mdDateLocaleProvider) {
+    $mdDateLocaleProvider.formatDate = function(date){
+      return moment(date).format('YYYY-MM-DD');
+    }
     // routing
+    var ver = new Date().getTime().toString().substr(-5);
     //$urlRouterProvider.otherwise('/');
     $locationProvider.hashPrefix('');
     $stateProvider.state('dashboard', {
@@ -19,6 +23,16 @@
 			url: 'quicklinks',
 			templateUrl: './app/components/quicklinks/quicklinks.html',
 			controller: 'QuicklinksController',
+			controllerAs: 'vm'
+		}).state('week', {
+			url: 'week',
+			templateUrl: './app/components/week/week.html',
+			controller: 'WeekController',
+			controllerAs: 'vm'
+		}).state('day', {
+			url: 'day',
+			templateUrl: './app/components/day/day.html' + '?' + ver,
+			controller: 'DayController',
 			controllerAs: 'vm'
 		}).state('login', {
       url: '/login',
