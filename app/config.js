@@ -6,26 +6,27 @@
     .config(Config);
 
   Config.$inject = ['$urlRouterProvider', '$stateProvider', '$locationProvider', '$mdDateLocaleProvider'];
-  function Config($urlRouterProvider, $stateProvider, $locationProviderm, $mdDateLocaleProvider) {
+  function Config($urlRouterProvider, $stateProvider, $locationProvider, $mdDateLocaleProvider) {
     $mdDateLocaleProvider.formatDate = function(date){
       return moment(date).format('YYYY-MM-DD');
     }
+    var cp = new Date().getTime().toString().substr(-5);
     // routing
     //$urlRouterProvider.otherwise('/');
     $locationProvider.hashPrefix('');
     $stateProvider.state('dashboard', {
       url: '/',
-      templateUrl: './app/components/dashboard/dashboard.html',
+      templateUrl: './app/components/dashboard/dashboard.html' + '?' + cp,
       controller: 'DashboardController',
       controllerAs: 'vm'
 		}).state('quicklinks', {
 			url: 'quicklinks',
-			templateUrl: './app/components/quicklinks/quicklinks.html',
+			templateUrl: './app/components/quicklinks/quicklinks.html' + '?' + cp,
 			controller: 'QuicklinksController',
 			controllerAs: 'vm'
 		}).state('login', {
       url: '/login',
-      templateUrl: './app/components/login/login.html',
+      templateUrl: './app/components/login/login.html' + '?' + cp,
       controller: 'LoginController',
       controllerAs: 'vm'
     }).state('logout', {

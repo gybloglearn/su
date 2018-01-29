@@ -68,7 +68,7 @@ gulp.task('addroute', [], function () {
     .pipe(inject.before('}).state(\'login\', {', '' +
       '}).state(\'' + options.controller + '\', {\n' +
         '\t\t\turl: \'' + options.controller + '\',\n' +
-        '\t\t\ttemplateUrl: \'./app/components/' + options.controller + '/' + options.controller + '.html\',\n' +
+        '\t\t\ttemplateUrl: \'./app/components/' + options.controller + '/' + options.controller + '.html\' + \'?\' + cp,\n' +
         '\t\t\tcontroller: \'' + options.controller[0].toUpperCase() + options.controller.slice(1) + 'Controller\',\n' +
         '\t\t\tcontrollerAs: \'vm\'\n\t\t'
     ))
