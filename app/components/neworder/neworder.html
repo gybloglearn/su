@@ -1,0 +1,134 @@
+<md-content layout="row" layout-sm="column" layout-xs="column" flex=70 flex-offset=15 flex-sm=100 flex-offset-sm=0 flex-xs=100 flex-offset-xs=0>
+  <div layout-padding flex>
+    <h1 class="md-display-2" layout="row">
+      <span flex>Új Megrendelés</span>
+      <md-button class="md-fab md-primary md-hue-2">
+        <md-icon class="material-icons">create_new_folder</md-icon>
+      </md-button>
+    </h1>
+    <md-divider></md-divider>
+    <form action="app/components/services/data/ncvar/new" enctype="multipart/form-data" method="POST">
+      <md-content layout="column" layout-padding>
+        <div layout="row">
+          <md-input-container class="ng-hide">
+            <input type="text" name="requestor" ng-model="vm.new.requestor">
+          </md-input-container>
+        </div>
+        <h3 class="md-title"><md-icon class="material-icons">art_track</md-icon> Anyag</h3>
+        <div layout="row" layout-sm="column" layout-xs="column">
+          <md-input-container flex>
+            <label>Anyag megnevezése</label>
+            <input type="text" name="material" required>
+          </md-input-container>
+          <div flex=20 layout="row" flex-sm=100 flex-xs=100>
+            <md-input-container flex=60>
+              <label>Mennyiség:</label>
+              <input type="number" min=0 name="pcs" required>
+            </md-input-container>
+            <md-input-container flex>
+              <label>ME:</label>
+              <md-select name="um" ng-model="vm.new.um">
+                <md-option value="EA">DB</md-option>
+                <md-option value="L">L</md-option>
+                <md-option value="PA">CS</md-option>
+              </md-select>
+            </md-input-container>
+          </div>
+          </div>
+          <div layout="row">
+          <div flex=60 layout="row">
+            <md-input-container flex>
+              <label>Egységár:</label>
+              <input type="number" min=0 name="price" required>
+            </md-input-container>
+            <md-input-container flex>
+              <label>Pénznem:</label>
+              <md-select name="currency" ng-model="vm.new.currency">
+                  <md-option value="HUF">HUF</md-option>
+                  <md-option value="EUR">EUR</md-option>
+                  <md-option value="USD">USD</md-option>
+                </md-select>
+            </md-input-container>
+          </div>
+          <div layout="row" flex>
+            <md-input-container flex layout-align="center center">
+              <label>Igényelt szállítási dátum:</label>
+              <md-datepicker ng-model="vm.new.delivery" md-min-date="vm.mindeliverydate" md-date-filter="vm.onlyweekdays" md-hide-icons="calendar" required></md-datepicker>
+            </md-input-container>
+          </div>
+        </div>
+        <div layout="row">
+          <md-input-container flex>
+            <label>Felhasználás terület / cél:</label>
+            <textarea name="felhasznter" required></textarea>
+          </md-input-container>
+        </div>
+        <h3 class="md-title"><md-icon class="material-icons">shopping_cart</md-icon> Beszállító</h3>
+        <div layout="row">
+          <md-input-container flex=70>
+            <label>Beszállító neve:</label>
+            <input type="text" name="suppliername" required>
+          </md-input-container>
+          <md-input-container flex>
+            <label>Beszállító azonosítója:</label>
+            <input type="text" name="suppliernumber">
+          </md-input-container>
+        </div>
+        <h3 flex class="md-title"><md-icon class="material-icons">attach_file</md-icon> Csatolmányok:</h3>
+        <div layout="column" layout-padding>
+          <div flex layout="row"><label>Árajánlat:</label><input id="quotation" name="quotation" type="file" required size=60/></div>
+          <div flex layout="row"><label>MSDS_HU:</label><input type="file" name="msds_hu" id="msds_hu" required/></div>
+          <div flex layout="row"><label>MSDS_EN:</label><input type="file" name="msds_en" id="msds_en" /></div>
+        </div>
+        <h3 flex class="md-title"><md-icon class="material-icons">settings_backup_restore</md-icon> Megrendelés</h3>
+        <div layout="row" layout-padding layout-sm="column" layout-xs="column">
+          <md-input-container flex>
+            <label>Költséghely</label>
+            <md-select ng-model="vm.new.variant" name="var" required>
+              <md-option value="K">Költséghely</md-option>
+              <md-option value="P">WBS</md-option>
+              <md-option value="N">Network</md-option>
+            </md-select>
+          </md-input-container>
+          <md-input-container flex>
+            <label>Főkönyvi szám:</label>
+            <input type="text" name="glaccount" required>
+          </md-input-container>
+          <!-- Költséghely -->
+          <md-input-container ng-if="vm.new.variant=='K'" flex required>
+            <label>Költséghely</label>
+            <input type="text" name="costcenter">
+          </md-input-container>
+          <!-- WBS -->
+          <md-input-container ng-if="vm.new.variant=='P'" flex required>
+            <label>WBS element:</label>
+            <input type="text" name="wbselement">
+          </md-input-container>
+          <!-- Network -->
+          <md-input-container ng-if="vm.new.variant=='N'" flex>
+            <label>Network: </label>
+            <input type="text" name="network">
+          </md-input-container>
+          <md-input-container flex>
+            <label>Beszerző:</label>
+            <md-select ng-model="vm.new.buyer" name="buyer" required>
+              <md-option value="Bakos Bernadett">Bakos Bernadett</md-option>
+              <md-option value="Forstner Péter">Forstner Péter</md-option>
+              <md-option value="Kárpáti Zsolt">Kárpáti Zsolt</md-option>
+              <md-option value="Pápai Dóra">Pápai Dóra</md-option>
+              <md-option value="Tamtam Mirella">Tamtam Mirella</md-option>
+            </md-select>
+          </md-input-container>
+        </div>
+        <div layout="row" layout-align="center center">
+          <md-button type="submit" class="md-raised md-primary">
+            <md-icon class="material-icons">save</md-icon> Mentés
+          </md-button>
+          <md-button ng-click="vm.goback()" class="md-raised md-warn">
+              <md-icon class="material-icons">cancel</md-icon> Mégse
+            </md-button>
+        </div>
+      </md-content>
+    </form>
+  </div>
+</md-content>

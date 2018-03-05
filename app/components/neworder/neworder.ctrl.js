@@ -3,11 +3,18 @@
 
   angular
     .module('app')
-    .controller('DashboardController', DashboardController);
+    .controller('NeworderController', NeworderController);
 
-  DashboardController.$inject = ['$state', '$cookies', '$rootScope', '$filter'];
-  function DashboardController($state, $cookies, $rootScope, $filter) {
+  NeworderController.$inject = ['$state', '$cookies', '$rootScope', '$filter', '$mdSidenav'];
+  function NeworderController($state, $cookies, $rootScope, $filter, $mdSidenav) {
     var vm = this;
+
+    $rootScope.close = function(){
+      $mdSidenav('left').close();
+    }
+    $rootScope.open = function(){
+      $mdSidenav('left').open();
+    }
 
     vm.onlyweekdays = onlyweekdays;
     vm.goback = goback;

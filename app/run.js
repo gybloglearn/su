@@ -23,6 +23,7 @@
     function activate() {
       var url = $location.path();
       url = url.slice(1);
+      //$cookies.putObject('user', {username:'212434909', displayname:'Györfi-Balogh Szabolcs'}, {path: '/'});
       if (!$cookies.getObject('user')) {
         if (url != 'login') {
           $cookies.put('redir', url);
@@ -31,11 +32,11 @@
       } else {
         var u = $cookies.getObject('user');
         $rootScope.quicklinks = [];
-        Login.getQL(u.username).then(function (resp) {
+        /*Login.getQL(u.username).then(function (resp) {
           if (resp.data.length > 0) {
             $rootScope.quicklinks = resp.data;
           }
-        });
+        });*/
         if (url != 'login') {
           if (url == '' || url == '/') {
             $state.go('dashboard');

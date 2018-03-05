@@ -10,6 +10,7 @@
     $mdDateLocaleProvider.formatDate = function(date){
       return moment(date).format('YYYY-MM-DD');
     }
+    $mdDateLocaleProvider.firstDayOfWeek = 1;
     var cp = new Date().getTime().toString().substr(-5);
     // routing
     //$urlRouterProvider.otherwise('/');
@@ -23,6 +24,21 @@
 			url: 'quicklinks',
 			templateUrl: './app/components/quicklinks/quicklinks.html' + '?' + cp,
 			controller: 'QuicklinksController',
+			controllerAs: 'vm'
+		}).state('administration', {
+			url: 'administration',
+			templateUrl: './app/components/administration/administration.html' + '?' + cp,
+			controller: 'AdministrationController',
+			controllerAs: 'vm'
+		}).state('reports', {
+			url: 'reports',
+			templateUrl: './app/components/reports/reports.html' + '?' + cp,
+			controller: 'ReportsController',
+			controllerAs: 'vm'
+		}).state('neworder', {
+			url: 'neworder',
+			templateUrl: './app/components/neworder/neworder.html' + '?' + cp,
+			controller: 'NeworderController',
 			controllerAs: 'vm'
 		}).state('login', {
       url: '/login',

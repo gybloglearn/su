@@ -32,33 +32,26 @@
 			</md-toolbar>
 			<md-content>
 				<md-list flex>
+					<md-list-item ui-sref="neworder" ng-click="close()">
+						<div flex class="md-list-item-text">Új Megrendelés</div>
+						<md-icon class="material-icons">create_new_folder</md-icon>
+					</md-list-item>
+					<md-list-item ui-sref="reports" ng-click="close()">
+						<div flex class="md-list-item-text">Jelentések</div>
+						<md-icon class="material-icons">insert_chart</md-icon>
+					</md-list-item>
+					<md-list-item ui-sref="administration" ng-click="close()">
+						<div flex class="md-list-item-text">Adminisztráció</div>
+						<md-icon class="material-icons">account_circle</md-icon>
+					</md-list-item>
 					<md-list-item ui-sref="dashboard" ng-click="close()">
 						<div flex class="md-list-item-text">Vezérlőpult</div>
 						<md-icon class="material-icons">dashboardk</md-icon>
 					</md-list-item>
 				</md-list>
-				<md-divider></md-divider>
-				<h1 class="md-headline">&nbsp;Gyorslinkek</h1>
-				<md-grid-list class="gr" md-cols="2" md-row-height="1:1" md-gutter="0px">
-					<md-grid-tile ng-repeat="link in quicklinks" md-rowspan="1" md-colspan="1" class="quicklinks">
-						<p layout-padding="10" flex>
-							{{link.description}}
-						</p>
-						<md-button arial-label="uf" class="md-icon-button md-accent md-hue-1" href="{{link.url}}">
-							<md-icon class="material-icons">launch</md-icon>
-						</md-button>
-						<md-grid-tile-footer>
-							<h3>{{link.title}}</h3>
-						</md-grid-tile-footer>
-					</md-grid-tile>
-				</md-grid-list>
 				<div layout="row">
 					<md-button class="md-icon-button" ui-sref="logout" ng-click="close()" hide-gt-xs>
 						<i class="material-icons">settings_power</i>
-					</md-button>
-					<p flex></p>
-					<md-button class="md-icon-button" ui-sref="quicklinks" ng-click="close()">
-						<i class="material-icons">more_horiz</i>
 					</md-button>
 				</div>
 			</md-content>
@@ -74,13 +67,13 @@
 					<h1 flex md-truncate style="padding-left: 10px;font-size: 24px;font-weight:bold;" class="myhead" layout="row">
 						<span flex hide-sm hide-xs style="line-height:64px;">WTS - ES - Oroszlány</span>
 						<span hide-sm hide-xs style="line-height:64px; font-size: 14px; font-weight: normal; font-family: Arial; padding-right: 20px;">{{user.displayname}}
-							<md-button class="md-icon-button" ui-sref="logout">
+							<md-button class="md-icon-button" ui-sref="logout" ng-if="user.displayname">
 								<md-icon class="material-icons" style="color:#badb2a">settings_power</md-icon>
 							</md-button>
 						</span>
 						<span flex hide-gt-sm hide-xs style="line-height:55px;">WTS - ES - Oroszlány</span>
 						<span hide-gt-sm hide-xs style="line-height:55px; font-size: 14px; font-weight: normal; font-family: Arial; padding-right: 20px;">{{user.displayname}}
-							<md-button class="md-icon-button" ui-sref="logout">
+							<md-button class="md-icon-button" ui-sref="logout" ng-if="user.displayname">
 								<md-icon class="material-icons" style="color:#badb2a">settings_power</md-icon>
 							</md-button>
 						</span>
@@ -117,8 +110,11 @@
 	<script src="app/components/services/login.service.js"></script>
 	<script src="app/components/login/login.ctrl.js"></script>
 	<script src="app/components/dashboard/dashboard.ctrl.js"></script>
-	<script src="app/components/quicklinks/quicklinks.ctrl.js"></script>
-		<!--endbuild--><!--adds-->
+	<script src="app/components/services/ncvar.service.js"></script>
+	<script src="app/components/administration/administration.ctrl.js"></script>
+	<script src="app/components/reports/reports.ctrl.js"></script>
+	<script src="app/components/neworder/neworder.ctrl.js"></script>
+	<!--endbuild--><!--adds-->
 	<script>
 		angular.bootstrap(document, ['app']);
 	</script>

@@ -27,3 +27,6 @@ h1,h2 { font-family: 'Open Sans Condensed'; font-weight: 100;}
 .quicklinks p{
   font-size: 10px;
 }
+input.md-datepicker-input.md-input{
+  width: 1000px;
+}

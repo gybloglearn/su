@@ -3,10 +3,10 @@
 
   angular
     .module('app')
-    .controller('QuicklinksController', QuicklinksController);
+    .controller('AdministrationController', AdministrationController);
 
-  QuicklinksController.$inject = ['$state', '$cookies', '$rootScope', '$filter', '$mdSidenav', 'Login'];
-  function QuicklinksController($state, $cookies, $rootScope, $filter, $mdSidenav, Login) {
+  AdministrationController.$inject = ['$state', '$cookies', '$rootScope', '$filter', '$mdSidenav'];
+  function AdministrationController($state, $cookies, $rootScope, $filter, $mdSidenav) {
     var vm = this;
 
     $rootScope.close = function(){
