@@ -43,18 +43,16 @@ function convert($r) {
 // set parameters
 $paramavalue = "";
 $st = date("Y-m-d");
-/*if(date("N", strtotime($st))==2 ){
+if(date("N", strtotime($st))==2 ){
   $startdate = date("Y-m-d H:i:s", strtotime($st." 05:50:00") - 7*24*60*60);
-  //$startdate = date("Y-m-d H:i:s", strtotime($_GET["startdate"] . " 05:50:00"));
   $enddate = date("Y-m-d H:i:s", strtotime($st." 05:50:00"));
-  //$enddate = date("Y-m-d H:i:s", strtotime($_GET["enddate"] . " 05:50:00"));
 } else {
   echo "Nem van hétfő!";
   return 0;
-}*/
+}
 
-$startdate=date("Y-m-d H:i:s"), strtotime("2018-01-01 05:50:00") + 0*24*60*60);
-$enddate=date("Y-m-d H:i:s"), strtotime($startdate) + 7*24*60*60);
+/*$startdate = date("Y-m-d H:i:s", strtotime($_GET["startdate"] . " 05:50:00"));
+$enddate = date("Y-m-d H:i:s", strtotime($_GET["startdate"] . " 05:50:00") + 7*24*60*60);*/
 $final_data = [];
 
 array_push($final_data, getReportdata('/MCS/ZW500 ShiftreportTable SM', $startdate, $enddate));
@@ -63,12 +61,12 @@ array_push($final_data, getReportdata('/MCS/ZW500 ShiftreportTable MTF', $startd
 array_push($final_data, getReportdata('/MCS/ZW500 BP Rework', $startdate, $enddate));
 
 
-save_json_file($final_data);
+save_json_file($final_data, $startdate);
 echo json_encode($final_data);
 
 // save file
-function save_json_file($data){
-  $f = fopen("weeks/" . date("YW"). ".json", "w+");
+function save_json_file($data, $startdate){
+  $f = fopen("weeks/" . date("YW", strtotime($startdate)). ".json", "w+");
   fwrite($f, json_encode($data));
   fclose($f);
 }
