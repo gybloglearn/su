@@ -32,13 +32,17 @@
 			</md-toolbar>
 			<md-content>
 				<md-list flex>
+					<md-list-item ui-sref="sap" ng-click="close()">
+						<div flex class="md-list-item-text">SAP adatok</div>
+						<md-icon class="material-icons">assignment</md-icon>
+					</md-list-item>
 					<md-list-item ui-sref="day" ng-click="close()">
-						<div flex class="md-list-item-text">Napi</div>
-						<md-icon class="material-icons">dashboard</md-icon>
+						<div flex class="md-list-item-text">Napi kimutatás</div>
+						<md-icon class="material-icons">today</md-icon>
 					</md-list-item>
 					<md-list-item ui-sref="week" ng-click="close()">
-						<div flex class="md-list-item-text">Heti</div>
-						<md-icon class="material-icons">dashboard</md-icon>
+						<div flex class="md-list-item-text">Heti kimutatás</div>
+						<md-icon class="material-icons">view_day</md-icon>
 					</md-list-item>
 					<md-list-item ui-sref="dashboard" ng-click="close()">
 						<div flex class="md-list-item-text">Vezérlőpult</div>
@@ -101,6 +105,7 @@
 	</div>
 	<!--build:js script/vendor.js-->
 	<script src="../su_components/bower_components/angular/angular.min.js"></script>
+	<script src="../su_components/bower_components/angular-i18n/angular-locale_hu-hu.js"></script>
 	<script src="../su_components/bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
 	<script src="../su_components/bower_components/angular-cookies/angular-cookies.min.js"></script>
 	<script src="../su_components/bower_components/angular-aria/angular-aria.min.js"></script>
@@ -130,6 +135,9 @@
 	<script src="app/components/week/week.ctrl.js"></script>
 	<script src="app/components/day/day.ctrl.js"></script>
 	<script src="app/components/services/shiftreports.service.js"></script>
+	<script src="app/components/services/modullist.service.js"></script>
+	<script src="app/components/sap/sap.ctrl.js"></script>
+	<script src="app/components/services/smplans.service.js"></script>
 	<!--endbuild--><!--adds-->
 	<script>
 		angular.bootstrap(document, ['app']);

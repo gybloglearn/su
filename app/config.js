@@ -10,13 +10,14 @@
     $mdDateLocaleProvider.formatDate = function(date){
       return moment(date).format('YYYY-MM-DD');
     }
+    $mdDateLocaleProvider.firstDayOfWeek = 1;
     // routing
     var ver = new Date().getTime().toString().substr(-5);
     //$urlRouterProvider.otherwise('/');
     $locationProvider.hashPrefix('');
     $stateProvider.state('dashboard', {
       url: '/',
-      templateUrl: './app/components/dashboard/dashboard.html',
+      templateUrl: './app/components/dashboard/dashboard.html' + '?' + ver,
       controller: 'DashboardController',
       controllerAs: 'vm'
 		}).state('quicklinks', {
@@ -26,13 +27,18 @@
 			controllerAs: 'vm'
 		}).state('week', {
 			url: 'week',
-			templateUrl: './app/components/week/week.html',
+			templateUrl: './app/components/week/week.html' + '?' + ver,
 			controller: 'WeekController',
 			controllerAs: 'vm'
 		}).state('day', {
 			url: 'day',
 			templateUrl: './app/components/day/day.html' + '?' + ver,
 			controller: 'DayController',
+			controllerAs: 'vm'
+		}).state('sap', {
+			url: 'sap',
+			templateUrl: './app/components/sap/sap.html' + '?' + ver,
+			controller: 'SapController',
 			controllerAs: 'vm'
 		}).state('login', {
       url: '/login',

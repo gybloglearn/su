@@ -10,7 +10,9 @@
     var service = {
       getSM:getSM,
       getPOTTING:getPOTTING,
-      getMTF:getMTF
+      getMTF:getMTF,
+      getRework: getRework,
+      getSAP:getSAP
     };
 
     return service;
@@ -34,6 +36,20 @@
       var req = {
         method: 'GET',
         url: 'app/components/PHP/MTF.report.php?startdate=' + startdate + '&enddate=' + enddate
+      };
+      return $http(req);
+    }
+    function getRework(startdate, enddate){
+      var req = {
+        method: 'GET',
+        url: 'app/components/PHP/BP_Rework.php?startdate=' + startdate + '&enddate=' + enddate
+      };
+      return $http(req);
+    }
+    function getSAP(){
+      var req = {
+        method: 'GET',
+        url: '../uf/app/components/PHP/sapdata.php'
       };
       return $http(req);
     }

@@ -1,0 +1,231 @@
+<md-progress-linear md-mode="indeterminate" ng-show="vm.loading"></md-progress-linear>
+<md-content layout="column">
+  <div flex>
+    <h1 layout-padding class="md-display-2" layout="row">
+      <span flex>
+        {{vm.startdate}} napi adatok
+      </span>
+    </h1>
+    <md-divider></md-divider>
+    <div layout-xs="column" layout-gt-xs="row" flex="90" flex-offset="5">
+      <div flex>
+        <my-chart id="smChart" options="vm.smChartOptions"></my-chart>
+      </div>
+      <div flex>
+        <my-chart id="pottingChart" options="vm.pottingChartOptions"></my-chart>
+      </div>
+      <div flex>
+        <my-chart id="mtfChart" options="vm.mtfChartOptions"></my-chart>
+      </div>
+    </div>
+    <md-divider></md-divider>
+    <div flex layout="column" layout-gt-xs="row">
+      <md-input-container flex>
+        <md-datepicker ng-model="vm.std" md-placeholder="Dátum" ng-change="vm.changeDate()"></md-datepicker>
+      </md-input-container>
+      <md-input-container flex>
+        <label>Szak</label>
+        <md-select ng-model="vm.search.shiftnum" ng-change="vm.charter()">
+          <md-option value=""></md-option>
+          <md-option value="1">DE - {{ 1 | shift:vm.startdate }}</md-option>
+          <md-option value="3">ÉJ - {{ 3 | shift:vm.startdate }}</md-option>
+        </md-select>
+      </md-input-container>
+      <md-input-container flex>
+        <label>Kémia</label>
+        <md-select ng-model="vm.search.FiberType" ng-change="vm.charter()">
+          <md-option value=""></md-option>
+          <md-option value="CP5">CP5</md-option>
+          <md-option value="FLOW">FLOW</md-option>
+        </md-select>
+      </md-input-container>
+      <md-input-container flex>
+        <label>Típus</label>
+        <md-select ng-model="vm.search.PartGroup_Name" ng-change="vm.charter()">
+          <md-option value=""></md-option>
+          <md-option ng-repeat="PGNs in vm.smData | unique:'PartGroup_Name' track by $index" value="{{PGNs.PartGroup_Name}}">{{PGNs.PartGroup_Name}}</md-option>
+        </md-select>
+      </md-input-container>
+      <md-button class="md-icon-button" aria-lable="Törlés" ng-click="vm.search={};vm.charter();" style="margin-top:10px">
+        <i class="material-icons">close</i>
+      </md-button>
+    </div>
+    <md-tabs md-dynamic-height md-border-bottom class="md-hue-1">
+      <md-tab label="SheetMaker">
+        <md-table-container>
+          <table md-table>
+            <thead md-head>
+              <tr md-row>
+                <td md-cell colspan="6">Összesítő</td>
+                <td md-cell><strong>{{ (vm.smData | filter:vm.search | sumField:'modulnumber') | number:0}}</strong> modul</td>
+                <td md-cell><strong>{{ (vm.smData | filter:vm.search | sumField:'modulAeq') | number:0}}</strong> AEQ</td>
+                <td md-cell><strong>{{ (vm.smData | filter:vm.search | sumField:'Totalsheets') | number:0}}</strong> lap</td>
+                <td md-cell><strong>{{ ((vm.smData | filter:vm.search | sumField:'Totalsheets') - (vm.smData | filter:vm.search | sumField:'ScrapSheets')) | number:0}}</strong> lap</td>
+                <td md-cell><strong>{{ (vm.smData | filter:vm.search | sumField:'ScrapSheets') | number:0 }}</strong> lap</td>
+              </tr>
+              <tr md-row style="background-color:#EFEFEF">
+                <td md-cell colspan="6">DE {{1 | shift:vm.startdate}} Összesítő</td>
+                <td md-cell><strong>{{ (vm.smData | filter:{shiftnum:1} | filter:vm.search | sumField:'modulnumber') | number:0}}</strong> modul</td>
+                <td md-cell><strong>{{ (vm.smData | filter:{shiftnum:1} | filter:vm.search | sumField:'modulAeq') | number:0}}</strong> AEQ</td>
+                <td md-cell><strong>{{ (vm.smData | filter:{shiftnum:1} | filter:vm.search | sumField:'Totalsheets') | number:0}}</strong> lap</td>
+                <td md-cell><strong>{{ ((vm.smData | filter:{shiftnum:1} | filter:vm.search | sumField:'Totalsheets') - (vm.smData | filter:{shiftnum:1} | filter:vm.search | sumField:'ScrapSheets')) | number:0}}</strong> lap</td>
+                <td md-cell><strong>{{ (vm.smData | filter:{shiftnum:1} | filter:vm.search | sumField:'ScrapSheets') | number:0 }}</strong> lap</td>
+              </tr>
+              <tr md-row style="background-color:#DFDFDF">
+                <td md-cell colspan="6">ÉJ {{3 | shift:vm.startdate}} Összesítő</td>
+                <td md-cell><strong>{{ (vm.smData | filter:{shiftnum:3} | filter:vm.search | sumField:'modulnumber') | number:0}}</strong> modul</td>
+                <td md-cell><strong>{{ (vm.smData | filter:{shiftnum:3} | filter:vm.search | sumField:'modulAeq') | number:0}}</strong> AEQ</td>
+                <td md-cell><strong>{{ (vm.smData | filter:{shiftnum:3} | filter:vm.search | sumField:'Totalsheets') | number:0}}</strong> lap</td>
+                <td md-cell><strong>{{ ((vm.smData | filter:{shiftnum:3} | filter:vm.search | sumField:'Totalsheets') - (vm.smData | filter:{shiftnum:3} | filter:vm.search | sumField:'ScrapSheets')) | number:0}}</strong> lap</td>
+                <td md-cell><strong>{{ (vm.smData | filter:{shiftnum:3} | filter:vm.search | sumField:'ScrapSheets') | number:0 }}</strong> lap</td>
+              </tr>
+            </thead>
+            <thead md-head>
+              <tr md-row>
+                <th md-column>Szak</th>
+                <th md-column>Szak</th>
+                <th md-column>Gép</th>
+                <th md-column>PN</th>
+                <th md-column>Típus</th>
+                <th md-column>Kémia</th>
+                <th md-column>Jó modul</th>
+                <th md-column>Jó aeq</th>
+                <th md-column>Össz lap</th>
+                <th md-column>Jó lap</th>
+                <th md-column>Rossz lap</th>
+              </tr>
+            </thead>
+            <tbody md-body>
+              <tr md-row ng-repeat="item in vm.smData | filter:vm.search | orderBy:'MachineName'">
+                <td md-cell>{{item.shiftnum==1?"DE":"ÉJ"}}</td>
+                <td md-cell>{{item.shiftnum | shift:item.Day}}</td>
+                <td md-cell>{{item.MachineName}}</td>
+                <td md-cell>{{item.type}}</td>
+                <td md-cell>{{item.PartGroup_Name}}</td>
+                <td md-cell>{{item.FiberType}}</td>
+                <td md-cell>{{item.modulnumber}}</td>
+                <td md-cell>{{item.modulAeq | number:2}}</td>
+                <td md-cell>{{item.Totalsheets}}</td>
+                <td md-cell>{{item.Totalsheets - item.ScrapSheets}}</td>
+                <td md-cell>{{item.ScrapSheets}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </md-table-container>
+      </md-tab>
+      <md-tab label="Potting">
+        <md-table-container>
+          <table md-table>
+            <thead md-head>
+              <tr md-row>
+                <td md-cell colspan="6">Összesítő</td>
+                <td md-cell><strong>{{ (vm.pottingData | filter:vm.search | sumField:'In') | number:0}}</strong> modul <br/> <strong>{{ (vm.pottingData | filter:vm.search | sumField:'InAeq') | number:2}}</strong> AEQ</td>
+                <td md-cell><strong>{{ (vm.pottingData | filter:vm.search | sumField:'P3') | number:0}}</strong> modul <br/> <strong>{{ (vm.pottingData | filter:vm.search | sumField:'P3Aeq') | number:2}}</strong> AEQ</td>
+                <td md-cell><strong>{{ (vm.pottingData | filter:vm.search | sumField:'Out') | number:0}}</strong> modul <br/> <strong>{{ (vm.pottingData | filter:vm.search | sumField:'OutAeq') | number:2}}</strong> AEQ</td>
+              </tr>
+              <tr md-row style="background-color:#EFEFEF">
+                <td md-cell colspan="6">DE {{1 | shift:vm.startdate}} Összesítő</td>
+                <td md-cell><strong>{{ (vm.pottingData |filter:{shiftnum:1} | filter:vm.search | sumField:'In') | number:0}}</strong> modul <br/> <strong>{{ (vm.pottingData |filter:{shiftnum:1} | filter:vm.search | sumField:'InAeq') | number:2}}</strong> AEQ</td>
+                <td md-cell><strong>{{ (vm.pottingData |filter:{shiftnum:1} | filter:vm.search | sumField:'P3') | number:0}}</strong> modul <br/> <strong>{{ (vm.pottingData |filter:{shiftnum:1} | filter:vm.search | sumField:'P3Aeq') | number:2}}</strong> AEQ</td>
+                <td md-cell><strong>{{ (vm.pottingData |filter:{shiftnum:1} | filter:vm.search | sumField:'Out') | number:0}}</strong> modul <br/> <strong>{{ (vm.pottingData |filter:{shiftnum:1} | filter:vm.search | sumField:'OutAeq') | number:2}}</strong> AEQ</td>
+              </tr>
+              <tr md-row style="background-color:#DFDFDF">
+                <td md-cell colspan="6">ÉJ {{3 | shift:vm.startdate}} Összesítő</td>
+                <td md-cell><strong>{{ (vm.pottingData |filter:{shiftnum:3} | filter:vm.search | sumField:'In') | number:0}}</strong> modul <br/> <strong>{{ (vm.pottingData |filter:{shiftnum:3} | filter:vm.search | sumField:'InAeq') | number:2}}</strong> AEQ</td>
+                <td md-cell><strong>{{ (vm.pottingData |filter:{shiftnum:3} | filter:vm.search | sumField:'P3') | number:0}}</strong> modul <br/> <strong>{{ (vm.pottingData |filter:{shiftnum:3} | filter:vm.search | sumField:'P3Aeq') | number:2}}</strong> AEQ</td>
+                <td md-cell><strong>{{ (vm.pottingData |filter:{shiftnum:3} | filter:vm.search | sumField:'Out') | number:0}}</strong> modul <br/> <strong>{{ (vm.pottingData |filter:{shiftnum:3} | filter:vm.search | sumField:'OutAeq') | number:2}}</strong> AEQ</td>
+              </tr>
+            </thead>
+            <thead md-head>
+              <tr md-row>
+                <th md-column>Szak</th>
+                <th md-column>Szak</th>
+                <th md-column>Gép</th>
+                <th md-column>PN</th>
+                <th md-column>Típus</th>
+                <th md-column>Kémia</th>
+                <th md-column>Be</th>
+                <th md-column>Fordít </th>
+                <th md-column>Ki</th>
+              </tr>
+            </thead>
+            <tbody md-body>
+              <tr md-row ng-repeat="item in vm.pottingData | filter:vm.search | orderBy:'MachineName'">
+                <td md-cell>{{item.shiftnum==1?"DE":"ÉJ"}}</td>
+                <td md-cell>{{item.shiftnum | shift:item.Day}}</td>
+                <td md-cell>{{item.MachineName}}</td>
+                <td md-cell>{{item.type}}</td>
+                <td md-cell>{{item.PartGroup_Name}}</td>
+                <td md-cell>{{item.FiberType}}</td>
+                <td md-cell>{{item.In}}</td>
+                <td md-cell>{{item.P3}}</td>
+                <td md-cell>{{item.Out}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </md-table-container>
+      </md-tab>
+      <md-tab label="MTF">
+        <md-table-container>
+          <table md-table>
+            <thead md-head>
+              <tr md-row>
+                <td md-cell colspan="5">Összesítő</td>
+                <td md-cell><strong>{{ (vm.mtfData | filter:vm.search | sumField:'POTOUT') | number:0}}</strong> modul <br/> <strong>{{ (vm.mtfData | filter:vm.search | sumField:'POTOUTAeq') | number:2}}</strong> AEQ</td>
+                <td md-cell><strong>{{ (vm.mtfData | filter:vm.search | sumField:'CHOUT') | number:0}}</strong> modul <br/><strong>{{ (vm.mtfData | filter:vm.search | sumField:'CHOUTAeq') | number:2}}</strong> AEQ</td>
+                <td md-cell><strong>{{ (vm.mtfData | filter:vm.search | sumField:'BPOUT') | number:0}}</strong> modul <br/><strong>{{ (vm.mtfData | filter:vm.search | sumField:'BPOUTAeq') | number:2}}</strong> AEQ</td>
+                <td md-cell><strong>{{ (vm.mtfData | filter:vm.search | sumField:'BOKES') | number:0}}</strong> bökés <br/><strong>{{ (vm.mtfData | filter:vm.search | sumField:'BOKES') / (vm.mtfData | filter:vm.search | sumField:'BPOUTAeq') | number:2 }}</strong> Bök/BPAeq</td>
+                <td md-cell><strong>{{ (vm.mtfData | filter:vm.search | sumField:'GRADED') | number:0}}</strong> modul <br/><strong>{{ (vm.mtfData | filter:vm.search | sumField:'GRADEDAeq') | number:2}}</strong> AEQ</td>
+              </tr>
+              <tr md-row style="background-color:#EFEFEF">
+                <td md-cell colspan="5">DE {{1 | shift:vm.startdate}} Összesítő</td>
+                <td md-cell><strong>{{ (vm.mtfData | filter:{shiftnum:1} | filter:vm.search | sumField:'POTOUT') | number:0}}</strong> modul <br/> <strong>{{ (vm.mtfData | filter:{shiftnum:1} | filter:vm.search | sumField:'POTOUTAeq') | number:2}}</strong> AEQ</td>
+                <td md-cell><strong>{{ (vm.mtfData | filter:{shiftnum:1} | filter:vm.search | sumField:'CHOUT') | number:0}}</strong> modul <br/><strong>{{ (vm.mtfData | filter:{shiftnum:1} | filter:vm.search | sumField:'CHOUTAeq') | number:2}}</strong> AEQ</td>
+                <td md-cell><strong>{{ (vm.mtfData | filter:{shiftnum:1} | filter:vm.search | sumField:'BPOUT') | number:0}}</strong> modul <br/><strong>{{ (vm.mtfData | filter:{shiftnum:1} | filter:vm.search | sumField:'BPOUTAeq') | number:2}}</strong> AEQ</td>
+                <td md-cell><strong>{{ (vm.mtfData | filter:{shiftnum:1} | filter:vm.search | sumField:'BOKES') | number:0}}</strong> bökés <br/><strong>{{ (vm.mtfData | filter:{shiftnum:1} | filter:vm.search | sumField:'BOKES') / (vm.mtfData | filter:{shiftnum:1} | filter:vm.search | sumField:'BPOUTAeq') | number:2 }}</strong> Bök/BPAeq</td>
+                <td md-cell><strong>{{ (vm.mtfData | filter:{shiftnum:1} | filter:vm.search | sumField:'GRADED') | number:0}}</strong> modul <br/><strong>{{ (vm.mtfData | filter:{shiftnum:1} | filter:vm.search | sumField:'GRADEDAeq') | number:2}}</strong> AEQ</td>
+              </tr>
+              <tr md-row style="background-color:#DFDFDF">
+                <td md-cell colspan="5">ÉJ {{3 | shift:vm.startdate}} Összesítő</td>
+                <td md-cell><strong>{{ (vm.mtfData | filter:{shiftnum:3} | filter:vm.search | sumField:'POTOUT') | number:0}}</strong> modul <br/> <strong>{{ (vm.mtfData | filter:{shiftnum:3} | filter:vm.search | sumField:'POTOUTAeq') | number:2}}</strong> AEQ</td>
+                <td md-cell><strong>{{ (vm.mtfData | filter:{shiftnum:3} | filter:vm.search | sumField:'CHOUT') | number:0}}</strong> modul <br/><strong>{{ (vm.mtfData | filter:{shiftnum:3} | filter:vm.search | sumField:'CHOUTAeq') | number:2}}</strong> AEQ</td>
+                <td md-cell><strong>{{ (vm.mtfData | filter:{shiftnum:3} | filter:vm.search | sumField:'BPOUT') | number:0}}</strong> modul <br/><strong>{{ (vm.mtfData | filter:{shiftnum:3} | filter:vm.search | sumField:'BPOUTAeq') | number:2}}</strong> AEQ</td>
+                <td md-cell><strong>{{ (vm.mtfData | filter:{shiftnum:3} | filter:vm.search | sumField:'BOKES') | number:0}}</strong> bökés <br/><strong>{{ (vm.mtfData | filter:{shiftnum:3} | filter:vm.search | sumField:'BOKES') / (vm.mtfData | filter:{shiftnum:3} | filter:vm.search | sumField:'BPOUTAeq') | number:2 }}</strong> Bök/BPAeq</td>
+                <td md-cell><strong>{{ (vm.mtfData | filter:{shiftnum:3} | filter:vm.search | sumField:'GRADED') | number:0}}</strong> modul <br/><strong>{{ (vm.mtfData | filter:{shiftnum:3} | filter:vm.search | sumField:'GRADEDAeq') | number:2}}</strong> AEQ</td>
+              </tr>
+            </thead>
+            <thead md-head>
+              <tr md-row>
+                <th md-column>Szak</th>
+                <th md-column>Szak</th>
+                <th md-column>PN</th>
+                <th md-column>Típus</th>
+                <th md-column>Kémia</th>
+                <th md-column>Potting ki</th>
+                <th md-column>Klórozók ki</th>
+                <th md-column>Kádak ki</th>
+                <th md-column>Bökés</th>
+                <th md-column>Minősített</th>
+
+              </tr>
+            </thead>
+            <tbody md-body>
+              <tr md-row ng-repeat="item in vm.mtfData | filter:vm.search">
+                <td md-cell>{{item.shiftnum==1?"DE":"ÉJ"}}</td>
+                <td md-cell>{{item.shiftnum | shift:item.Day}}</td>
+                <td md-cell>{{item.type}}</td>
+                <td md-cell>{{item.PartGroup_Name}}</td>
+                <td md-cell>{{item.FiberType}}</td>
+                <td md-cell>{{item.POTOUT}}</td>
+                <td md-cell>{{item.CHOUT}}</td>
+                <td md-cell>{{item.BPOUT}}</td>
+                <td md-cell>{{item.BOKES}}</td>
+                <td md-cell>{{item.GRADED}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </md-table-container>
+      </md-tab>
+    </md-tabs>
+  </div>
+</md-content>

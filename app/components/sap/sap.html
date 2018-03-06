@@ -1,0 +1,181 @@
+<md-content layout="row" layout-sm="column" layout-xs="column">
+  <div layout-padding flex>
+    <h1 class="md-display-2" layout="row">
+      <span flex>SAP</span>
+      <md-button class="md-fab md-primary md-hue-2">
+        <md-icon class="material-icons">assignment</md-icon>
+      </md-button>
+    </h1>
+    <md-tabs md-dynamic-height md-border-bottom class="md-hue-1">
+      <md-tab>
+        <md-tab-label>
+          <md-icon class="material-icons">insert_chart</md-icon> Grafikonok</md-tab-label>
+        <md-tab-body>
+          <my-chart id="zw500chart" options="vm.zw500chconfig"></my-chart>
+          <my-chart id="zbchart" options="vm.zbchconfig"></my-chart>
+          <my-chart id="zlchart" options="vm.zlchconfig"></my-chart>
+          <my-chart id="zw1000chart" options="vm.zw1000chconfig"></my-chart>
+          <my-chart id="zw1500chart" options="vm.zw1500chconfig"></my-chart>
+        </md-tab-body>
+      </md-tab>
+      <md-tab>
+        <md-tab-label>
+          <md-icon class="materila-icons">line_style</md-icon> Táblázatok</md-tab-label>
+        <md-tab-body>
+          <md-table-container>
+            <table md-table>
+              <thead md-head>
+                <tr md-row>
+                  <th md-column>&nbsp;</th>
+                  <th md-column colspan="3">ZW500</th>
+                  <th md-column colspan="3">ZW1000</th>
+                  <th md-column colspan="3">ZW1500</th>
+                  <th md-column colspan="3">ZeeBlok</th>
+                  <th md-column colspan="3">ZeeLung</th>
+                  <th md-column colspan="3">Összesen</th>
+                </tr>
+                <tr md-row style="background-color: #ddd">
+                  <th md-column></th>
+                  <th md-column>Terv</th>
+                  <th md-column>Tény</th>
+                  <th md-column>Diff</th>
+                  <th md-column>Terv</th>
+                  <th md-column>Tény</th>
+                  <th md-column>Diff</th>
+                  <th md-column>Terv</th>
+                  <th md-column>Tény</th>
+                  <th md-column>Diff</th>
+                  <th md-column>Terv</th>
+                  <th md-column>Tény</th>
+                  <th md-column>Diff</th>
+                  <th md-column>Terv</th>
+                  <th md-column>Tény</th>
+                  <th md-column>Diff</th>
+                  <th md-column>Terv</th>
+                  <th md-column>Tény</th>
+                  <th md-column>Diff</th>
+                </tr>
+              </thead>
+              <tbody md-body>
+                <tr md-row>
+                  <td md-cell>2018</td>
+                  <td md-cell>{{vm.data.data | sumField: 'ZW0500Plan' | number: 0}}</td>
+                  <td md-cell>{{vm.data.data | sumField: 'ZW0500Actual' | number: 0}}</td>
+                  <td md-cell>{{vm.data.data | sumField: 'ZW0500Diff' | number: 0}}</td>
+                  <td md-cell>{{vm.data.data | sumField: 'ZW1000Plan' | number: 0}}</td>
+                  <td md-cell>{{vm.data.data | sumField: 'ZW1000Actual' | number: 0}}</td>
+                  <td md-cell>{{vm.data.data | sumField: 'ZW1000Diff' | number: 0}}</td>
+                  <td md-cell>{{vm.data.data | sumField: 'ZW1500Plan' | number: 0}}</td>
+                  <td md-cell>{{vm.data.data | sumField: 'ZW1500Actual' | number: 0}}</td>
+                  <td md-cell>{{vm.data.data | sumField: 'ZW1500Diff' | number: 0}}</td>
+                  <td md-cell>{{vm.data.data | sumField: 'ZBPlan' | number: 0}}</td>
+                  <td md-cell>{{vm.data.data | sumField: 'ZBActual' | number: 0}}</td>
+                  <td md-cell>{{vm.data.data | sumField: 'ZBDiff' | number: 0}}</td>
+                  <td md-cell>{{vm.data.data | sumField: 'ZLPlan' | number: 0}}</td>
+                  <td md-cell>{{vm.data.data | sumField: 'ZLActual' | number: 0}}</td>
+                  <td md-cell>{{vm.data.data | sumField: 'ZLDiff' | number: 0}}</td>
+                  <td md-cell>{{vm.data.data | sumField: 'TotalPlan' | number: 0}}</td>
+                  <td md-cell>{{vm.data.data | sumField: 'TotalActual' | number: 0}}</td>
+                  <td md-cell>{{vm.data.data | sumField: 'TotalDiff' | number: 0}}</td>
+                </tr>
+              </tbody>
+              <thead md-head>
+                <tr md-row style="background-color: #ddd">
+                  <th md-column>Negyedévek</th>
+                  <th md-column>Terv</th>
+                  <th md-column>Tény</th>
+                  <th md-column>Diff</th>
+                  <th md-column>Terv</th>
+                  <th md-column>Tény</th>
+                  <th md-column>Diff</th>
+                  <th md-column>Terv</th>
+                  <th md-column>Tény</th>
+                  <th md-column>Diff</th>
+                  <th md-column>Terv</th>
+                  <th md-column>Tény</th>
+                  <th md-column>Diff</th>
+                  <th md-column>Terv</th>
+                  <th md-column>Tény</th>
+                  <th md-column>Diff</th>
+                  <th md-column>Terv</th>
+                  <th md-column>Tény</th>
+                  <th md-column>Diff</th>
+                </tr>
+              </thead>
+              <tbody md-body>
+                <tr md-row="" ng-repeat="q in [1,2,3,4] track by $index">
+                  <td md-cell>Q{{q}}</td>
+                  <td md-cell>{{vm.data.data | filter:{'Q': q} | sumField: 'ZW0500Plan' | number: 0}}</td>
+                  <td md-cell>{{vm.data.data | filter:{'Q': q} | sumField: 'ZW0500Actual' | number: 0}}</td>
+                  <td md-cell><span ng-style="{'color': (vm.data.data | filter:{'Q': q} | sumField: 'ZW0500Diff')>=0?'#badb2a':'#f80' }">{{vm.data.data | filter:{'Q': q} | sumField: 'ZW0500Diff' | number: 0}}</span></td>
+                  <td md-cell>{{vm.data.data | filter:{'Q': q} | sumField: 'ZW1000Plan' | number: 0}}</td>
+                  <td md-cell>{{vm.data.data | filter:{'Q': q} | sumField: 'ZW1000Actual' | number: 0}}</td>
+                  <td md-cell><span ng-style="{'color': (vm.data.data | filter:{'Q': q} | sumField: 'ZW1000Diff')>=0?'#badb2a':'#f80' }">{{vm.data.data | filter:{'Q': q} | sumField: 'ZW1000Diff' | number: 0}}</span></td>
+                  <td md-cell>{{vm.data.data | filter:{'Q': q} | sumField: 'ZW1500Plan' | number: 0}}</td>
+                  <td md-cell>{{vm.data.data | filter:{'Q': q} | sumField: 'ZW1500Actual' | number: 0}}</td>
+                  <td md-cell><span ng-style="{'color': (vm.data.data | filter:{'Q': q} | sumField: 'ZW1500Diff')>=0?'#badb2a':'#f80' }">{{vm.data.data | filter:{'Q': q} | sumField: 'ZW1500Diff' | number: 0}}</span></td>
+                  <td md-cell>{{vm.data.data | filter:{'Q': q} | sumField: 'ZBPlan' | number: 0}}</td>
+                  <td md-cell>{{vm.data.data | filter:{'Q': q} | sumField: 'ZBActual' | number: 0}}</td>
+                  <td md-cell><span ng-style="{'color': (vm.data.data | filter:{'Q': q} | sumField: 'ZBDiff')>=0?'#badb2a':'#f80' }">{{vm.data.data | filter:{'Q': q} | sumField: 'ZBDiff' | number: 0}}</span></td>
+                  <td md-cell>{{vm.data.data | filter:{'Q': q} | sumField: 'ZLPlan' | number: 0}}</td>
+                  <td md-cell>{{vm.data.data | filter:{'Q': q} | sumField: 'ZLActual' | number: 0}}</td>
+                  <td md-cell><span ng-style="{'color': (vm.data.data | filter:{'Q': q} | sumField: 'ZLDiff')>=0?'#badb2a':'#f80' }">{{vm.data.data | filter:{'Q': q} | sumField: 'ZLDiff' | number: 0}}</span></td>
+                  <td md-cell>{{vm.data.data | filter:{'Q': q} | sumField: 'TotalPlan' | number: 0}}</td>
+                  <td md-cell>{{vm.data.data | filter:{'Q': q} | sumField: 'TotalActual' | number: 0}}</td>
+                  <td md-cell><span ng-style="{'color': (vm.data.data | filter:{'Q': q} | sumField: 'TotalDiff')>=0?'#badb2a':'#f80' }">{{vm.data.data | filter:{'Q': q} | sumField: 'TotalDiff' | number: 0}}</span></td>
+                </tr>
+              </tbody>
+              <thead md-head>
+                <tr md-row style="background-color: #ddd">
+                  <th md-column>Hónapok</th>
+                  <th md-column>Terv</th>
+                  <th md-column>Tény</th>
+                  <th md-column>Diff</th>
+                  <th md-column>Terv</th>
+                  <th md-column>Tény</th>
+                  <th md-column>Diff</th>
+                  <th md-column>Terv</th>
+                  <th md-column>Tény</th>
+                  <th md-column>Diff</th>
+                  <th md-column>Terv</th>
+                  <th md-column>Tény</th>
+                  <th md-column>Diff</th>
+                  <th md-column>Terv</th>
+                  <th md-column>Tény</th>
+                  <th md-column>Diff</th>
+                  <th md-column>Terv</th>
+                  <th md-column>Tény</th>
+                  <th md-column>Diff</th>
+                </tr>
+              </thead>
+              <tbody md-body>
+                <tr md-row ng-repeat="mth in ['01','02','03','04','05','06','07','08','09','10','11','12'] track by $index">
+                  <td md-cell>{{mth}}.</td>
+                  <td md-cell>{{vm.data.data | filter:{'HO': mth} | sumField: 'ZW0500Plan' | number: 0}}</td>
+                  <td md-cell>{{vm.data.data | filter:{'HO': mth} | sumField: 'ZW0500Actual' | number: 0}}</td>
+                  <td md-cell><span ng-style="{'color': (vm.data.data | filter:{'HO': mth} | sumField: 'ZW0500Diff')>=0?'#badb2a':'#f80' }">{{vm.data.data | filter:{'HO': mth} | sumField: 'ZW0500Diff' | number: 0}}</span></td>
+                  <td md-cell>{{vm.data.data | filter:{'HO': mth} | sumField: 'ZW1000Plan' | number: 0}}</td>
+                  <td md-cell>{{vm.data.data | filter:{'HO': mth} | sumField: 'ZW1000Actual' | number: 0}}</td>
+                  <td md-cell><span ng-style="{'color': (vm.data.data | filter:{'HO': mth} | sumField: 'ZW1000Diff')>=0?'#badb2a':'#f80' }">{{vm.data.data | filter:{'HO': mth} | sumField: 'ZW1000Diff' | number: 0}}</span></td>
+                  <td md-cell>{{vm.data.data | filter:{'HO': mth} | sumField: 'ZW1500Plan' | number: 0}}</td>
+                  <td md-cell>{{vm.data.data | filter:{'HO': mth} | sumField: 'ZW1500Actual' | number: 0}}</td>
+                  <td md-cell><span ng-style="{'color': (vm.data.data | filter:{'HO': mth} | sumField: 'ZW1500Diff')>=0?'#badb2a':'#f80' }">{{vm.data.data | filter:{'HO': mth} | sumField: 'ZW1500Diff' | number: 0}}</span></td>
+                  <td md-cell>{{vm.data.data | filter:{'HO': mth} | sumField: 'ZBPlan' | number: 0}}</td>
+                  <td md-cell>{{vm.data.data | filter:{'HO': mth} | sumField: 'ZBActual' | number: 0}}</td>
+                  <td md-cell><span ng-style="{'color': (vm.data.data | filter:{'HO': mth} | sumField: 'ZBDiff')>=0?'#badb2a':'#f80' }">{{vm.data.data | filter:{'HO': mth} | sumField: 'ZBDiff' | number: 0}}</span></td>
+                  <td md-cell>{{vm.data.data | filter:{'HO': mth} | sumField: 'ZLPlan' | number: 0}}</td>
+                  <td md-cell>{{vm.data.data | filter:{'HO': mth} | sumField: 'ZLActual' | number: 0}}</td>
+                  <td md-cell><span ng-style="{'color': (vm.data.data | filter:{'HO': mth} | sumField: 'ZLDiff')>=0?'#badb2a':'#f80' }">{{vm.data.data | filter:{'HO': mth} | sumField: 'ZLDiff' | number: 0}}</span></td>
+                  <td md-cell>{{vm.data.data | filter:{'HO': mth} | sumField: 'TotalPlan' | number: 0}}</td>
+                  <td md-cell>{{vm.data.data | filter:{'HO': mth} | sumField: 'TotalActual' | number: 0}}</td>
+                  <td md-cell><span ng-style="{'color': (vm.data.data | filter:{'HO': mth} | sumField: 'TotalDiff')>=0?'#badb2a':'#f80' }">{{vm.data.data | filter:{'HO': mth} | sumField: 'TotalDiff' | number: 0}}</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </md-table-container>
+        </md-tab-body>
+      </md-tab>
+    </md-tabs>
+
+  </div>
+</md-content>
