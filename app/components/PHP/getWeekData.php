@@ -1,10 +1,10 @@
 <?php
 ini_set('default_socket_timeout', 600);
 // set include path -- may be replaced with direct link
-set_include_path('../../../../ssrs/bin/');
+set_include_path('/var/www/html/ssrs/bin/');
 require_once('SSRSReport.php');
 // import config variables
-$conf = parse_ini_file('../../../../ssrs/config.ini');
+$conf = parse_ini_file('/var/www/html/ssrs/config.ini');
 define('UID', $conf['UID']);
 define('PASWD', $conf['PASWD']);
 define('SERVICE_URL', $conf['UFURL']);
@@ -43,7 +43,7 @@ function convert($r) {
 // set parameters
 $paramavalue = "";
 $st = date("Y-m-d");
-if(date("N", strtotime($st))==2 ){
+if(date("N", strtotime($st))==1 ){
   $startdate = date("Y-m-d H:i:s", strtotime($st." 05:50:00") - 7*24*60*60);
   $enddate = date("Y-m-d H:i:s", strtotime($st." 05:50:00"));
 } else {
@@ -66,7 +66,7 @@ echo json_encode($final_data);
 
 // save file
 function save_json_file($data, $startdate){
-  $f = fopen("weeks/" . date("YW", strtotime($startdate)). ".json", "w+");
+  $f = fopen("/var/www/html/su-uf/app/components/PHP/weeks/" . date("YW", strtotime($startdate)). ".json", "w+");
   fwrite($f, json_encode($data));
   fclose($f);
 }
