@@ -44,6 +44,10 @@
 						<div flex class="md-list-item-text">Heti kimutatás</div>
 						<md-icon class="material-icons">view_day</md-icon>
 					</md-list-item>
+					<md-list-item ui-sref="month" ng-click="close()">
+						<div flex class="md-list-item-text">Havi kimutatás</div>
+						<md-icon class="material-icons">date_range</md-icon>
+					</md-list-item>
 					<md-list-item ui-sref="dashboard" ng-click="close()">
 						<div flex class="md-list-item-text">Vezérlőpult</div>
 						<md-icon class="material-icons">dashboardk</md-icon>
@@ -138,6 +142,7 @@
 	<script src="app/components/services/modullist.service.js"></script>
 	<script src="app/components/sap/sap.ctrl.js"></script>
 	<script src="app/components/services/smplans.service.js"></script>
+	<script src="app/components/month/month.ctrl.js"></script>
 	<!--endbuild--><!--adds-->
 	<script>
 		angular.bootstrap(document, ['app']);
