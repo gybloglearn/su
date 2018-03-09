@@ -2,163 +2,56 @@
 <md-content layout="row" layout-sm="column" layout-xs="column">
   <div layout-padding flex>
     <h1 class="md-display-2" layout="row">
-      <span flex>Week</span>
+      <span flex>{{vm.weekstocover[0]}}. hét</span>
       <md-button class="md-fab md-primary md-hue-2">
         <md-icon class="material-icons">dashboard</md-icon>
       </md-button>
     </h1>
     <md-divider></md-divider>
-    <md-content layout="row" layout-sm="column" layout-xs="column">
-    <div flex="20" flex-sm="50" flex-xs="100" layout="column" layout-sm="column" layout-xs="column" layout-align="end">
-      <p flex>
-        Válassz az alábbi mezőből kijelezni kívánt hetet:
-      </p>
-      <md-input-container flex>
-        <md-datepicker ng-model="vm.std" md-placeholder="Dátum" ng-change="vm.changeDate()" md-date-filter="vm.datefilter()"></md-datepicker>
-      </md-input-container>
-    </div>
-    <md-table-container flex>
-      <table md-table class="md-table dayTable">
-        <thead md-head>
-          <tr md-row>
-            <th md-column>Szak</th>
-            <th md-column>SheetMaker</th>
-            <th md-column>Potting Be</th>
-            <th md-column>Potting Ki</th>
-            <th md-column>Klór Ki</th>
-            <th md-column>BP Ki</th>
-            <th md-column>BP Rework</th>
-            <th md-column>Bökés / AEQ</th>
-            <th md-column>Minősítve</th>
-          </tr>
-        </thead>
-        <tbody md-body>
-          <tr md-row ng-repeat="shn in [1,3] track by $index">
-            <td md-cell><span>{{shn | shift:vm.startdate}}<sup style="font-size:.5em" class="szak">{{shn==1?'DE':'ÉJ'}}</sup></span></td>
-            <td md-cell class="md-cell {{vm.colorize(((vm.data | filter:{shiftnum: shn, machine: 'Sheetmaker'}) | sumField:'sumgoodaeq'),'sm',shn)}}"><sup>{{vm.targetize('sm',shn) | number:1}}</sup><span>{{(vm.data | filter:{shiftnum: shn, machine: 'Sheetmaker'}) | sumField:'sumgoodaeq'|number:1}}</span></td>
-            <td md-cell class="md-cell {{vm.colorize(((vm.data | filter:{shiftnum: shn, machine: 'Potting'}) | sumField: 'suminaeq'), 'potting', shn)}}"><sup>{{vm.targetize('potting',shn) | number:1}}</sup><span>{{(vm.data | filter:{shiftnum: shn, machine: 'Potting'}) | sumField:'suminaeq'|number:1}}</span></td>
-            <td md-cell class="md-cell {{vm.colorize(((vm.data | filter:{shiftnum: shn, machine: 'Potting'}) | sumField: 'sumoutaeq'), 'potting', shn)}}"><sup>{{vm.targetize('potting',shn) | number:1}}</sup><span>{{(vm.data | filter:{shiftnum: shn, machine: 'Potting'}) | sumField:'sumoutaeq'|number:1}}</span></td>
-            <td md-cell class="md-cell {{vm.colorize(((vm.data | filter:{shiftnum: shn, machine: 'MTF'}) | sumField: 'choutaeq'), 'bp', shn)}}"><sup>{{vm.targetize('bp',shn) | number:1}}</sup><span>{{(vm.data | filter:{shiftnum : shn, machine: 'MTF'}) | sumField:'choutaeq'|number:1}}</span></td>
-            <td md-cell class="md-cell {{vm.colorize(((vm.data | filter:{shiftnum: shn, machine: 'Rework', state:'BP', type: '!ZB500S'}) | sumField: 'aeq'), 'bp', shn)}}"><sup>{{vm.targetize('bp',shn) | number:1}}</sup><span>{{(vm.data | filter:{shiftnum: shn, machine: 'Rework', state: 'BP', type: '!ZB500S'}) | sumField:'aeq'|number:1}}</span></td>
-            <td md-cell><span>{{(vm.data | filter:{shiftnum: shn, machine: 'Rework', state: 'Rework', type: '!ZB500S'}) | sumField:'aeq' | number:1}}</span></td>
-            <td md-cell><span>{{ ((vm.data | filter:{shiftnum: shn, machine: 'MTF', type: '!ZB500S'}) | sumField:'BOKES')/((vm.data | filter:{shiftnum: shn, machine: 'MTF', type: '!ZB500S'}) | sumField:'sumaeq') | number:1}}</span></td>
-            <td md-cell class="md-cell {{vm.colorize(((vm.data | filter:{shiftnum: shn, machine: 'MTF', type: '!ZB500S_MIN'}) | sumField: 'gradeaeq'), 'min', shn)}}"><sup>{{vm.targetize('min',shn) | number:1}}</sup><span>{{(vm.data | filter:{shiftnum: shn, machine: 'MTF', type: '!ZB500S_MIN'}) | sumField:'gradeaeq'|number:1}}</span></td>
-          </tr>
-          <tr md-row style="background-color:rgba(77,86,123,.2);">
-            <td md-cell><span>Össz:</span></td>
-            <td md-cell class="md-cell {{vm.colorize(((vm.data | filter:{machine: 'Sheetmaker'}) | sumField:'sumgoodaeq'),'sm',0)}}"><sup>{{vm.targetize('sm',0) | number:1}}</sup><span>{{(vm.data | filter:{ machine: 'Sheetmaker'}) | sumField:'sumgoodaeq'|number:1}}</span></td>
-            <td md-cell class="md-cell {{vm.colorize(((vm.data | filter:{machine: 'Potting'}) | sumField:'suminaeq'),'potting',0)}}"><sup>{{vm.targetize('potting',0) | number:1}}</sup><span>{{(vm.data | filter:{ machine: 'Potting'}) | sumField:'suminaeq'|number:1}}</span></td>
-            <td md-cell class="md-cell {{vm.colorize(((vm.data | filter:{machine: 'Potting'}) | sumField:'sumoutaeq'),'potting',0)}}"><sup>{{vm.targetize('potting',0) | number:1}}</sup><span>{{(vm.data | filter:{ machine: 'Potting'}) | sumField:'sumoutaeq'|number:1}}</span></td>
-            <td md-cell class="md-cell {{vm.colorize(((vm.data | filter:{machine: 'MTF'}) | sumField:'choutaeq'),'bp',0)}}"><sup>{{vm.targetize('bp',0) | number:1}}</sup><span>{{(vm.data | filter:{ machine: 'MTF'}) | sumField:'choutaeq'|number:1}}</span></td>
-            <td md-cell class="md-cell {{vm.colorize(((vm.data | filter:{machine: 'Rework', state: 'BP', type: '!ZB500S'}) | sumField:'aeq'),'bp',0);}}"><sup>{{vm.targetize('bp',0) | number:1}}</sup><span>{{(vm.data | filter:{ machine: 'Rework', state: 'BP', type: '!ZB500S'}) | sumField:'aeq'|number:1}}</span></td>
-            <td md-cell><span>{{(vm.data | filter:{machine: 'Rework', state: 'Rework', type: '!ZB500S'}) | sumField:'aeq' | number:1}}</span></td>
-            <td md-cell><span>{{ ((vm.data | filter:{machine: 'MTF', type: '!ZB500S'}) | sumField:'BOKES')/((vm.data | filter:{machine: 'MTF', type: '!ZB500S'}) | sumField:'sumaeq') | number:1}}</span></td>
-            <td md-cell class="md-cell {{vm.colorize(((vm.data | filter:{machine: 'MTF', type: '!ZB500S_MIN'}) | sumField:'gradeaeq'),'min',0);}}"><sup>{{vm.targetize('min',0) | number:1}}</sup><span>{{(vm.data | filter:{machine: 'MTF', type: '!ZB500S_MIN'}) | sumField:'gradeaeq'|number:1}}</span></td>
-          </tr>
-       </tbody>
-      </table>
-    </md-table-container>
-    </md-content>
-    <md-content layout="row" layout-sm="column" layout-xs="column">
-      <div flex="20" flex-sm="50" flex-xs="100" layout="row" layout-sm="column" layout-xs="column" layout-align=" end">
-        <p flex>Szűrés Termékre</p>
-        <md-input-container flex="70">
-          <label>Termék</label>
-          <md-select flex ng-model="vm.search.partnumber" class="form-control">
-            <md-option value="">Mind</md-option>
-            <md-option ng-repeat="pns in vm.data | unique:'partnumber' track by $index" value="{{pns.partnumber}}">{{pns.partnumber}} - {{pns.PartGroup_Name?pns.PartGroup_Name:pns.Type}}</md-option>
-          </md-select>
-        </md-input-container>
+    <md-content>
+      <div layout="row" style="border-bottom: 1px solid #ddd">
+        <div flex=5>
+          <h2 class="md-display-1 text-center">HÉT</h2>
+        </div>
+        <div class="tableHeader" layout="column" flex="{{$index==0?35:''}}" layout-align="space-around none" layout-padding flex ng-repeat="area in ['Összesen', 'SM', 'POTTING', 'BP'] track by $index">
+          <div layout="row" flex>
+            <div flex>
+              <h2 class="md-display-1 text-center" style="margin:5px;">{{area}}</h2>
+            </div>
+          </div>
+          <div layout="row" flex>
+            <div flex layout="row" layout-align="space-around none">
+              <div ng-repeat="sh in ['A', 'B', 'C', 'D'] track by $index">
+                <h3 class="md-headline" style="margin-top: -10px;">{{sh}}</h3>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-      <md-table-container flex>
-          <table md-table class="details">
-            <thead md-head>
-              <tr md-row>
-                <th md-column>SheetMaker</th>
-                <th md-column>Terv lap</th>
-                <th md-column>Össz lap</th>
-                <th md-column>Jó lap</th>
-                <th md-column>Jó Aeq</th>
-                <th md-column>Potting</th>
-                <th md-column>BE</th>
-                <th md-column>Fordít</th>
-                <th md-column>KI</th>
-                <th md-column>Klór ki</th>
-                <th md-column>Kádak</th>
-                <th md-column>Minősített</th>
-              </tr>
-              </thead>
-              <tbody md-tbody>
-              <tr md-row ng-repeat="sm in ['SheetMaker6', 'SheetMaker7', 'SheetMaker8'] track by $index">
-                <td md-cell>{{sm}}</td>
-                <td md-cell><span style="color: rgb(77,86,123)">{{ vm.targetSheets(sm) }}</span></td>
-                <td md-cell>{{ vm.data | filter:vm.search | filter:{MachineName:sm} | sumField:'Totalsheets' | number:0 }}</td>
-                <td md-cell class="md-cell {{vm.smcolor(sm, (vm.data | filter:vm.search | filter:{MachineName:sm} | sumField:'Totalsheets') - (vm.data | filter:vm.search | filter:{MachineName:sm} | sumField:'ScrapSheets') )}}">{{ (vm.data | filter:vm.search | filter:{MachineName:sm} | sumField:'Totalsheets') - (vm.data | filter:vm.search | filter:{MachineName:sm} | sumField:'ScrapSheets') | number:0}}</td>
-                <td md-cell>{{ (vm.data | filter:vm.search | filter:{MachineName:sm} | sumField:'sumgoodaeq') | number:1}}</td>
-                <!--Potting-->
-                <td md-cell ng-if="sm=='SheetMaker6'" rowspan="4" style="vertical-align: middle">Potting4</td>
-                <td md-cell ng-if="sm=='SheetMaker6'"  rowspan="4" style="vertical-align: middle">{{(vm.data | filter:vm.search | filter:{MachineName: 'Potting4'}) | sumField:'In' | number:0}}<br><sup>modul</sup><br><strong>{{(vm.data | filter:vm.search | filter:{MachineName: 'Potting4'}) | sumField:'suminaeq'|number:1}}</strong><br><sup>AEq</sup></td>
-                <td md-cell ng-if="sm=='SheetMaker6'"  rowspan="4" style="vertical-align: middle">{{(vm.data | filter:vm.search | filter:{MachineName: 'Potting4'}) | sumField:'P3' | number:0}}<br><sup>modul</sup><br><strong>{{(vm.data | filter:vm.search | filter:{MachineName: 'Potting4'}) | sumField:'sump3aeq'|number:1}}</strong><br><sup>AEq</sup></td>
-                <td md-cell ng-if="sm=='SheetMaker6'"  rowspan="4" style="vertical-align: middle">{{(vm.data | filter:vm.search | filter:{MachineName: 'Potting4'}) | sumField:'Out' | number:0}}<br><sup>modul</sup><br><strong>{{(vm.data | filter:vm.search | filter:{MachineName: 'Potting4'}) | sumField:'sumoutaeq'|number:1}}</strong><br><sup>AEq</sup></td>
-                <!-- Klórozó -->
-                <td md-cell ng-if="sm=='SheetMaker6'" rowspan="9" style="vertical-align:middle">{{vm.data | filter:vm.search | filter:{machine:'MTF'} | sumField: 'CHOUT' | number:0}}<br><sup>modul</sup><br><strong>{{vm.data | filter:vm.search | filter:{machine:'MTF'} | sumField: 'choutaeq' | number:1}}</strong><br><sup>AEq</sup></td>
-                <td md-cell ng-if="sm=='SheetMaker6'" rowspan="9" style="vertical-align:middle">
-                  <strong style="display: block; border-bottom: 1px solid #ddd">Ki</strong>
-                  <div class="row">
-                    <div class="col-sm-6">{{(vm.data | filter:vm.search | filter:{ machine: 'Rework', state: 'BP', type: '!ZB500S'}) | sumField:'cnt' | number:0}}<br><sup>modul</sup></div>
-                    <div class="col-sm-6"><strong>{{(vm.data | filter:vm.search | filter:{ machine: 'Rework', state: 'BP', type: '!ZB500S'}) | sumField:'aeq'|number:1}}</strong><br><sup>AEq</sup></div>
-                  </div>
-                  <strong style="display: block; border-bottom: 1px solid #ddd">Rework</strong>
-                  <div class="row">
-                    <div class="col-sm-6">{{(vm.data | filter:vm.search | filter:{ machine: 'Rework', state: 'Rework', type: '!ZB500S'}) | sumField:'cnt' | number:0}}<br><sup>modul</sup></div>
-                    <div class="col-sm-6"><strong>{{(vm.data | filter:vm.search | filter:{ machine: 'Rework', state: 'Rework', type: '!ZB500S'}) | sumField:'aeq'| number:1}}</strong><br><sup>AEq</sup></div>
-                  </div>
-                  <strong style="display: block; border-bottom: 1px solid #ddd">Bökés</strong>
-                  {{vm.data | filter:vm.search | filter:{machine: 'MTF', type: '!ZB500S'} | sumField:'BOKES' | number:0}}<br><sup>Bökés</sup><br>
-                  <strong>{{ ((vm.data | filter:vm.search | filter:{machine: 'MTF', type: '!ZB500S'}) | sumField:'BOKES')/((vm.data | filter:vm.search | filter:{machine: 'MTF', type: '!ZB500S'}) | sumField:'sumaeq') | number:1}}</strong><br><sup>Bökés / AEq</sup>
-                </td>
-                <td md-cell ng-if="sm=='SheetMaker6'" rowspan="9" style="vertical-align:middle">{{(vm.data | filter:vm.search | filter:{machine: 'MTF', type: '!ZB500S_MIN'}) | sumField:'GRADED'  | number:0}}<br><sup>modul</sup><br><strong>{{(vm.data | filter:vm.search | filter:{machine: 'MTF', type: '!ZB500S_MIN'}) | sumField:'gradeaeq'| number:1}}</strong><br><sup>AEq</sup></td>
-              </tr>
-              <tr md-row style="background-color:rgba(77,86,123,.2);color:white;">
-                <td md-cell><strong>Részösszeg</strong></td>
-                <td md-cell><strong><span style="color: rgb(77,86,123)">{{ vm.targetSheets(['SheetMaker6', 'SheetMaker7', 'SheetMaker8']) }}</span></strong></td>
-                <td md-cell><strong>{{ vm.filterSMs(['SheetMaker6', 'SheetMaker7', 'SheetMaker8']) | sumField:'Totalsheets' | number:0 }}</strong></td>
-                <td md-cell><strong>{{ (vm.filterSMs(['SheetMaker6', 'SheetMaker7', 'SheetMaker8']) | sumField:'Totalsheets') - (vm.filterSMs(['SheetMaker6', 'SheetMaker7', 'SheetMaker8']) | sumField:'ScrapSheets') |number:0 }}</strong></td>
-                <td md-cell><strong>{{ vm.filterSMs(['SheetMaker6', 'SheetMaker7', 'SheetMaker8'] ) | sumField:'sumgoodaeq'|number:1 }}</strong></td>
-              </tr>
-              <tr md-row ng-repeat="sm in ['SheetMaker4', 'SheetMaker5', 'SheetMaker9'] track by $index">
-                <td md-cell>{{sm}}</td>
-                <td md-cell><span style="color: rgb(77,86,123)">{{ vm.targetSheets(sm) }}</span></td>
-                <td md-cell>{{ vm.data | filter:vm.search | filter:{MachineName:sm} | sumField:'Totalsheets' | number:0 }}</td>
-                <td md-cell class="md-cell {{vm.smcolor(sm, (vm.data | filter:vm.search | filter:{MachineName:sm} | sumField:'Totalsheets') - (vm.data | filter:vm.search | filter:{MachineName:sm} | sumField:'ScrapSheets') )}}">{{ (vm.data | filter:vm.search | filter:{MachineName:sm} | sumField:'Totalsheets') - (vm.data | filter:vm.search | filter:{MachineName:sm} | sumField:'ScrapSheets') |number:0}}</td>
-                <td md-cell>{{ (vm.data | filter:vm.search | filter:{MachineName:sm} | sumField:'sumgoodaeq') | number:1 }}</td>
-                <!--Potting-->
-                <td md-cell ng-if="sm=='SheetMaker4'" rowspan="4" style="vertical-align: middle;">Potting3<br>Potting2</td>
-                <td md-cell ng-if="sm=='SheetMaker4'"  rowspan="4" style="vertical-align: middle">{{vm.filterSMs(['Potting2', 'Potting3']) | sumField:'In' | number:0}}<br><sup>modul</sup><br><strong>{{vm.filterSMs(['Potting2', 'Potting3']) | sumField:'suminaeq' | number:1}}</strong><br><sup>AEq</sup></td>
-                <td md-cell ng-if="sm=='SheetMaker4'"  rowspan="4" style="vertical-align: middle">{{vm.filterSMs(['Potting2', 'Potting3']) | sumField:'P3' | number:0}}<br><sup>modul</sup><br><strong>{{vm.filterSMs(['Potting2', 'Potting3']) | sumField:'sump3aeq' | number:1}}</strong><br><sup>AEq</sup></td>
-                <td md-cell ng-if="sm=='SheetMaker4'"  rowspan="4" style="vertical-align: middle">{{vm.filterSMs(['Potting2', 'Potting3']) | sumField:'Out' | number:0}}<br><sup>modul</sup><br><strong>{{vm.filterSMs(['Potting2', 'Potting3']) | sumField:'sumoutaeq' | number:1}}</strong><br><sup>AEq</sup></td>
-              </tr>
-              <tr md-row style="background-color:rgba(77,86,123,.2);color:white;">
-                <td md-cell><strong>Részösszeg</strong></td>
-                <td md-cell><strong><span style="color: rgb(77,86,123)">{{ vm.targetSheets(['SheetMaker4', 'SheetMaker5', 'SheetMaker9'])}}</span></strong></td>
-                <td md-cell><strong>{{ vm.filterSMs(['SheetMaker4', 'SheetMaker5', 'SheetMaker9']) | sumField:'Totalsheets' | number:0 }}</strong></td>
-                <td md-cell><strong>{{ (vm.filterSMs(['SheetMaker4', 'SheetMaker5', 'SheetMaker9']) | sumField:'Totalsheets') - (vm.filterSMs(['SheetMaker4', 'SheetMaker5', 'SheetMaker9']) | sumField:'ScrapSheets') }}</strong></td>
-                <td md-cell><strong>{{ vm.filterSMs(['SheetMaker4', 'SheetMaker5', 'SheetMaker9'] ) | sumField:'sumgoodaeq' | number:1}}</strong></td>
-              </tr>
-              <tr md-row>
-                <td md-cell><strong>Összesen</strong></td>
-                <td md-cell><strong><span style="color: rgb(77,86,123)">{{ vm.targetSheets(['SheetMaker6', 'SheetMaker7', 'SheetMaker8', 'Sheetmaker4', 'SheetMaker5', 'SheetMaker9'])}}</span></strong></td>
-                <td md-cell><strong>{{ vm.data | filter:vm.search | filter:{machine:'SheetMaker'} | sumField:'Totalsheets' | number:0}}</strong></td>
-                <td md-cell><strong>{{ (vm.data | filter:vm.search | filter:{machine:'SheetMaker'} | sumField:'Totalsheets') - (vm.data | filter:vm.search | filter:{machine:'SheetMaker'} | sumField:'ScrapSheets') | number:0}}</strong></td>
-                <td md-cell><strong>{{ vm.data | filter:vm.search | filter:{machine:'SheetMaker'} | sumField:'sumgoodaeq' | number:1}}</strong><br><sup>AEq</sup></td>
-                <td md-cell></td>
-                <td md-cell><strong>{{vm.data | filter:vm.search | filter:{machine:'Potting'}| sumField:'suminaeq' | number:1}}</strong><br><sup>AEq</sup></td>
-                <td md-cell><strong>{{vm.data | filter:vm.search | filter:{machine:'Potting'} | sumField:'sump3aeq' | number:1}}</strong><br><sup>AEq</sup></td>
-                <td md-cell><strong>{{vm.data | filter:vm.search | filter:{machine:'Potting'} | sumField:'sumoutaeq' | number:1}}</strong><br><sup>AEq</sup></td>
-              </tr>
-              </tbody>
-          </table>
-      </md-table-container>
+      <div layout="row" ng-repeat="w in vm.weekstocover track by $index">
+        <div flex=5 layout="row" layout-align="center center">
+          <h3 class="text-center" flex>{{w}}. hét</h3>
+        </div>
+        <div class="tableMainColumn" layout="column" flex="{{$index==0?35:''}}" layout-align="space-around none" layout-padding flex ng-repeat="area in ['avg', 'sm', 'potting', 'bp'] track by $index">
+          <div layout="row" flex>
+            <div flex layout="row" layout-align="space-around none">
+              <div ng-repeat="sh in ['A', 'B', 'C', 'D'] track by $index" ng-if="area != 'avg'">
+                <h3 class="{{vm.setColor(area, sh, w)}}">{{ vm.result | filter: {szak: sh, week: w} | sumField: ''+area+'actual' | number:1 }}</h3>
+                <sup style="font-size: .8em;color: rgb(100,113,166)">{{ vm.result | filter: {szak: sh, week: w} | sumField: ''+area+'target' | number:1 }}</sup>
+              </div>
+              <div ng-repeat="sh in ['A', 'B', 'C', 'D'] track by $index" ng-if="area == 'avg'">
+                <sup style="font-size:.7em;color: #aaa; margin-bottom: -2xp;display:block;">A: {{ (vm.result | filter: {szak: sh, week: w} | sumField: ''+area+'actual') | number:1 }}</sup>
+                <sup style="font-size:.6em;color: rgb(100,113,166); display:block;">C: {{ (vm.result | filter: {szak: sh, week: w} | sumField: ''+area+'target') | number:1 }}</sup>
+                <h3 class="score {{vm.setColor(area, sh, w)}}">
+                  {{ (vm.result | filter: {szak: sh, week: w} | sumField: ''+area+'actual') / (vm.result | filter: {szak: sh, week: w} | sumField:''+area+'target') * 100 | number:2 }}%
+                  <sup ng-show="vm.getScore(area,sh,w)==0" class="worst"></sup>
+                  <sup ng-show="vm.getScore(area,sh,w)==3" class="best"></sup>
+                </h3>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </md-content>
   </div>
 </md-content>

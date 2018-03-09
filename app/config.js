@@ -40,6 +40,11 @@
 			templateUrl: './app/components/sap/sap.html' + '?' + ver,
 			controller: 'SapController',
 			controllerAs: 'vm'
+		}).state('month', {
+			url: 'month',
+			templateUrl: './app/components/month/month.html',
+			controller: 'MonthController',
+			controllerAs: 'vm'
 		}).state('login', {
       url: '/login',
       templateUrl: './app/components/login/login.html',

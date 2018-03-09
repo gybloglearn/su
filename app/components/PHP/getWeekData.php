@@ -43,7 +43,7 @@ function convert($r) {
 // set parameters
 $paramavalue = "";
 $st = date("Y-m-d");
-if(date("N", strtotime($st))==2 ){
+if(date("N", strtotime($st))==1 ){
   $startdate = date("Y-m-d H:i:s", strtotime($st." 05:50:00") - 7*24*60*60);
   $enddate = date("Y-m-d H:i:s", strtotime($st." 05:50:00"));
 } else {

@@ -1,8 +1,11 @@
 html { font-family: 'Roboto', sans-serif; font-weight: 400}
 h1,h2 { font-family: 'Open Sans Condensed'; font-weight: 100;}
+h3 { margin: 3px 0px; font-weight: normal;}
 .md-display-1, .md-display-2 {font-weight: 100;}
 .grey { color: #aaa;}
 .green {color: #badb2a;}
+.red { color: #d55;}
+.orange { color: #fa0;}
 .text-center { text-align: center;}
 .text-right { text-align: right;}
 
@@ -82,4 +85,29 @@ md-toolbar.md-myCustom-theme:not(.md-menu-icon) md-icon{
 }
 .details .md-row .md-cell.green{
   color: #badb2a;
+}
+
+.tableHeader, .tableMainColumn {
+  border-right: 1px solid #ddd;
+}
+.tableHeader:last-child, .tableMainColumn:last-child {
+  border-right: 0px;
+}
+.best, .worst {
+  display: block;
+  float: right;
+  width: 0px; height: 0px;
+  border-width: 10px;
+  border-style: solid;
+  border-color: transparent;
+}
+.best {
+  /*background-color: #badb2a;*/
+  margin-top: -10px;
+  border-bottom: 20px solid #badb2a;
+}
+.worst {
+  /*background-color: #d55;*/
+  margin-top: 0;
+  border-top: 20px solid #d55;
 }
