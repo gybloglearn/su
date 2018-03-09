@@ -23,7 +23,6 @@
     function activate() {
       var url = $location.path();
       url = url.slice(1);
-      $cookies.putObject('user', {'username': '212434909', 'displayname': 'Györfi-Balogh Szabolcs'});
       if (!$cookies.getObject('user')) {
         if (url != 'login') {
           $cookies.put('redir', url);
