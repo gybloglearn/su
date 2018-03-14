@@ -24,6 +24,16 @@
 			templateUrl: './app/components/quicklinks/quicklinks.html' + '?' + cp,
 			controller: 'QuicklinksController',
 			controllerAs: 'vm'
+		}).state('rewinder', {
+			url: 'rewinder',
+			templateUrl: './app/components/rewinder/rewinder.html' + '?' + cp,
+			controller: 'RewinderController',
+			controllerAs: 'vm'
+		}).state('rewindersum', {
+			url: 'rewindersum',
+			templateUrl: './app/components/rewindersum/rewindersum.html' + '?' + cp,
+			controller: 'RewindersumController',
+			controllerAs: 'vm'
 		}).state('login', {
       url: '/login',
       templateUrl: './app/components/login/login.html' + '?' + cp,
