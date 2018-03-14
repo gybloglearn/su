@@ -9,10 +9,10 @@
   function RewindersumController($state, $cookies, $rootScope, $filter, $mdSidenav, RewindersumService) {
     var vm = this;
     vm.startdate = new Date(new Date().getTime() - 7 * 24 * 3600 * 1000);
-    vm.enddate = new Date();
+    vm.enddate = new Date(new Date().getTime() - 24 * 3600 * 1000);
     vm.startdatumszam = $filter('date')(new Date(vm.startdate).getTime(), 'yyyy-MM-dd');
     vm.enddatumszam = $filter('date')(new Date(vm.enddate).getTime(), 'yyyy-MM-dd');
-    vm.maxdate = new Date();
+    vm.maxdate = new Date(new Date().getTime() - 24 * 3600 * 1000);
     vm.load = load;
 
     $rootScope.close = function () {
@@ -202,7 +202,7 @@
         $rootScope.user = $cookies.getObject('user', { path: '/' });
         vm.user = $cookies.getObject('user', { path: '/' });
       }
-      //load();
+      load();
     }
   }
 })();
