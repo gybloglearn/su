@@ -30,12 +30,12 @@
         }
       } else {
         var u = $cookies.getObject('user');
-        $rootScope.quicklinks = [];
+        /*$rootScope.quicklinks = [];
         Login.getQL(u.username).then(function (resp) {
           if (resp.data.length > 0) {
             $rootScope.quicklinks = resp.data;
           }
-        });
+        });*/
         if (url != 'login') {
           if (url == '' || url == '/') {
             $state.go('dashboard');

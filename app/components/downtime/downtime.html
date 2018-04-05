@@ -1,0 +1,59 @@
+<md-content layout="row" layout-sm="column" layout-xs="column">
+  <div layout-padding flex>
+    <h1 class="md-display-2" layout="row">
+      <span flex>Állásidők {{vm.startdatenum}}-{{vm.enddatenum}}</span>
+      <md-button class="md-fab md-primary md-hue-2">
+        <md-icon class="material-icons">dashboard</md-icon>
+      </md-button>
+    </h1>
+    <md-divider>
+      <div layout-gt-xs="row">
+        <div flex-gt-xs>
+          <md-input-container>
+            <md-datepicker ng-model="vm.startdate" md-max-date="vm.maxdate"></md-datepicker>
+          </md-input-container>
+          <md-input-container>
+            <md-datepicker ng-model="vm.enddate" md-max-date="vm.maxdate"></md-datepicker>
+          </md-input-container>
+          <md-button class="md-primary md-raised" ng-click="vm.load()">Betöltés</md-button>
+        </div>
+      </div>
+      <div layout="row">
+
+        <div flex="60">
+          <md-table-container>
+            <table md-table>
+              <thead md-head>
+                <tr md-row>
+                  <th md-column>Kezdés</th>
+                  <th md-column>Vége</th>
+                  <th md-column>Idő (perc)</th>
+                  <th md-column>Gép</th>
+                  <th md-column>Hiba csoport</th>
+                  <th md-column>Hibakód</th>
+                  <th md-column>Hiba</th>
+                  <th md-column>Komment</th>
+                </tr>
+              </thead>
+              <tbody md-body>
+                <tr ng-repeat="item in vm.data track by $index">
+                  <td md-cell>{{item.startdate}}</td>
+                  <td md-cell>{{item.enddate}}</td>
+                  <td md-cell>{{item.Duration_s_/60|number:0}}</td>
+                  <td md-cell>{{item.Machine}}</td>
+                  <td md-cell>{{item.Reason_group_Name}}</td>
+                  <td md-cell>{{item.reas_id}}</td>
+                  <td md-cell>{{item.reas_Name}}</td>
+                  <td md-cell>{{item.comment}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </md-table-container>
+        </div>
+        <div flex="40">
+          <my-chart id="pchart" options="vm.chartconfig_pie"></my-chart>
+        </div>
+      </div>
+    </md-divider>
+  </div>
+</md-content>

@@ -24,6 +24,26 @@
 			templateUrl: './app/components/quicklinks/quicklinks.html' + '?' + cp,
 			controller: 'QuicklinksController',
 			controllerAs: 'vm'
+		}).state('amount', {
+			url: 'amount',
+			templateUrl: './app/components/amount/amount.html' + '?' + cp,
+			controller: 'AmountController',
+			controllerAs: 'vm'
+		}).state('downtime', {
+			url: 'downtime',
+			templateUrl: './app/components/downtime/downtime.html' + '?' + cp,
+			controller: 'DowntimeController',
+			controllerAs: 'vm'
+		}).state('scrap', {
+			url: 'scrap',
+			templateUrl: './app/components/scrap/scrap.html' + '?' + cp,
+			controller: 'ScrapController',
+			controllerAs: 'vm'
+		}).state('oee', {
+			url: 'oee',
+			templateUrl: './app/components/oee/oee.html' + '?' + cp,
+			controller: 'OeeController',
+			controllerAs: 'vm'
 		}).state('login', {
       url: '/login',
       templateUrl: './app/components/login/login.html' + '?' + cp,

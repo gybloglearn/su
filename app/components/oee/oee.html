@@ -1,0 +1,31 @@
+<md-content layout="row" layout-sm="column" layout-xs="column">
+  <div layout-padding flex>
+    <h1 class="md-display-2" layout="row">
+      <span flex>Oee-{{vm.actyear}}</span>
+      <md-button class="md-fab md-primary md-hue-2">
+        <md-icon class="material-icons">dashboard</md-icon>
+      </md-button>
+    </h1>
+    <md-divider>
+      <div layout="row">
+        <div flex=30>
+          <h1>Availability: {{(((vm.data| sumField:'runtime')-(vm.data| sumField:'downtime'))/(vm.data| sumField:'runtime'))*100
+            |number:2}} %</h1>
+        </div>
+        <div flex=30>
+          <h1>Quality: {{(((vm.data| sumField:'slmeter')-(vm.data| sumField:'scrapmeter'))/(vm.data| sumField:'slmeter'))*100
+            |number:2}} %
+          </h1>
+        </div>
+        <!--div flex=30>
+            <h1>Performance: {{((vm.data|sumField:'slaeq')/((7*240*vm.weeklength) - (vm.data|sumField:'downtime')/60/60/24*240))*100|number:2}} %</h1>
+        </div-->
+      </div>
+      <div layout="row">
+        <div flex>
+          <my-chart id="chart" options="vm.chartconfig"></my-chart>
+        </div>
+      </div>
+    </md-divider>
+  </div>
+</md-content>

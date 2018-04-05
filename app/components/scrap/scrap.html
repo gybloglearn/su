@@ -1,0 +1,105 @@
+<md-content layout="row" layout-sm="column" layout-xs="column">
+  <div layout-padding flex>
+    <h1 class="md-display-2" layout="row">
+      <span flex>Selejt {{vm.startdatenum}}-{{vm.enddatenum}},{{vm.actlevel}}</span>
+      <md-button class="md-fab md-primary md-hue-2">
+        <md-icon class="material-icons">dashboard</md-icon>
+      </md-button>
+    </h1>
+    <md-divider>
+      <div layout-gt-xs="row">
+        <div flex-gt-xs>
+          <label>Szint:</label>
+          <md-input-container>
+            <md-select ng-model="vm.actlevel" ng-change="vm.load()">
+              <md-option ng-repeat="level in vm.levels" ng-value="level">{{level}}</md-option>
+            </md-select>
+          </md-input-container>
+          <md-input-container>
+            <md-datepicker ng-model="vm.startdate" md-max-date="vm.maxdate"></md-datepicker>
+          </md-input-container>
+          <md-input-container>
+            <md-datepicker ng-model="vm.enddate" md-max-date="vm.maxdate"></md-datepicker>
+          </md-input-container>
+          <md-button class="md-primary md-raised" ng-click="vm.load()">Betöltés</md-button>
+        </div>
+      </div>
+      <div layout="row">
+        <div flex="30">
+          <md-table-container>
+            <table md-table>
+              <thead md-head>
+                <tr md-row>
+                  <th md-column>Scrap név</th>
+                  <th md-column>Mennyiség</th>
+                </tr>
+              </thead>
+              <tbody md-body>
+                <tr ng-repeat="scr in vm.scrapdata track by $index">
+                  <td md-cell>{{scr.code}}</td>
+                  <td md-cell>{{scr.amount}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </md-table-container>
+        </div>
+        <div flex="10"></div>
+        <div flex="40">
+          <my-chart id="pichart" options="vm.chartconfig_pie"></my-chart>
+        </div>
+      </div>
+      <div layout-gt-xs="row">
+        <div flex-gt-xs>
+          <label>CikkMegnevezés:</label>
+          <md-input-container>
+            <md-select ng-model="vm.search.CikkMegnevezes" ng-change="vm.crdata((vm.data|filter:vm.search))">
+              <md-option value="">Mind</md-option>
+              <md-option ng-repeat="cikk in vm.cikkfilter" ng-value="cikk.CikkMegnevezes">{{cikk.CikkMegnevezes}}</md-option>
+            </md-select>
+          </md-input-container>
+          <label>Scrap név:</label>
+          <md-input-container>
+            <md-select ng-model="vm.search.scrapName" ng-change="vm.crdata((vm.data|filter:vm.search))">
+              <md-option value="">Mind</md-option>
+              <md-option ng-repeat="scrap in vm.scrapfilter" ng-value="scrap.scrapName">{{scrap.scrapName}}</md-option>
+            </md-select>
+          </md-input-container>
+        </div>
+      </div>
+      <div layout="row">
+        <md-table-container>
+          <table md-table>
+            <thead md-head>
+              <tr md-row>
+                <th md-column ng-click="vm.order='Cikkszam';vm.asc=!vm.asc;">Cikkszám</th>
+                <th md-column ng-click="vm.order='CikkMegnevezes';vm.asc=!vm.asc;">Cikk megnevezés</th>
+                <th md-column ng-click="vm.order='Mennyiseg';vm.asc=!vm.asc;">Mennyiség</th>
+                <th md-column ng-click="vm.order='Lokacio';vm.asc=!vm.asc;">Lokáció</th>
+                <th md-column ng-click="vm.order='Adag_Szeriaszam';vm.asc=!vm.asc;">Adag szériaszám</th>
+                <th md-column ng-click="vm.order='Konyveles_Datuma';vm.asc=!vm.asc;">Könyvelés dátuma</th>
+                <th md-column ng-click="vm.order='Bizonylatszam';vm.asc=!vm.asc;">Bizonylatszám</th>
+                <th md-column ng-click="vm.order='JavaslatTevo';vm.asc=!vm.asc;">Javaslat tevő</th>
+                <th md-column ng-click="vm.order='JavaslatDatuma';vm.asc=!vm.asc;">Javaslat dátuma</th>
+                <th md-column ng-click="vm.order='scrapName';vm.asc=!vm.asc;">Scrap név</th>
+              </tr>
+            </thead>
+            <tbody md-body>
+              <tr ng-repeat="item in vm.data | orderBy:vm.order:vm.asc | filter: vm.search track by $index" class="ng-scope">
+                <td md-cell>{{item.Cikkszam}}</td>
+                <td md-cell>{{item.CikkMegnevezes}}</td>
+                <td md-cell>{{item.Mennyiseg}}</td>
+                <td md-cell>{{item.Lokacio}}</td>
+                <td md-cell>{{item.Adag_Szeriaszam}}</td>
+                <td md-cell>{{item.Konyveles_Datuma}}</td>
+                <td md-cell>{{item.Bizonylatszam}}</td>
+                <td md-cell>{{item.JavaslatTevo}}</td>
+                <td md-cell>{{item.JavaslatDatuma}}</td>
+                <td md-cell>{{item.scrapName}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </md-table-container>
+      </div>
+    </md-divider>
+  </div>
+</md-content>

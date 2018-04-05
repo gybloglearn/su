@@ -1,0 +1,78 @@
+<md-content layout="row" layout-sm="column" layout-xs="column">
+  <div layout-padding flex>
+    <h1 class="md-display-2" layout="row">
+      <span flex>Termelt mennyiség {{vm.startdatenum}}-{{vm.enddatenum}},{{vm.actcat}}</span>
+      <md-button class="md-fab md-primary md-hue-2">
+        <md-icon class="material-icons">dashboard</md-icon>
+      </md-button>
+    </h1>
+    <md-divider>
+      <div layout-gt-xs="row">
+        <div flex-gt-xs>
+          <label>Csoportosítás:</label>
+          <md-input-container>
+            <md-select ng-model="vm.actcat" ng-change="vm.load()">
+              <md-option ng-repeat="cat in vm.categories" ng-value="cat">{{cat}}</md-option>
+            </md-select>
+          </md-input-container>
+          <md-input-container>
+            <md-datepicker ng-model="vm.startdate" md-max-date="vm.maxdate"></md-datepicker>
+          </md-input-container>
+          <md-input-container>
+            <md-datepicker ng-model="vm.enddate" md-max-date="vm.maxdate"></md-datepicker>
+          </md-input-container>
+          <md-button class="md-primary md-raised" ng-click="vm.load()">Betöltés</md-button>
+        </div>
+      </div>
+      <div layout="row">
+        <md-table-container flex>
+          <table md-table>
+            <thead md-head>
+              <tr md-row>
+                <th></th>
+                <th colspan="2">SpinLine #2</th>
+                <th colspan="2">SpinLine #3</th>
+                <th colspan="2">SpinLine #4</th>
+                <th colspan="2">SpinLine #136</th>
+                <th colspan="2">SpinLine #236</th>
+                <th colspan="2">Összesen</th>
+              </tr>
+              <tr md-row>
+                <th md-column>Dátum</th>
+                <th md-column>AEQ</th>
+                <th md-column>Méter</th>
+                <th md-column>AEQ</th>
+                <th md-column>Méter</th>
+                <th md-column>AEQ</th>
+                <th md-column>Méter</th>
+                <th md-column>AEQ</th>
+                <th md-column>Méter</th>
+                <th md-column>AEQ</th>
+                <th md-column>Méter</th>
+                <th md-column>AEQ</th>
+                <th md-column>Méter</th>
+              </tr>
+            </thead>
+            <tbody md-body>
+              <tr ng-repeat="item in vm.dates track by $index">
+                <th md-head>{{item.item1}}</th>
+                <td md-cell>{{(((vm.sldata|filter:{'machine':'SpinLine #2'}:true) | filter:{'item1':item.item1}) | sumField:'textbox2')}}</td>
+                <td md-cell>{{(((vm.sldata|filter:{'machine':'SpinLine #2'}:true) | filter:{'item1':item.item1}) | sumField:'val') |number:0}}</td>
+                <td md-cell>{{(((vm.sldata|filter:{'machine':'SpinLine #3'}) | filter:{'item1':item.item1}) | sumField:'textbox2')}}</td>
+                <td md-cell>{{(((vm.sldata|filter:{'machine':'SpinLine #3'}) | filter:{'item1':item.item1}) | sumField:'val') |number:0}}</td>
+                <td md-cell>{{(((vm.sldata|filter:{'machine':'SpinLine #4'}) | filter:{'item1':item.item1}) | sumField:'textbox2')}}</td>
+                <td md-cell>{{(((vm.sldata|filter:{'machine':'SpinLine #4'}) | filter:{'item1':item.item1}) | sumField:'val')|number:0}}</td>
+                <td md-cell>{{(((vm.sldata|filter:{'machine':'SpinLine #136'}) | filter:{'item1':item.item1}) | sumField:'textbox2')}}</td>
+                <td md-cell>{{(((vm.sldata|filter:{'machine':'SpinLine #136'}) | filter:{'item1':item.item1}) | sumField:'val')|number:0}}</td>
+                <td md-cell>{{(((vm.sldata|filter:{'machine':'SpinLine #236'}:true) | filter:{'item1':item.item1}) | sumField:'textbox2')}}</td>
+                <td md-cell>{{(((vm.sldata|filter:{'machine':'SpinLine #236'}:true) | filter:{'item1':item.item1}) | sumField:'val')|number:0}}</td>
+                <td md-cell>{{((vm.sldata | filter:{'item1':item.item1}) | sumField:'textbox2')}}</td>
+                <td md-cell>{{((vm.sldata | filter:{'item1':item.item1}) | sumField:'val')|number:0}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </md-table-container>
+      </div>
+    </md-divider>
+  </div>
+</md-content>
