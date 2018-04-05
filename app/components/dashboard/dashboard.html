@@ -1,11 +1,37 @@
 <md-content layout="row" layout-sm="column" layout-xs="column" flex-gt-sm="80" flex-offset-gt-sm="10">
   <div layout-padding flex>
     <h1 class="md-display-2" layout="row">
-      <span flex>Vezérlőpult</span>
+      <span flex>Összesítő {{vm.startdatenum}}-{{vm.enddatenum}}</span>
       <md-button class="md-fab md-primary md-hue-2">
         <md-icon class="material-icons">dashboard</md-icon>
       </md-button>
     </h1>
-    <md-divider></md-divider>
+    <md-divider>
+        <div layout-gt-xs="row">
+            <div flex-gt-xs>
+              <md-input-container>
+                <md-datepicker ng-model="vm.startdate" md-max-date="vm.maxdate"></md-datepicker>
+              </md-input-container>
+              <md-input-container>
+                <md-datepicker ng-model="vm.enddate" md-max-date="vm.maxdate"></md-datepicker>
+              </md-input-container>
+              <md-button class="md-primary md-raised" ng-click="vm.loadall()">Betöltés</md-button>
+            </div>
+          </div>
+        <div layout="row">
+          <div flex="30">
+              <h3>Termelt mennyiség</h3>
+              <my-chart options="vm.qtconf" id="qt"></my-chart>
+          </div>
+          <div flex="30">
+              <h3>Állásidők</h3>
+              <my-chart options="vm.dtconf" id="dt"></my-chart>
+          </div>
+          <div flex="30">
+              <h3>Selejt</h3>
+              <my-chart options="vm.scconf" id="sc"></my-chart>
+          </div>
+        </div>
+    </md-divider>
   </div>
 </md-content>
