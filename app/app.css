@@ -27,6 +27,43 @@ h1,h2 { font-family: 'Open Sans Condensed'; font-weight: 100;}
 .quicklinks p{
   font-size: 10px;
 }
+.md-head{
+  background-color: #000d42;
+  color: #badb2a!important;
+}
+.md-head .md-column {
+  color: #badb2a!important;
+}
+.md-cell {
+  text-align: center;
+}
+.pivot .hover h3{
+  font-weight: bold;
+  font-size: 1.5em;
+  padding: 5px;
+}
+.pivot .hover h4 {
+  font-weight: bold;
+  font-size: 1.5em;
+  padding: 10px;
+}
+.pivot h5{
+  font-weight: bold;
+}
+.pivot .row div[class*="col-"], .pivot .row div[class*="col-"] h5 {
+  display: table-cell;
+  line-height: 40px;
+  height: 40px;
+}
+.pivot .hover{
+  cursor: pointer;
+}
+.pivot .hover:hover{
+  background-color: #ddd;
+}
+.pivot .row > div {
+  margin-bottom: 0;
+}
 .myselector *{
   height: auto;
 }

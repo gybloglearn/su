@@ -9,19 +9,19 @@
     <md-divider>
       <div layout-gt-xs="row">
         <div flex-gt-xs>
-          <label>Gépek:</label>
           <md-input-container>
-            <select multiple="multiple" ng-model="vm.sheetmakers">
-              <option value="SM1">SM1</option>
-              <option value="SM2">SM2</option>
-              <option value="SM4">SM4</option>
-              <option value="SM5">SM5</option>
-              <option value="SM6">SM6</option>
-              <option value="SM7">SM7</option>
-              <option value="SM8">SM8</option>
-              <option value="SM9">SM9</option>
-            </select>
-          </md-input-container>
+          <md-select multiple ng-model="vm.sheetmakers" flex>
+              <label>Gépek:</label>
+              <md-option value="SM1">SM1</md-option>
+              <md-option value="SM2">SM2</md-option>
+              <md-option value="SM4">SM4</md-option>
+              <md-option value="SM5">SM5</md-option>
+              <md-option value="SM6">SM6</md-option>
+              <md-option value="SM7">SM7</md-option>
+              <md-option value="SM8">SM8</md-option>
+              <md-option value="SM9">SM9</md-option>
+            </md-select>
+            </md-input-container>
           <md-input-container>
             <md-datepicker ng-model="vm.startdate" md-max-date="vm.maxdate"></md-datepicker>
           </md-input-container>
@@ -32,32 +32,71 @@
         </div>
       </div>
       <div layout="row">
-        <md-table-container flex>
-          <table md-table>
-            <thead md-head>
-              <tr md-row>
-                <th md-column>Nap</th>
-                <th md-column>Össz</th>
-                <th md-column>Jó</th>
-                <th md-column>Jó AEQ</th>
-                <th md-column>Jó Modul</th>
-                <th md-column>Átadott lap</th>
-                <th md-column>Selejt lap</th>
-              </tr>
-            </thead>
-            <tbody md-body>
-              <tr md-row ng-repeat="item in vm.sm | unique: 'date' | orderBy:'date' track by $index">
-                <td>{{item.date}}</td>
-                <td>{{vm.sm | filter:{date: item.date} | sumField: 'ttlamount' | number:0}}</td>
-                <td>{{vm.sm | filter:{date: item.date} | sumField: 'amount' | number:0}}</td>
-                <td>{{vm.sm | filter:{date: item.date} | sumField: 'sumaeq' | number:2}}</td>
-                <td>{{vm.sm | filter:{date: item.date} | sumField: 'modul' | number:0}}</td>
-                <td>{{vm.sm | filter:{date: item.date} | sumField: 'lsh' | number:0}}</td>
-                <td>{{vm.sm | filter:{date: date.date} | sumField: 'bad' | number:0}}</td>
-              </tr>
-            </tbody>
-          </table>
-        </md-table-container>
+        <div flex="10">Nap</div>
+        <div flex="10">Szak</div>
+        <div flex="10">SM</div>
+        <div flex="10">Típus</div>
+        <div flex="10">Össz</div>
+        <div flex="10">Jó</div>
+        <div flex="10">Jó AEQ</div>
+        <div flex="10">Jó Modul</div>
+        <div flex="10">Átadott lap</div>
+        <div flex="10">Selejt lap</div>
+      </div>
+      <div class="pivot" ng-repeat="date in vm.sm | unique: 'date' | orderBy:'date' track by $index">
+        <div layout="row" class="row hover" ng-click="showshifts=!showshifts">
+          <div flex="40">
+            <h3>{{date.date}}</h3>
+          </div>
+          <div flex="10">{{vm.sm | filter:{date: date.date} | sumField: 'ttlamount' | number:0}}</div>
+          <div flex="10">{{vm.sm | filter:{date: date.date} | sumField: 'amount' | number:0}}</div>
+          <div flex="10">{{vm.sm | filter:{date: date.date} | sumField: 'sumaeq' | number:2}}</div>
+          <div flex="10">{{vm.sm | filter:{date: date.date} | sumField: 'modul' | number:0}}</div>
+          <div flex="10">{{vm.sm | filter:{date: date.date} | sumField: 'lsh' | number:0}}</div>
+          <div flex="10" ng-class="{'text-ge-red':(vm.sm | filter:{date: date.date} | sumField: 'bad') != (vm.sm | filter:{date: date.date} | sumField: 'diff')}">{{vm.sm | filter:{date: date.date} | sumField: 'bad' | number:0}}</div>
+        </div>
+        <div ng-repeat="sh in [1,3]" ng-show="showshifts">
+          <div layout="row" class="row hover" ng-click="showsms=!showsms">
+            <div flex="10"></div>
+            <div flex="30">
+              <h4>{{sh==1?'DE':'DU'}} - {{sh | shift:date.date}}</h4>
+            </div>
+            <div flex="10">{{vm.sm | filter:{date: date.date, shiftnum: sh} | sumField: 'ttlamount' | number:0}}</div>
+            <div flex="10">{{vm.sm | filter:{date: date.date, shiftnum: sh} | sumField: 'amount' | number:0}}</div>
+            <div flex="10">{{vm.sm | filter:{date: date.date, shiftnum: sh} | sumField: 'sumaeq' | number:2}}</div>
+            <div flex="10">{{vm.sm | filter:{date: date.date, shiftnum: sh} | sumField: 'modul' | number:0}}</div>
+            <div flex="10">{{vm.sm | filter:{date: date.date, shiftnum: sh} | sumField: 'lsh' | number:0}}</div>
+            <div flex="10" ng-class="{'text-ge-red':(vm.sm | filter:{date: date.date, shiftnum:sh} | sumField: 'bad') != (vm.sm | filter:{date: date.date, shiftnum:sh} | sumField: 'diff')}">{{vm.sm | filter:{date: date.date, shiftnum: sh} | sumField: 'bad' | number:0}}</div>
+          </div>
+          <div ng-repeat="item in ((vm.sm | filter: {date:date.date, shiftnum:sh}) | unique:'id') | orderBy:'id'" ng-show="showsms">
+            <div layout="row" class="row hover" ng-click="showtypes=!showtypes">
+              <div flex="20"></div>
+              <div flex="10">
+                <h5>{{item.id}}</h5>
+              </div>
+              <div flex="10">
+                <span ng-if="(vm.sm | filter: {date:date.date, shiftnum:sh, id:item.id}).length == 1">{{item.type}}</span>
+              </div>
+              <div flex="10">{{vm.sm | filter:{id: item.id, date: date.date, shiftnum: sh} | sumField: 'ttlamount' | number:0}}</div>
+              <div flex="10">{{vm.sm | filter:{id: item.id, date: date.date, shiftnum: sh} | sumField: 'amount' | number:0}}</div>
+              <div flex="10">{{vm.sm | filter:{id: item.id, date: date.date, shiftnum: sh} | sumField: 'sumaeq' | number:2}}</div>
+              <div flex="10">{{vm.sm | filter:{id: item.id, date: date.date, shiftnum: sh} | sumField: 'modul' | number:0}}</div>
+              <div flex="10">{{vm.sm | filter:{id: item.id, date: date.date, shiftnum: sh} | sumField: 'lsh' | number:0}}</div>
+              <div flex="10" ng-class="{'text-ge-red':(vm.sm | filter:{date: date.date,id:item.id, shiftnum:sh, type:it.type} | sumField: 'bad') != (vm.sm | filter:{date: date.date,id:item.id, shiftnum:sh, type:it.type} | sumField: 'diff')}">{{vm.sm | filter:{id: item.id, date: date.date, shiftnum: sh} | sumField: 'bad' | number:0}}</div>
+            </div>
+            <div layout="row" class="row hover" ng-if="(vm.sm | filter: {date:date.date, shiftnum:sh, id:item.id}).length > 1" class="row"
+              ng-repeat="it in vm.sm | filter: {date: date.date, shiftnum:sh, id: item.id} | orderBy: 'type'" ng-show="showtypes">
+              <div flex=20></div>
+              <div flex=10>{{it.type}}</div>
+              <div flex="10">{{vm.sm | filter:{id: item.id, date: date.date, shiftnum: sh, type: it.type} | sumField: 'ttlamount' | number:0}}</div>
+              <div flex="10">{{vm.sm | filter:{id: item.id, date: date.date, shiftnum: sh, type: it.type} | sumField: 'amount' | number:0}}</div>
+              <div flex="10">{{vm.sm | filter:{id: item.id, date: date.date, shiftnum: sh, type: it.type} | sumField: 'sumaeq' | number:2}}</div>
+              <div flex="10">{{vm.sm | filter:{id: item.id, date: date.date, shiftnum: sh, type: it.type} | sumField: 'modul' | number:0}}</div>
+              <div flex="10">{{vm.sm | filter:{id: item.id, date: date.date, shiftnum: sh, type: it.type} | sumField: 'lsh' | number:0}}</div>
+              <div flex="10" ng-class="{'text-ge-red':(vm.sm | filter:{date: date.date,id:item.id, shiftnum:sh, type:it.type} | sumField: 'bad') != (vm.sm | filter:{date: date.date,id:item.id, shiftnum:sh, type:it.type} | sumField: 'diff')}">{{vm.sm | filter:{id: item.id, date: date.date, shiftnum: sh, type: it.type} | sumField: 'bad' | number:0}}</div>
+            </div>
+          </div>
+        </div>
       </div>
     </md-divider>
   </div>
