@@ -1,0 +1,105 @@
+<md-content layout="row" layout-sm="column" layout-xs="column">
+  <div layout-padding flex>
+    <h1 class="md-display-2" layout="row">
+      <span flex>{{vm.actsm}}-{{vm.datumszam}}</span>
+      <md-button class="md-fab md-primary md-hue-2">
+        <md-icon class="material-icons">dashboard</md-icon>
+      </md-button>
+    </h1>
+    <md-divider>
+      <div layout-gt-xs="row">
+          <md-input-container>
+              <label>Gép:</label>
+            <md-select ng-model="vm.actsm" ng-change="vm.load()">
+              <md-option ng-repeat="sms in vm.sheetmakers" ng-value="sms">{{sms}}</md-option>
+            </md-select>
+          </md-input-container>
+          <md-input-container>
+            <label>Dátum:</label>
+            <md-datepicker ng-model="vm.datum" md-max-date="vm.maxdate" ng-change="vm.load()"></md-datepicker>
+          </md-input-container>
+      </div>
+      <div layout="row" layout-xs="column" layout-sm="column">
+        <div flex=50 flex-sm="100" flex-xs="100">
+          <my-chart id="mainchart" options="vm.mainchartconfig"></my-chart>
+        </div>
+        <div flex=50 flex-sm="100" flex-xs="100">
+          <my-chart id="piechart" options="vm.chartconfig_pie"></my-chart>
+        </div>
+      </div>
+      <div layout-gt-xs="row">
+        <div flex-gt-xs layout="row">
+          <md-input-container flex>
+            <label>Eset típus</label>
+            <md-select ng-model="search.Event_type">
+              <md-option value="">Mind</md-option>
+              <md-option ng-repeat="ev in vm.events" ng-value="ev.Event_type">{{ev.Event_type}}</md-option>
+            </md-select>
+          </md-input-container>
+          <md-input-container flex>
+              <label>Eset csoport</label>
+            <md-select ng-model="search.Ev_Group">
+              <md-option value="">Mind</md-option>
+              <md-option value="Muszaki technikai okok">Muszaki technikai okok</md-option>
+              <md-option value="Szervezesi veszteseg">Szervezesi veszteseg</md-option>
+              <md-option value="Tervezett veszteseg">Tervezett veszteseg</md-option>
+            </md-select>
+          </md-input-container>
+          <md-input-container flex>
+              <label>Eset alcsoport</label>
+            <md-select ng-model="search.Event_SubGroup">
+              <md-option ng-repeat="it in vm.egyedi | filter:{'Ev_Group':search.Ev_Group} | orderBy:'Event_SubGroup' track by $index" value="{{it.Event_SubGroup}}">{{it.Event_SubGroup?it.Event_SubGroup:"Mind"}}</md-option>
+            </md-select>
+          </md-input-container>
+          <md-input-container flex>
+              <label>Szak</label>
+            <md-select ng-model="search.Shift_Name">
+              <md-option value="">Mind</md-option>
+              <md-option value="A">A</md-option>
+              <md-option value="B">B</md-option>
+              <md-option value="C">C</md-option>
+              <md-option value="D">D</md-option>
+            </md-select>
+          </md-input-container>
+          <md-input-container flex>
+              <label>Maximo szám</label>
+              <input type="text" ng-model="search.Maximo_num">
+          </md-input-container>
+        </div>
+      </div>
+      <div layout="row">
+        <md-table-container flex>
+          <table md-table>
+            <thead md-head>
+              <tr md-row>
+                <th md-column rowspan=2 ng-click="vm.order='Event_type';vm.asc=!vm.asc;">Eset típus</th>
+                <th md-column rowspan=2 ng-click="vm.order='timestamp';vm.asc=!vm.asc;">Időbélyeg</th>
+                <th md-column ng-click="vm.order='Event_time';vm.asc=!vm.asc;">Eset Idő
+                  <br> Össz:
+                  <b>{{ (vm.data | filter: search | sumField: 'Event_time')/60 | number:0 }}</b> (perc)
+                </th>
+                <th md-column>Szak</th>
+                <th md-column rowspan=2 ng-click="vm.order='Ev_Group';vm.asc=!vm.asc;">Eset csoport</th>
+                <th md-column rowspan=2 ng-click="vm.order='Event_SubGroup';vm.asc=!vm.asc;">Eset alcsoport</th>
+                <th md-column>Maximo szám</th>
+                <th md-column>Komment</th>
+              </tr>
+            </thead>
+            <tbody md-body>
+              <tr md-row ng-repeat="item in vm.data | orderBy:vm.order:vm.asc | filter: search track by $index">
+                <td md-cell>{{item.Event_type}}</td>
+                <td md-cell>{{item.timestamp | date: 'yyyy-MM-dd HH:mm'}}</td>
+                <td md-cell>{{item.Event_time}}</td>
+                <td md-cell>{{item.Shift_Name}}</td>
+                <td md-cell>{{item.Ev_Group}}</td>
+                <td md-cell>{{item.Event_SubGroup}}</td>
+                <td md-cell>{{item.Maximo_num}}</td>
+                <td md-cell>{{item.Comment}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </md-table-container>
+      </div>
+    </md-divider>
+  </div>
+</md-content>

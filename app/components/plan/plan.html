@@ -1,0 +1,93 @@
+<md-content layout="row" layout-sm="column" layout-xs="column">
+  <div layout-padding flex>
+    <h1 class="md-display-2" layout="row">
+      <span flex>SM-Tervek</span>
+      <md-button class="md-fab md-primary md-hue-2">
+        <md-icon class="material-icons">dashboard</md-icon>
+      </md-button>
+    </h1>
+    <md-divider>
+      <!--md-input-container flex>
+        <label>Darab</label>
+        <input type="text" ng-model="vm.darab">
+        <md-button class="md-primary md-raised" ng-click="vm.show()" ng-disabled="vm.darab==null">Input mezők generálása</md-button>
+      </md-input-container>
+      <div layout="row">
+        <md-table-container flex>
+          <table md-table>
+            <thead md-head>
+              <tr md-row>
+                <th>ID</th>
+                <th>Gép</th>
+                <th>Darab</th>
+              </tr>
+            </thead>
+            <tbody md-body>
+              <tr ng-repeat="item in vm.sheetmakers track by $index">
+                <th>
+                  <input ng-model="vm.data[$index].id" type="text" class="form-control" value="{{vm.id}}" readonly>
+                </th>
+                <th>
+                  <input ng-model="vm.data[$index].sm" type="text" class="form-control" value="{{item}}" readonly>
+                </th>
+                <th>
+                  <input ng-model="vm.data[$index].amount" type="text" class="form-control" value="{{vm.darab}}">
+                </th>
+              </tr>
+            </tbody>
+          </table>
+        </md-table-container>
+      </div-->
+      <div layout="row">
+        <h1 class="md-display-2" layout="row">
+          <span flex>Felvett tervek listája</span>
+        </h1>
+      </div>
+      <div layout="row">
+        <md-table-container flex>
+          <table md-table>
+            <thead md-head>
+              <tr md-row>
+                <th>Gép</th>
+                <th>Darab</th>
+                <th>Szerkesztés</th>
+              </tr>
+            </thead>
+            <tbody md-body>
+              <tr ng-repeat="item in vm.planlist track by $index">
+                <th>
+                  {{item.sm}}
+                </th>
+                <th>
+                  {{item.amount}}
+                </th>
+                <th>
+                  <md-button class="md-primary md-raised" ng-click="vm.edit = item">Szerkesztés</md-button>
+                </th>
+              </tr>
+            </tbody>
+          </table>
+        </md-table-container>
+      </div>
+      <div layout="row" ng-show="vm.edit">
+        <h1 class="md-display-2" layout="row">
+          <span flex>Terv módosítása</span>
+        </h1>
+      </div>
+      <div layout="row" ng-show="vm.edit">
+        <div flex=30>
+          <span>Gép:</span>
+          <input type="text" ng-model="vm.edit.sm" readonly>
+        </div>
+        <div flex=30>
+            <span>Darab:</span>
+						<input type="text" ng-model="vm.edit.amount">
+        </div>
+        <div flex=30>
+            <md-button class="md-default md-raised " ng-click="vm.edit = '';">Mégse</md-button>
+            <md-button class="md-warn md-raised " ng-click="vm.updateplan(vm.edit)">Mentés</md-button>
+        </div>
+      </div>
+    </md-divider>
+  </div>
+</md-content>
