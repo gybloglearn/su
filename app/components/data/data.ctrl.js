@@ -25,10 +25,10 @@
 
     ////////////////
 
-    function loadnumbers(){
+    function loadnumbers() {
       DataService.getAll().then(function (response) {
         vm.smnumbers = response.data;
-        console.log(vm.smnumbers);
+        load();
       });
     }
 
@@ -47,30 +47,40 @@
       vm.chartdrill = [];
       vm.today = (new Date().getHours() * 60 + new Date().getMinutes()) - 350;
       vm.datumszam = $filter('date')(new Date(vm.datum), 'yyyy-MM-dd');
-
+      updtestand(vm.actsm);
       for (var i = 0; i < 24; i++) {
         vm.darab[i] = 0;
       }
-      for (var i = 0; i < 24; i++) {
-        vm.allando[i] = 25;
-      }
+
 
       DataService.get(vm.datumszam, vm.actsm).then(function (response) {
         vm.data = response.data;
         for (var i = 0; i < vm.data.length; i++) {
           hour_grop(vm.data[i].Event_type, vm.data[i].timestamp);
         }
-        vm.sumtervezesi = ($filter('sumField')($filter('filter')(vm.data, { Ev_Group: "Tervezesi veszteseg" }), 'Event_time')) / 60;
+        vm.sumtervezesi = ($filter('sumField')($filter('filter')(vm.data, { Ev_Group: "Tervezett veszteseg" }), 'Event_time')) / 60;
         vm.sumszervezesi = ($filter('sumField')($filter('filter')(vm.data, { Ev_Group: "Szervezesi veszteseg" }), 'Event_time')) / 60;
         vm.summuszakiok = ($filter('sumField')($filter('filter')(vm.data, { Ev_Group: "Muszaki technikai okok" }), 'Event_time')) / 60;
         vm.events = $filter('unique')(vm.data, 'Event_type');
         vm.egyedi = $filter('unique')(vm.data, 'Event_SubGroup');
-        pieceterv = $filter('unique')($filter('filter')(vm.data, { Ev_Group: "Tervezesi veszteseg" }), 'Event_SubGroup');
+        pieceterv = $filter('unique')($filter('filter')(vm.data, { Ev_Group: "Tervezett veszteseg" }), 'Event_SubGroup');
         pieceszerv = $filter('unique')($filter('filter')(vm.data, { Ev_Group: "Szervezesi veszteseg" }), 'Event_SubGroup');
         piecemuszaki = $filter('unique')($filter('filter')(vm.data, { Ev_Group: "Muszaki technikai okok" }), 'Event_SubGroup');
-        vm.chartdrill.push({ name: "Tervezesi veszteseg", id: "Tervezesi veszteseg", data: [] });
-        vm.chartdrill.push({ name: "Szervezesi veszteseg", id: "Szervezesi veszteseg", data: [] });
-        vm.chartdrill.push({ name: "Muszaki technikai okok", id: "Muszaki technikai okok", data: [] });
+        vm.chartdrill.push({
+          name: "Tervezesi veszteseg", tooltip: {
+            pointFormat: '<b style="color:{point.color};font-size:1.2em;font-weight:bold">{point.y:.2f} perc</b>',
+          }, id: "Tervezesi veszteseg", data: []
+        });
+        vm.chartdrill.push({
+          name: "Szervezesi veszteseg", tooltip: {
+            pointFormat: '<b style="color:{point.color};font-size:1.2em;font-weight:bold">{point.y:.2f} perc</b>',
+          }, id: "Szervezesi veszteseg", data: []
+        });
+        vm.chartdrill.push({
+          name: "Muszaki technikai okok", tooltip: {
+            pointFormat: '<b style="color:{point.color};font-size:1.2em;font-weight:bold">{point.y:.2f} perc</b>',
+          }, id: "Muszaki technikai okok", data: []
+        });
 
         for (var i = 0; i < pieceterv.length; i++) {
           vm.chartdrill[0].data.push([pieceterv[i].Event_SubGroup, ($filter('sumField')($filter('filter')(vm.data, { Event_SubGroup: pieceterv[i].Event_SubGroup }), 'Event_time')) / 60]);
@@ -81,15 +91,33 @@
         for (var k = 0; k < piecemuszaki.length; k++) {
           vm.chartdrill[2].data.push([piecemuszaki[k].Event_SubGroup, ($filter('sumField')($filter('filter')(vm.data, { Event_SubGroup: piecemuszaki[k].Event_SubGroup }), 'Event_time')) / 60]);
         }
-        console.log(vm.chartdrill);
+        function compare (a,b){
+          if (a[1] > b[1]) return -1;
+          if (a[1] < b[1]) return 1;
+          return 0;
+        }
+        vm.chartdrill[0].data.sort(compare);
+        vm.chartdrill[1].data.sort(compare);
+        vm.chartdrill[2].data.sort(compare);
         daytimechart();
         setMainchart();
         setPiechart();
       });
     }
 
-    function setMainchart() {
+    function updtestand(sheetm) {
+      var num = 0;
+      for (var i = 0; i < vm.smnumbers.length; i++) {
+        if (sheetm == vm.smnumbers[i].sm) {
+          num = vm.smnumbers[i].amount
+        }
+      }
+      for (var i = 0; i < 24; i++) {
+        vm.allando[i] = num * 1;
+      }
+    }
 
+    function setMainchart() {
       vm.mainchartconfig = {
         chart: {
           type: 'column',
@@ -153,7 +181,7 @@
           height: 400
         },
         tooltip: {
-          pointFormat: '<b style="color:{point.color};font-size:1.2em;font-weight:bold">{point.percentage:.2f} %</b>'
+          pointFormat: '<b style="color:{point.color};font-size:1.2em;font-weight:bold">{point.percentage:.2f} %</b>',
         },
         title: { text: "Állásidők eloszlása" },
         subtitle: { text: "Összes eltelt idő: " + vm.today + "perc" },
@@ -226,7 +254,6 @@
         vm.user = $cookies.getObject('user', { path: '/' });
       }
       loadnumbers();
-      load();
     }
   }
 })();

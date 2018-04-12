@@ -27,3 +27,18 @@ h1,h2 { font-family: 'Open Sans Condensed'; font-weight: 100;}
 .quicklinks p{
   font-size: 10px;
 }
+.myselector *{
+  height: auto;
+}
+.myselector select.form-control {
+  height: 52px;
+  padding: 0;
+  overflow: hidden;
+}
+.myselector select.form-control option {
+  display: block;
+  float: left;
+  padding: 5px;
+  width: 25%;
+  text-align: center;
+}

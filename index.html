@@ -32,12 +32,16 @@
 			</md-toolbar>
 			<md-content>
 				<md-list flex>
-					<md-list-item ui-sref="plan" ng-click="close()">
-						<div flex class="md-list-item-text">Terv</div>
-						<md-icon class="material-icons">dashboard</md-icon>
-					</md-list-item>
 					<md-list-item ui-sref="data" ng-click="close()">
 						<div flex class="md-list-item-text">Termelt mennyiség</div>
+						<md-icon class="material-icons">dashboard</md-icon>
+					</md-list-item>
+					<md-list-item ui-sref="sscrap" ng-click="close()">
+						<div flex class="md-list-item-text">Termelési összesítő</div>
+						<md-icon class="material-icons">dashboard</md-icon>
+					</md-list-item>
+					<md-list-item ui-sref="plan" ng-click="close()">
+						<div flex class="md-list-item-text">Terv</div>
 						<md-icon class="material-icons">dashboard</md-icon>
 					</md-list-item>
 					<md-list-item ui-sref="dashboard" ng-click="close()">
@@ -127,11 +131,14 @@
 	<script src="app/components/login/login.ctrl.js"></script>
 	<script src="app/components/dashboard/dashboard.ctrl.js"></script>
 	<script src="app/components/quicklinks/quicklinks.ctrl.js"></script>
-		<script src="app/components/data/data.ctrl.js"></script>
+	<script src="app/components/data/data.ctrl.js"></script>
 	<script src="app/components/services/data.service.js"></script>
 	<script src="app/components/plan/plan.ctrl.js"></script>
 	<script src="app/components/services/plan.service.js"></script>
-	<!--endbuild--><!--adds-->
+	<script src="app/components/sscrap/sscrap.ctrl.js"></script>
+	<script src="app/components/services/sscrap.service.js"></script>
+	<!--endbuild-->
+	<!--adds-->
 	<script>
 		angular.bootstrap(document, ['app']);
 	</script>
