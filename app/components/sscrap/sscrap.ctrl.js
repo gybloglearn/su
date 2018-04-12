@@ -9,7 +9,8 @@
   function SscrapController($state, $cookies, $rootScope, $filter, $mdSidenav, SscrapService) {
     var vm = this;
     vm.startdate = new Date();
-    vm.enddatenum = new Date().getTime() + 24 * 60 * 60 * 1000;
+    vm.enddate= new Date(new Date().getTime() + 24 * 60 * 60 * 1000);
+    vm.maxdate = new Date(new Date().getTime() + 24 * 60 * 60 * 1000);
     vm.startdatenum = $filter('date')(new Date().getTime(), 'yyyy-MM-dd');
     vm.enddatenum = $filter('date')(new Date().getTime() + 24 * 60 * 60 * 1000, 'yyyy-MM-dd');
     vm.sheetmakers = ["SM1", "SM2", "SM4", "SM5", "SM6", "SM7", "SM8", "SM9"];
@@ -29,9 +30,10 @@
 
     function load() {
       vm.sm = [];
+      vm.startdatenum = $filter('date')(new Date(vm.startdate).getTime(), 'yyyy-MM-dd');
       var counter = 0;
       for (var i = 0; i < vm.sheetmakers.length; i++) {
-        SscrapService.getsheet(vm.startdate, $filter('date')(new Date(vm.enddate).getTime() + 24 * 60 * 60 * 1000, 'yyyy-MM-dd'), vm.sheetmakers[i]).then(function (response) {
+        SscrapService.getsheet(vm.startdatenum, $filter('date')(new Date(vm.enddate).getTime() + 24 * 60 * 60 * 1000, 'yyyy-MM-dd'), vm.sheetmakers[i]).then(function (response) {
           counter++;
           response.data = $filter('orderBy')(response.data, ['type']);
           for (var j = 0; j < response.data.length; j++) {
@@ -76,7 +78,8 @@
     }
 
     function scrapload() {
-      sscrapService.getscrap(vm.startdate, $filter('date')(new Date(vm.enddate).getTime() + 24 * 60 * 60 * 1000, 'yyyy-MM-dd')).then(function (response) {
+      vm.startdatenum = $filter('date')(new Date(vm.startdate).getTime(), 'yyyy-MM-dd');
+      SscrapService.getscrap(vm.startdatenum, $filter('date')(new Date(vm.enddate).getTime() + 24 * 60 * 60 * 1000, 'yyyy-MM-dd')).then(function (response) {
         for (var i = 0; i < vm.sm.length; i++) {
           vm.sm[i].bad = 0;
           for (var j = 0; j < response.data.length; j++) {
@@ -93,6 +96,7 @@
           }
         }
         vm.loading = false;
+        console.log(vm.sm);
       });
     }
 
@@ -144,6 +148,6 @@
       { name: "UBB CP5", amount: 0.6, sheets: 16 },
       { name: "UBB Block", amount: 0.6 / 4, sheets: 4 }
     ];
-    
+
   }
 })();

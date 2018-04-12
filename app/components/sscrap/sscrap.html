@@ -7,7 +7,58 @@
       </md-button>
     </h1>
     <md-divider>
-      
+      <div layout-gt-xs="row">
+        <div flex-gt-xs>
+          <label>Gépek:</label>
+          <md-input-container>
+            <select multiple="multiple" ng-model="vm.sheetmakers">
+              <option value="SM1">SM1</option>
+              <option value="SM2">SM2</option>
+              <option value="SM4">SM4</option>
+              <option value="SM5">SM5</option>
+              <option value="SM6">SM6</option>
+              <option value="SM7">SM7</option>
+              <option value="SM8">SM8</option>
+              <option value="SM9">SM9</option>
+            </select>
+          </md-input-container>
+          <md-input-container>
+            <md-datepicker ng-model="vm.startdate" md-max-date="vm.maxdate"></md-datepicker>
+          </md-input-container>
+          <md-input-container>
+            <md-datepicker ng-model="vm.enddate" md-max-date="vm.maxdate"></md-datepicker>
+          </md-input-container>
+          <md-button class="md-primary md-raised" ng-click="vm.load()">Betöltés</md-button>
+        </div>
+      </div>
+      <div layout="row">
+        <md-table-container flex>
+          <table md-table>
+            <thead md-head>
+              <tr md-row>
+                <th md-column>Nap</th>
+                <th md-column>Össz</th>
+                <th md-column>Jó</th>
+                <th md-column>Jó AEQ</th>
+                <th md-column>Jó Modul</th>
+                <th md-column>Átadott lap</th>
+                <th md-column>Selejt lap</th>
+              </tr>
+            </thead>
+            <tbody md-body>
+              <tr md-row ng-repeat="item in vm.sm | unique: 'date' | orderBy:'date' track by $index">
+                <td>{{item.date}}</td>
+                <td>{{vm.sm | filter:{date: item.date} | sumField: 'ttlamount' | number:0}}</td>
+                <td>{{vm.sm | filter:{date: item.date} | sumField: 'amount' | number:0}}</td>
+                <td>{{vm.sm | filter:{date: item.date} | sumField: 'sumaeq' | number:2}}</td>
+                <td>{{vm.sm | filter:{date: item.date} | sumField: 'modul' | number:0}}</td>
+                <td>{{vm.sm | filter:{date: item.date} | sumField: 'lsh' | number:0}}</td>
+                <td>{{vm.sm | filter:{date: date.date} | sumField: 'bad' | number:0}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </md-table-container>
+      </div>
     </md-divider>
   </div>
 </md-content>
