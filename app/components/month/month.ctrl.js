@@ -25,6 +25,7 @@
     vm.load = load;
     vm.filterSMs = filterSMs;
     vm.planDeploy = plan_deploy;
+    vm.getYearPlan = getYearPlan;
 
     vm.getMonday = getDateOfISOWeek;
     vm.createData = createData;
@@ -62,31 +63,33 @@
         result[r].bpscore = result[r].bptarget < result[r].bpactual ? 1 : 0;
         result[r].minscore = result[r].mintarget < result[r].minactual ? 1 : 0;
       }
-      //console.log(result);
       vm.getScore = getScore;
       vm.setColor = setColor;
       //return result;
       vm.result = result;
     }
+    function getYearPlan(sh, area) {
+      return $filter('sumField')($filter('filter')(vm.result, { szak: sh }), 'smtarget');
+    }
     function getScore(area, sh, w) {
       var shifts = ['A', 'B', 'C', 'D'];
       var shdata = [];
-      if (parseInt(w) <= new Date().getMonth()+1) {
+      if (!w) {
         shdata.push({
-          shift: 'A', act: parseFloat($filter('sumField')($filter('filter')(vm.result, { szak: 'A', month: w }), '' + area + 'actual')), tar: parseFloat($filter('sumField')($filter('filter')(vm.result, { szak: 'A', month: w }), '' + area + 'target')),
-          val: parseFloat($filter('sumField')($filter('filter')(vm.result, { szak: 'A', month: w }), '' + area + 'actual')) / parseFloat($filter('sumField')($filter('filter')(vm.result, { szak: 'A', month: w }), '' + area + 'target'))
+          shift: 'A', act: parseFloat($filter('sumField')($filter('filter')(vm.result, { szak: 'A' }), '' + area + 'actual')), tar: parseFloat($filter('sumField')($filter('filter')(vm.result, { szak: 'A' }), '' + area + 'target')),
+          val: parseFloat($filter('sumField')($filter('filter')(vm.result, { szak: 'A' }), '' + area + 'actual')) / parseFloat($filter('sumField')($filter('filter')(vm.result, { szak: 'A' }), '' + area + 'target'))
         });
         shdata.push({
-          shift: 'B', act: parseFloat($filter('sumField')($filter('filter')(vm.result, { szak: 'B', month: w }), '' + area + 'actual')), tar: parseFloat($filter('sumField')($filter('filter')(vm.result, { szak: 'B', month: w }), '' + area + 'target')),
-          val: parseFloat($filter('sumField')($filter('filter')(vm.result, { szak: 'B', month: w }), '' + area + 'actual')) / parseFloat($filter('sumField')($filter('filter')(vm.result, { szak: 'B', month: w }), '' + area + 'target'))
+          shift: 'B', act: parseFloat($filter('sumField')($filter('filter')(vm.result, { szak: 'B' }), '' + area + 'actual')), tar: parseFloat($filter('sumField')($filter('filter')(vm.result, { szak: 'B' }), '' + area + 'target')),
+          val: parseFloat($filter('sumField')($filter('filter')(vm.result, { szak: 'B' }), '' + area + 'actual')) / parseFloat($filter('sumField')($filter('filter')(vm.result, { szak: 'B' }), '' + area + 'target'))
         });
         shdata.push({
-          shift: 'C', act: parseFloat($filter('sumField')($filter('filter')(vm.result, { szak: 'C', month: w }), '' + area + 'actual')), tar: parseFloat($filter('sumField')($filter('filter')(vm.result, { szak: 'C', month: w }), '' + area + 'target')),
-          val: parseFloat($filter('sumField')($filter('filter')(vm.result, { szak: 'C', month: w }), '' + area + 'actual')) / parseFloat($filter('sumField')($filter('filter')(vm.result, { szak: 'C', month: w }), '' + area + 'target'))
+          shift: 'C', act: parseFloat($filter('sumField')($filter('filter')(vm.result, { szak: 'C' }), '' + area + 'actual')), tar: parseFloat($filter('sumField')($filter('filter')(vm.result, { szak: 'C' }), '' + area + 'target')),
+          val: parseFloat($filter('sumField')($filter('filter')(vm.result, { szak: 'C' }), '' + area + 'actual')) / parseFloat($filter('sumField')($filter('filter')(vm.result, { szak: 'C' }), '' + area + 'target'))
         });
         shdata.push({
-          shift: 'D', act: parseFloat($filter('sumField')($filter('filter')(vm.result, { szak: 'D', month: w }), '' + area + 'actual')), tar: parseFloat($filter('sumField')($filter('filter')(vm.result, { szak: 'D', month: w }), '' + area + 'target')),
-          val: parseFloat($filter('sumField')($filter('filter')(vm.result, { szak: 'D', month: w }), '' + area + 'actual')) / parseFloat($filter('sumField')($filter('filter')(vm.result, { szak: 'D', month: w }), '' + area + 'target'))
+          shift: 'D', act: parseFloat($filter('sumField')($filter('filter')(vm.result, { szak: 'D' }), '' + area + 'actual')), tar: parseFloat($filter('sumField')($filter('filter')(vm.result, { szak: 'D' }), '' + area + 'target')),
+          val: parseFloat($filter('sumField')($filter('filter')(vm.result, { szak: 'D' }), '' + area + 'actual')) / parseFloat($filter('sumField')($filter('filter')(vm.result, { szak: 'D' }), '' + area + 'target'))
         });
         shdata = $filter('orderBy')(shdata, 'val');
         for (var i = 0; i < shdata.length; i++) {
@@ -94,14 +97,40 @@
             return i;
           }
         }
+      } else {
+        if (parseInt(w) <= new Date().getMonth() + 1) {
+          shdata.push({
+            shift: 'A', act: parseFloat($filter('sumField')($filter('filter')(vm.result, { szak: 'A', month: w }), '' + area + 'actual')), tar: parseFloat($filter('sumField')($filter('filter')(vm.result, { szak: 'A', month: w }), '' + area + 'target')),
+            val: parseFloat($filter('sumField')($filter('filter')(vm.result, { szak: 'A', month: w }), '' + area + 'actual')) / parseFloat($filter('sumField')($filter('filter')(vm.result, { szak: 'A', month: w }), '' + area + 'target'))
+          });
+          shdata.push({
+            shift: 'B', act: parseFloat($filter('sumField')($filter('filter')(vm.result, { szak: 'B', month: w }), '' + area + 'actual')), tar: parseFloat($filter('sumField')($filter('filter')(vm.result, { szak: 'B', month: w }), '' + area + 'target')),
+            val: parseFloat($filter('sumField')($filter('filter')(vm.result, { szak: 'B', month: w }), '' + area + 'actual')) / parseFloat($filter('sumField')($filter('filter')(vm.result, { szak: 'B', month: w }), '' + area + 'target'))
+          });
+          shdata.push({
+            shift: 'C', act: parseFloat($filter('sumField')($filter('filter')(vm.result, { szak: 'C', month: w }), '' + area + 'actual')), tar: parseFloat($filter('sumField')($filter('filter')(vm.result, { szak: 'C', month: w }), '' + area + 'target')),
+            val: parseFloat($filter('sumField')($filter('filter')(vm.result, { szak: 'C', month: w }), '' + area + 'actual')) / parseFloat($filter('sumField')($filter('filter')(vm.result, { szak: 'C', month: w }), '' + area + 'target'))
+          });
+          shdata.push({
+            shift: 'D', act: parseFloat($filter('sumField')($filter('filter')(vm.result, { szak: 'D', month: w }), '' + area + 'actual')), tar: parseFloat($filter('sumField')($filter('filter')(vm.result, { szak: 'D', month: w }), '' + area + 'target')),
+            val: parseFloat($filter('sumField')($filter('filter')(vm.result, { szak: 'D', month: w }), '' + area + 'actual')) / parseFloat($filter('sumField')($filter('filter')(vm.result, { szak: 'D', month: w }), '' + area + 'target'))
+          });
+          shdata = $filter('orderBy')(shdata, 'val');
+          for (var i = 0; i < shdata.length; i++) {
+            if (shdata[i].shift == sh) {
+              return i;
+            }
+          }
+        }
       }
     }
     function setColor(area, sh, w) {
-      if (parseInt(w) <= new Date().getMonth()+1) {
-        /*if (area != 'avg') {
-          return $filter('sumField')($filter('filter')(vm.result, { szak: sh, month: w }), area + 'score') == 1 ? 'green' : 'red';
-        } else {*/
-          var sc = parseFloat($filter('sumField')($filter('filter')(vm.result, { szak: sh, month: w }), area+'actual')) / parseFloat($filter('sumField')($filter('filter')(vm.result, { szak: sh, month: w }), area+'target'))
+      if (w) {
+        if (parseInt(w) <= new Date().getMonth() + 1) {
+          /*if (area != 'avg') {
+            return $filter('sumField')($filter('filter')(vm.result, { szak: sh, month: w }), area + 'score') == 1 ? 'green' : 'red';
+          } else {*/
+          var sc = parseFloat($filter('sumField')($filter('filter')(vm.result, { szak: sh, month: w }), area + 'actual')) / parseFloat($filter('sumField')($filter('filter')(vm.result, { szak: sh, month: w }), area + 'target'))
           var cl = '';
           switch (true) {
             case (sc < 0.9): cl = 'red'; break;
@@ -109,7 +138,17 @@
             case (sc >= 0.98): cl = 'green'; break;
           }
           return cl;
-        //}
+          //}
+        }
+      } else {
+        var sc = parseFloat($filter('sumField')($filter('filter')(vm.result, { szak: sh }), area + 'actual')) / parseFloat($filter('sumField')($filter('filter')(vm.result, { szak: sh }), area + 'target'))
+        var cl = '';
+        switch (true) {
+          case (sc < 0.9): cl = 'red'; break;
+          case (sc >= 0.9 && sc < 0.98): cl = 'orange'; break;
+          case (sc >= 0.98): cl = 'green'; break;
+        }
+        return cl;
       }
     }
 
@@ -166,16 +205,16 @@
       if (wk == 12) {
         lastday = new Date(new Date(new Date().getFullYear() + 1 + "-01-01").getTime() - 24 * 60 * 60 * 1000).getDate();
       } else {
-        lastday = new Date(new Date(new Date().getFullYear() + "-" + (parseInt(wk)+1) + "-01").getTime() - 24 * 60 * 60 * 1000).getDate();
+        lastday = new Date(new Date(new Date().getFullYear() + "-" + (parseInt(wk) + 1) + "-01").getTime() - 24 * 60 * 60 * 1000).getDate();
       }
       if (parseInt(wk) == new Date().getMonth() + 1) {
         lastday = new Date().getDate() - new Date().getDay();
       }
       var firstday = 0;
-      if(parseInt(wk) == 1){
+      if (parseInt(wk) == 1) {
         firstday = 6
       }
-      if (parseInt(wk) <= new Date().getMonth()+1) {
+      if (parseInt(wk) <= new Date().getMonth() + 1) {
         switch (mch) {
           case 'sm':
             var target = vm.rates.min / (1 - vm.rates.modscrap / 100) / (1 - vm.rates.smscrap / 100) / 2;
@@ -225,6 +264,18 @@
               }
             }
             break;
+        }
+        return shs[sh];
+      } else {
+        var target = 0;
+        for (var i = firstday; i < lastday; i++) {
+          var da = $filter('date')(d.getTime() + i * 24 * 60 * 60 * 1000, "yyyy-MM-dd");
+          if (sh == 'T') {
+            shs["T"] += target * 2;
+          } else {
+            shs[$filter('shift')(1, da)] += target;
+            shs[$filter('shift')(3, da)] += target;
+          }
         }
         return shs[sh];
       }
@@ -284,7 +335,7 @@
                   response[r].ScrapSheets = response[r].ScrapSheets ? parseInt(response[r].ScrapSheets) : 0;
                   response[r].sumgoodaeq = response[r].aeq * (response[r].Totalsheets - response[r].ScrapSheets);
                   response[r].week = getWeekNumber(new Date(response[r].days))[1];
-                  response[r].month = new Date(response[r].days).getMonth() < 10 ? "0" + (new Date(response[r].days).getMonth()+1) : "" + (new Date(response[r].days).getMonth()+1);
+                  response[r].month = new Date(response[r].days).getMonth() < 10 ? "0" + (new Date(response[r].days).getMonth() + 1) : "" + (new Date(response[r].days).getMonth() + 1);
                   vm.data.push(response[r]);
                 }
               }
@@ -304,7 +355,7 @@
                   response[r].sump3aeq = response[r].aeq * response[r].P3;
                   response[r].sumoutaeq = response[r].aeq * response[r].Out;
                   response[r].week = getWeekNumber(new Date(response[r].days))[1];
-                  response[r].month = new Date(response[r].days).getMonth() < 10 ? "0" + (new Date(response[r].days).getMonth()+1) : "" + (new Date(response[r].days).getMonth()+1);
+                  response[r].month = new Date(response[r].days).getMonth() < 10 ? "0" + (new Date(response[r].days).getMonth() + 1) : "" + (new Date(response[r].days).getMonth() + 1);
                   vm.data.push(response[r]);
                 }
               }
@@ -325,7 +376,7 @@
                   response[r].sumaeq = response[r].aeq * response[r].BPOUT;
                   response[r].gradeaeq = response[r].aeq * response[r].GRADED;
                   response[r].week = getWeekNumber(new Date(response[r].days))[1];
-                  response[r].month = new Date(response[r].days).getMonth() < 10 ? "0" + (new Date(response[r].days).getMonth()+1) : "" + (new Date(response[r].days).getMonth()+1);
+                  response[r].month = new Date(response[r].days).getMonth() < 10 ? "0" + (new Date(response[r].days).getMonth() + 1) : "" + (new Date(response[r].days).getMonth() + 1);
                   vm.data.push(response[r]);
                 }
               }
@@ -344,7 +395,7 @@
                   }
                   response[r].szak = $filter('shift')(response[r].shiftstart.substr(-5) == "05:50" ? 1 : 3, response[r].shiftday);
                   response[r].week = getWeekNumber(new Date(response[r].shiftday))[1];
-                  response[r].month = new Date(response[r].shiftday).getMonth() < 10 ? "0" + (new Date(response[r].shiftday).getMonth()+1) : "" + (new Date(response[r].shiftday).getMonth()+1);
+                  response[r].month = new Date(response[r].shiftday).getMonth() < 10 ? "0" + (new Date(response[r].shiftday).getMonth() + 1) : "" + (new Date(response[r].shiftday).getMonth() + 1);
                   vm.data.push(response[r]);
                 }
               }
@@ -410,7 +461,8 @@
         vm.user = $cookies.getObject('user', { path: '/' });
         vm.startdate = $filter('date')(new Date().getTime(), 'yyyy-MM-dd');
         vm.std = vm.startdate;
-        vm.currentMonth = new Date().getMonth() < 10?"0"+ (new Date().getMonth()+1): ""+ (new Date().getMonth()+1);
+        vm.currentMonth = new Date().getMonth() < 10 ? "0" + (new Date().getMonth() + 1) : "" + (new Date().getMonth() + 1);
+        vm.currentYear = new Date().getFullYear();
         vm.search = {};
         loadPartnumbers();
         loadSMPlans();

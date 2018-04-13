@@ -21,6 +21,7 @@
         $rootScope.user = $cookies.getObject('user',{path: '/'});
         vm.user = $cookies.getObject('user', {path: '/'});
         vm.shift = $filter('shift')(1, new Date());
+        $state.go('day');
       }
     }
   }
