@@ -32,10 +32,6 @@
 			</md-toolbar>
 			<md-content>
 				<md-list flex>
-					<md-list-item ui-sref="sap" ng-click="close()">
-						<div flex class="md-list-item-text">SAP adatok</div>
-						<md-icon class="material-icons">assignment</md-icon>
-					</md-list-item>
 					<md-list-item ui-sref="day" ng-click="close()">
 						<div flex class="md-list-item-text">Napi kimutatás</div>
 						<md-icon class="material-icons">today</md-icon>
@@ -48,9 +44,13 @@
 						<div flex class="md-list-item-text">Havi kimutatás</div>
 						<md-icon class="material-icons">date_range</md-icon>
 					</md-list-item>
-					<md-list-item ui-sref="dashboard" ng-click="close()">
+					<!--<md-list-item ui-sref="dashboard" ng-click="close()">
 						<div flex class="md-list-item-text">Vezérlőpult</div>
 						<md-icon class="material-icons">dashboardk</md-icon>
+					</md-list-item>-->
+					<md-list-item ui-sref="sap" ng-click="close()">
+						<div flex class="md-list-item-text">SAP adatok</div>
+						<md-icon class="material-icons">assignment</md-icon>
 					</md-list-item>
 				</md-list>
 				<md-divider></md-divider>
