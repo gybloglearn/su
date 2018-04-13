@@ -30,7 +30,7 @@
       </div>
       <div layout="row" ng-repeat="w in vm.weekstocover track by $index">
         <div flex=5 layout="row" layout-align="center center">
-          <h3 class="text-center" flex>{{w}}. hét</h3>
+          <h3 class="text-center" flex>{{w}}. hét<sup style="display: block; font-size: .6em;">{{ (vm.result | filter: {week: w})[0].monday }}<br>{{ (vm.result | filter: {week: w})[0].sunday}}</sup></h3>
         </div>
         <div class="tableMainColumn" layout="column" flex="{{$index==0?35:''}}" layout-align="space-around none" layout-padding flex ng-repeat="area in ['avg', 'sm', 'potting', 'bp'] track by $index">
           <div layout="row" flex>

@@ -43,6 +43,8 @@
         for (var sh = 0; sh < shifts.length; sh++) {
           result.push({
             week: vm.weekstocover[w],
+            monday: $filter('date')(new Date(getDateOfISOWeek(vm.weekstocover[w], new Date().getFullYear()).getTime()), "yyyy-MM-dd"),
+            sunday: $filter('date')(new Date(getDateOfISOWeek(vm.weekstocover[w], new Date().getFullYear()).getTime()).getTime()+6*24*60*60*1000, "yyyy-MM-dd"),
             szak: shifts[sh],
             smtarget: parseFloat(plan_deploy(vm.weekstocover[w], shifts[sh], 'sm')),
             smactual: parseFloat($filter('sumField')($filter('filter')(vm.data, { machine: 'SheetMaker', week: vm.weekstocover[w], szak: shifts[sh] }), 'sumgoodaeq')),
