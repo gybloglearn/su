@@ -95,19 +95,37 @@ md-toolbar.md-myCustom-theme:not(.md-menu-icon) md-icon{
 }
 .best, .worst {
   display: block;
-  float: right;
   width: 0px; height: 0px;
   border-width: 10px;
   border-style: solid;
   border-color: transparent;
+  margin: auto;
 }
 .best {
   /*background-color: #badb2a;*/
   margin-top: -10px;
-  border-bottom: 20px solid #badb2a;
+  border-bottom: 10px solid #badb2a;
 }
 .worst {
   /*background-color: #d55;*/
-  margin-top: 0;
-  border-top: 20px solid #d55;
+  margin-bottom: -10px;
+  border-top: 10px solid #d55;
+}
+.mbest, .mworst {
+  display: block;
+  width: 0px; height: 0px;
+  border-width: 10px;
+  border-style: solid;
+  border-color: transparent;
+  margin: auto;
+}
+.mbest {
+  /*background-color: #badb2a;*/
+  margin-top: -10px;
+  border-bottom: 10px solid #badb2a;
+}
+.mworst {
+  /*background-color: #d55;*/
+  margin-bottom: -10px;
+  border-top: 10px solid #d55;
 }

@@ -1,11 +1,65 @@
+<md-progress-linear md-mode="indeterminate" ng-show="vm.load"></md-progress-linear>
 <md-content layout="row" layout-sm="column" layout-xs="column">
   <div layout-padding flex>
     <h1 class="md-display-2" layout="row">
-      <span flex>Month</span>
+      <span flex>{{vm.currentMonth}}. hónap</span>
       <md-button class="md-fab md-primary md-hue-2">
         <md-icon class="material-icons">date_range</md-icon>
       </md-button>
     </h1>
     <md-divider></md-divider>
+    <md-content>
+      <div layout="row" style="border-bottom: 1px solid #ddd">
+        <div flex=5>
+          <h2 class="md-display-1 text-center">Hónap</h2>
+        </div>
+        <div class="tableHeader" layout="column" flex="{{$index==0?35:''}}" layout-align="space-around none" layout-padding flex
+          ng-repeat="area in ['Összesen', 'SM', 'POTTING', 'BP'] track by $index">
+          <div layout="row" flex>
+            <div flex>
+              <h2 class="md-display-1 text-center" style="margin:5px;">{{area}}</h2>
+            </div>
+          </div>
+          <div layout="row" flex>
+            <div flex layout="row" layout-align="space-around none">
+              <div ng-repeat="sh in ['A', 'B', 'C', 'D'] track by $index">
+                <h3 class="md-headline" style="margin-top: -10px;">{{sh}}</h3>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div layout="row" ng-repeat="m in ['01','02','03','04','05','06','07','08','09','10','11','12'] track by $index" ng-if="vm.currentMonth>=m">
+        <div flex=5 layout="row" layout-align="center center">
+          <h3 class="text-center" flex>{{m}}. hó</h3>
+        </div>
+        <div class="tableMainColumn" layout="column" flex="{{$index==0?35:''}}" layout-align="space-around none" layout-padding flex ng-repeat="area in ['avg', 'sm', 'potting', 'bp'] track by $index">
+          <div layout="row" flex>
+            <div flex layout="row" layout-align="space-around none">
+              <div ng-repeat="sh in ['A', 'B', 'C', 'D'] track by $index" ng-if="area != 'avg'" layout="column" layout-align="center center">
+                <sup style="font-size:.7em;color: #aaa; margin-bottom: -2xp;display:block;">A: <b class="{{vm.setColor(area, sh, m)}}">{{ vm.result | filter: {szak: sh, month: m} | sumField: ''+area+'actual' | number:1 }}</b></sup>
+                <sup style="font-size:.6em;color: rgb(100,113,166); display:block;">C: {{ vm.result | filter: {szak: sh, month: m} | sumField: ''+area+'target' | number:1 }}</sup>
+                <h3 class="score {{vm.setColor(area, sh, m)}}" style="font-size: .8em">
+                  {{ (vm.result | filter: {szak: sh, month: m} | sumField: ''+area+'actual') / (vm.result | filter: {szak: sh, month: m} |
+                  sumField:''+area+'target') * 100 | number:2 }}%
+                  <sup ng-show="vm.getScore(area,sh,m)==0" class="mworst"></sup>
+                  <sup ng-show="vm.getScore(area,sh,m)==3" class="mbest"></sup>
+                </h3>
+              </div>
+              <div ng-repeat="sh in ['A', 'B', 'C', 'D'] track by $index" ng-if="area == 'avg'" layout="column" layout-align="center center">
+                <sup style="font-size:.7em;color: #aaa; margin-bottom: -2xp;display:block;">A: {{ (vm.result | filter: {szak: sh, month: m} | sumField: ''+area+'actual') | number:1 }}</sup>
+                <sup style="font-size:.6em;color: rgb(100,113,166); display:block;">C: {{ (vm.result | filter: {szak: sh, month: m} | sumField: ''+area+'target') | number:1 }}</sup>
+                <h3 class="score {{vm.setColor(area, sh, m)}}">
+                  {{ (vm.result | filter: {szak: sh, month: m} | sumField: ''+area+'actual') / (vm.result | filter: {szak: sh, month: m} |
+                  sumField:''+area+'target') * 100 | number:2 }}%
+                  <sup ng-show="vm.getScore(area,sh,m)==0" class="worst"></sup>
+                  <sup ng-show="vm.getScore(area,sh,m)==3" class="best"></sup>
+                </h3>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
   </div>
+  </md-content>
 </md-content>

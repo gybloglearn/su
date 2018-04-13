@@ -25,6 +25,7 @@
     ];
     vm.load = load;
     vm.colorize = colorize;
+    vm.chartize = chartize;
 
     activate();
 
@@ -152,18 +153,10 @@
         vm.user = $cookies.getObject('user', { path: '/' });
         var mth = new Date().getMonth();
         switch (mth) {
-          case 0:
-          case 1:
-          case 2: vm.q = 1; break;
-          case 3:
-          case 4:
-          case 5: vm.q = 2; break;
-          case 6:
-          case 7:
-          case 8: vm.q = 3; break;
-          case 9:
-          case 10:
-          case 11: vm.q = 4; break;
+          case 0: case 1: case 2: vm.q = 1; break;
+          case 3: case 4: case 5: vm.q = 2; break;
+          case 6: case 7: case 8: vm.q = 3; break;
+          case 9: case 10: case 11: vm.q = 4; break;
         }
         vm.load();
       }

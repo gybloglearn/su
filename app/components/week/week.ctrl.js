@@ -211,6 +211,7 @@
     }
 
     function getDateOfISOWeek(w, y) {
+      w = parseInt(w);
       var simple = new Date(y, 0, 1 + (w - 1) * 7);
       var dow = simple.getDay();
       var ISOweekStart = simple;
@@ -226,7 +227,7 @@
       d.setUTCDate(d.getUTCDate() + 4 - (d.getUTCDay() || 7));
       var yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
       var weekNo = Math.ceil((((d - yearStart) / 86400000) + 1) / 7);
-      return [d.getUTCFullYear(), weekNo];
+      return [d.getUTCFullYear(), (weekNo<10?"0"+weekNo:""+weekNo)];
     }
 
     function load() {
@@ -237,8 +238,11 @@
         { shiftnum: 3, shift: $filter('shift')(3, vm.startdate) }
       ];
       var weeks = getWeekNumber(new Date());
-      for (var k = weeks[1]; k > weeks[1] - 8; k--) {
+      /*for (var k = weeks[1]; k > weeks[1] - 8; k--) {
         vm.weekstocover.push(k - 1);
+      }*/
+      for (var k = weeks[1]; k > 1; k--){
+        vm.weekstocover.push(k<=10?"0"+(k-1):""+(k - 1));
       }
       var szamlalo = 1;
       for (var i = 1; i < weeks[1]; i++) {
