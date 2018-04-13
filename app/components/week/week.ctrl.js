@@ -211,7 +211,7 @@
     }
 
     function getDateOfISOWeek(w, y) {
-			w = parseInt(w);
+      w = parseInt(w);
       var simple = new Date(y, 0, 1 + (w - 1) * 7);
       var dow = simple.getDay();
       var ISOweekStart = simple;
@@ -239,7 +239,7 @@
       ];
       var weeks = getWeekNumber(new Date());
       for (var k = weeks[1]; k > 1; k--) {
-        vm.weekstocover.push(k<=10?"0"+(k-1):""+(k-1));
+        vm.weekstocover.push(k<=10?"0"+(k-1):""+(k - 1));
       }
       var szamlalo = 1;
       for (var i = 1; i < weeks[1]; i++) {
