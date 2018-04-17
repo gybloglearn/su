@@ -39,6 +39,11 @@
 			templateUrl: './app/components/sscrap/sscrap.html' + '?' + cp,
 			controller: 'SscrapController',
 			controllerAs: 'vm'
+		}).state('oee', {
+			url: 'oee',
+			templateUrl: './app/components/oee/oee.html' + '?' + cp,
+			controller: 'OeeController',
+			controllerAs: 'vm'
 		}).state('login', {
       url: '/login',
       templateUrl: './app/components/login/login.html' + '?' + cp,

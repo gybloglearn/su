@@ -1,0 +1,139 @@
+<md-content layout="row" layout-sm="column" layout-xs="column">
+  <div layout-padding flex>
+    <h1 class="md-display-2" layout="row">
+      <span flex>Oee</span>
+      <md-button class="md-fab md-primary md-hue-2">
+        <md-icon class="material-icons">dashboard</md-icon>
+      </md-button>
+    </h1>
+    <md-divider>
+      <div layout-gt-xs="row">
+        <div flex-gt-xs>
+          <md-input-container>
+            <md-select multiple ng-model="vm.sheetmakers" flex>
+              <label>Gépek:</label>
+              <md-option value="SM1">SM1</md-option>
+              <md-option value="SM2">SM2</md-option>
+              <md-option value="SM4">SM4</md-option>
+              <md-option value="SM5">SM5</md-option>
+              <md-option value="SM6">SM6</md-option>
+              <md-option value="SM7">SM7</md-option>
+              <md-option value="SM8">SM8</md-option>
+              <md-option value="SM9">SM9</md-option>
+            </md-select>
+          </md-input-container>
+          <md-input-container>
+            <md-datepicker ng-model="vm.startdate" md-max-date="vm.maxdate"></md-datepicker>
+          </md-input-container>
+          <md-input-container>
+            <md-datepicker ng-model="vm.enddate" md-max-date="vm.maxdate"></md-datepicker>
+          </md-input-container>
+          <md-button class="md-primary md-raised" ng-click="vm.createdates()">Betöltés</md-button>
+        </div>
+      </div>
+      <div layout="row" layout-xs="column" layout-sm="column">
+        <div flex=100 flex-sm="100" flex-xs="100">
+          <my-chart id="daych" options="vm.dayavailconfig"></my-chart>
+        </div>
+      </div>
+      <div layout="row" layout-xs="column" layout-sm="column">
+        <div flex=70 flex-sm="100" flex-xs="100">
+          <my-chart id="chart" options="vm.smavailabilitychartconfig"></my-chart>
+        </div>
+        <div flex=30 flex-sm="100" flex-xs="100">
+          <my-chart id="ttlchart" options="vm.ttlsmavailabilitychartconfig"></my-chart>
+        </div>
+      </div>
+      <div layout="row" layout-xs="column" layout-sm="column">
+        <div flex=100 flex-sm="100" flex-xs="100">
+          <my-chart id="topm" options="vm.topmconf"></my-chart>
+        </div>
+      </div>
+      <div layout="row" layout-xs="column" layout-sm="column">
+        <div flex=100 flex-sm="100" flex-xs="100">
+          <my-chart id="tops" options="vm.topsconf"></my-chart>
+        </div>
+      </div>
+      <div layout="row" layout-xs="column" layout-sm="column">
+        <div flex=100 flex-sm="100" flex-xs="100">
+          <my-chart id="topt" options="vm.toptconf"></my-chart>
+        </div>
+      </div>
+      <div layout-gt-xs="row">
+        <div flex-gt-xs layout="row">
+          <md-input-container flex>
+            <label>Machine</label>
+            <md-select ng-model="search.Machine">
+              <md-option value="">Mind</md-option>
+              <md-option ng-repeat="sm in vm.sheetmakers" ng-value="sm">{{sm}}</md-option>
+            </md-select>
+          </md-input-container>
+          <md-input-container flex>
+            <label>Ev_Group</label>
+            <md-select ng-model="search.Ev_Group">
+              <md-option value="">Mind</md-option>
+              <md-option value="Muszaki technikai okok">Műszaki</md-option>
+              <md-option value="Szervezesi veszteseg">Szervezési</md-option>
+              <md-option value="Tervezett veszteseg">Tervezett</md-option>
+            </md-select>
+          </md-input-container>
+          <md-input-container flex>
+            <label>Event_SubGroup</label>
+            <md-select ng-model="search.Event_SubGroup">
+              <md-option value="">Mind</md-option>
+              <md-option ng-repeat="val in (vm.filedatas | filter: search | unique:'Event_SubGroup')" value="{{val.Event_SubGroup}}">{{val.Event_SubGroup}}</md-option>
+            </md-select>
+          </md-input-container>
+          <md-input-container flex>
+            <label>Maximo_num</label>
+            <md-select ng-model="search.Maximo_num">
+              <md-option value="">Mind</md-option>
+              <md-option ng-repeat="val in (vm.filedatas | filter: vm.search | unique:'Maximo_num')" value="{{val.Maximo_num}}">{{val.Maximo_num}}</md-option>
+            </md-select>
+          </md-input-container>
+          <md-input-container flex>
+            <label>Shift_Name</label>
+            <md-select ng-model="search.Shift_Name">
+              <md-option value="">Mind</md-option>
+              <md-option ng-repeat="val in (vm.filedatas | filter: vm.search | unique:'Shift_Name')" value="{{val.Shift_Name}}">{{val.Shift_Name}}</md-option>
+            </md-select>
+          </md-input-container>
+        </div>
+      </div>
+      <div layout="row">
+        <md-table-container flex>
+          <table md-table>
+            <thead md-head>
+              <tr md-row>
+                <th md-column>Machine</th>
+                <th md-column>Ev_Group</th>
+                <th md-column>Event_SubGroup</th>
+                <th md-column>Maximo szám</th>
+                <th md-column>Event_time (sec)</th>
+                <th md-column>Event_time (min)</th>
+                <th md-column>Event_time (hr)</th>
+                <th md-column>Date</th>
+                <th md-column>Shift</th>
+                <th md-column>Comment</th>
+              </tr>
+            </thead>
+            <tbody md-body>
+              <tr md-row ng-repeat="i in vm.filedatas | filter: search | orderBy: 'Event_time': true | limitTo: 25">
+                <td md-cell>{{i.Machine}}</td>
+                <td md-cell>{{i.Ev_Group}}</td>
+                <td md-cell>{{i.Event_SubGroup}}</td>
+                <td md-cell>{{i.Maximo_num}}</td>
+                <td md-cell>{{i.Event_time}}</td>
+                <td md-cell>{{i.Event_time/60 | number: 0}}</td>
+                <td md-cell>{{i.Event_time/60/60 | number: 2}}</td>
+                <td md-cell>{{i.timestamp | date: 'yyyy-MM-dd hh:mm:ss'}}</td>
+                <td md-cell>{{i.Shift_Name}}</td>
+                <td md-cell>{{i.Comment}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </md-table-container>
+      </div>
+    </md-divider>
+  </div>
+</md-content>
