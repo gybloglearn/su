@@ -44,6 +44,11 @@
 			templateUrl: './app/components/oee/oee.html' + '?' + cp,
 			controller: 'OeeController',
 			controllerAs: 'vm'
+		}).state('smscrap', {
+			url: 'smscrap',
+			templateUrl: './app/components/smscrap/smscrap.html' + '?' + cp,
+			controller: 'SmscrapController',
+			controllerAs: 'vm'
 		}).state('login', {
       url: '/login',
       templateUrl: './app/components/login/login.html' + '?' + cp,
