@@ -1,0 +1,58 @@
+<md-content layout="row" layout-sm="column" layout-xs="column">
+  <div layout-padding flex>
+    <h1 class="md-display-2" layout="row">
+      <span flex>{{vm.actdry}}</span>
+      <md-button class="md-fab md-primary md-hue-2">
+        <md-icon class="material-icons">dashboard</md-icon>
+      </md-button>
+    </h1>
+    <md-divider>
+      <div layout-gt-xs="row">
+        <md-input-container>
+          <label>Szárító:</label>
+          <md-select ng-model="vm.actdry" ng-change="vm.load()">
+            <md-option ng-repeat="d in vm.drylist" ng-value="d">{{d}}</md-option>
+          </md-select>
+        </md-input-container>
+        <md-input-container ng-show="vm.actdry=='Arhívum'">
+          <label>Elérhető adatok:</label>
+          <md-select ng-model="vm.link" ng-change="vm.loadarchivefile()">
+            <md-option ng-repeat="it in vm.loads" ng-value="it.link">{{it.name}}</md-option>
+          </md-select>
+        </md-input-container>
+      </div>
+      <div layout="row">
+        <md-table-container flex>
+          <table md-table>
+            <thead md-head>
+              <tr md-row>
+                <th md-column>Szárító</th>
+                <th md-column>Dátum</th>
+                <th md-column>Szak</th>
+                <th md-column>Keret</th>
+                <th md-column>Modul A</th>
+                <th md-column>Modul B</th>
+                <th md-column>Aktuális ciklus</th>
+                <th md-column>Cél</th>
+                <th md-column>Idő a célig</th>
+              </tr>
+            </thead>
+            <tbody md-body>
+              <tr md-row ng-repeat="item in vm.drydata track by $index">
+                <td md-cell>{{item.machinename}}</td>
+                <td md-cell>{{item.startdate}}</td>
+                <td md-cell>{{item.startshift}}</td>
+                <td md-cell>{{item.fixture}}</td>
+                <td md-cell>{{item.modul_a}}</td>
+                <td md-cell>{{item.modul_b}}</td>
+                <td md-cell>{{item.Current_Cycle}}</td>
+                <td md-cell>{{item.Target}}</td>
+                <td md-cell>{{item.Time_to_Go}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </md-table-container>
+      </div>
+    </md-divider>
+  </div>
+</md-content>

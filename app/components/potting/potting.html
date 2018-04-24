@@ -1,0 +1,275 @@
+<md-content layout="row" layout-sm="column" layout-xs="column">
+  <div layout-padding flex>
+    <h1 class="md-display-2" layout="row">
+      <span flex>{{vm.actpotting}} Report-{{vm.datenumber}}</span>
+      <md-button class="md-fab md-primary md-hue-2">
+        <md-icon class="material-icons">dashboard</md-icon>
+      </md-button>
+    </h1>
+    <md-divider>
+      <div layout-gt-xs="row">
+        <md-input-container>
+          <label>Potting:</label>
+          <md-select ng-model="vm.actpotting" ng-change="vm.load()">
+            <md-option ng-repeat="pt in vm.pottinglist" ng-value="pt">{{pt}}</md-option>
+          </md-select>
+        </md-input-container>
+        <md-input-container>
+          <label>Dátum:</label>
+          <md-datepicker ng-model="vm.date" md-max-date="vm.maxdate" ng-change="vm.change()"></md-datepicker>
+        </md-input-container>
+      </div>
+      <div layout="row">
+        <div flex="10">
+          <h1>Délelőtt:{{vm.szak_de}}</h1>
+        </div>
+        <div flex="30">
+          <h1 style="text-align:center" class="md-display-3">{{vm.data|filter:{'category':'IN'}|filter:{'shiftnum':'1'} |sumField:'amount'|number:0}}</h1>
+          <h3 style="text-align:center">db</h3>
+          <h2 style="text-align:center">{{vm.data|filter:{'category':'IN'}|filter:{'shiftnum':'1'} |sumField:'aeq'|number:2}} AEQ</h2>
+          <h3 style="text-align:center;cursor:pointer" ng-click="bede=!bede">POTTING BE részletek</h3>
+          <div ng-show="bede">
+            <md-table-container>
+              <table md-table>
+                <thead md-head>
+                  <tr md-row>
+                    <th md-column>Típus</th>
+                    <th md-column>Darab</th>
+                    <th md-column>AEQ</th>
+                  </tr>
+                </thead>
+                <tbody md-body>
+                  <tr md-row ng-repeat="item in vm.data | filter:{'category':'IN','shiftnum':'1'}">
+                    <td>{{item.type}}</td>
+                    <td>{{item.amount}}</td>
+                    <td>{{item.aeq|number:2}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </md-table-container>
+          </div>
+        </div>
+        <div flex="30">
+          <h1 style="text-align:center" class="md-display-3">{{vm.data|filter:{'category':'P3'}|filter:{'shiftnum':'1'} |sumField:'amount'|number:0}}</h1>
+          <h3 style="text-align:center">db</h3>
+          <h2 style="text-align:center">{{vm.data|filter:{'category':'P3'}|filter:{'shiftnum':'1'} |sumField:'aeq'|number:2}} AEQ</h2>
+          <h3 style="text-align:center;cursor:pointer" ng-click="p3de=!p3de">POTTING FORDÍT részletek</h3>
+          <div ng-show="p3de">
+            <md-table-container>
+              <table md-table>
+                <thead md-head>
+                  <tr md-row>
+                    <th md-column>Típus</th>
+                    <th md-column>Darab</th>
+                    <th md-column>AEQ</th>
+                  </tr>
+                </thead>
+                <tbody md-body>
+                  <tr md-row ng-repeat="item in vm.data | filter:{'category':'P3','shiftnum':'1'}">
+                    <td>{{item.type}}</td>
+                    <td>{{item.amount}}</td>
+                    <td>{{item.aeq|number:2}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </md-table-container>
+          </div>
+        </div>
+        <div flex="30">
+          <h1 style="text-align:center" class="md-display-3">{{vm.data|filter:{'category':'OUT'}|filter:{'shiftnum':'1'} |sumField:'amount'|number:0}}</h1>
+          <h3 style="text-align:center">db</h3>
+          <h2 style="text-align:center">{{vm.data|filter:{'category':'OUT'}|filter:{'shiftnum':'1'} |sumField:'aeq'|number:2}} AEQ</h2>
+          <h3 style="text-align:center;cursor:pointer" ng-click="kide=!kide">POTTING KI részletek</h3>
+          <div ng-show="kide">
+            <md-table-container>
+              <table md-table>
+                <thead md-head>
+                  <tr md-row>
+                    <th md-column>Típus</th>
+                    <th md-column>Darab</th>
+                    <th md-column>AEQ</th>
+                  </tr>
+                </thead>
+                <tbody md-body>
+                  <tr md-row ng-repeat="item in vm.data | filter:{'category':'OUT','shiftnum':'1'}">
+                    <td>{{item.type}}</td>
+                    <td>{{item.amount}}</td>
+                    <td>{{item.aeq|number:2}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </md-table-container>
+          </div>
+        </div>
+      </div>
+      <hr ng-show="vm.szak_du">
+      <div layout="row" ng-show="vm.szak_du">
+        <div flex="10">
+          <h1>Délután:{{vm.szak_du}}</h1>
+        </div>
+        <div flex="30">
+          <h1 style="text-align:center" class="md-display-3">{{vm.data|filter:{'category':'IN'}|filter:{'shiftnum':'2'} |sumField:'amount'|number:0}}</h1>
+          <h3 style="text-align:center">db</h3>
+          <h2 style="text-align:center">{{vm.data|filter:{'category':'IN'}|filter:{'shiftnum':'2'} |sumField:'aeq'|number:2}} AEQ</h2>
+          <h3 style="text-align:center;cursor:pointer" ng-click="bedu=!bedu">POTTING BE részletek</h3>
+          <div ng-show="bedu">
+            <md-table-container>
+              <table md-table>
+                <thead md-head>
+                  <tr md-row>
+                    <th md-column>Típus</th>
+                    <th md-column>Darab</th>
+                    <th md-column>AEQ</th>
+                  </tr>
+                </thead>
+                <tbody md-body>
+                  <tr md-row ng-repeat="item in vm.data | filter:{'category':'IN','shiftnum':'2'}">
+                    <td>{{item.type}}</td>
+                    <td>{{item.amount}}</td>
+                    <td>{{item.aeq|number:2}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </md-table-container>
+          </div>
+        </div>
+        <div flex="30">
+          <h1 style="text-align:center" class="md-display-3">{{vm.data|filter:{'category':'P3'}|filter:{'shiftnum':'2'} |sumField:'amount'|number:0}}</h1>
+          <h3 style="text-align:center">db</h3>
+          <h2 style="text-align:center">{{vm.data|filter:{'category':'P3'}|filter:{'shiftnum':'2'} |sumField:'aeq'|number:2}} AEQ</h2>
+          <h3 style="text-align:center;cursor:pointer" ng-click="p3du=!p3du">POTTING FORDÍT részletek</h3>
+          <div ng-show="p3du">
+            <md-table-container>
+              <table md-table>
+                <thead md-head>
+                  <tr md-row>
+                    <th md-column>Típus</th>
+                    <th md-column>Darab</th>
+                    <th md-column>AEQ</th>
+                  </tr>
+                </thead>
+                <tbody md-body>
+                  <tr md-row ng-repeat="item in vm.data | filter:{'category':'P3','shiftnum':'2'}">
+                    <td>{{item.type}}</td>
+                    <td>{{item.amount}}</td>
+                    <td>{{item.aeq|number:2}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </md-table-container>
+          </div>
+        </div>
+        <div flex="30">
+          <h1 style="text-align:center" class="md-display-3">{{vm.data|filter:{'category':'OUT'}|filter:{'shiftnum':'2'} |sumField:'amount'|number:0}}</h1>
+          <h3 style="text-align:center">db</h3>
+          <h2 style="text-align:center">{{vm.data|filter:{'category':'OUT'}|filter:{'shiftnum':'2'} |sumField:'aeq'|number:2}} AEQ</h2>
+          <h3 style="text-align:center;cursor:pointer" ng-click="kidu=!kidu">POTTING KI részletek</h3>
+          <div ng-show="kidu">
+            <md-table-container>
+              <table md-table>
+                <thead md-head>
+                  <tr md-row>
+                    <th md-column>Típus</th>
+                    <th md-column>Darab</th>
+                    <th md-column>AEQ</th>
+                  </tr>
+                </thead>
+                <tbody md-body>
+                  <tr md-row ng-repeat="item in vm.data | filter:{'category':'OUT','shiftnum':'2'}">
+                    <td>{{item.type}}</td>
+                    <td>{{item.amount}}</td>
+                    <td>{{item.aeq|number:2}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </md-table-container>
+          </div>
+        </div>
+      </div>
+      <hr>
+      <div layout="row">
+        <div flex="10">
+          <h1>Éjszaka:{{vm.szak_ej}}</h1>
+        </div>
+        <div flex="30">
+          <h1 style="text-align:center" class="md-display-3">{{vm.data|filter:{'category':'IN'}|filter:{'shiftnum':'3'} |sumField:'amount'|number:0}}</h1>
+          <h3 style="text-align:center">db</h3>
+          <h2 style="text-align:center">{{vm.data|filter:{'category':'IN'}|filter:{'shiftnum':'3'} |sumField:'aeq'|number:2}} AEQ</h2>
+          <h3 style="text-align:center;cursor:pointer" ng-click="beej=!beej">POTTING BE részletek</h3>
+          <div ng-show="beej">
+            <md-table-container>
+              <table md-table>
+                <thead md-head>
+                  <tr md-row>
+                    <th md-column>Típus</th>
+                    <th md-column>Darab</th>
+                    <th md-column>AEQ</th>
+                  </tr>
+                </thead>
+                <tbody md-body>
+                  <tr md-row ng-repeat="item in vm.data | filter:{'category':'IN','shiftnum':'3'}">
+                    <td>{{item.type}}</td>
+                    <td>{{item.amount}}</td>
+                    <td>{{item.aeq|number:2}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </md-table-container>
+          </div>
+        </div>
+        <div flex="30">
+          <h1 style="text-align:center" class="md-display-3">{{vm.data|filter:{'category':'P3'}|filter:{'shiftnum':'3'} |sumField:'amount'|number:0}}</h1>
+          <h3 style="text-align:center">db</h3>
+          <h2 style="text-align:center">{{vm.data|filter:{'category':'P3'}|filter:{'shiftnum':'3'} |sumField:'aeq'|number:2}} AEQ</h2>
+          <h3 style="text-align:center;cursor:pointer" ng-click="p3ej=!p3ej">POTTING FORDÍT részletek</h3>
+          <div ng-show="p3ej">
+            <md-table-container>
+              <table md-table>
+                <thead md-head>
+                  <tr md-row>
+                    <th md-column>Típus</th>
+                    <th md-column>Darab</th>
+                    <th md-column>AEQ</th>
+                  </tr>
+                </thead>
+                <tbody md-body>
+                  <tr md-row ng-repeat="item in vm.data | filter:{'category':'P3','shiftnum':'3'}">
+                    <td>{{item.type}}</td>
+                    <td>{{item.amount}}</td>
+                    <td>{{item.aeq|number:2}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </md-table-container>
+          </div>
+        </div>
+        <div flex="30">
+          <h1 style="text-align:center" class="md-display-3">{{vm.data|filter:{'category':'OUT'}|filter:{'shiftnum':'3'} |sumField:'amount'|number:0}}</h1>
+          <h3 style="text-align:center">db</h3>
+          <h2 style="text-align:center">{{vm.data|filter:{'category':'OUT'}|filter:{'shiftnum':'3'} |sumField:'aeq'|number:2}} AEQ</h2>
+          <h3 style="text-align:center;cursor:pointer" ng-click="kiej=!kiej">POTTING KI részletek</h3>
+          <div ng-show="kiej">
+            <md-table-container>
+              <table md-table>
+                <thead md-head>
+                  <tr md-row>
+                    <th md-column>Típus</th>
+                    <th md-column>Darab</th>
+                    <th md-column>AEQ</th>
+                  </tr>
+                </thead>
+                <tbody md-body>
+                  <tr md-row ng-repeat="item in vm.data | filter:{'category':'OUT','shiftnum':'3'}">
+                    <td>{{item.type}}</td>
+                    <td>{{item.amount}}</td>
+                    <td>{{item.aeq|number:2}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </md-table-container>
+          </div>
+        </div>
+      </div>
+    </md-divider>
+  </div>
+</md-content>
