@@ -1,0 +1,150 @@
+<md-content layout="row" layout-sm="column" layout-xs="column">
+  <div layout-padding flex>
+    <h1 class="md-display-2" layout="row">
+      <span flex>{{vm.mch}} Összesítő {{vm.datumszam}} </span>
+      <md-button class="md-fab md-primary md-hue-2">
+        <md-icon class="material-icons">dashboard</md-icon>
+      </md-button>
+    </h1>
+    <md-divider>
+      <div layout-gt-xs="row">
+        <md-input-container>
+          <label>Potting:</label>
+          <md-select ng-model="vm.mch" ng-change="vm.beallit();vm.load()">
+            <md-option ng-repeat="pt in vm.pottings" ng-value="pt">{{pt}}</md-option>
+          </md-select>
+        </md-input-container>
+        <md-input-container>
+          <label>Dátum:</label>
+          <md-datepicker ng-model="vm.datum" md-max-date="vm.maxdate" ng-change="vm.beallit();vm.load()"></md-datepicker>
+        </md-input-container>
+      </div>
+      <div layout="row" layout-xs="column" layout-sm="column">
+        <div flex="100" flex-sm="100" flex-xs="100">
+          <my-chart id="chart" options="vm.chartconfig"></my-chart>
+        </div>
+      </div>
+      <div layout="row" ng-show="vm.mutat && user.displayname && (user.username=='212557160' || user.username=='212434909'||user.username=='502678184' || user.username=='212319674' || user.username=='113005432' || user.username=='113010453' || user.username=='113009480' || user.username=='212674695' || user.username=='212404564' || user.username=='113011028' || user.username=='113008226' || user.username=='113008995' || user.username=='212437547' || user.username=='113005514' || user.username=='212546986')">
+        <md-input-container>
+          <label>Név</label>
+          <input type="text" ng-model="user.displayname" readonly>
+        </md-input-container>
+        <md-input-container>
+          <label>Kezdő dátum</label>
+          <input type="text" ng-model="vm.startinfo">
+        </md-input-container>
+        <md-input-container>
+          <label>Vége dátum</label>
+          <input type="text" ng-model="vm.endinfo">
+        </md-input-container>
+        <md-input-container>
+          <label>Hely</label>
+          <md-select ng-model="vm.actplace">
+            <md-option value="{{vm.mch}}">{{vm.mch}}</md-option>
+            <md-option ng-repeat="pl in vm.hely" value="{{pl}}">{{pl}}</md-option>
+          </md-select>
+        </md-input-container>
+        <md-input-container>
+          <label>Kategória</label>
+          <md-select class="form-control" ng-model="vm.cat">
+            <md-option ng-repeat="ct in vm.categories" value="{{ct}}">{{ct}}</md-option>
+          </md-select>
+        </md-input-container>
+        <md-button class="md-fab md-primary md-hue-2" ng-click="vm.saveinfo()" ng-disabled="vm.actplace=='' || vm.cat=='' || vm.startinfo>=vm.endinfo">
+          <md-icon class="material-icons">save</md-icon>
+        </md-button>
+        <md-button class="md-fab md-raised md-hue-2" ng-click="vm.createinfodata={};vm.mutat=false">
+          <md-icon class="material-icons">cancel</md-icon>
+        </md-button>
+      </div>
+      <div layout="row" ng-show="vm.mutat && user.displayname && (user.username=='212557160' || user.username=='212434909'||user.username=='502678184' || user.username=='212319674' || user.username=='113005432' || user.username=='113010453' || user.username=='113009480' || user.username=='212674695' || user.username=='212404564' || user.username=='113011028' || user.username=='113008226' || user.username=='113008995' || user.username=='212437547' || user.username=='113005514' || user.username=='212546986')">
+        <h3>Feltöltési segédlet</h3>
+        <p>Adatokat akkor lehet rögzíteni ha a következő kritériumoknak felelnek meg az input mezők:
+          <br> -vége dátumnak nagyobbnak kell lenni mint a kezdő dátumnak (mindkettő szerkeszthető kézzel,de a formátumnak meg
+          kell egyeznie az alábbival:yyyy-MM-dd HH:mm)
+          <br> -állomást kell választani ahol a hiba történt
+          <br> -kategória mezőt kell választani ami a kieső idő okát jelenti,amennyiben nincs a listában úgy az egyéb mező választásával
+          a megjegyzés mezőbe lehet beírni az okot
+          <br>
+        </p>
+      </div>
+      <div layout="row">
+        <md-table-container flex>
+          <table md-table>
+            <thead md-head>
+              <tr md-row>
+                <th md-column>Szak</th>
+                <th md-column ng-repeat="h in vm.hely">{{h}}</th>
+              </tr>
+              <tr md-row>
+                <th md-column>{{ 1 | shift:vm.datum }}</th>
+                <th md-column ng-repeat="h in vm.hely track by $index">{{(vm.chartData[$index].data | filter:{'sh':1}) | sumField:'y' | number:0}}</th>
+              </tr>
+              <tr md-row ng-hide="( 2 | shift:vm.datum ) == null">
+                <th md-column>{{ 2 | shift:vm.datum }}</th>
+                <th md-column ng-repeat="h in vm.hely track by $index">{{(vm.chartData[$index].data | filter:{'sh':2}) | sumField:'y' | number:0}}</th>
+              </tr>
+              <tr md-row>
+                <th md-column>{{ 3 | shift:vm.datum }}</th>
+                <th md-column ng-repeat="h in vm.hely track by $index">{{(vm.chartData[$index].data | filter:{'sh':3}) | sumField:'y' | number:0}}</th>
+              </tr>
+            </thead>
+          </table>
+        </md-table-container>
+      </div>
+      <h3 style="text-align:center;cursor:pointer" ng-click="mutat=!mutat">Részletek</h3>
+      <div layout="row" style="margin-top:20px" ng-show="mutat">
+        <md-table-container flex>
+          <table md-table>
+            <thead md-head>
+              <tr md-row>
+                <th md-column>JobID</th>
+                <th md-column>Fixture</th>
+                <th md-column>PT_Start_DT</th>
+                <th md-column>PT_GEL_PREP_DT</th>
+                <th md-column>PT_URET_PREP_A_DT</th>
+                <th md-column>PT_POST_URET_A_DT</th>
+                <th md-column>PT_ROT_DT</th>
+                <th md-column>PT_URET_PREP_F_DT</th>
+                <th md-column>PT_POST_URET_F_DT</th>
+                <th md-column>PT_OUT</th>
+              </tr>
+            </thead>
+            <tbody md-body>
+              <tr md-row ng-repeat="item in vm.data track by $index">
+                <td>
+                  <a href="../modulhistory/#/history/{{item.JobID }}" target="_blank">{{item.JobID}}</a>
+                </td>
+                <td>{{item.Fixture}}</td>
+
+                <td ng-if="vm.vege > item.PT_Start_DT && vm.kezdo <= item.PT_Start_DT">{{item.PT_Start_DT | date:"MMdd HH"}}</td>
+                <td ng-if="vm.kezdo > item.PT_Start_DT || !item.PT_Start_DT" style="color:lightgrey;">{{item.PT_Start_DT | date:"MMdd HH"}}</td>
+
+                <td ng-if="vm.vege > item.PT_GEL_PREP_DT && vm.kezdo <= item.PT_GEL_PREP_DT">{{item.PT_GEL_PREP_DT | date:"MMdd HH"}}</td>
+                <td ng-if="vm.kezdo > item.PT_GEL_PREP_DT || !item.PT_GEL_PREP_DT" style="color:lightgrey;">{{item.PT_GEL_PREP_DT | date:"MMdd HH"}}</td>
+
+                <td ng-if="vm.vege > item.PT_URET_PREP_A_DT && vm.kezdo <= item.PT_URET_PREP_A_DT">{{item.PT_URET_PREP_A_DT | date:"MMdd HH"}}</td>
+                <td ng-if="vm.kezdo > item.PT_URET_PREP_A_DT || !item.PT_URET_PREP_A_DT" style="color:lightgrey;">{{item.PT_URET_PREP_A_DT | date:"MMdd HH"}}</td>
+
+                <td ng-if="vm.vege > item.PT_POST_URET_A_DT && vm.kezdo <= item.PT_POST_URET_A_DT">{{item.PT_POST_URET_A_DT | date:"MMdd HH"}}</td>
+                <td ng-if="vm.kezdo > item.PT_POST_URET_A_DT || !item.PT_POST_URET_A_DT" style="color:lightgrey;">{{item.PT_POST_URET_A_DT | date:"MMdd HH"}}</td>
+
+                <td ng-if="vm.vege > item.PT_ROT_DT && vm.kezdo <= item.PT_ROT_DT">{{item.PT_ROT_DT | date:"MMdd HH"}}</td>
+                <td ng-if="vm.kezdo > item.PT_ROT_DT || !item.PT_ROT_DT" style="color:lightgrey;">{{item.PT_ROT_DT | date:"MMdd HH"}}</td>
+
+                <td ng-if="vm.vege > item.PT_URET_PREP_F_DT && vm.kezdo <= item.PT_URET_PREP_F_DT">{{item.PT_URET_PREP_F_DT | date:"MMdd HH"}}</td>
+                <td ng-if="vm.kezdo > item.PT_URET_PREP_F_DT || !item.PT_URET_PREP_F_DT" style="color:lightgrey;">{{item.PT_URET_PREP_F_DT | date:"MMdd HH"}}</td>
+
+                <td ng-if="vm.vege > item.PT_POST_URET_F_DT && vm.kezdo <= item.PT_POST_URET_F_DT">{{item.PT_POST_URET_F_DT | date:"MMdd HH"}}</td>
+                <td ng-if="vm.kezdo > item.PT_POST_URET_F_DT || !item.PT_POST_URET_F_DT" style="color:lightgrey;">{{item.PT_POST_URET_F_DT | date:"MMdd HH"}}</td>
+
+                <td ng-if="vm.vege > item.PT_OUT && vm.kezdo <= item.PT_OUT">{{item.PT_OUT | date:"MMdd HH"}}</td>
+                <td ng-if="vm.kezdo > item.PT_OUT || !item.PT_OUT" style="color:lightgrey;">{{item.PT_OUT | date:"MMdd HH"}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </md-table-container>
+      </div>
+    </md-divider>
+  </div>
+</md-content>

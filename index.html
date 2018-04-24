@@ -37,9 +37,13 @@
 						<md-icon class="material-icons">dashboard</md-icon>
 					</md-list-item>
 					<md-list-item ui-sref="potting" ng-click="close()">
-							<div flex class="md-list-item-text">Potting</div>
-							<md-icon class="material-icons">dashboard</md-icon>
-						</md-list-item>
+						<div flex class="md-list-item-text">Potting</div>
+						<md-icon class="material-icons">dashboard</md-icon>
+					</md-list-item>
+					<md-list-item ui-sref="pottingsum" ng-click="close()">
+						<div flex class="md-list-item-text">Potting összesítő</div>
+						<md-icon class="material-icons">dashboard</md-icon>
+					</md-list-item>
 					<md-list-item ui-sref="dashboard" ng-click="close()">
 						<div flex class="md-list-item-text">Vezérlőpult</div>
 						<md-icon class="material-icons">dashboardk</md-icon>
@@ -130,6 +134,8 @@
 	<script src="app/components/services/drying.service.js"></script>
 	<script src="app/components/potting/potting.ctrl.js"></script>
 	<script src="app/components/services/potting.service.js"></script>
+	<script src="app/components/pottingsum/pottingsum.ctrl.js"></script>
+	<script src="app/components/services/pottingsum.service.js"></script>
 	<!--endbuild-->
 	<!--adds-->
 	<script>

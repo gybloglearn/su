@@ -10,6 +10,7 @@
     $mdDateLocaleProvider.formatDate = function(date){
       return moment(date).format('YYYY-MM-DD');
     }
+    $mdDateLocaleProvider.firstDayOfWeek=1;
     var cp = new Date().getTime().toString().substr(-5);
     // routing
     //$urlRouterProvider.otherwise('/');
@@ -33,6 +34,11 @@
 			url: 'potting',
 			templateUrl: './app/components/potting/potting.html' + '?' + cp,
 			controller: 'PottingController',
+			controllerAs: 'vm'
+		}).state('pottingsum', {
+			url: 'pottingsum',
+			templateUrl: './app/components/pottingsum/pottingsum.html' + '?' + cp,
+			controller: 'PottingsumController',
 			controllerAs: 'vm'
 		}).state('login', {
       url: '/login',

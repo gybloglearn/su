@@ -17,7 +17,7 @@
         <md-input-container ng-show="vm.actdry=='Arhívum'">
           <label>Elérhető adatok:</label>
           <md-select ng-model="vm.link" ng-change="vm.loadarchivefile()">
-            <md-option ng-repeat="it in vm.loads" ng-value="it.link">{{it.name}}</md-option>
+            <md-option ng-repeat="it in vm.loads | orderBy:'-name'" ng-value="it.link">{{it.name}}</md-option>
           </md-select>
         </md-input-container>
       </div>
