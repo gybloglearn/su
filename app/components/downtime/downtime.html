@@ -1,0 +1,121 @@
+<md-content layout="row" layout-sm="column" layout-xs="column">
+  <div layout-padding flex>
+    <h1 class="md-display-2" layout="row">
+      <span flex>Állásidők</span>
+      <md-button class="md-fab md-primary md-hue-2">
+        <md-icon class="material-icons">dashboard</md-icon>
+      </md-button>
+    </h1>
+    <md-divider>
+      <div flex-gt-xs>
+        <md-input-container>
+          <md-datepicker ng-model="vm.sdate" md-max-date="vm.maxdate"></md-datepicker>
+        </md-input-container>
+        <md-input-container>
+          <md-datepicker ng-model="vm.edate" md-max-date="vm.maxdate"></md-datepicker>
+        </md-input-container>
+        <md-button class="md-primary md-raised" ng-click="vm.beallit()">Betöltés</md-button>
+      </div>
+      <div layout-gt-xs="row">
+        <div flex-gt-xs layout="row">
+          <md-input-container flex>
+            <label>Potting</label>
+            <md-select ng-model="search.pottingid">
+              <md-option ng-value="">Mind</md-option>
+              <md-option ng-repeat="pt in vm.pottings" ng-value="pt">{{pt}}</md-option>
+            </md-select>
+          </md-input-container>
+          <md-input-container flex>
+            <label>Állomás</label>
+            <md-select ng-model="search.place">
+              <md-option ng-value="">Mind</md-option>
+              <md-option ng-repeat="pl in vm.place" ng-value="pl">{{pl}}</md-option>
+            </md-select>
+          </md-input-container>
+          <md-input-container flex>
+            <label>Állás</label>
+            <md-select ng-model="search.category">
+              <md-option ng-value="">Mind</md-option>
+              <md-option ng-repeat="ct in vm.categories" ng-value="ct">{{ct}}</md-option>
+            </md-select>
+          </md-input-container>
+          <md-input-container flex>
+            <label>Kezdő időpont</label>
+            <input type="text" ng-model="search.start">
+          </md-input-container>
+        </div>
+      </div>
+      <div layout="row">
+        <md-table-container flex>
+          <table md-table>
+            <thead md-head>
+              <tr md-row>
+                <th md-column>Potting</th>
+                <th md-column>Kezdő időpont</th>
+                <th md-column>Vége időpont</th>
+                <th md-column>Időtartam (perc)</th>
+                <th md-column>Állomás</th>
+                <th md-column>Kategória</th>
+                <th md-column>Megjegyzés</th>
+                <th md-column>Felvétel időpontja</th>
+                <th md-column>Felvevő</th>
+                <th md-column>Szerkesztés/Törlés</th>
+              </tr>
+            </thead>
+            <tbody md-body>
+              <tr md-row ng-repeat="item in vm.selectpottinginfo | filter: search track by $index">
+                <td md-cell>{{item.pottingid}}</td>
+                <td md-cell>{{item.start}}</td>
+                <td md-cell>{{item.end}}</td>
+                <td md-cell>{{item.time}}</td>
+                <td md-cell>{{item.place}}</td>
+                <td md-cell>{{item.category}}</td>
+                <td md-cell>{{item.description}}</td>
+                <td md-cell>{{item.id |date:'yyyy-MM-dd HH:mm'}}</td>
+                <td md-cell>{{item.opname}}</td>
+                <td md-cell>
+                  <md-button class="md-fab md-mini md-primary md-hue-2" ng-show="user.username==item.opid" ng-click="vm.edit = item">
+                    <md-icon class="material-icons">mode_edit</md-icon>
+                  </md-button>
+                  <md-button class="md-fab md-mini md-warn md-hue-2" ng-show="user.username==item.opid" ng-click="vm.remove(item.id,$index)">
+                    <md-icon class="material-icons">delete</md-icon>
+                  </md-button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </md-table-container>
+      </div>
+      <div ng-show="vm.edit">
+        <div layout-gt-xs="row">
+          <div flex-gt-xs layout="row">
+            <md-input-container flex>
+              <label>Állomás</label>
+              <md-select ng-model="vm.edit.place">
+                <md-option ng-repeat="pl in vm.place" ng-value="pl">{{pl}}</md-option>
+              </md-select>
+            </md-input-container>
+            <md-input-container flex>
+              <label>Kategória</label>
+              <md-select ng-model="vm.edit.category">
+                <md-option ng-repeat="ct in vm.categories" ng-value="ct">{{ct}}</md-option>
+              </md-select>
+            </md-input-container>
+            <md-input-container ng-show="vm.edit.category=='Egyéb'" flex>
+              <label>Megjegyzés</label>
+              <textarea rows="4" ng-model="vm.edit.description"></textarea>
+            </md-input-container>
+            <div>
+              <md-button class="md-fab md-mini md-primary md-hue-2" ng-click="vm.edit = '';">
+                <md-icon class="material-icons">cancel</md-icon>
+              </md-button>
+              <md-button class="md-fab md-mini md-warn md-hue-2" ng-click="vm.updatedowntime(vm.edit)">
+                <md-icon class="material-icons">save</md-icon>
+              </md-button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </md-divider>
+  </div>
+</md-content>

@@ -40,6 +40,11 @@
 			templateUrl: './app/components/pottingsum/pottingsum.html' + '?' + cp,
 			controller: 'PottingsumController',
 			controllerAs: 'vm'
+		}).state('downtime', {
+			url: 'downtime',
+			templateUrl: './app/components/downtime/downtime.html' + '?' + cp,
+			controller: 'DowntimeController',
+			controllerAs: 'vm'
 		}).state('login', {
       url: '/login',
       templateUrl: './app/components/login/login.html' + '?' + cp,
