@@ -44,6 +44,10 @@
 						<div flex class="md-list-item-text">Potting összesítő</div>
 						<md-icon class="material-icons">dashboard</md-icon>
 					</md-list-item>
+					<md-list-item ui-sref="downtimesum" ng-click="close()">
+						<div flex class="md-list-item-text">Állásidők összesítése</div>
+						<md-icon class="material-icons">dashboard</md-icon>
+					</md-list-item>
 					<md-list-item ui-sref="downtime" ng-click="close()">
 						<div flex class="md-list-item-text">Állásidők</div>
 						<md-icon class="material-icons">dashboard</md-icon>
@@ -142,6 +146,8 @@
 	<script src="app/components/services/pottingsum.service.js"></script>
 	<script src="app/components/downtime/downtime.ctrl.js"></script>
 	<script src="app/components/services/downtime.service.js"></script>
+	<script src="app/components/downtimesum/downtimesum.ctrl.js"></script>
+	<script src="app/components/services/downtimesum.service.js"></script>
 	<!--endbuild-->
 	<!--adds-->
 	<script>

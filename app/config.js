@@ -45,6 +45,11 @@
 			templateUrl: './app/components/downtime/downtime.html' + '?' + cp,
 			controller: 'DowntimeController',
 			controllerAs: 'vm'
+		}).state('downtimesum', {
+			url: 'downtimesum',
+			templateUrl: './app/components/downtimesum/downtimesum.html' + '?' + cp,
+			controller: 'DowntimesumController',
+			controllerAs: 'vm'
 		}).state('login', {
       url: '/login',
       templateUrl: './app/components/login/login.html' + '?' + cp,

@@ -1,0 +1,84 @@
+<md-content layout="row" layout-sm="column" layout-xs="column">
+  <div layout-padding flex>
+    <h1 class="md-display-2" layout="row">
+      <span flex>Állásidők összesítése</span>
+      <md-button class="md-fab md-primary md-hue-2">
+        <md-icon class="material-icons">dashboard</md-icon>
+      </md-button>
+    </h1>
+    <md-divider>
+      <div flex-gt-xs>
+        <md-input-container>
+          <md-datepicker ng-model="vm.sdate" md-max-date="vm.maxdate"></md-datepicker>
+        </md-input-container>
+        <md-input-container>
+          <md-datepicker ng-model="vm.edate" md-max-date="vm.maxdate"></md-datepicker>
+        </md-input-container>
+        <md-button class="md-primary md-raised" ng-click="vm.selectinfo(vm.actshift,vm.actpotting,vm.data,vm.sdate,vm.edate)" ng-disabled="vm.edate<=vm.sdate">Betöltés</md-button>
+      </div>
+      <div layout="row" layout-xs="column" layout-sm="column">
+        <div flex="100" flex-sm="100" flex-xs="100">
+          <my-chart id="chart" options="vm.chartconfig"></my-chart>
+        </div>
+      </div>
+      <div layout-gt-xs="row">
+        <div flex-gt-xs layout="row">
+          <md-input-container flex>
+            <label>Potting</label>
+            <md-select ng-model="vm.actpotting" ng-change="vm.selectinfo()">
+              <md-option ng-value="">Mind</md-option>
+              <md-option ng-repeat="pt in vm.pottings" ng-value="pt">{{pt}}</md-option>
+            </md-select>
+          </md-input-container>
+          <md-input-container flex>
+            <label>Szak</label>
+            <md-select ng-model="vm.actshift" ng-change="vm.selectinfo()">
+              <md-option ng-value="">Mind</md-option>
+              <md-option ng-repeat="sh in vm.shifts" ng-value="sh">{{sh}}</md-option>
+            </md-select>
+          </md-input-container>
+          <md-input-container flex>
+            <label>Állomás</label>
+            <md-select ng-model="search.place">
+              <md-option ng-value="">Mind</md-option>
+              <md-option ng-repeat="pl in vm.place" ng-value="pl">{{pl}}</md-option>
+            </md-select>
+          </md-input-container>
+          <md-input-container flex>
+            <label>Állás</label>
+            <md-select ng-model="search.category">
+              <md-option ng-value="">Mind</md-option>
+              <md-option ng-repeat="ct in vm.categories" ng-value="ct">{{ct}}</md-option>
+            </md-select>
+          </md-input-container>
+        </div>
+      </div>
+      <div layout="row">
+        <md-table-container flex>
+          <table md-table>
+            <thead md-head>
+              <tr md-row>
+                <th md-column>Nap</th>
+                <th md-column>Állásidő (perc)</th>
+                <th md-column>Potting</th>
+                <th md-column>Állomás</th>
+                <th md-column>Állás</th>
+                <th md-column>Szak</th>
+              </tr>
+            </thead>
+            <tbody md-body>
+              <tr md-row ng-repeat="item in vm.selectdata | filter: search track by $index">
+                <td md-cell>{{item.day}}</td>
+                <td md-cell>{{item.time}}</td>
+                <td md-cell>{{item.pottingid}}</td>
+                <td md-cell>{{item.place}}</td>
+                <td md-cell>{{item.category}}</td>
+                <td md-cell>{{item.shift}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </md-table-container>
+      </div>
+    </md-divider>
+  </div>
+</md-content>
