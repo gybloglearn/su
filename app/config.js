@@ -50,6 +50,11 @@
 			templateUrl: './app/components/downtimesum/downtimesum.html' + '?' + cp,
 			controller: 'DowntimesumController',
 			controllerAs: 'vm'
+		}).state('operators', {
+			url: 'operators',
+			templateUrl: './app/components/operators/operators.html' + '?' + cp,
+			controller: 'OperatorsController',
+			controllerAs: 'vm'
 		}).state('login', {
       url: '/login',
       templateUrl: './app/components/login/login.html' + '?' + cp,

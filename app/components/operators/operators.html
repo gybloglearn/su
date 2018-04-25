@@ -1,0 +1,21 @@
+<md-content layout="row" layout-sm="column" layout-xs="column">
+  <div layout-padding flex>
+    <h1 class="md-display-2" layout="row">
+      <span flex>Operátorok</span>
+      <md-button class="md-fab md-primary md-hue-2">
+        <md-icon class="material-icons">dashboard</md-icon>
+      </md-button>
+    </h1>
+    <md-divider>
+      <div layout-gt-xs="row">
+        <md-input-container>
+          <label>Dátum:</label>
+          <md-datepicker ng-model="vm.datum" md-max-date="vm.maxdate" ng-change="vm.beallit()"></md-datepicker>
+        </md-input-container>
+        <md-button class="md-fab md-warning md-hue-2" ng-click="vm.exportToCSV()">
+          <md-icon class="material-icons">save</md-icon>
+        </md-button>
+      </div>
+    </md-divider>
+  </div>
+</md-content>
