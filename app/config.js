@@ -24,6 +24,18 @@
 			templateUrl: './app/components/quicklinks/quicklinks.html' + '?' + cp,
 			controller: 'QuicklinksController',
 			controllerAs: 'vm'
+		}).state('history', {
+			//url: '/history/:modulid',
+			url: 'history',
+			templateUrl: './app/components/history/history.html' + '?' + cp,
+			controller: 'HistoryController',
+			controllerAs: 'vm'
+		}).state('moduldata', {
+			//url: '/moduldata/:modulid',
+			url: 'moduldata',
+			templateUrl: './app/components/moduldata/moduldata.html' + '?' + cp,
+			controller: 'ModuldataController',
+			controllerAs: 'vm'
 		}).state('login', {
       url: '/login',
       templateUrl: './app/components/login/login.html' + '?' + cp,
