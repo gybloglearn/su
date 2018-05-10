@@ -25,14 +25,14 @@
 			controller: 'QuicklinksController',
 			controllerAs: 'vm'
 		}).state('history', {
-			//url: '/history/:modulid',
-			url: 'history',
+			url: '/history/:modulid',
+			//url: 'history',
 			templateUrl: './app/components/history/history.html' + '?' + cp,
 			controller: 'HistoryController',
 			controllerAs: 'vm'
 		}).state('moduldata', {
-			//url: '/moduldata/:modulid',
-			url: 'moduldata',
+			url: '/moduldata/:modulid',
+			//url: 'moduldata',
 			templateUrl: './app/components/moduldata/moduldata.html' + '?' + cp,
 			controller: 'ModuldataController',
 			controllerAs: 'vm'

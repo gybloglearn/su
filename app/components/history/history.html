@@ -24,74 +24,80 @@
       </div>
       <div layout="row">
         <h2> Lekérdezett adagszám: {{vm.code}}</h2>
-        <!--h3 ng-show="vm.code">
-					<a class="btn btn-large btn-info" target="_blank" href="../Modulhistory/#/Moduldata/{{vm.code}}">Moduldata adatok</a>
-				</h3-->
+      </div>
+      <div layout="row">
+        <h3 ng-show="vm.code">
+          <md-button class="md-primary  md-raised" ng-href="../modulhistory_su/#/moduldata/{{vm.code}}" target="_blank">Moduldata adatok</md-button>
+        </h3>
       </div>
       <div layout="row">
         <div ng-show="user.displayname && (user.username=='212434909'|| user.username=='502678184' || user.username=='212319674' || user.username=='113007549' || user.username=='113011028' || user.username=='113009480' || user.username=='113005514' || user.username=='113005858' || user.username=='113005432' || user.username=='113005836' || user.username=='212422533' || user.username=='212557160' || user.username== '212437547')">
           <md-button class="md-default md-raised" ng-class="{'md-info':vm.show}" ng-click="vm.show=!vm.show">Felvitel</md-button>
-            <div ng-show="vm.show">
-              <div flex style="margin-top:20px">
-                <md-input-container>
-                  <label>Terület:</label>
-                  <md-select ng-model="vm.eventtype">
-                    <md-option ng-repeat="item in vm.alleventtype track by $index" value="{{item}}">{{item}}</md-option>
-                  </md-select>
-                </md-input-container>
-                <md-input-container>
-                  <label class="input-group-addon">SSO</label>
-                  <input type="text" class="form-control" ng-model="user.username" readonly>
-                </md-input-container>
-                <md-input-container>
-                  <label class="input-group-addon">Név</label>
-                  <input type="text" class="form-control" ng-model="user.displayname" readonly>
-                </md-input-container>
-                <md-input-container>
-                  <label class="input-group-addon">Dátum</label>
-                  <input type="text" class="form-control" ng-model="vm.datum" readonly>
-                </md-input-container>
-                <md-input-container>
-                    <label class="input-group-addon">Modul</label>
-                    <input type="text" class="form-control" ng-model="vm.code" readonly>
-                </md-input-container>
-                <md-input-container>
-                    <label class="input-group-addon">Megjegyzés</label>
-                    <textarea class="form-control" rows="4" ng-model="vm.description"></textarea>
-                </md-input-container>
-                <md-input-container></md-input-container>
+          <div ng-show="vm.show">
+            <div flex style="margin-top:20px">
+              <md-input-container>
+                <label>Terület:</label>
+                <md-select ng-model="vm.eventtype">
+                  <md-option ng-repeat="item in vm.alleventtype track by $index" value="{{item}}">{{item}}</md-option>
+                </md-select>
+              </md-input-container>
+              <md-input-container>
+                <label class="input-group-addon">SSO</label>
+                <input type="text" class="form-control" ng-model="user.username" readonly>
+              </md-input-container>
+              <md-input-container>
+                <label class="input-group-addon">Név</label>
+                <input type="text" class="form-control" ng-model="user.displayname" readonly>
+              </md-input-container>
+              <md-input-container>
+                <label class="input-group-addon">Dátum</label>
+                <input type="text" class="form-control" ng-model="vm.datum" readonly>
+              </md-input-container>
+              <md-input-container>
+                <label class="input-group-addon">Modul</label>
+                <input type="text" class="form-control" ng-model="vm.code" readonly>
+              </md-input-container>
+              <md-input-container>
+                <label class="input-group-addon">Megjegyzés</label>
+                <textarea class="form-control" rows="4" ng-model="vm.description"></textarea>
+              </md-input-container>
+              <md-input-container></md-input-container>
 
 
-                <div class="col-sm-4" style="margin-top:10px">
-                  <md-button class="md-success md-raised" ng-click="vm.save()" ng-disabled="vm.code==''">Feltölt</md-button>
-                  <div class="alert alert-success" ng-show="vm.showmessage">
-                    <strong>Sikeres felvitel!</strong>
-                  </div>
+              <div class="col-sm-4" style="margin-top:10px">
+                <md-button class="md-success md-raised" ng-click="vm.save()" ng-disabled="vm.code==''">Feltölt</md-button>
+                <div class="alert alert-success" ng-show="vm.showmessage">
+                  <strong>Sikeres felvitel!</strong>
                 </div>
               </div>
             </div>
+          </div>
         </div>
       </div>
     </md-divider>
     <md-divider>
-      <!--div layout="row">
+      <div layout="row">
         <md-button class="md-fab md-primary md-hue-2" ng-click="vm.tablesave()">
           <md-icon class="material-icons">save</md-icon>
         </md-button>
-      </div-->
+      </div>
       <div layout="row" id="exportTable">
-        <md-table-container>
-          <table md-table>
+          <table>
             <tr ng-repeat="d in vm.d">
-              <th>{{d.name}}:</th>
+              <th>{{d.name}}</th>
               <td>{{d.value}}</td>
             </tr>
           </table>
-        </md-table-container>
       </div>
     </md-divider>
     <md-divider>
       <div layout="row">
+        <md-input-container>
+          <md-button class="md-primary md-raised" ng-click="terkep=!terkep">Bökés térkép</md-button>
+          <md-button class="md-primary md-raised" ng-click="megj=!megj">Megjegyzés</md-button>
+        </md-input-container>
+      </div>
+      <div layout="row" style="margin-top:10px" ng-show="terkep">
         <div flex="50">
           <div class="modMap">
             <div layout="row" ng-repeat="sor in vm.sorok track by $index">
@@ -111,10 +117,10 @@
           </div>
         </div>
       </div>
-      <div layout="row">
-        <md-table-container>
+      <div layout="row" style="margin-top:10px" ng-show="megj">
+        <md-table-container flex>
           <table md-table>
-            <head md-head>
+            <thead md-head>
               <tr md-row>
                 <th md-column>SSO</th>
                 <th md-column>Név</th>
@@ -123,15 +129,15 @@
                 <th md-column>Modul</th>
                 <th md-column>Megjegyzés</th>
               </tr>
-            </head>
+            </thead>
             <tbody md-body>
               <tr md-row ng-repeat="item in vm.planlist">
-                <td>{{item.sso}}</td>
-                <td>{{item.name}}</td>
-                <td>{{item.date}}</td>
-                <td>{{item.eventtype}}</td>
-                <td>{{item.modul}}</td>
-                <td>{{item.description}}</td>
+                <td md-cell>{{item.sso}}</td>
+                <td md-cell>{{item.name}}</td>
+                <td md-cell>{{item.date}}</td>
+                <td md-cell>{{item.eventtype}}</td>
+                <td md-cell>{{item.modul}}</td>
+                <td md-cell>{{item.description}}</td>
               </tr>
             </tbody>
           </table>

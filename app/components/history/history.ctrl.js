@@ -164,8 +164,9 @@
         }
       };
 
-
-      doc.fromHTML($('#exportTable').get(0), 15, 15, {
+      var elem = window.document.getElementById('exportTable');
+      console.log(elem);
+      doc.fromHTML(elem, 15, 15, {
         'width': 250,
         'margin':1,
         'pagesplit': true,
@@ -184,14 +185,14 @@
         vm.user = $cookies.getObject('user', { path: '/' });
       }
       loadPartnumber();
-      /*if ($stateParams.modulid) {
+      if ($stateParams.modulid) {
         var modid = $stateParams.modulid;
         vm.code = modid;
         vm.part = modid.substr(2, 7);
         vm.valid = modid.substr(9, 18);
         load(modid);
         loadplan(modid);
-      }*/
+      }
     }
   }
 })();

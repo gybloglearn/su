@@ -40,7 +40,7 @@
           if (url == '' || url == '/') {
             $state.go('dashboard');
           } else {
-            $state.go(url);
+            $location.href = url;
           }
         } else {
 

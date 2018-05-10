@@ -5,8 +5,8 @@
     .module('app')
     .controller('ModuldataController', ModuldataController);
 
-  ModuldataController.$inject = ['$state', '$cookies', '$rootScope', '$filter', '$mdSidenav', 'ModuldataService'];
-  function ModuldataController($state, $cookies, $rootScope, $filter, $mdSidenav, ModuldataService) {
+  ModuldataController.$inject = ['$state', '$cookies', '$rootScope', '$filter', '$mdSidenav', 'ModuldataService', '$stateParams'];
+  function ModuldataController($state, $cookies, $rootScope, $filter, $mdSidenav, ModuldataService, $stateParams) {
     var vm = this;
     vm.code = '';
     vm.check = check;
@@ -76,13 +76,13 @@
         vm.egyedi = response.data;
       });
 
-      /*if ($stateParams.modulid) {
+      if ($stateParams.modulid) {
         var modid = $stateParams.modulid;
         vm.code = modid;
         vm.part = modid.substr(2, 7);
         vm.valid = modid.substr(9, 18);
         load(modid);
-      }*/
+      }
     }
   }
 })();
