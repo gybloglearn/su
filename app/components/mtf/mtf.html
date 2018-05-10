@@ -1,11 +1,188 @@
 <md-content layout="row" layout-sm="column" layout-xs="column">
   <div layout-padding flex>
     <h1 class="md-display-2" layout="row">
-      <span flex>Mtf</span>
+      <span flex>MTF {{vm.datumszam}}</span>
       <md-button class="md-fab md-primary md-hue-2">
         <md-icon class="material-icons">dashboard</md-icon>
       </md-button>
     </h1>
-    <md-divider></md-divider>
+    <md-divider>
+      <div layout-gt-xs="row">
+        <md-input-container>
+          <label>Dátum:</label>
+          <md-datepicker ng-model="vm.date" md-max-date="vm.maxdate" ng-change="vm.change()"></md-datepicker>
+        </md-input-container>
+      </div>
+      <div layout="row">
+        <div flex="10">
+          <h1>Délelőtt:{{vm.szak_de}}</h1>
+        </div>
+        <div flex="40">
+          <h1 style="text-align:center" class="md-display-3">{{vm.mtf|filter:{'type':'_BP-OUT'}|filter:{'shiftnum':'1'} |sumField:'aeq'|number:2}}</h1>
+          <h3 style="text-align:center">AEQ</h3>
+          <h3 style="text-align:center;cursor:pointer" ng-click="kide=!kide">Kihozatal részletek</h3>
+          <div ng-show="kide">
+            <md-table-container>
+              <table md-table>
+                <thead md-head>
+                  <tr md-row>
+                    <th md-column>Típus</th>
+                    <th md-column>Darab</th>
+                    <th md-column>AEQ</th>
+                  </tr>
+                </thead>
+                <tbody md-body>
+                  <tr md-row ng-repeat="item in vm.mtf | filter:{'type':'_BP-OUT','shiftnum':'1'}">
+                    <td>{{item.name}}</td>
+                    <td>{{item.amount}}</td>
+                    <td>{{item.aeq|number:2}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </md-table-container>
+          </div>
+        </div>
+        <div flex="10"></div>
+        <div flex="40">
+          <h1 style="text-align:center" class="md-display-3">{{vm.mtf|filter:{'type':'_BOK-BOKES'}|filter:{'shiftnum':'1'} |sumField:'amount'|number:0}}</h1>
+          <h3 style="text-align:center">Összes bökés</h3>
+          <h3 style="text-align:center;cursor:pointer" ng-click="bokde=!bokde">Bökés részletek</h3>
+          <div ng-show="bokde">
+            <md-table-container>
+              <table md-table>
+                <thead md-head>
+                  <tr md-row>
+                    <th md-column>Típus</th>
+                    <th md-column>Darab</th>
+                    <th md-column>Bökés/AEQ</th>
+                  </tr>
+                </thead>
+                <tbody md-body>
+                  <tr md-row ng-repeat="item in vm.mtf | filter:{'type':'_BP-OUT','shiftnum':'1'}">
+                    <td>{{item.name}}</td>
+                    <td>{{item.bokes}}</td>
+                    <td>{{item.bokes/item.aeq|number:2}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </md-table-container>
+          </div>
+        </div>
+      </div>
+      <hr ng-show="vm.szak_du">
+      <div layout="row" ng-show="vm.szak_du">
+        <div flex="10">
+          <h1>Délután:{{vm.szak_du}}</h1>
+        </div>
+        <div flex="40">
+          <h1 style="text-align:center" class="md-display-3">{{vm.mtf|filter:{'type':'_BP-OUT'}|filter:{'shiftnum':'2'} |sumField:'aeq'|number:2}}</h1>
+          <h3 style="text-align:center">AEQ</h3>
+          <h3 style="text-align:center;cursor:pointer" ng-click="kidu=!kidu">Kihozatal részletek</h3>
+          <div ng-show="kidu">
+            <md-table-container>
+              <table md-table>
+                <thead md-head>
+                  <tr md-row>
+                    <th md-column>Típus</th>
+                    <th md-column>Darab</th>
+                    <th md-column>AEQ</th>
+                  </tr>
+                </thead>
+                <tbody md-body>
+                  <tr md-row ng-repeat="item in vm.mtf | filter:{'type':'_BP-OUT','shiftnum':'2'}">
+                    <td>{{item.name}}</td>
+                    <td>{{item.amount}}</td>
+                    <td>{{item.aeq|number:2}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </md-table-container>
+          </div>
+        </div>
+        <div flex="10"></div>
+        <div flex="40">
+          <h1 style="text-align:center" class="md-display-3">{{vm.mtf|filter:{'type':'_BOK-BOKES'}|filter:{'shiftnum':'2'} |sumField:'amount'|number:0}}</h1>
+          <h3 style="text-align:center">Összes bökés</h3>
+          <h3 style="text-align:center;cursor:pointer" ng-click="bokdu=!bokdu">Bökés részletek</h3>
+          <div ng-show="bokdu">
+            <md-table-container>
+              <table md-table>
+                <thead md-head>
+                  <tr md-row>
+                    <th md-column>Típus</th>
+                    <th md-column>Darab</th>
+                    <th md-column>Bökés/AEQ</th>
+                  </tr>
+                </thead>
+                <tbody md-body>
+                  <tr md-row ng-repeat="item in vm.mtf | filter:{'type':'_BP-OUT','shiftnum':'2'}">
+                    <td>{{item.name}}</td>
+                    <td>{{item.bokes}}</td>
+                    <td>{{item.bokes/item.aeq|number:2}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </md-table-container>
+          </div>
+        </div>
+      </div>
+      <hr>
+      <div layout="row">
+        <div flex="10">
+          <h1>Éjszaka:{{vm.szak_ej}}</h1>
+        </div>
+        <div flex="40">
+          <h1 style="text-align:center" class="md-display-3">{{vm.mtf|filter:{'type':'_BP-OUT'}|filter:{'shiftnum':'3'} |sumField:'aeq'|number:2}}</h1>
+          <h3 style="text-align:center">AEQ</h3>
+          <h3 style="text-align:center;cursor:pointer" ng-click="kiej=!kiej">Kihozatal részletek</h3>
+          <div ng-show="kiej">
+            <md-table-container>
+              <table md-table>
+                <thead md-head>
+                  <tr md-row>
+                    <th md-column>Típus</th>
+                    <th md-column>Darab</th>
+                    <th md-column>AEQ</th>
+                  </tr>
+                </thead>
+                <tbody md-body>
+                  <tr md-row ng-repeat="item in vm.mtf | filter:{'type':'_BP-OUT','shiftnum':'3'}">
+                    <td>{{item.name}}</td>
+                    <td>{{item.amount}}</td>
+                    <td>{{item.aeq|number:2}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </md-table-container>
+          </div>
+        </div>
+        <div flex="10"></div>
+        <div flex="40">
+          <h1 style="text-align:center" class="md-display-3">{{vm.mtf|filter:{'type':'_BOK-BOKES'}|filter:{'shiftnum':'3'} |sumField:'amount'|number:0}}</h1>
+          <h3 style="text-align:center">Összes bökés</h3>
+          <h3 style="text-align:center;cursor:pointer" ng-click="bokej=!bokej">Bökés részletek</h3>
+          <div ng-show="bokej">
+            <md-table-container>
+              <table md-table>
+                <thead md-head>
+                  <tr md-row>
+                    <th md-column>Típus</th>
+                    <th md-column>Darab</th>
+                    <th md-column>Bökés/AEQ</th>
+                  </tr>
+                </thead>
+                <tbody md-body>
+                  <tr md-row ng-repeat="item in vm.mtf | filter:{'type':'_BP-OUT','shiftnum':'3'}">
+                    <td>{{item.name}}</td>
+                    <td>{{item.bokes}}</td>
+                    <td>{{item.bokes/item.aeq|number:2}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </md-table-container>
+          </div>
+        </div>
+      </div>
+    </md-divider>
   </div>
 </md-content>
