@@ -1,0 +1,77 @@
+<md-content layout="row" layout-sm="column" layout-xs="column">
+  <div layout-padding flex>
+    <h1 class="md-display-2" layout="row">
+      <span flex>BP Rework</span>
+      <md-button class="md-fab md-primary md-hue-2">
+        <md-icon class="material-icons">dashboard</md-icon>
+      </md-button>
+    </h1>
+    <md-divider>
+      <div layout-gt-xs="row">
+        <div flex-gt-xs>
+          <md-input-container>
+            <md-datepicker ng-model="vm.startdate" md-max-date="vm.maxdate"></md-datepicker>
+          </md-input-container>
+          <md-input-container>
+            <md-datepicker ng-model="vm.enddate" md-max-date="vm.maxdate"></md-datepicker>
+          </md-input-container>
+          <md-button class="md-primary md-raised" ng-click="vm.getdata()">Betöltés</md-button>
+        </div>
+      </div>
+      <div ng-repeat="shs in (vm.data | unique:'shiftstart')" style="margin-top:5px">
+        <div layout="row">
+          <div flex="10">{{shs.shiftstart}} - {{shs.shift}}</div>
+          <div style="text-align:center" flex="40">
+            <h2>BPzett</h2>
+            <h1>{{ vm.data | filter: {shiftstart: shs.shiftstart, state:'BP'} | sumField:'aeq'}}</h1>
+          </div>
+          <div style="text-align:center" flex="40">
+            <h2>Rework</h2>
+            <h1>{{ vm.data | filter: {shiftstart: shs.shiftstart, state:'Rework'} | sumField:'aeq'}}</h1>
+          </div>
+        </div>
+        <div layout="row">
+          <md-table-container flex>
+            <table md-table>
+              <thead md-head>
+                <tr md-row>
+                  <th md-column>Modul id</th>
+                  <th md-column>Statusz</th>
+                  <th md-column>Kád</th>
+                  <th md-column>BP időpont</th>
+                  <th md-column>Utolsó BP időpont</th>
+                  <th md-column>Előző folyamat megnevezése</th>
+                  <th md-column>Előző folyamat időpont</th>
+                </tr>
+              </thead>
+              <tbody md-body>
+                <tr ng-repeat="item in vm.data | filter: {shiftstart: shs.shiftstart, state:'Rework'} track by $index">
+                  <td md-cell>{{item.jobid}}</td>
+                  <td md-cell>{{item.state}}</td>
+                  <td md-cell>{{item.MachineName}}</td>
+                  <td md-cell>{{item.BPstart}}</td>
+                  <td md-cell>{{item.LastBPstart}}</td>
+                  <td md-cell>{{item.LastOthername}}</td>
+                  <td md-cell>{{item.LastOtherStart}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </md-table-container>
+        </div>
+      </div>
+    </md-divider>
+    <md-divider>
+      <div layout="row">
+        <div flex="10">Összesen</div>
+        <div style="text-align:center" flex="40">
+          <h2>BPzett</h2>
+          <h1>{{ vm.data | filter: {state:'BP'} | sumField:'aeq'}}</h1>
+        </div>
+        <div style="text-align:center" flex="40">
+          <h2>Rework</h2>
+          <h1>{{ vm.data | filter: {state:'Rework'} | sumField:'aeq'}}</h1>
+        </div>
+      </div>
+    </md-divider>
+  </div>
+</md-content>

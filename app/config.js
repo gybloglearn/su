@@ -24,6 +24,31 @@
 			templateUrl: './app/components/quicklinks/quicklinks.html' + '?' + cp,
 			controller: 'QuicklinksController',
 			controllerAs: 'vm'
+		}).state('mtf', {
+			url: 'mtf',
+			templateUrl: './app/components/mtf/mtf.html' + '?' + cp,
+			controller: 'MtfController',
+			controllerAs: 'vm'
+		}).state('reworks', {
+			url: 'reworks',
+			templateUrl: './app/components/reworks/reworks.html' + '?' + cp,
+			controller: 'ReworksController',
+			controllerAs: 'vm'
+		}).state('archiv', {
+			url: 'archiv',
+			templateUrl: './app/components/archiv/archiv.html' + '?' + cp,
+			controller: 'ArchivController',
+			controllerAs: 'vm'
+		}).state('pp', {
+			url: 'pp',
+			templateUrl: './app/components/pp/pp.html' + '?' + cp,
+			controller: 'PpController',
+			controllerAs: 'vm'
+		}).state('bps', {
+			url: 'bps',
+			templateUrl: './app/components/bps/bps.html' + '?' + cp,
+			controller: 'BpsController',
+			controllerAs: 'vm'
 		}).state('login', {
       url: '/login',
       templateUrl: './app/components/login/login.html' + '?' + cp,

@@ -27,3 +27,13 @@ h1,h2 { font-family: 'Open Sans Condensed'; font-weight: 100;}
 .quicklinks p{
   font-size: 10px;
 }
+.md-head{
+  background-color: #000d42;
+  color: #badb2a!important;
+}
+.md-head .md-column {
+  color: #badb2a!important;
+}
+.md-cell {
+  text-align: center;
+}

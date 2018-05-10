@@ -32,13 +32,33 @@
 			</md-toolbar>
 			<md-content>
 				<md-list flex>
+					<md-list-item ui-sref="bps" ng-click="close()">
+						<div flex class="md-list-item-text">BPS</div>
+						<md-icon class="material-icons">dashboard</md-icon>
+					</md-list-item>
+					<md-list-item ui-sref="pp" ng-click="close()">
+						<div flex class="md-list-item-text">Parkoló pálya adatok</div>
+						<md-icon class="material-icons">dashboard</md-icon>
+					</md-list-item>
+					<md-list-item ui-sref="archiv" ng-click="close()">
+						<div flex class="md-list-item-text">MTF-Archívum</div>
+						<md-icon class="material-icons">dashboard</md-icon>
+					</md-list-item>
+					<md-list-item ui-sref="reworks" ng-click="close()">
+						<div flex class="md-list-item-text">BP Rework</div>
+						<md-icon class="material-icons">dashboard</md-icon>
+					</md-list-item>
+					<md-list-item ui-sref="mtf" ng-click="close()">
+						<div flex class="md-list-item-text">MTF</div>
+						<md-icon class="material-icons">dashboard</md-icon>
+					</md-list-item>
 					<md-list-item ui-sref="dashboard" ng-click="close()">
 						<div flex class="md-list-item-text">Vezérlőpult</div>
 						<md-icon class="material-icons">dashboardk</md-icon>
 					</md-list-item>
 				</md-list>
 				<md-divider></md-divider>
-				<h1 class="md-headline">&nbsp;Gyorslinkek</h1>
+				<!--h1 class="md-headline">&nbsp;Gyorslinkek</h1>
 				<md-grid-list class="gr" md-cols="2" md-row-height="1:1" md-gutter="0px">
 					<md-grid-tile ng-repeat="link in quicklinks" md-rowspan="1" md-colspan="1" class="quicklinks">
 						<p layout-padding="10" flex>
@@ -51,15 +71,15 @@
 							<h3>{{link.title}}</h3>
 						</md-grid-tile-footer>
 					</md-grid-tile>
-				</md-grid-list>
+				</md-grid-list-->
 				<div layout="row">
 					<md-button class="md-icon-button" ui-sref="logout" ng-click="close()" hide-gt-xs>
 						<i class="material-icons">settings_power</i>
 					</md-button>
 					<p flex></p>
-					<md-button class="md-icon-button" ui-sref="quicklinks" ng-click="close()">
+					<!--md-button class="md-icon-button" ui-sref="quicklinks" ng-click="close()">
 						<i class="material-icons">more_horiz</i>
-					</md-button>
+					</md-button-->
 				</div>
 			</md-content>
 		</md-sidenav>
@@ -118,7 +138,18 @@
 	<script src="app/components/login/login.ctrl.js"></script>
 	<script src="app/components/dashboard/dashboard.ctrl.js"></script>
 	<script src="app/components/quicklinks/quicklinks.ctrl.js"></script>
-		<!--endbuild--><!--adds-->
+	<script src="app/components/mtf/mtf.ctrl.js"></script>
+	<script src="app/components/services/mtf.service.js"></script>
+	<script src="app/components/reworks/reworks.ctrl.js"></script>
+	<script src="app/components/services/reworks.service.js"></script>
+	<script src="app/components/archiv/archiv.ctrl.js"></script>
+	<script src="app/components/services/archiv.service.js"></script>
+	<script src="app/components/pp/pp.ctrl.js"></script>
+	<script src="app/components/services/pp.service.js"></script>
+	<script src="app/components/bps/bps.ctrl.js"></script>
+	<script src="app/components/services/bps.service.js"></script>
+	<!--endbuild-->
+	<!--adds-->
 	<script>
 		angular.bootstrap(document, ['app']);
 	</script>
