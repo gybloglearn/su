@@ -184,5 +184,52 @@
         </div>
       </div>
     </md-divider>
+    <md-divider>
+      <div layout="row" layout-xs="column" layout-sm="column">
+        <div flex="100" flex-sm="100" flex-xs="100">
+          <my-chart id="chart" options="vm.chartconfig"></my-chart>
+        </div>
+      </div>
+      <div layout="row">
+        <md-table-container flex>
+          <table md-table>
+            <thead md-head>
+              <tr md-row>
+                <th></th>
+                <th colspan="3" style="background-color:#ff9933;color: #ffffff">NAPPAL</th>
+                <th colspan="3" style="color: #ffffff">ÉJSZAKA</th>
+                <th colspan="3" style="background-color:#005CB9;color: #ffffff">NAPI</th>
+              </tr>
+              <tr md-row>
+                <th md-column>NAP</th>
+                <th md-column style="background-color:#ff9933">AEQ</th>
+                <th md-column style="background-color:#ff9933">BÖKÉS</th>
+                <th md-column style="background-color:#ff9933">BÖKÉS/AEQ</th>
+                <th md-column>AEQ</th>
+                <th md-column>BÖKÉS</th>
+                <th md-column>BÖKÉS/AEQ</th>
+                <th md-column style="background-color:#005CB9">AEQ</th>
+                <th md-column style="background-color:#005CB9">BÖKÉS</th>
+                <th md-column style="background-color:#005CB9">BÖKÉS/AEQ</th>
+              </tr>
+            </thead>
+            <tbody md-body>
+              <tr md-row ng-repeat="item in vm.tabledata track by $index" class="ng-scope">
+                <td md-cell>{{item.day}}</td>
+                <td md-cell>{{item.noonaeq | number:2}}</td>
+                <td md-cell>{{item.noonbok | number:0}}</td>
+                <td md-cell>{{item.noonbok/item.noonaeq| number:2}}</td>
+                <td md-cell>{{item.moonaeq | number:2}}</td>
+                <td md-cell>{{item.moonbok | number:0}}</td>
+                <td md-cell>{{item.moonbok/item.moonaeq| number:2}}</td>
+                <td md-cell>{{item.dayaeq | number:2}}</td>
+                <td md-cell>{{item.daybok | number:0}}</td>
+                <td md-cell>{{item.daybok/item.dayaeq| number:2}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </md-table-container>
+      </div>
+    </md-divider>
   </div>
 </md-content>

@@ -144,6 +144,169 @@
       });
     }
 
+    function createchart() {
+      var chdata = [];
+      for (var i = 6; i >= 0; i--) {
+        var actday = $filter('date')(new Date().getTime() - ((6 - i) * 24 * 3600 * 1000), 'MMdd');
+        MtfService.getoldday(actday).then(function (response) {
+          for (var j = 0; j < response.data.length; j++) {
+            for (var k = 0; k < response.data[j].data.length; k++) {
+              response.data[j].data[k].date = $filter('date')(new Date(response.data[j].data[k].days).getTime(), 'yyyy-MM-dd');
+              for (var l = 0; l < vm.aeqs.length; l++) {
+                if (response.data[j].data[k].name.includes(vm.aeqs[l].name)) {
+                  response.data[j].data[k].aeq = response.data[j].data[k].amount * vm.aeqs[l].amount;
+                }
+              }
+              chdata.push(response.data[j].data[k]);
+            }
+          }
+
+          vm.chartconfig = {
+            chart: { type: 'column', height: 300 },
+            title: { text: 'Előző 1 hét adatai' },
+            xAxis: { type: 'category', crosshair: true },
+            tooltip: { shared: true },
+            yAxis: [
+              {
+                title: { text: 'BP-zett AEQ' },
+                max: 250,
+                min: 100
+              },
+              {
+                title: { text: 'BÖKES / AEQ' },
+                min: 10,
+                max: 40,
+                opposite: true
+              }
+            ],
+            plotOptions: {
+              series: {
+                pointPadding: 0,
+                groupPadding: 0
+              }
+            },
+            series: [
+              { name: 'BP-zett AEQ', color:'#44bb22', data: feltolt(chdata), yAxis: 0, dataLabels: { enabled: true, useHTML: true, format: '<b style="color:white">{y:.2f}</b>', inside: true, verticalAlign: 'bottom' } },
+              { type: 'line', color: 'red', name: 'CÉL BP-zett AEQ', data: targetaeq(), yAxis: 0 },
+              { type: 'line', color: '#2288dd', name: 'Bökés / AEQ', data: feltolt_bokes(chdata), yAxis: 1 },
+              { type: 'line', color: '#005588', name: 'CÉL Bökés / AEQ', data: targetbokes(), yAxis: 1 },
+            ],
+          }
+          createtabledata(chdata);
+        });
+      }
+    }
+
+    function feltolt(bpzett) {
+
+      var bpaeq = [];
+      for (var i = 0; i < 7; i++) {
+        var obj = {};
+        obj = {
+          name: $filter('date')(new Date().getTime() - ((7 - i) * 24 * 3600 * 1000), 'yyyy-MM-dd'),
+          y: 0
+        };
+        for (var k = 0; k < bpzett.length; k++) {
+          if (obj.name == bpzett[k].date && bpzett[k].name.includes("_BP-OUT")) {
+            obj.y += bpzett[k].aeq;
+          }
+        }
+        obj.y > 225 ? obj.color='#44bb22' : obj.color='#bb4422';
+        bpaeq.push(obj);
+      }
+      return bpaeq;
+    }
+
+    function feltolt_bokes(bokes) {
+      var bok = [];
+      for (var i = 0; i < 7; i++) {
+        var obj = {};
+        obj = {
+          name: $filter('date')(new Date().getTime() - ((7 - i) * 24 * 3600 * 1000), 'yyyy-MM-dd'),
+          y: 0
+        }
+        var bk = 0;
+        var aq = 0;
+        for (var k = 0; k < bokes.length; k++) {
+          if (obj.name == bokes[k].date && bokes[k].name.includes("_BP-OUT")) {
+            aq += bokes[k].aeq;
+          }
+          if (obj.name == bokes[k].date && bokes[k].name.includes("_BOK-BOKES")) {
+            bk += bokes[k].amount;
+          }
+        }
+        obj.y = bk / aq;
+        bok.push(obj);
+      }
+      return bok;
+    }
+
+    function targetaeq() {
+      var target = [];
+      for (var i = 0; i < 7; i++) {
+        var obj = {};
+        obj = {
+          name: $filter('date')(new Date().getTime() - ((7 - i) * 24 * 3600 * 1000), 'yyyy-MM-dd'),
+          y: 225
+        };
+        target.push(obj);
+      }
+      console.log(target);
+      return target;
+    }
+
+    function targetbokes() {
+      var target = [];
+      for (var i = 0; i < 7; i++) {
+        var obj = {};
+        obj = {
+          name: $filter('date')(new Date().getTime() - ((7 - i) * 24 * 3600 * 1000), 'yyyy-MM-dd'),
+          y: 30
+        };
+        target.push(obj);
+      }
+      return target;
+    }
+
+    function createtabledata(arr) {
+
+      vm.tabledata = [];
+
+      for (var i = 0; i < 7; i++) {
+        var actday = $filter('date')(new Date().getTime() - ((7 - i) * 24 * 3600 * 1000), 'yyyy-MM-dd');
+        var naeq=0;
+        var eaeq=0;
+        var nbok=0;
+        var ebok=0;
+        for(var j=0;j<arr.length;j++){
+          if(arr[j].date==actday && arr[j].shiftnum==1 && arr[j].name.includes("_BP-OUT")){
+            naeq+=arr[j].aeq;
+          }
+          else if(arr[j].date==actday && arr[j].shiftnum==3 && arr[j].name.includes("_BP-OUT")){
+            eaeq+=arr[j].aeq;
+          }
+          else if(arr[j].date==actday && arr[j].shiftnum==1 && arr[j].name.includes("_BOK-BOKES")){
+            nbok+=arr[j].amount;
+          }
+          else if(arr[j].date==actday && arr[j].shiftnum==3 && arr[j].name.includes("_BOK-BOKES")){
+            ebok+=arr[j].amount;
+          }
+        }
+        var obj = {};
+        obj = {
+          day: actday,
+          noonaeq:naeq,
+          moonaeq:eaeq,
+          dayaeq:naeq+eaeq,
+          noonbok:nbok,
+          moonbok:ebok,
+          daybok:nbok+ebok
+        };
+        vm.tabledata.push(obj);
+      }
+      return vm.tabledata;
+    }
+
 
 
     function activate() {
@@ -155,6 +318,7 @@
         vm.user = $cookies.getObject('user', { path: '/' });
       }
       //loadtoday();
+      createchart();
       change();
     }
 
