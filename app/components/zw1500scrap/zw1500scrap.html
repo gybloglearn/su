@@ -1,11 +1,66 @@
 <md-content layout="row" layout-sm="column" layout-xs="column">
   <div layout-padding flex>
     <h1 class="md-display-2" layout="row">
-      <span flex>Zw1500scrap</span>
+      <span flex>ZW1500 Selejt</span>
       <md-button class="md-fab md-primary md-hue-2">
         <md-icon class="material-icons">dashboard</md-icon>
       </md-button>
     </h1>
-    <md-divider></md-divider>
+    <md-divider>
+      <div layout-gt-xs="row">
+        <div flex-gt-xs>
+          <label>Csoportosítás:</label>
+          <md-input-container>
+            <md-select ng-model="vm.acttime" ng-change="vm.load()">
+              <md-option ng-repeat="tm in vm.times" ng-value="tm">{{tm}}</md-option>
+            </md-select>
+          </md-input-container>
+          <md-input-container>
+            <md-datepicker ng-model="vm.startdate" md-max-date="vm.maxdate"></md-datepicker>
+          </md-input-container>
+          <md-input-container>
+            <md-datepicker ng-model="vm.enddate" md-max-date="vm.maxdate"></md-datepicker>
+          </md-input-container>
+          <md-button class="md-primary md-raised" ng-click="vm.beallit()">Betöltés</md-button>
+        </div>
+      </div>
+      <my-chart id="chart" options="vm.Chartconfig"></my-chart>
+      <div layout="row">
+        <md-table-container flex>
+          <table md-table>
+            <thead md-head>
+              <th md-column>Dátum</th>
+              <th md-column>AH</th>
+              <th md-column>Egyéb</th>
+              <th md-column>GH</th>
+              <th md-column>OH</th>
+              <th md-column>OHSL</th>
+              <th md-column>SEH</th>
+              <th md-column>SL</th>
+              <th md-column>OH+GH</th>
+              <th md-column>Összes selejt</th>
+              <th md-column>Összes</th>
+              <th md-column>Kumulált</th>
+            </thead>
+            <tbody>
+              <tr md-body ng-repeat="item in vm.selectdata">
+                <td md-cell>{{item.date}}</td>
+                <td md-cell>{{item.ah}}</td>
+                <td md-cell>{{item.egyeb}}</td>
+                <td md-cell>{{item.gh}}</td>
+                <td md-cell>{{item.oh}}</td>
+                <td md-cell>{{item.ohsl}}</td>
+                <td md-cell>{{item.seh}}</td>
+                <td md-cell>{{item.sl}}</td>
+                <td md-cell>{{item.vegyes}}</td>
+                <td md-cell>{{item.allscrap}}</td>
+                <td md-cell>{{item.all}}</td>
+                <td md-cell>{{item.kumulalt|number:2}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </md-table-container>
+      </div>
+    </md-divider>
   </div>
 </md-content>

@@ -44,7 +44,7 @@
 
       QcpageService.get(vm.startdatenum, vm.enddatenum, vm.acttype, vm.acttime).then(function (response) {
         vm.data = response.data;
-        var interdata = $filter('unique')(vm.data, "Date")
+        var interdata = $filter('unique')(vm.data, "Date");
         for (var i = 0; i < interdata.length; i++) {
           var obj = {};
           obj = {

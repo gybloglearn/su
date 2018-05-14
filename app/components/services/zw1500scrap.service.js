@@ -14,10 +14,10 @@
     return service;
 
     ////////////////
-    function get() {
+    function get(startdat,enddat,categ) {
       var req = {
         method: 'GET',
-        url: './app/components/PHP/file.php'
+        url: 'app/components/PHP/ZW1500FGScrapData.php?startdate=' + startdat + '&enddate=' + enddat + '&cat=' + categ
       };
       return $http(req);
     }
