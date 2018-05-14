@@ -24,6 +24,16 @@
 			templateUrl: './app/components/quicklinks/quicklinks.html' + '?' + cp,
 			controller: 'QuicklinksController',
 			controllerAs: 'vm'
+		}).state('qcpage', {
+			url: 'qcpage',
+			templateUrl: './app/components/qcpage/qcpage.html' + '?' + cp,
+			controller: 'QcpageController',
+			controllerAs: 'vm'
+		}).state('zw1500scrap', {
+			url: 'zw1500scrap',
+			templateUrl: './app/components/zw1500scrap/zw1500scrap.html' + '?' + cp,
+			controller: 'Zw1500scrapController',
+			controllerAs: 'vm'
 		}).state('login', {
       url: '/login',
       templateUrl: './app/components/login/login.html' + '?' + cp,

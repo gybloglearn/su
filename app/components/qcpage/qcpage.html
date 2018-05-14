@@ -1,0 +1,76 @@
+<md-content layout="row" layout-sm="column" layout-xs="column">
+  <div layout-padding flex>
+    <h1 class="md-display-2" layout="row">
+      <span flex>ZW1500 részletek</span>
+      <md-button class="md-fab md-primary md-hue-2">
+        <md-icon class="material-icons">dashboard</md-icon>
+      </md-button>
+    </h1>
+    <md-divider>
+      <div layout-gt-xs="row">
+        <div flex-gt-xs>
+          <label>Idő osztás:</label>
+          <md-input-container>
+            <md-select ng-model="vm.acttime" ng-change="vm.load()">
+              <md-option ng-repeat="tm in vm.times" ng-value="tm">{{tm}}</md-option>
+            </md-select>
+          </md-input-container>
+          <label>Típus:</label>
+          <md-input-container>
+            <md-select ng-model="vm.acttype" ng-change="vm.load()">
+              <md-option ng-repeat="ty in vm.types" ng-value="ty">{{ty}}</md-option>
+            </md-select>
+          </md-input-container>
+          <md-input-container>
+            <md-datepicker ng-model="vm.startdate" md-max-date="vm.maxdate"></md-datepicker>
+          </md-input-container>
+          <md-input-container>
+            <md-datepicker ng-model="vm.enddate" md-max-date="vm.maxdate"></md-datepicker>
+          </md-input-container>
+          <md-button class="md-primary md-raised" ng-click="vm.beallit()">Betöltés</md-button>
+        </div>
+      </div>
+      <my-chart id="chart" options="vm.QCchartconfig"></my-chart>
+    </md-divider>
+    <div layout="row">
+      <md-table-container flex>
+        <table md-table>
+          <thead md-head>
+            <th md-column rowspan=2 ng-click="vm.order='date';vm.asc=!vm.asc;">Dátum</th>
+            <th md-column rowspan=2 ng-click="vm.order='aplus';vm.asc=!vm.asc;">A+</th>
+            <th md-column>A+/Összes</th>
+            <th md-column rowspan=2 ng-click="vm.order='a';vm.asc=!vm.asc;">A</th>
+            <th md-column>A/Összes</th>
+            <th md-column rowspan=2 ng-click="vm.order='b';vm.asc=!vm.asc;">B</th>
+            <th md-column>B/Összes</th>
+            <th md-column rowspan=2 ng-click="vm.order='notgraded';vm.asc=!vm.asc;">Not Graded</th>
+            <th md-column>Not Graded/Összes</th>
+            <th md-column rowspan=2 ng-click="vm.order='rework';vm.asc=!vm.asc;">Rework</th>
+            <th md-column>Rework/Összes</th>
+            <th md-column rowspan=2 ng-click="vm.order='scrap';vm.asc=!vm.asc;">Scrap</th>
+            <th md-column>Scrap/Összes</th>
+            <th md-column rowspan=2 ng-click="vm.order='osszes';vm.asc=!vm.asc;">Összes</th>
+          </thead>
+          <tbody>
+            <tr md-body ng-repeat="item in vm.selectdata | orderBy:vm.order:vm.asc">
+              <td md-cell>{{item.date}}</td>
+              <td md-cell>{{item.aplus}}</td>
+              <td md-cell>{{(item.aplus/item.all)*100 |number:2}} %</td>
+              <td md-cell>{{item.a}}</td>
+              <td md-cell>{{(item.a/item.all)*100 |number:2}} %</td>
+              <td md-cell>{{item.b}}</td>
+              <td md-cell>{{(item.b/item.all)*100 |number:2}} %</td>
+              <td md-cell>{{item.notgraded}}</td>
+              <td md-cell>{{(item.notgraded/item.all)*100 |number:2}} %</td>
+              <td md-cell>{{item.rework}}</td>
+              <td md-cell>{{(item.rework/item.all)*100 |number:2}} %</td>
+              <td md-cell>{{item.scrap}}</td>
+              <td md-cell>{{(item.scrap/item.all)*100 |number:2}} %</td>
+              <td md-cell>{{item.all}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </md-table-container>
+    </div>
+  </div>
+</md-content>
