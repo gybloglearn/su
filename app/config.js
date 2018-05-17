@@ -24,6 +24,21 @@
 			templateUrl: './app/components/quicklinks/quicklinks.html' + '?' + cp,
 			controller: 'QuicklinksController',
 			controllerAs: 'vm'
+		}).state('x3', {
+			url: 'x3',
+			templateUrl: './app/components/x3/x3.html' + '?' + cp,
+			controller: 'X3Controller',
+			controllerAs: 'vm'
+		}).state('x3sum', {
+			url: 'x3sum',
+			templateUrl: './app/components/x3sum/x3sum.html' + '?' + cp,
+			controller: 'X3sumController',
+			controllerAs: 'vm'
+		}).state('clevent', {
+			url: 'clevent',
+			templateUrl: './app/components/clevent/clevent.html' + '?' + cp,
+			controller: 'CleventController',
+			controllerAs: 'vm'
 		}).state('login', {
       url: '/login',
       templateUrl: './app/components/login/login.html' + '?' + cp,

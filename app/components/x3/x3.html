@@ -1,0 +1,57 @@
+<md-content layout="row" layout-sm="column" layout-xs="column">
+  <div layout-padding flex>
+    <h1 class="md-display-2" layout="row">
+      <span flex>X3 {{vm.startdatenum}}</span>
+      <md-button class="md-fab md-primary md-hue-2">
+        <md-icon class="material-icons">dashboard</md-icon>
+      </md-button>
+    </h1>
+    <md-divider>
+      <div layout-gt-xs="row">
+        <div flex-gt-xs>
+          <md-input-container>
+            <md-datepicker ng-model="vm.enddate" md-max-date="vm.maxdate" ng-change="vm.beallit();vm.load();vm.loadall();"></md-datepicker>
+          </md-input-container>
+          <label>Eset:</label>
+          <md-input-container>
+            <md-select ng-model="vm.chartstate" ng-change="vm.selectchart(vm.selectday)">
+              <md-option ng-repeat="item in vm.charlist|unique" ng-value="item">{{item}}</md-option>
+            </md-select>
+          </md-input-container>
+        </div>
+      </div>
+      <my-chart id="chart" options="vm.chartconfig"></my-chart>
+    </md-divider>
+    <md-divider>
+      <h2 class="text-center">{{vm.startdatenum}} összesítő</h2>
+      <div layout="row">
+        <md-table-container flex>
+          <table md-table>
+            <thead md-head>
+              <tr md-row>
+                <th md-column>Szak</th>
+                <th md-column>CL3 DB</th>
+                <th md-column>CL3 AEQ</th>
+                <th md-column>DB</th>
+                <th md-column>AEQ</th>
+                <th md-column>Átlagos ciklus</th>
+                <th md-column>Elvitt modulok</th>
+              </tr>
+            </thead>
+            <tbody md-body>
+              <tr md-row ng-repeat="t in vm.alldata track by $index">
+                  <td md-cell>{{t.ShiftName}}</td>
+                  <td md-cell>{{t.CL3_in_QTY}}</td>
+                  <td md-cell>{{t.CL3_In_AEQ |number:2}}</td>
+                  <td md-cell>{{t.CL_Qty}}</td>
+                  <td md-cell>{{t.AEQ |number:2}}</td>
+                  <td md-cell>{{t.AVG__CL_cycle}}</td>
+                  <td md-cell>{{t.ElvittModulok}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </md-table-container>
+      </div>
+    </md-divider>
+  </div>
+</md-content>
