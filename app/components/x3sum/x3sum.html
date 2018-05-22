@@ -1,11 +1,68 @@
 <md-content layout="row" layout-sm="column" layout-xs="column">
   <div layout-padding flex>
     <h1 class="md-display-2" layout="row">
-      <span flex>X3sum</span>
+      <span flex>X3 Összesítő {{vm.startdatumszam}}-{{vm.enddatumszam}}</span>
       <md-button class="md-fab md-primary md-hue-2">
         <md-icon class="material-icons">dashboard</md-icon>
       </md-button>
     </h1>
-    <md-divider></md-divider>
+    <md-divider>
+      <div flex-gt-xs>
+        <label>Eset:</label>
+        <md-input-container>
+          <md-select ng-model="vm.actstate" ng-change="vm.setChart(vm.selectday)">
+            <md-option ng-repeat="item in vm.selectday[0].daycases" ng-value="item.state">{{item.state}}</md-option>
+          </md-select>
+        </md-input-container>
+        <md-input-container>
+          <md-datepicker ng-model="vm.startdate" md-max-date="vm.maxdate"></md-datepicker>
+        </md-input-container>
+        <md-input-container>
+          <md-datepicker ng-model="vm.enddate" md-max-date="vm.maxdate"></md-datepicker>
+        </md-input-container>
+        <md-button class="md-primary md-raised" ng-click="vm.beilleszt();vm.update_selectday()" ng-disabled="vm.enddate<=vm.startdate">Betöltés</md-button>
+      </div>
+      <my-chart id="mychart" options="vm.chartconfig"></my-chart>
+      <div layout="row">
+        <div flex="25"></div>
+        <div flex="50">
+          <table md-table>
+            <thead md-head>
+              <tr>
+                <th md-column>Nap</th>
+                <th md-column>A</th>
+                <th md-column>B</th>
+                <th md-column>C</th>
+                <th md-column>D</th>
+                <th md-column>Napi Össz</th>
+              </tr>
+            </thead>
+            <tbody md-body>
+              <tr ng-repeat="it in vm.selectday track by $index">
+                <td md-cell>{{it.day}}</td>
+                <td md-cell>{{ ((vm.selectday | filter:{'dayshift':'A', 'day': it.day})[0].daycases | filter:{'state':vm.actstate})[0].db
+                  + ((vm.selectday | filter:{'nightshift':'A', 'day': it.day})[0].nightcases | filter:{'state':vm.actstate})[0].db
+                  }}
+                </td>
+                <td md-cell>{{ ((vm.selectday | filter:{'dayshift':'B', 'day': it.day})[0].daycases | filter:{'state':vm.actstate})[0].db
+                  + ((vm.selectday | filter:{'nightshift':'B', 'day': it.day})[0].nightcases | filter:{'state':vm.actstate})[0].db
+                  }}
+                </td>
+                <td md-cell>{{ ((vm.selectday | filter:{'dayshift':'C', 'day': it.day})[0].daycases | filter:{'state':vm.actstate})[0].db
+                  + ((vm.selectday | filter:{'nightshift':'C', 'day': it.day})[0].nightcases | filter:{'state':vm.actstate})[0].db
+                  }}
+                </td>
+                <td md-cell>{{ ((vm.selectday | filter:{'dayshift':'D', 'day': it.day})[0].daycases | filter:{'state':vm.actstate})[0].db
+                  + ((vm.selectday | filter:{'nightshift':'D', 'day': it.day})[0].nightcases | filter:{'state':vm.actstate})[0].db
+                  }}
+                </td>
+                <td md-cell>{{ ((vm.selectday | filter:{'day': it.day})[0].daycases | filter:{'state':vm.actstate})[0].db + ((vm.selectday
+                  | filter:{'day': it.day})[0].nightcases | filter:{'state':vm.actstate})[0].db}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </md-divider>
   </div>
 </md-content>

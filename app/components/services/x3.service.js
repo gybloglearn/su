@@ -9,7 +9,6 @@
   function X3Service($http) {
     var service = {
       get: get,
-      getmulti: getmulti,
       getall: getall
     };
 
@@ -20,13 +19,6 @@
       var req = {
         method: 'GET',
         url: 'app/components/PHP/CL4.php?startdate=' + start
-      };
-      return $http(req);
-    }
-    function getmulti(startd, endd) {
-      var req = {
-        method: 'GET',
-        url: 'app/components/PHP/CL4.php?startdate=' + startd + '&enddate=' + endd
       };
       return $http(req);
     }

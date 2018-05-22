@@ -1,4 +1,4 @@
-(function() {
+(function () {
   'use strict';
 
   angular
@@ -8,16 +8,17 @@
   X3sumService.$inject = ['$http'];
   function X3sumService($http) {
     var service = {
-      get:get
+      getmulti: getmulti
     };
 
     return service;
 
     ////////////////
-    function get() {
+ 
+    function getmulti(startd, endd) {
       var req = {
         method: 'GET',
-        url: './app/components/PHP/file.php'
+        url: 'app/components/PHP/CL4.php?startdate=' + startd + '&enddate=' + endd
       };
       return $http(req);
     }
