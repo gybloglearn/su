@@ -121,7 +121,6 @@
           }
         }
         selectchart(vm.selectday);
-        console.log(vm.selectday);
         vm.mtfld = false;
       });
     }

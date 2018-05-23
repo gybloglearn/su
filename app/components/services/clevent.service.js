@@ -14,10 +14,10 @@
     return service;
 
     ////////////////
-    function get() {
+    function get(start, end) {
       var req = {
         method: 'GET',
-        url: './app/components/PHP/file.php'
+        url: 'app/components/PHP/CL_Event_Log.php?startdate=' + start + '&enddate=' + end
       };
       return $http(req);
     }

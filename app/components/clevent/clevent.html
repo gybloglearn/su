@@ -1,11 +1,78 @@
 <md-content layout="row" layout-sm="column" layout-xs="column">
   <div layout-padding flex>
     <h1 class="md-display-2" layout="row">
-      <span flex>Clevent</span>
+      <span flex>Klórozók összesítő {{vm.startdatumszam}} - {{vm.enddatumszam}}</span>
       <md-button class="md-fab md-primary md-hue-2">
         <md-icon class="material-icons">dashboard</md-icon>
       </md-button>
     </h1>
-    <md-divider></md-divider>
+    <md-divider>
+      <div layout-gt-xs="row">
+        <div flex-gt-xs>
+          <label>Egységek:</label>
+          <md-input-container>
+            <md-select ng-model="vm.actunit" class="form-control" ng-change="vm.setChart(vm.data,vm.actunit,vm.actclor,vm.actssh,vm.actesh)">
+              <md-option value="">Mind</md-option>
+              <md-option ng-repeat="item in vm.units" value="{{item}}">{{item}}</md-option>
+            </md-select>
+          </md-input-container>
+          <label>Klórozó:</label>
+          <md-input-container>
+            <md-select ng-model="vm.actclor" class="form-control" ng-change="vm.setChart(vm.data,vm.actunit,vm.actclor,vm.actssh,vm.actesh)">
+              <md-option value="">Mind</md-option>
+              <md-option ng-repeat="item in vm.selectclor" value="{{item.MachineName}}">{{item.MachineName}}</md-option>
+            </md-select>
+          </md-input-container>
+          <label>Kezdő szak:</label>
+          <md-input-container>
+            <md-select ng-model="vm.actssh" class="form-control" ng-change="vm.setChart(vm.data,vm.actunit,vm.actclor,vm.actssh,vm.actesh)">
+              <md-option value="">Mind</md-option>
+              <md-option ng-repeat="item in vm.shifts" value="{{item}}">{{item}}</md-option>
+            </md-select>
+          </md-input-container>
+          <label>Vége szak:</label>
+          <md-input-container>
+            <md-select ng-model="vm.actesh" class="form-control" ng-change="vm.setChart(vm.data,vm.actunit,vm.actclor,vm.actssh,vm.actesh)">
+              <md-option value="">Mind</md-option>
+              <md-option ng-repeat="item in vm.shifts" value="{{item}}">{{item}}</md-option>
+            </md-select>
+          </md-input-container>
+          <md-input-container>
+            <md-datepicker ng-model="vm.startdate" md-max-date="vm.maxdate"></md-datepicker>
+          </md-input-container>
+          <md-input-container>
+            <md-datepicker ng-model="vm.enddate" md-max-date="vm.maxdate"></md-datepicker>
+          </md-input-container>
+          <md-button class="md-primary md-raised" ng-click="vm.beilleszt()" ng-disabled="vm.startdate>=vm.enddate;vm.tload">Betöltés</md-button>
+        </div>
+      </div>
+      <my-chart id="chart" options="vm.chartconfig"></my-chart>
+      <div layout="row">
+        <table md-table>
+          <thead md-head>
+            <tr md-row>
+              <th md-column>Modul</th>
+              <th md-column>Kezdő dátum</th>
+              <th md-column>Kezdő szak</th>
+              <th md-column>Klórozó</th>
+              <th md-column>Vége dátum</th>
+              <th md-column>Vége szak</th>
+              <th md-column>Típus</th>
+            </tr>
+          </thead>
+          <tbody md-body>
+            <tr md-row ng-repeat="dt in vm.data | orderBy:'CL_Start' |filter:{'MachineName':vm.actclor}|filter:{'Start_shift':vm.actssh}|filter:{'End_shift':vm.actesh} track by $index">
+              <td md-cell>{{dt.JobID}}</td>
+              <td md-cell>{{dt.CL_Start}}</td>
+              <td md-cell>{{dt.Start_shift}}</td>
+              <td md-cell>{{dt.MachineName}}</td>
+              <td md-cell>{{dt.CL_End}}</td>
+              <td md-cell>{{dt.End_shift}}</td>
+              <td md-cell>{{dt.chem}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </md-divider>
   </div>
 </md-content>

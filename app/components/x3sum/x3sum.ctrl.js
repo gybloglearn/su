@@ -127,7 +127,6 @@
             }
           }
         }
-        console.log(vm.selectday);
         setChart(vm.selectday);
         vm.loading = false;
       });
@@ -167,7 +166,6 @@
           }
         },
       };
-      console.log(vm.chartconfig);
     }
 
     function day(t) {
@@ -179,7 +177,6 @@
           }
         }
       }
-      console.log(res);
       return res;
     }
 
