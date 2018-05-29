@@ -19,6 +19,7 @@
     vm.enddatenum = $filter('date')(new Date(), 'yyyy-MM-dd');
     vm.load = load;
     vm.beallit=beallit;
+    vm.loading=false;
 
     $rootScope.close = function () {
       $mdSidenav('left').close();
@@ -41,6 +42,7 @@
       vm.data=[];
       vm.selectdata = [];
       vm.cats = [];
+      vm.loading=true;
 
       QcpageService.get(vm.startdatenum, vm.enddatenum, vm.acttype, vm.acttime).then(function (response) {
         vm.data = response.data;
@@ -60,9 +62,8 @@
           vm.selectdata.push(obj);
           vm.cats.push(interdata[i].Date);
         }
-        console.log(vm.data);
-        console.log(vm.selectdata);
         create_chartdata();
+        vm.loading=false;
       });
     }
 
@@ -101,7 +102,7 @@
         },
         xAxis: { type: 'category', categories: vm.cats },
         yAxis: { title: { text: 'Százalék' } },
-        title: { text: "ZW1000QC-chart" },
+        title: { text: "ZW1500QC-chart" },
         series: vm.chartData
       }
     }

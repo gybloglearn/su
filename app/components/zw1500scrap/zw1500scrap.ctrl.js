@@ -17,6 +17,7 @@
     vm.enddatenum = $filter('date')(new Date(), 'yyyy-MM-dd');
     vm.load = load;
     vm.beallit = beallit;
+    vm.loading=false;
 
     $rootScope.close = function () {
       $mdSidenav('left').close();
@@ -40,6 +41,7 @@
       vm.data = [];
       vm.selectdata = [];
       vm.cats = [];
+      vm.loading=true;
 
       Zw1500scrapService.get(vm.startdatenum, vm.enddatenum, vm.acttime).then(function (response) {
         for (var i = 0; i < response.data.length; i++) {
@@ -74,9 +76,8 @@
           vm.selectdata.push(obj);
           vm.cats.push(interdata[i].item);
         }
-        console.log(vm.data);
-        console.log(vm.selectdata);
         create_chartdata();
+        vm.loading=false;
       });
     }
 
