@@ -13,6 +13,7 @@
     vm.startdatumszam = $filter('date')(new Date(vm.startdate).getTime(), 'yyyy-MM-dd');
     vm.enddatumszam = $filter('date')(new Date(vm.enddate).getTime(), 'yyyy-MM-dd');
     vm.maxdate = new Date(new Date().getTime() - 24 * 3600 * 1000);
+    vm.loading=false;
     vm.load = load;
 
     $rootScope.close = function () {
@@ -30,6 +31,7 @@
       vm.data = [];
       vm.startdatumszam = $filter('date')(new Date(vm.startdate).getTime(), 'yyyy-MM-dd');
       vm.enddatumszam = $filter('date')(new Date(vm.enddate).getTime(), 'yyyy-MM-dd');
+      vm.loading=true;
 
       var datediff = (new Date(vm.enddate).getTime() - new Date(vm.startdate).getTime()) / (24 * 3600 * 1000) + 1;
       for (var i = datediff; i > 0; i--) {

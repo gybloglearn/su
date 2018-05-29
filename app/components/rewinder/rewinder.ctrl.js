@@ -15,6 +15,8 @@
     vm.actshift = '';
     vm.lodrewainder1 = lodrewainder1;
     vm.loaddetails = loaddetails;
+    vm.loading1=false;
+    vm.loading2=false;
 
     $rootScope.close = function () {
       $mdSidenav('left').close();
@@ -35,7 +37,7 @@
       vm.rw1data = [];
       vm.uniquerw1 = [];
       vm.selectdata = [];
-
+      vm.loading1=true;
       RewinderService.getrw1(dt).then(function (response) {
         vm.rw1data = response.data;
         vm.uniquerw1 = $filter('unique')(vm.rw1data, 'MachineName');
@@ -68,13 +70,16 @@
             }
           }
         }
+        vm.loading1=false;
       });
     }
     function loaddetails() {
       var dt = $filter('date')(new Date(vm.date).getTime(), 'yyyy-MM-dd');
       vm.detailsdata = [];
+      vm.loading2=true;
       RewinderService.getrw2(dt, vm.actmch, vm.actshift).then(function (response) {
         vm.detailsdata = response.data;
+        vm.loading2=false;
       });
     }
 

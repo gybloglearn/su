@@ -1,3 +1,4 @@
+<md-progress-linear md-mode="indeterminate" ng-show="vm.loading1"></md-progress-linear>
 <md-content layout="row" layout-sm="column" layout-xs="column">
   <div layout-padding flex>
     <h1 class="md-display-2" layout="row">
@@ -69,6 +70,7 @@
         </md-table-container>
       </div>
       <div layout="row">
+          <md-progress-linear md-mode="indeterminate" ng-show="vm.loading2"></md-progress-linear>
         <md-table-container flex ng-show="vm.actmch!=''">
           <table md-table>
             <thead md-head>
