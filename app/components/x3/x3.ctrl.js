@@ -18,6 +18,7 @@
     vm.load = load;
     vm.loadall = loadall;
     vm.selectchart = selectchart;
+    vm.loading=false;
 
     $rootScope.close = function () {
       $mdSidenav('left').close();
@@ -77,6 +78,7 @@
       update_selectday();
       vm.data = [];
       vm.charlist = [];
+      vm.loading=true;
 
 
       X3Service.get(vm.startdatenum).then(function (response) {
@@ -121,7 +123,7 @@
           }
         }
         selectchart(vm.selectday);
-        vm.mtfld = false;
+        vm.loading= false;
       });
     }
 

@@ -21,7 +21,7 @@
     vm.actunit = "";
     vm.beilleszt = beilleszt;
     vm.setChart = setChart;
-    vm.tload = false;
+    vm.loading = false;
 
     $rootScope.close = function () {
       $mdSidenav('left').close();
@@ -41,7 +41,7 @@
     }
 
     function load() {
-      vm.tload = true;
+      vm.loading = true;
       vm.data = [];
       vm.actclor = "";
       vm.actssh = "";
@@ -87,7 +87,7 @@
           }
         }
         setChart(vm.data, vm.actunit, vm.actclor, vm.actssh, vm.actesh);
-        vm.tload = false;
+        vm.loading = false;
       });
     }
 
