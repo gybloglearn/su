@@ -1,3 +1,4 @@
+<md-progress-linear md-mode="indeterminate" ng-show="vm.loaddata"></md-progress-linear>
 <md-content layout="row" layout-sm="column" layout-xs="column">
   <div layout-padding flex>
     <h1 class="md-display-2" layout="row">
@@ -28,7 +29,7 @@
           <md-input-container>
             <md-datepicker ng-model="vm.enddate" md-max-date="vm.maxdate"></md-datepicker>
           </md-input-container>
-          <md-button class="md-primary md-raised" ng-click="vm.createdates()">Betöltés</md-button>
+          <md-button class="md-primary md-raised" ng-click="vm.createdates()" ng-disabled="vm.loaddata">Betöltés</md-button>
         </div>
       </div>
       <div layout="row" layout-xs="column" layout-sm="column">

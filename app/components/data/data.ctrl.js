@@ -12,6 +12,7 @@
     vm.maxdate = new Date();
     vm.actsm = "SM4";
     vm.sheetmakers = ["SM1", "SM2", "SM4", "SM5", "SM6", "SM7", "SM8", "SM9"];
+    vm.loading=false;
     vm.load = load;
 
     $rootScope.close = function () {
@@ -51,6 +52,7 @@
       for (var i = 0; i < 24; i++) {
         vm.darab[i] = 0;
       }
+      vm.loading=true;
 
 
       DataService.get(vm.datumszam, vm.actsm).then(function (response) {
@@ -102,6 +104,7 @@
         daytimechart();
         setMainchart();
         setPiechart();
+        vm.loading=false;
       });
     }
 

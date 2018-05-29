@@ -15,6 +15,7 @@
     vm.enddatenum = $filter('date')(new Date().getTime() + 24 * 60 * 60 * 1000, 'yyyy-MM-dd');
     vm.sheetmakers = ["SM1", "SM2", "SM4", "SM5", "SM6", "SM7", "SM8", "SM9"];
     vm.sm = [];
+    vm.loading=false;
     vm.load = load;
 
     $rootScope.close = function () {
@@ -32,6 +33,7 @@
       vm.sm = [];
       vm.startdatenum = $filter('date')(new Date(vm.startdate).getTime(), 'yyyy-MM-dd');
       var counter = 0;
+      vm.loading=true;
       for (var i = 0; i < vm.sheetmakers.length; i++) {
         SscrapService.getsheet(vm.startdatenum, $filter('date')(new Date(vm.enddate).getTime() + 24 * 60 * 60 * 1000, 'yyyy-MM-dd'), vm.sheetmakers[i]).then(function (response) {
           counter++;
@@ -104,7 +106,6 @@
       if (!$cookies.getObject('user', { path: '/' })) {
         $state.go('login')
       } else {
-        vm.loading = true;
         $rootScope.user = $cookies.getObject('user', { path: '/' });
         vm.user = $cookies.getObject('user', { path: '/' });
       }

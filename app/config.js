@@ -49,6 +49,11 @@
 			templateUrl: './app/components/smscrap/smscrap.html' + '?' + cp,
 			controller: 'SmscrapController',
 			controllerAs: 'vm'
+		}).state('weekdowntime', {
+			url: 'weekdowntime',
+			templateUrl: './app/components/weekdowntime/weekdowntime.html' + '?' + cp,
+			controller: 'WeekdowntimeController',
+			controllerAs: 'vm'
 		}).state('login', {
       url: '/login',
       templateUrl: './app/components/login/login.html' + '?' + cp,
