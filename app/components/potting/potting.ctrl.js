@@ -16,6 +16,7 @@
     vm.szak_de = $filter('shift')(1, vm.datenumber);
     vm.szak_du = $filter('shift')(2, vm.datenumber);
     vm.szak_ej = $filter('shift')(3, vm.datenumber);
+    vm.loading=false;
     vm.load = load;
     vm.change = change;
 
@@ -40,6 +41,7 @@
 
     function load() {
       vm.data = [];
+      vm.loading=true;
       PottingService.get(vm.datenumber, vm.actpotting).then(function (response) {
         vm.data = response.data;
         for (var i = 0; i < vm.data.length; i++) {
@@ -49,7 +51,7 @@
             }
           }
         }
-        console.log(vm.data);
+        vm.loading=false;
       });
     }
 

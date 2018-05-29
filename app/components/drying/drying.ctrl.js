@@ -10,8 +10,9 @@
     var vm = this;
     vm.drylist = ["Drying3", "Drying2", "Arhívum"];
     vm.actdry = "Drying3";
-    vm.load=load;
-    vm.loadarchivefile=loadarchivefile;
+    vm.load = load;
+    vm.loading = false;
+    vm.loadarchivefile = loadarchivefile;
 
     $rootScope.close = function () {
       $mdSidenav('left').close();
@@ -24,31 +25,30 @@
 
     ////////////////
 
-    function load(){
-      if(vm.actdry=="Drying3" || vm.actdry=="Drying2"){
+    function load() {
+      if (vm.actdry == "Drying3" || vm.actdry == "Drying2") {
         loaddrying();
       }
-      else{
+      else {
         loadarchive();
       }
     }
 
     function loaddrying() {
       vm.drydata = [];
-
+      vm.loading = true;
       DryingService.get(vm.actdry).then(function (response) {
         vm.drydata = response.data;
-        console.log(vm.drydata);
+        vm.loading = false;
       });
     }
 
     function loadarchivefile() {
       vm.drydata = [];
-
-      console.log(vm.link);
+      vm.loading = true;
       DryingService.getArchive(vm.link).then(function (response) {
-        console.log(response.data);
-        vm.drydata= response.data;
+        vm.drydata = response.data;
+        vm.loading = false;
       });
     }
 

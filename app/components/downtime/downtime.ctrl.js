@@ -20,6 +20,7 @@
     vm.updatedowntime = updatedowntime;
     vm.remove = remove;
     vm.beallit = beallit;
+    vm.loading=false;
 
 
     $rootScope.close = function () {
@@ -41,16 +42,17 @@
 
     function load() {
       vm.pottinginfo = [];
+      vm.loading=true;
 
       DowntimeService.getAll().then(function (resp) {
         vm.pottinginfo = resp.data;
         selectinfo(vm.pottinginfo, vm.startdate, vm.enddate);
+        vm.loading=false;
       });
     }
 
     function selectinfo(arr, stdate, enddate) {
       vm.selectpottinginfo = [];
-      console.log(arr);
 
       var stnum = new Date(stdate).getTime();
       var endnum = new Date(enddate).getTime() + (24 * 3600 * 1000);
@@ -61,7 +63,6 @@
           vm.selectpottinginfo.push(arr[i]);
         }
       }
-      console.log(vm.selectpottinginfo);
     }
 
     function updatedowntime() {

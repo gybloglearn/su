@@ -21,6 +21,7 @@
     vm.saveinfo = saveinfo;
     vm.beallit = beallit;
     vm.mutat = false;
+    vm.loading=false;
 
     $rootScope.close = function () {
       $mdSidenav('left').close();
@@ -41,9 +42,9 @@
 
     function load() {
       beallit();
-      //vm.dis = true;
       vm.data = [];
       createdatenumber();
+      vm.loading=true;
 
       PottingsumService.get(vm.startdate, vm.enddate, vm.mch).then(function (response) {
         vm.data = response.data;
@@ -75,8 +76,7 @@
 
         }
         loadarchivefile();
-
-        //vm.dis = false;
+        vm.loading=false;
       });
     }
 

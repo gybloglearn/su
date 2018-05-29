@@ -18,6 +18,7 @@
     vm.actshift = "";
     vm.actpotting = "";
     vm.selectinfo = selectinfo;
+    vm.loading=false;
 
     $rootScope.close = function () {
       $mdSidenav('left').close();
@@ -32,6 +33,7 @@
 
     function load() {
       vm.data = [];
+      vm.loading=true;
       DowntimesumService.getAll().then(function (response) {
         for (var i = 0; i < vm.people.length; i++) {
           for (var j = 0; j < response.data.length; j++) {
@@ -49,6 +51,7 @@
           }
         }
         selectinfo();
+        vm.loading=false;
       });
     }
 

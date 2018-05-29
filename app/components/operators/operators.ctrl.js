@@ -20,6 +20,7 @@
     vm.beallit = beallit;
     vm.actshiftnum = 1;
     vm.switchdate = new Date('2017-09-01').getTime();
+    vm.loading=false;
 
     $rootScope.close = function () {
       $mdSidenav('left').close();
@@ -124,7 +125,7 @@
       hiddenElement.click();
     }
     function load() {
-      vm.dis = true;
+      vm.loading = true;
       vm.datas = [];
       angular.forEach(vm.Pottings, function (p, i) {
         angular.forEach(vm.phasenumbers, function (n, j) {
@@ -136,8 +137,7 @@
                 vm.datas.push(response.data[k]);
               }
               if (i * j == 7) {
-                console.log(vm.datas);
-                vm.dis = false;
+                vm.loading = false;
               }
             });
         });
