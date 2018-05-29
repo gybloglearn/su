@@ -19,6 +19,7 @@
     vm.maxdate = new Date();
     vm.load = load;
     vm.beallit = beallit;
+    vm.loading=false;
 
     $rootScope.close = function () {
       $mdSidenav('left').close();
@@ -42,10 +43,10 @@
       vm.data = [];
       vm.selectdata = [];
       vm.cats = [];
+      vm.loading=true;
 
       QcpageService.get(vm.startdatenum, vm.enddatenum, vm.acttype, vm.acttime).then(function (response) {
         vm.data = response.data;
-        console.log(vm.data);
         var interdata = $filter('unique')(vm.data, "Date");
         for (var i = 0; i < interdata.length; i++) {
           var obj = {};
@@ -61,8 +62,8 @@
           vm.selectdata.push(obj);
           vm.cats.push(interdata[i].Date);
         }
-        console.log(vm.selectdata);
         create_chartdata();
+        vm.loading=false;
       });
     }
 
