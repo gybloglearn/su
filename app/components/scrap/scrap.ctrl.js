@@ -15,6 +15,7 @@
     vm.enddatenum = $filter('date')(vm.enddate, 'yyyy-MM-dd');
     vm.levels = ["J1", "J2", "J3", "Konyvelesre kesz", "Konyvelve", "Visszautasitva", "Penzugyi reviewed"];
     vm.actlevel = "Konyvelve";
+    vm.loading = false;
     vm.load = load;
     vm.crdata = crdata;
 
@@ -35,10 +36,12 @@
 
       vm.startdatenum = $filter('date')(vm.startdate, 'yyyy-MM-dd');
       vm.enddatenum = $filter('date')(vm.enddate, 'yyyy-MM-dd');
+      vm.loading = true;
 
       ScrapService.get(vm.startdatenum, vm.enddatenum, vm.actlevel).then(function (response) {
         vm.data = response.data;
         crdata(vm.data);
+        vm.loading = false;
       });
     }
 

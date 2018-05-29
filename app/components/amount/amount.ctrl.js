@@ -13,6 +13,7 @@
     vm.maxdate = new Date();
     vm.categories = ["Day", "Week", "Month", "Year"];
     vm.actcat = "Day";
+    vm.loading=false;
     vm.load = load;
 
     $rootScope.close = function () {
@@ -31,10 +32,12 @@
       vm.enddatenum = $filter('date')(vm.enddate, 'yyyy-MM-dd');
       vm.sldata = [];
       vm.dates = [];
+      vm.loading=true;
 
       AmountService.get(vm.startdatenum, vm.enddatenum, vm.actcat).then(function (response) {
         vm.sldata = response.data;
         vm.dates = $filter('unique')(vm.sldata, 'item1');
+        vm.loading=false;
       });
     }
 

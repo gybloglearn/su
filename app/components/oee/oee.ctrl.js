@@ -11,6 +11,7 @@
     vm.weeks = [];
     vm.data = [];
     vm.actyear = new Date().getFullYear();
+    vm.loading=false;
 
     $rootScope.close = function () {
       $mdSidenav('left').close();
@@ -26,6 +27,7 @@
     function putweek() {
       vm.weeks = [];
       vm.weeklength = 0;
+      vm.loading=true;
       var daynum = new Date().getFullYear();
       if (daynum == vm.actyear) {
         var weeknum = $filter('week')($filter('date')(new Date(), 'yyyy-MM-dd'));
@@ -147,6 +149,7 @@
         title: { text: 'Heti lebontás %-ban' },
         series: vm.chartData
       };
+      vm.loading=false;
     }
 
     function activate() {

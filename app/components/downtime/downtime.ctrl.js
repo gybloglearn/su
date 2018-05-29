@@ -13,6 +13,7 @@
     vm.maxdate = new Date();
     vm.startdatenum=$filter('date')(vm.startdate,'yyyy-MM-dd');
     vm.enddatenum=$filter('date')(vm.enddate,'yyyy-MM-dd');
+    vm.loading=false;
     vm.load=load;
 
     $rootScope.close = function () {
@@ -35,7 +36,7 @@
       var groupfilter = [];
       var namefilter = [];
       var goodtime = 0;
-
+      vm.loading=true;
       DowntimeService.get(vm.startdatenum, vm.enddatenum).then(function (response) {
         vm.data = response.data;
         groupfilter = $filter('unique')(vm.data, 'Reason_group_Name');
@@ -93,6 +94,7 @@
         }
 
         setChartpie(gr, chartdrill);
+        vm.loading=false;
       });
     }
 

@@ -11,6 +11,7 @@
     vm.startdate = new Date(new Date().getTime() - 7 * 24 * 3600 * 1000);
     vm.enddate = new Date();
     vm.maxdate = new Date();
+    vm.loading = false;
     vm.loadall = loadall;
 
     activate();
@@ -25,6 +26,7 @@
       vm.data[2] = [];
       vm.startdatenum = $filter('date')(vm.startdate, 'yyyy-MM-dd');
       vm.enddatenum = $filter('date')(vm.enddate, 'yyyy-MM-dd');
+      vm.loading = true;
       loadsl();
       loaddowntime();
       loadscrap();
@@ -172,9 +174,10 @@
             }
           ],
           xAxis: { type: "category", categories: ["Összes selejt"] },
-          yAxis:{min:60},
+          yAxis: { min: 60 },
           legend: { verticalAlign: "top", x: 0, y: 20, align: "right", backgroundColor: '#FFFFFF' }
         }
+        vm.loading = false;
       });
     }
 
