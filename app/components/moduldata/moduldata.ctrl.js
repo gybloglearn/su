@@ -83,6 +83,7 @@
         vm.valid = modid.substr(9, 18);
         load(modid);
       }
+      vm.loading=false;
     }
   }
 })();

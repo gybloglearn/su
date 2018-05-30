@@ -96,7 +96,6 @@
             vm.d.push({ "name": property, "value": vm.moduldata[0][property] });
           }
         }
-        console.log(vm.d);
         vm.loading = false;
         loadmap($filter('date')(new Date(vm.moduldata[0].bp_startdate).getTime(), 'yyyy-MM-dd'), $filter('date')(new Date(vm.moduldata[0].bp_enddate).getTime() + 24 * 3600 * 1000, 'yyyy-MM-dd'), vm.moduldata[0].bp_machine);
       });
@@ -193,6 +192,7 @@
         load(modid);
         loadplan(modid);
       }
+      vm.loading = false;
     }
   }
 })();
