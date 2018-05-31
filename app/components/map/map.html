@@ -1,0 +1,23 @@
+<md-progress-linear md-mode="indeterminate" ng-show="vm.loading"></md-progress-linear>
+<md-content layout="row" layout-sm="column" layout-xs="column">
+  <div layout-padding flex>
+    <h1 class="md-display-2" layout="row">
+      <span flex>Bökéstérkép {{vm.startdatumszam}}-{{vm.enddatumszam}}</span>
+      <md-button class="md-fab md-primary md-hue-2">
+        <md-icon class="material-icons">dashboard</md-icon>
+      </md-button>
+    </h1>
+    <md-divider>
+      <div flex-gt-xs>
+        <md-input-container>
+          <md-datepicker ng-model="vm.startdatum" md-max-date="vm.maxdate"></md-datepicker>
+        </md-input-container>
+        <md-input-container>
+          <md-datepicker ng-model="vm.enddatum" md-max-date="vm.maxdate"></md-datepicker>
+        </md-input-container>
+        <md-button class="md-primary md-raised" ng-click="vm.beilleszt()" ng-disabled="vm.loading">Betöltés</md-button>
+      </div>
+      <modulmapdir data="vm.data"></modulmapdir>
+    </md-divider>
+  </div>
+</md-content>

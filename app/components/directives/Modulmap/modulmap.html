@@ -1,0 +1,197 @@
+<!--direktíva-->
+<div class="modulmap" style="padding: 10px 10px 0px 10px">
+    <div layout-gt-xs="row">
+        <div>
+            <label>Eset</label>
+            <md-input-container>
+                <md-select ng-model="actallapot" ng-change="count()">
+                    <md-option value="bokes">Bökés</md-option>
+                    <md-option value="bokesperaeq">Bökés/AEQ</md-option>
+                    <md-option value="sulyozottbokesperaeq">Súlyozott Bökés/AEQ</md-option>
+                </md-select>
+            </md-input-container>
+        </div>
+        <div ng-show="actreszlettipus==''">
+            <label>Típus</label>
+            <md-input-container>
+                <md-select ng-model="acttipus" ng-change="mutatchart = false">
+                    <md-option value="">Mind</md-option>
+                    <md-option value="FLOW">FLOW</md-option>
+                    <md-option value="CP5">CP5</md-option>
+                </md-select>
+            </md-input-container>
+        </div>
+        <div ng-show="acttipus==''">
+            <label>Típus részletes</label>
+            <md-input-container>
+                <md-select ng-model="actreszlettipus" ng-change="mutatchart = false">
+                    <md-option value="">Mind</md-option>
+                    <md-option ng-repeat="item in data|unique:'modtype'" value="{{item.modtype}}">{{item.modtype}}</md-option>
+                </md-select>
+            </md-input-container>
+        </div>
+    </div>
+
+    <div layout="row" style="margin-top:10px">
+        <div flex="50">
+            <div class="modMap">
+                <div layout="row" ng-repeat="sor in ['1','2','3','4','5','6','7','8'] track by $index">
+                    <div ng-if="sor == '1' || sor == '8'">
+                        <div ng-repeat="oszlop in ['A','B','C','D','E'] track by $index" ng-click="drawchart(oszlop, sor)" class="blue" title="{{oszlop+sor}}">
+                            <span ng-if="actallapot=='bokes'">{{ (data|filter:{'Sor':sor, 'Oszlop': oszlop})|filter:{'tipus':acttipus}|filter:{'modtype':actreszlettipus}
+                                | filter:search | sumField:'bt_kat_db1' | number:0 }}</span>
+                            <span ng-if="actallapot=='bokesperaeq'">{{ ((data|filter:{'Sor':sor, 'Oszlop': oszlop})|filter:{'tipus':acttipus} |filter:{'modtype':actreszlettipus}
+                                | filter:search | sumField:'bt_kat_db1')/allaeq| number:2 }}
+                            </span>
+                            <span ng-if="actallapot=='sulyozottbokesperaeq'">{{ (((data|filter:{'Sor':sor, 'Oszlop': oszlop})|filter:{'tipus':acttipus}|filter:{'modtype':actreszlettipus}
+                                | filter:search | sumField:'bt_kat_db1')/allaeq)*30| number:2 }}
+                            </span>
+                        </div>
+                    </div>
+                    <div ng-if="sor=='2' || sor=='6'">
+                        <div ng-repeat="oszlop in ['A','B','C','D'] track by $index" ng-click="drawchart(oszlop, sor)" class="yellow" title="{{oszlop+sor}}">
+                            <span ng-if="actallapot=='bokes'">{{ (data|filter:{'Sor':sor, 'Oszlop': oszlop})|filter:{'tipus':acttipus}|filter:{'modtype':actreszlettipus}
+                                | filter:search | sumField:'bt_kat_db1' | number:0 }}</span>
+                            <span ng-if="actallapot=='bokesperaeq'">{{ ((data|filter:{'Sor':sor, 'Oszlop': oszlop})|filter:{'tipus':acttipus}|filter:{'modtype':actreszlettipus}
+                                | filter:search | sumField:'bt_kat_db1')/allaeq| number:2 }}
+                            </span>
+                            <span ng-if="actallapot=='sulyozottbokesperaeq'">{{ (((data|filter:{'Sor':sor, 'Oszlop': oszlop})|filter:{'tipus':acttipus}|filter:{'modtype':actreszlettipus}
+                                | filter:search | sumField:'bt_kat_db1')/allaeq)*30| number:2 }}
+                            </span>
+                        </div>
+                    </div>
+                    <div ng-if="sor=='3' || sor=='5'">
+                        <div ng-repeat="oszlop in ['A','B','C','D'] track by $index" ng-click="drawchart(oszlop, sor)" class="black" title="{{oszlop+sor}}">
+                            <span ng-if="actallapot=='bokes'">{{ (data|filter:{'Sor':sor, 'Oszlop': oszlop})|filter:{'tipus':acttipus}|filter:{'modtype':actreszlettipus}
+                                | filter:search | sumField:'bt_kat_db1' | number:0 }}</span>
+                            <span ng-if="actallapot=='bokesperaeq'">{{ ((data|filter:{'Sor':sor, 'Oszlop': oszlop})|filter:{'tipus':acttipus}|filter:{'modtype':actreszlettipus}
+                                | filter:search | sumField:'bt_kat_db1')/allaeq| number:2 }}
+                            </span>
+                            <span ng-if="actallapot=='sulyozottbokesperaeq'">{{ (((data|filter:{'Sor':sor, 'Oszlop': oszlop})|filter:{'tipus':acttipus}|filter:{'modtype':actreszlettipus}
+                                | filter:search | sumField:'bt_kat_db1')/allaeq)*30| number:2 }}
+                            </span>
+                        </div>
+                    </div>
+                    <div ng-if="sor=='4'">
+                        <div ng-repeat="oszlop in ['A','B','C','D'] track by $index" ng-click="drawchart(oszlop, sor)" class="red" title="{{oszlop+sor}}">
+                            <span ng-if="actallapot=='bokes'">{{ (data|filter:{'Sor':sor, 'Oszlop': oszlop})|filter:{'tipus':acttipus}|filter:{'modtype':actreszlettipus}
+                                | filter:search | sumField:'bt_kat_db1' | number:0 }}</span>
+                            <span ng-if="actallapot=='bokesperaeq'">{{ ((data|filter:{'Sor':sor, 'Oszlop': oszlop})|filter:{'tipus':acttipus}|filter:{'modtype':actreszlettipus}
+                                | filter:search | sumField:'bt_kat_db1')/allaeq| number:2 }}
+                            </span>
+                            <span ng-if="actallapot=='sulyozottbokesperaeq'">{{ (((data|filter:{'Sor':sor, 'Oszlop': oszlop})|filter:{'tipus':acttipus}|filter:{'modtype':actreszlettipus}
+                                | filter:search | sumField:'bt_kat_db1')/allaeq)*30| number:2 }}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div flex="50">
+            <h3>Összes Hiba: {{((data)|filter:{'tipus':acttipus}|filter:{'modtype':actreszlettipus} | filter:search | sumField:'bt_kat_db1')
+                | number:0}} db
+            </h3>
+            <h3>Összes bökés: {{((data)|filter:{'tipus':acttipus}|filter:{'modtype':actreszlettipus} | filter:search | sumField:'bt_kat_db1')
+                - (((data)|filter:{'Sor':9})|filter:{'tipus':acttipus}|filter:{'modtype':actreszlettipus} | filter:search
+                | sumField:'bt_kat_db1') | number:0}} db</h3>
+            <h3>Eltávolított szálak: {{(((data)|filter:{'Sor':9})|filter:{'tipus':acttipus}|filter:{'modtype':actreszlettipus}
+                | filter:search | sumField:'bt_kat_db1') | number:0}} db</h3>
+            <div ng-show="mutatchart==true">
+                <my-chart id="chart" options="chartconfig"></my-chart>
+            </div>
+        </div>
+    </div>
+
+    <div layout="row" style="margin-top:10px">
+        <div flex="50">
+            <span>Bökés határ:</span>
+            <input type="text" ng-model="bokeshatar">
+            <span>felett összesen: {{ (data|filter:{'tipus':acttipus}|filter:{'modtype':actreszlettipus} | filter:greater('bt_kat_db1',
+                bokeshatar)).length }} hely van</span>
+        </div>
+    </div>
+    <div layout=row>
+        <div flex="50">
+            <div layout-gt-xs="row">
+                <div flex-gt-xs>
+                    <label>Modul</label>
+                    <md-input-container>
+                        <md-select ng-model="search.modul_id1">
+                            <md-option value="">Mind</md-option>
+                            <md-option ng-repeat="modul in data|unique:'modul_id1'" value="{{modul.modul_id1}}">{{modul.modul_id1}}</md-option>
+                        </md-select>
+                    </md-input-container>
+                    <label>SheetMaker</label>
+                    <md-input-container>
+                        <md-select ng-model="search.sheetmaker">
+                            <md-option value="">Mind</md-option>
+                            <md-option ng-repeat="sm in sheetmakers" value="{{sm}}">{{sm}}</md-option>
+                        </md-select>
+                    </md-input-container>
+                    <label>Sor</label>
+                    <md-input-container>
+                        <md-select ng-model="search.Sor">
+                            <md-option value="">Mind</md-option>
+                            <md-option ng-repeat="sor in sorok" value="{{sor}}">{{sor}}</md-option>
+                        </md-select>
+                    </md-input-container>
+                    <label>Oszlop</label>
+                    <md-input-container>
+                        <md-select ng-model="search.Oszlop">
+                            <md-option value="">Mind</md-option>
+                            <md-option ng-repeat="osz in oszlopok" value="{{osz}}">{{osz}}</md-option>
+                        </md-select>
+                    </md-input-container>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div layout="row">
+        <md-table-container flex>
+            <table md-table>
+                <thead md-head>
+                    <tr md-row>
+                        <th md-head>Modul ID</th>
+                        <th md-head>Név</th>
+                        <th md-head>SheetMaker</th>
+                        <th md-head>SM operátor</th>
+                        <th md-head>Potting</th>
+                        <th md-head>Gél Prep. op.</th>
+                        <th md-head>Gél Prep. dátum</th>
+                        <th md-head>Gél Prep. szak</th>
+                        <th md-head>Ford. op.</th>
+                        <th md-head>Ford. dátum</th>
+                        <th md-head>Ford. szak</th>
+                        <th md-head>Kád</th>
+                        <th md-head>Bökés</th>
+                        <th md-head>Bökés/AEQ</th>
+                        <th md-head>Sor</th>
+                        <th md-head>Oszlop</th>
+                        <th md-head>Hiba megnevezése</th>
+                    </tr>
+                </thead>
+                <tbody md-body>
+                    <tr md-row ng-repeat="item in data| filter:greater('bt_kat_db1', bokeshatar) |filter:{'tipus':acttipus}|filter:{'modtype':actreszlettipus} | filter: search track by $index">
+                        <td md-cell>{{item.modul_id1}}</td>
+                        <td md-cell>{{item.modtype}}</td>
+                        <td md-cell>{{item.sheetmaker}}</td>
+                        <td md-cell>{{item.smop}}</td>
+                        <td md-cell>{{item.potting}}</td>
+                        <td md-cell>{{item.gelprep}}</td>
+                        <td md-cell>{{item.geldate}}</td>
+                        <td md-cell>{{item.gelshift}}</td>
+                        <td md-cell>{{item.rot}}</td>
+                        <td md-cell>{{item.rotdate}}</td>
+                        <td md-cell>{{item.rotshift}}</td>
+                        <td md-cell>{{item.tank}}</td>
+                        <td md-cell>{{item.bt_kat_db1}}</td>
+                        <td md-cell>{{(item.bt_kat_db1/item.aeq)| number:2}}</td>
+                        <td md-cell>{{item.Sor}}</td>
+                        <td md-cell>{{item.Oszlop}}</td>
+                        <td md-cell>{{item.KatName1}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </md-table-container>
+    </div>
+</div>

@@ -24,6 +24,11 @@
 			templateUrl: './app/components/quicklinks/quicklinks.html' + '?' + cp,
 			controller: 'QuicklinksController',
 			controllerAs: 'vm'
+		}).state('map', {
+			url: 'map',
+			templateUrl: './app/components/map/map.html' + '?' + cp,
+			controller: 'MapController',
+			controllerAs: 'vm'
 		}).state('login', {
       url: '/login',
       templateUrl: './app/components/login/login.html' + '?' + cp,
