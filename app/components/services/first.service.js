@@ -17,7 +17,7 @@
     function get() {
       var req = {
         method: 'GET',
-        url: './app/components/PHP/file.php'
+        url: 'http://3.228.180.13/modulapi/mods'
       };
       return $http(req);
     }

@@ -5,8 +5,8 @@
     .module('app')
     .controller('FirstController', FirstController);
 
-  FirstController.$inject = ['$state', '$cookies', '$rootScope', '$filter', '$mdSidenav'];
-  function FirstController($state, $cookies, $rootScope, $filter, $mdSidenav) {
+  FirstController.$inject = ['$state', '$cookies', '$rootScope', '$filter', '$mdSidenav','FirstService'];
+  function FirstController($state, $cookies, $rootScope, $filter, $mdSidenav,FirstService) {
     var vm = this;
     var szoveg="Hello";
     var szam=4;
