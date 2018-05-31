@@ -27,3 +27,26 @@ h1,h2 { font-family: 'Open Sans Condensed'; font-weight: 100;}
 .quicklinks p{
   font-size: 10px;
 }
+
+
+h3{
+  color:#f46612;
+  text-align: center;
+  margin: 10px;
+  border: 5px solid; 
+  font-size: 2.5em;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+.maintable th{
+  background-color: #801010;
+  color: #ffffff;
+  text-align: center;
+  height: 50px;
+  padding: 15px;
+}
+
+.maintable tD{
+  text-align: center;
+  padding: 15px;
+}

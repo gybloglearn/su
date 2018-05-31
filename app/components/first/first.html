@@ -6,6 +6,87 @@
         <md-icon class="material-icons">dashboard</md-icon>
       </md-button>
     </h1>
-    <md-divider></md-divider>
+    <md-divider>
+      <select ng-model="vm.name">
+        <option ng-repeat="name in vm.names">{{name}}</option>
+      </select>
+      <h1 style="color:blue">Szia {{vm.name}}</h1>
+      <h3>Valami2</h3>
+      <p>djkjhbjcxyjkcvjkcbx</p>
+      <spam>akkka</spam>
+      <label>szöveg</label>
+      <a href="http://koponyeg.hu/t/Tatab%C3%A1nya" target="_blank">időjárás</a>
+      <!--img src="app/components/img/Summer.jpg"-->
+      <table class="maintable">
+        <thead>
+          <tr>
+            <th>Név</th>
+            <th>Cím</th>
+            <th>Telefonszám</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Pancsa</td>
+            <td>Tata</td>
+            <td>123456</td>
+          </tr>
+          <tr>
+            <td>Gizi</td>
+            <td>Súr</td>
+            <td>987654</td>
+          </tr>
+        </tbody>
+      </table>
+      <table>
+        <thead>
+          <tr>
+            <th>Név</th>
+            <th>Cím</th>
+            <th>Telefonszám</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Pancsa</td>
+            <td>Tata</td>
+            <td>123456</td>
+          </tr>
+          <tr>
+            <td>Gizi</td>
+            <td>Súr</td>
+            <td>987654</td>
+          </tr>
+        </tbody>
+      </table>
+      <ul>
+        <li>Kávé</li>
+        <li>Tej</li>
+        <li>Citromlé</li>
+      </ul>
+    </md-divider>
+    <md-divider>
+      <div layout="row">
+        <div flex="50">
+          <h1>Valami szöveg</h1>
+          <div flex="25">
+            <h2>büci</h2>
+          </div>
+          <div flex="25">
+            <h2>apa</h2>
+          </div>
+        </div>
+        <div flex="50">
+          <h1>Másik szöveg</h1>
+        </div>
+      </div>
+      <button>Gomb</button>
+      <select>
+        <option>Audi</option>
+        <option>Volvo</option>
+        <option>Skoda</option>
+      </select>
+    </md-divider>
   </div>
+
 </md-content>
