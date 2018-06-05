@@ -1,11 +1,127 @@
 <md-content layout="row" layout-sm="column" layout-xs="column" flex-gt-sm="80" flex-offset-gt-sm="10">
   <div layout-padding flex>
     <h1 class="md-display-2" layout="row">
-      <span flex>Vezérlőpult</span>
+      <span flex>Műszakrend</span>
       <md-button class="md-fab md-primary md-hue-2">
         <md-icon class="material-icons">dashboard</md-icon>
       </md-button>
     </h1>
-    <md-divider></md-divider>
+    <md-divider>
+      <div flex-gt-xs>
+        <md-input-container>
+          <md-datepicker ng-model="vm.startdate" md-min-date="vm.mindate"></md-datepicker>
+        </md-input-container>
+        <md-input-container>
+          <md-datepicker ng-model="vm.enddate" md-min-date="vm.mindate"></md-datepicker>
+        </md-input-container>
+        <md-button class="md-primary md-raised" ng-click="vm.datediff()">Betöltés</md-button>
+      </div>
+      <md-table-container flex>
+        <table md-table>
+          <thead md-head>
+            <tr md-row>
+              <th md-column style="text-align:center">Terület</th>
+              <th md-column style="text-align:center">Területvezető</th>
+              <th md-column style="text-align:center">A</th>
+              <th md-column style="text-align:center">B</th>
+              <th md-column style="text-align:center">C</th>
+              <th md-column style="text-align:center">D</th>
+            </tr>
+          </thead>
+          <thead>
+            <tr>
+              <td width="15%" style="text-align:center">Braiding
+                <br>Dope
+                <br>ZeeWeed
+                <br>QC
+                <br>Karbantartás
+                <br>Raktár
+                <br>F&M
+              </td>
+              <td width="15%" style="text-align:center">Haltrich Ákos
+                <br>Csöndör Árpád
+                <br>Krajczár Antal
+                <br>Tóth Viktor
+                <br>Hermann Péter Sándor
+                <br>Pintér Ferenc
+                <br>-
+              </td>
+              <td width="15%" style="text-align:center">Kuszák Miklós
+                <br>Stuhl Imre
+                <br>Simon László
+                <br>Liptai János Mihály
+                <br>Horváth István
+                <br>Szili Zoltán
+                <br>Baráth Gáborné Éva
+              </td>
+              <td width="15%" style="text-align:center">Fridrich Tibor
+                <br>Lóczki Ferenc
+                <br>Varga Attila
+                <br>Nagy Norbert
+                <br>Zámbó Zoltán
+                <br>Szabó Zsolt
+                <br>Zubor Gábor
+              </td>
+              <td width="15%" style="text-align:center">Somogyi Imréné Éva
+                <br>Vépi Tibor
+                <br>Vaskó Dávid
+                <br>(Bereczkiné) Semsei Mária
+                <br>Gubó Krisztián
+                <br>Fülöp Róbert
+                <br>Rozgonyi Gergely
+              </td>
+              <td width="15%" style="text-align:center">Maczik Norbert
+                <br>Becher Gábor
+                <br>Kovács Ferenc
+                <br>Tóth Pál
+                <br>Vörös Attila
+                <br>Jámbor István
+                <br>-
+              </td>
+            </tr>
+          </thead>
+        </table>
+      </md-table-container>
+      <md-table-container flex>
+        <table md-table>
+          <thead md-head>
+            <tr md-row>
+              <th md-column colspan="2" style="text-align:center"></th>
+              <th md-column colspan="4" style="text-align:center">UF</th>
+              <th md-column colspan="2" style="text-align:center">Időpontok</th>
+              <th md-column colspan="3" style="text-align:center">F&M</th>
+            </tr>
+            <tr>
+              <th md-column style="text-align:center" width="5%">Dátum</th>
+              <th md-column style="text-align:center" width="5%">Nap</th>
+              <th md-column style="text-align:center" width="5%">A</th>
+              <th md-column style="text-align:center" width="5%">B</th>
+              <th md-column style="text-align:center" width="5%">C</th>
+              <th md-column style="text-align:center" width="5%">D</th>
+              <th md-column style="text-align:center" width="5%">Orvosi rendelés</th>
+              <th md-column style="text-align:center" width="15%">Bérszámfejtés</th>
+              <th md-column style="text-align:center" width="5%">A</th>
+              <th md-column style="text-align:center" width="5%">B</th>
+              <th md-column style="text-align:center" width="5%">C</th>
+            </tr>
+          </thead>
+          <tbody md-body>
+            <tr md-row ng-repeat="item in vm.data">
+              <td>{{item.date}}</td>
+              <td>{{item.day}}</td>
+              <td style="color:{{item.zwa=='Pihenő'?'#d9d9d9':(item.zwa=='Nappal'?'#ff9900':'#0033cc')}}">{{item.zwa}}</td>
+              <td style="color:{{item.zwb=='Pihenő'?'#d9d9d9':(item.zwb=='Nappal'?'#ff9900':'#0033cc')}}">{{item.zwb}}</td>
+              <td style="color:{{item.zwc=='Pihenő'?'#d9d9d9':(item.zwc=='Nappal'?'#ff9900':'#0033cc')}}">{{item.zwc}}</td>
+              <td style="color:{{item.zwd=='Pihenő'?'#d9d9d9':(item.zwd=='Nappal'?'#ff9900':'#0033cc')}}">{{item.zwd}}</td>
+              <td>{{item.doctor}}</td>
+              <td>{{item.client}}</td>
+              <td style="color:{{item.fma=='Pihenő'?'#d9d9d9':(item.fma=='Délelőtt'?'#ff9900':(item.fma=='Délután'?'#660066':'#0033cc'))}}">{{item.fma}}</td>
+              <td style="color:{{item.fmb=='Pihenő'?'#d9d9d9':(item.fmb=='Délelőtt'?'#ff9900':(item.fmb=='Délután'?'#660066':'#0033cc'))}}">{{item.fmb}}</td>
+              <td style="color:{{item.fmc=='Pihenő'?'#d9d9d9':(item.fmc=='Délelőtt'?'#ff9900':(item.fmc=='Délután'?'#660066':'#0033cc'))}}">{{item.fmc}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </md-table-container>
+    </md-divider>
   </div>
 </md-content>
