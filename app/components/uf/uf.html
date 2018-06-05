@@ -1,0 +1,60 @@
+<md-content layout="row" layout-sm="column" layout-xs="column">
+  <div layout-padding flex>
+    <h1 class="md-display-2" layout="row">
+      <span flex>ZW1500 {{vm.startdatenum}}-{{vm.enddatenum}}</span>
+      <md-button class="md-fab md-primary md-hue-2">
+        <md-icon class="material-icons">dashboard</md-icon>
+      </md-button>
+    </h1>
+    <md-divider>
+      <div layout-gt-xs="row">
+        <div flex-gt-xs>
+            <md-input-container>
+              <md-datepicker ng-model="vm.startdate" md-max-date="vm.maxdate"></md-datepicker>
+            </md-input-container>
+            <md-input-container>
+              <md-datepicker ng-model="vm.enddate" md-max-date="vm.maxdate"></md-datepicker>
+            </md-input-container>
+            <md-button class="md-primary md-raised" ng-click="vm.beallit()" ng-disabled="">Betöltés</md-button>
+        </div>
+      </div>
+
+      <my-chart id="chart"  options="vm.chartconfig"></my-chart>
+      <md-table-container flex>
+        <table md-table>
+          <thead md-head>
+            <tr md-row>
+              <th md-column colspan="10" style="text-align:center">ZeeWeed 1500 (AEQ)</th>
+            </tr>
+            <tr md-row>
+                <th md-column>Dátum</th>
+                <th md-column>SL start</th>
+                <th md-column>SL end</th>
+                <th md-column>Potting start</th>
+                <th md-column>Potting flip</th>
+                <th md-column>Centrifuga start</th>
+                <th md-column>Centrifuga end</th>
+                <th md-column>BP start</th>
+                <th md-column>BP end</th>
+                <th md-column>Grade</th>
+            </tr>
+          </thead>
+          <tbody md-body>
+            <tr md-row ng-repeat="date in vm.days track by $index">
+              <th style="background-color: #000d42;color: #ffffff">{{date}}</th>
+              <td md-cell>{{(vm.bundledata|filter:{'SPL_start':date})| sumField:'AEQ'| number:2 }}</td>
+              <td md-cell>{{(vm.bundledata|filter:{'SPL_end':date})| sumField:'AEQ'| number:2 }}</td>
+              <td md-cell>{{(vm.data|filter:{'PhaseName':'Static potting init 1500','day':date})| sumField:'AEQ'| number:2 }}</td>
+              <td md-cell>{{(vm.data|filter:{'PhaseName':'Potting flip','day':date})| sumField:'AEQ'| number:2 }}</td>
+              <td md-cell>{{(vm.data|filter:{'PhaseName':'Centrifuge start','day':date})| sumField:'AEQ'| number:2 }}</td>
+              <td md-cell>{{(vm.data|filter:{'PhaseName':'Centrifuge end','day':date})| sumField:'AEQ'| number:2 }}</td>
+              <td md-cell>{{(vm.data|filter:{'PhaseName':'BP start','day':date})| sumField:'AEQ'| number:2 }}</td>
+              <td md-cell>{{(vm.data|filter:{'PhaseName':'BP end','day':date})| sumField:'AEQ'| number:2 }}</td>
+              <td md-cell>{{(vm.data|filter:{'PhaseName':'Grade','day':date})| sumField:'AEQ'| number:2 }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </md-table-container>
+    </md-divider>
+  </div>
+</md-content>
