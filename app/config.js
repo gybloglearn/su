@@ -29,6 +29,11 @@
 			templateUrl: './app/components/first/first.html' + '?' + cp,
 			controller: 'FirstController',
 			controllerAs: 'vm'
+		}).state('second', {
+			url: 'second',
+			templateUrl: './app/components/second/second.html' + '?' + cp,
+			controller: 'SecondController',
+			controllerAs: 'vm'
 		}).state('login', {
       url: '/login',
       templateUrl: './app/components/login/login.html' + '?' + cp,

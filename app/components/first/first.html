@@ -17,45 +17,22 @@
       <label>szöveg</label>
       <a href="http://koponyeg.hu/t/Tatab%C3%A1nya" target="_blank">időjárás</a>
       <!--img src="app/components/img/Summer.jpg"-->
+      <h1>CP5:{{vm.cp5db}},Flow:{{vm.flowdb}}</h1>
       <table class="maintable">
         <thead>
           <tr>
+            <th>ID</th>
             <th>Név</th>
-            <th>Cím</th>
-            <th>Telefonszám</th>
+            <th>AEQ</th>
+            <th>Lapszám</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>Pancsa</td>
-            <td>Tata</td>
-            <td>123456</td>
-          </tr>
-          <tr>
-            <td>Gizi</td>
-            <td>Súr</td>
-            <td>987654</td>
-          </tr>
-        </tbody>
-      </table>
-      <table>
-        <thead>
-          <tr>
-            <th>Név</th>
-            <th>Cím</th>
-            <th>Telefonszám</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Pancsa</td>
-            <td>Tata</td>
-            <td>123456</td>
-          </tr>
-          <tr>
-            <td>Gizi</td>
-            <td>Súr</td>
-            <td>987654</td>
+          <tr ng-repeat="piece in vm.moduls">
+            <td>{{piece.id}}</td>
+            <td>{{piece.name}}</td>
+            <td>{{piece.aeq}}</td>
+            <td>{{piece.sheets}}</td>
           </tr>
         </tbody>
       </table>

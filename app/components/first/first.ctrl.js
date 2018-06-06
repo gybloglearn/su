@@ -30,8 +30,36 @@
 
     ////////////////
 
-    function kiiro(){
+    function loadmoduls(){
+      vm.moduls=[];
+      FirstService.get().then(function(response){
+        vm.moduls=response.data;
+        select(vm.moduls);
+      });
+    }
+
+    /*function kiiro(){
       console.log(objektumtomb);
+    }*/
+
+    function select(arr){
+      console.log(arr);
+      vm.flow=[];
+      vm.cp5=[];
+      vm.cp5db=0;
+      vm.flowdb=0;
+
+      for(var i=0;i<arr.length;i++){
+        if(arr[i].name.includes("Flow")){
+          vm.flowdb++;
+          vm.flow.push(arr[i]);
+          
+        }
+        else if(arr[i].name.includes("CP5")){
+          vm.cp5db++;
+        }
+      }
+      console.log(vm.flow);
     }
 
     function activate() {
@@ -42,7 +70,7 @@
         $rootScope.user = $cookies.getObject('user',{path: '/'});
         vm.user = $cookies.getObject('user', {path: '/'});
       }
-      kiiro();
+      loadmoduls();
     }
   }
 })();
