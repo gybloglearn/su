@@ -38,7 +38,7 @@
 					</md-list-item>
 				</md-list>
 				<md-divider></md-divider>
-				<h1 class="md-headline">&nbsp;Gyorslinkek</h1>
+				<!--h1 class="md-headline">&nbsp;Gyorslinkek</h1>
 				<md-grid-list class="gr" md-cols="2" md-row-height="1:1" md-gutter="0px">
 					<md-grid-tile ng-repeat="link in quicklinks" md-rowspan="1" md-colspan="1" class="quicklinks">
 						<p layout-padding="10" flex>
@@ -51,15 +51,15 @@
 							<h3>{{link.title}}</h3>
 						</md-grid-tile-footer>
 					</md-grid-tile>
-				</md-grid-list>
+				</md-grid-list-->
 				<div layout="row">
 					<md-button class="md-icon-button" ui-sref="logout" ng-click="close()" hide-gt-xs>
 						<i class="material-icons">settings_power</i>
 					</md-button>
 					<p flex></p>
-					<md-button class="md-icon-button" ui-sref="quicklinks" ng-click="close()">
+					<!--md-button class="md-icon-button" ui-sref="quicklinks" ng-click="close()">
 						<i class="material-icons">more_horiz</i>
-					</md-button>
+					</md-button-->
 				</div>
 			</md-content>
 		</md-sidenav>
@@ -119,7 +119,8 @@
 	<script src="app/components/login/login.ctrl.js"></script>
 	<script src="app/components/dashboard/dashboard.ctrl.js"></script>
 	<script src="app/components/quicklinks/quicklinks.ctrl.js"></script>
-		<!--endbuild--><!--adds-->
+		<script src="app/components/services/dashboard.service.js"></script>
+	<!--endbuild--><!--adds-->
 	<script>
 		angular.bootstrap(document, ['app']);
 	</script>

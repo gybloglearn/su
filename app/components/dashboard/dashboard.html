@@ -1,11 +1,71 @@
+<md-progress-linear md-mode="indeterminate" ng-show="vm.loading"></md-progress-linear>
 <md-content layout="row" layout-sm="column" layout-xs="column" flex-gt-sm="80" flex-offset-gt-sm="10">
   <div layout-padding flex>
     <h1 class="md-display-2" layout="row">
-      <span flex>Vezérlőpult</span>
+      <span flex>QT</span>
       <md-button class="md-fab md-primary md-hue-2">
         <md-icon class="material-icons">dashboard</md-icon>
       </md-button>
     </h1>
-    <md-divider></md-divider>
+    <md-divider>
+      <div flex-gt-xs>
+        <md-input-container>
+          <md-datepicker ng-model="vm.startdate" md-max-date="vm.maxdate"></md-datepicker>
+        </md-input-container>
+        <md-input-container>
+          <md-datepicker ng-model="vm.enddate" md-max-date="vm.maxdate"></md-datepicker>
+        </md-input-container>
+        <md-button class="md-primary md-raised" ng-click="vm.beallit()" ng-disabled="vm.loading">Betöltés</md-button>
+      </div>
+    </md-divider>
+    <md-divider>
+      <div layout="row">
+        <md-table-container flex>
+          <table md-table>
+            <thead md-head>
+              <tr md-row>
+                <th md-column>Terület</th>
+                <th md-column ng-repeat="dt in vm.dates">{{dt}}</th>
+              </tr>
+            </thead>
+            <tbody md-body>
+              <tr md-row>
+                <th md-head>Braid</th>
+                <td md-cell ng-repeat="dat in vm.data">{{dat.rewinder|number:2}}</td>
+              </tr>
+              <tr md-row>
+                <th md-head>SPL-136-236</th>
+                <td md-cell ng-repeat="dat in vm.data">{{dat.spl36|number:2}}</td>
+              </tr>
+              <tr md-row>
+                <th md-head>SPL-2-3-4-5</th>
+                <td md-cell ng-repeat="dat in vm.data">{{dat.spl2345|number:2}}</td>
+              </tr>
+              <tr md-row>
+                <th md-head>SM</th>
+                <td md-cell ng-repeat="dat in vm.data">{{dat.sm|number:2}}</td>
+              </tr>
+              <tr md-row>
+                <th md-head>Potting-ki</th>
+                <td md-cell ng-repeat="dat in vm.data">{{dat.potting|number:2}}</td>
+              </tr>
+              <tr md-row>
+                <th md-head>BP</th>
+                <td md-cell ng-repeat="dat in vm.data">{{dat.bp|number:2}}</td>
+              </tr>
+              <tr md-row>
+                <th md-head>Rework</th>
+                <td md-cell ng-repeat="dat in vm.data">{{dat.rework|number:2}}</td>
+              </tr>
+              </tr>
+              <tr md-row>
+                <th md-head>Minősített</th>
+                <td md-cell ng-repeat="dat in vm.data">{{dat.graded|number:2}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </md-table-container>
+      </div>
+    </md-divider>
   </div>
 </md-content>
