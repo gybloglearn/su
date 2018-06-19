@@ -24,13 +24,17 @@
           <table md-table>
             <thead md-head>
               <tr md-row>
+                <th md-column></th>
                 <th md-column>Terület</th>
                 <th md-column ng-repeat="dt in vm.dates">{{dt}}</th>
               </tr>
             </thead>
             <tbody md-body>
               <tr md-row>
-                <th md-head>Braid</th>
+                <th md-head rowspan=8 style="border-top-style:solid;border-width: 1px;border-color:#ffffff">
+                  <span style="display:block;transform: rotate(-90deg);">ZW500</span>
+                </th>
+                <th md-head style="border-top-style:solid;border-width: 1px;border-color:#ffffff">Braid</th>
                 <td md-cell ng-repeat="dat in vm.data">{{dat.rewinder|number:2}}</td>
               </tr>
               <tr md-row>
@@ -61,6 +65,29 @@
               <tr md-row>
                 <th md-head>Minősített</th>
                 <td md-cell ng-repeat="dat in vm.data">{{dat.graded|number:2}}</td>
+              </tr>
+              <tr md-row>
+                <th md-head rowspan="5" style="border-top-style:solid;border-width: 1px;border-color:#ffffff">
+                  <span style="display:block;transform: rotate(-90deg);">ZW1500</span>
+                </th>
+                <th md-head style="border-top-style:solid;border-width: 1px;border-color:#ffffff">SPL</th>
+                <td md-cell ng-repeat="dat in vm.data">{{dat.spl1500|number:2}}</td>
+              </tr>
+              <tr md-row>
+                <th md-head>Potting-flip</th>
+                <td md-cell ng-repeat="dat in vm.data">{{dat.pottingflip1500|number:2}}</td>
+              </tr>
+              <tr md-row>
+                <th md-head>Centrifuga</th>
+                <td md-cell ng-repeat="dat in vm.data">{{dat.centrifugeend1500|number:2}}</td>
+              </tr>
+              <tr md-row>
+                <th md-head>BP</th>
+                <td md-cell ng-repeat="dat in vm.data">{{dat.bpend1500|number:2}}</td>
+              </tr>
+              <tr md-row>
+                <th md-head>Minősített</th>
+                <td md-cell ng-repeat="dat in vm.data">{{dat.grade1500|number:2}}</td>
               </tr>
             </tbody>
           </table>

@@ -15,7 +15,9 @@
       getpotting: getpotting,
       getclorination: getclorination,
       getrework: getrework,
-      getmtf: getmtf
+      getmtf: getmtf,
+      getbundlefile: getbundlefile,
+      get1500etf: get1500etf
     };
 
     return service;
@@ -74,6 +76,20 @@
       var req = {
         method: 'GET',
         url: 'app/components/PHP/Mtftable.php?startdate=' + startdate + '&enddate=' + enddate
+      };
+      return $http(req);
+    }
+    function getbundlefile(date) {
+      var req = {
+        method: 'GET',
+        url: 'http://3.228.180.13/ZW1500_uf/app/components/PHP/Bundle/bundle' + date + '.json'
+      };
+      return $http(req);
+    }
+    function get1500etf(sdate, edate) {
+      var req = {
+        method: 'GET',
+        url: 'app/components/PHP/ZW1500_ETF_Moduls.php?startdate=' + sdate + '&enddate=' + edate
       };
       return $http(req);
     }
