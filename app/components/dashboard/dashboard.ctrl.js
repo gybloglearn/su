@@ -48,6 +48,11 @@
           bp: 0,
           rework: 0,
           graded: 0,
+          spl1000: 0,
+          pottingstatic1000: 0,
+          centrifugeend1000: 0,
+          bpend1000: 0,
+          grade1000: 0,
           spl1500: 0,
           pottingflip1500: 0,
           centrifugeend1500: 0,
@@ -66,6 +71,7 @@
       //loadclorination();
       loadrework();
       loadmtf();
+      load1000potting();
       load1500etf();
       loadbundle();
     }
@@ -75,6 +81,13 @@
       DashboardService.getpartnumber().then(function (response) {
         vm.partnumbers = response.data;
         console.log(vm.partnumbers);
+      });
+    }
+    function load1000Partnumbers() {
+      vm.partnumberszw1000 = [];
+      DashboardService.get1000partnumber().then(function (response) {
+        vm.partnumberszw1000 = response.data;
+        console.log(vm.partnumberszw1000);
       });
     }
 
@@ -208,6 +221,59 @@
       });
     }
 
+    function load1000potting() {
+      var sdate = $filter('date')(new Date(vm.startdatenum).getTime() - (24 * 3600 * 1000), 'yyyy-MM-dd');
+      var edate = $filter('date')(new Date(vm.enddatenum).getTime() + (24 * 3600 * 1000), 'yyyy-MM-dd');
+      DashboardService.get1000potting(sdate, edate).then(function (response) {
+        for (var j = 0; j < response.data.length; j++) {
+          for (var i = 0; i < vm.partnumberszw1000.length; i++) {
+            if (response.data[j].jobid.includes(vm.partnumberszw1000[i].modul)) {
+              response.data[j].aeq = vm.partnumberszw1000[i].aeq;
+            }
+          }
+          var takeoutnum=new Date(response.data[j].Brick_Takeout).getHours()*60+new Date(response.data[j].Brick_Takeout).getMinutes();
+          var centrifugestopnum=new Date(response.data[j].Centrifuga_Stop).getHours()*60+new Date(response.data[j].Centrifuga_Stop).getMinutes();
+          var gradenum=new Date(response.data[j].Gradedate).getHours()*60+new Date(response.data[j].Gradedate).getMinutes();
+
+          if(takeoutnum<350){
+            response.data[j].Brick_Takeout_Day=$filter('date')(new Date(response.data[j].Brick_Takeout).getTime()-(24*3600*1000),'yyyy-MM-dd');
+          }
+          else{
+            response.data[j].Brick_Takeout_Day=$filter('date')(new Date(response.data[j].Brick_Takeout).getTime(),'yyyy-MM-dd');
+          }
+
+          if(centrifugestopnum<350){
+            response.data[j].Centrifuga_Stop_Day=$filter('date')(new Date(response.data[j].Centrifuga_Stop).getTime()-(24*3600*1000),'yyyy-MM-dd');
+          }
+          else{
+            response.data[j].Centrifuga_Stop_Day=$filter('date')(new Date(response.data[j].Centrifuga_Stop).getTime(),'yyyy-MM-dd');
+          }
+
+          if(gradenum<350){
+            response.data[j].Grade_Day=$filter('date')(new Date(response.data[j].Gradedate).getTime()-(24*3600*1000),'yyyy-MM-dd');
+          }
+          else{
+            response.data[j].Grade_Day=$filter('date')(new Date(response.data[j].Gradedate).getTime(),'yyyy-MM-dd');
+          }
+
+          for(var k=0;k<vm.data.length;k++){
+            if(vm.data[k].date==response.data[j].Brick_Takeout_Day){
+              vm.data[k].pottingstatic1000+=response.data[j].aeq
+            }
+
+            if(vm.data[k].date==response.data[j].Centrifuga_Stop_Day){
+              vm.data[k].centrifugeend1000+=response.data[j].aeq
+            }
+
+            if(vm.data[k].date==response.data[j].Grade_Day){
+              vm.data[k].grade1000+=response.data[j].aeq
+            }
+          }
+        }
+        console.log(response.data);
+      });
+    }
+
     function load1500etf() {
       var edate = $filter('date')(new Date(vm.enddatenum).getTime() + (24 * 3600 * 1000), 'yyyy-MM-dd');
       DashboardService.get1500etf(vm.startdatenum, edate).then(function (response) {
@@ -244,28 +310,35 @@
       });
     }
 
-    function loadbundle(){
+    function loadbundle() {
       angular.forEach(vm.datefile, function (v, k) {
         DashboardService.getbundlefile(v).then(function (response) {
-          for(var j=0;j<response.data.length;j++){
-            var num=new Date(response.data[j].SPL_end).getHours()*60+new Date(response.data[j].SPL_end).getMinutes();
-            if(num<350){
-              response.data[j].SPL_end=$filter('date')(new Date(response.data[j].SPL_end).getTime()+(24*3600*1000),'yyyy-MM-dd');
+          for (var j = 0; j < response.data.length; j++) {
+            var num = new Date(response.data[j].SPL_end).getHours() * 60 + new Date(response.data[j].SPL_end).getMinutes();
+            if (num < 350) {
+              response.data[j].SPL_end = $filter('date')(new Date(response.data[j].SPL_end).getTime() + (24 * 3600 * 1000), 'yyyy-MM-dd');
             }
-            else{
-              response.data[j].SPL_end=$filter('date')(new Date(response.data[j].SPL_end).getTime(),'yyyy-MM-dd');
+            else {
+              response.data[j].SPL_end = $filter('date')(new Date(response.data[j].SPL_end).getTime(), 'yyyy-MM-dd');
             }
             if (response.data[j].bundle.includes("3132313")) {
               response.data[j].Amount = 1;
               response.data[j].AEQ = 1.2;
             }
-            else{
-              response.data[j].Amount = 1;
-              response.data[j].AEQ = 0;
+            else {
+              for (var k = 0; k < vm.partnumberszw1000.length; k++) {
+                if (response.data[j].bundle.includes(vm.partnumberszw1000[k].bundle)) {
+                  response.data[j].Amount = 1;
+                  response.data[j].AEQ = vm.partnumberszw1000[k].aeq / 2;
+                }
+              }
             }
-            for(var i=0;i<vm.data.length;i++){
-              if(vm.data[i].date==response.data[j].SPL_end){
-                vm.data[i].spl1500+=response.data[j].AEQ;
+            for (var i = 0; i < vm.data.length; i++) {
+              if (vm.data[i].date == response.data[j].SPL_end && response.data[j].bundle.includes("3132313")) {
+                vm.data[i].spl1500 += response.data[j].AEQ;
+              }
+              else if (vm.data[i].date == response.data[j].SPL_end && !response.data[j].bundle.includes("3132313")) {
+                vm.data[i].spl1000 += response.data[j].AEQ;
               }
             }
           }
@@ -283,6 +356,7 @@
         vm.shift = $filter('shift')(1, new Date());
       }
       loadPartnumbers();
+      load1000Partnumbers();
       createdataarray();
     }
   }

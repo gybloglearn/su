@@ -1,0 +1,82 @@
+[
+    {
+        "name": "CPX 450 1,5 p.open",
+        "fiber": "3111380",
+        "bundle": "3111426",
+        "dinamik": "3111440",
+        "modul": "3096940",
+        "aeq": 0.9
+    },
+    {
+        "name": "CPX 450 1 p.open",
+        "fiber": "3111380",
+        "bundle": "3111426",
+        "dinamik": "3111443",
+        "modul": "3111328",
+        "aeq": 0.9
+    },
+    {
+        "name": "CPX 450 1 p.open NS",
+        "fiber": "3111380",
+        "bundle": "3111426",
+        "dinamik": "3111458",
+        "modul": "3111346",
+        "aeq": 0.9
+    },
+    {
+        "name": "CPX 550 1,5 p.open",
+        "fiber": "3111381",
+        "bundle": "3111427",
+        "dinamik": "3111441",
+        "modul": "3096955",
+        "aeq": 1.1
+    },
+    {
+        "name": "CPX 550 1 p.open",
+        "fiber": "3111381",
+        "bundle": "3111427",
+        "dinamik": "3111447",
+        "modul": "3111332",
+        "aeq": 1.1
+    },
+    {
+        "name": "CPX 550 1 p.open NS",
+        "fiber": "3111381",
+        "bundle": "3111427",
+        "dinamik": "3111460",
+        "modul": "3111350",
+        "aeq": 1.1
+    },
+    {
+        "name": "CPX 450 1,5 p.open NS",
+        "fiber": "3111380",
+        "bundle": "3111426",
+        "dinamik": "3111456",
+        "modul": "3111343",
+        "aeq": 0.9
+    },
+    {
+        "name": "CPX 500 1,5 p.open NS",
+        "fiber": "3111392",
+        "bundle": "3111435",
+        "dinamik": "3111459",
+        "modul": "3111347",
+        "aeq": 1.0
+    },
+    {
+        "name": "CPX 550 1,5 p.open NS",
+        "fiber": "3111381",
+        "bundle": "3111427",
+        "dinamik": "3111457",
+        "modul": "3111344",
+        "aeq": 1.1
+    },
+    {
+        "name": "CPX 700 1,5 p.open NS",
+        "fiber": "3111391",
+        "bundle": "3111434",
+        "dinamik": "3111455",
+        "modul": "3111340",
+        "aeq": 0
+    }
+]

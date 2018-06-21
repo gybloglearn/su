@@ -68,6 +68,29 @@
               </tr>
               <tr md-row>
                 <th md-head rowspan="5" style="border-top-style:solid;border-width: 1px;border-color:#ffffff">
+                  <span style="display:block;transform: rotate(-90deg);">ZW1000</span>
+                </th>
+                <th md-head style="border-top-style:solid;border-width: 1px;border-color:#ffffff">SPL</th>
+                <td md-cell ng-repeat="dat in vm.data">{{dat.spl1000|number:2}}</td>
+              </tr>
+              <tr md-row>
+                <th md-head>Static-Potting</th>
+                <td md-cell ng-repeat="dat in vm.data">{{dat.pottingstatic1000|number:2}}</td>
+              </tr>
+              <tr md-row>
+                <th md-head>Centrifuga</th>
+                <td md-cell ng-repeat="dat in vm.data">{{dat.centrifugeend1000|number:2}}</td>
+              </tr>
+              <tr md-row>
+                <th md-head>BP</th>
+                <td md-cell ng-repeat="dat in vm.data">{{dat.bpend1000|number:2}}</td>
+              </tr>
+              <tr md-row>
+                <th md-head>Minősített</th>
+                <td md-cell ng-repeat="dat in vm.data">{{dat.grade1000|number:2}}</td>
+              </tr>
+              <tr md-row>
+                <th md-head rowspan="5" style="border-top-style:solid;border-width: 1px;border-color:#ffffff">
                   <span style="display:block;transform: rotate(-90deg);">ZW1500</span>
                 </th>
                 <th md-head style="border-top-style:solid;border-width: 1px;border-color:#ffffff">SPL</th>

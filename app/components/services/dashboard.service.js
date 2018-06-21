@@ -9,6 +9,7 @@
   function DashboardService($http) {
     var service = {
       getpartnumber: getpartnumber,
+      get1000partnumber: get1000partnumber,
       getrewinder: getrewinder,
       getspinline: getspinline,
       getsm: getsm,
@@ -17,6 +18,7 @@
       getrework: getrework,
       getmtf: getmtf,
       getbundlefile: getbundlefile,
+      get1000potting: get1000potting,
       get1500etf: get1500etf
     };
 
@@ -27,6 +29,13 @@
       var req = {
         method: 'GET',
         url: 'http://3.228.180.13/modulapi/mods'
+      };
+      return $http(req);
+    }
+    function get1000partnumber() {
+      var req = {
+        method: 'GET',
+        url: 'app/components/PHP/ZW1000_moduls.json'
       };
       return $http(req);
     }
@@ -83,6 +92,13 @@
       var req = {
         method: 'GET',
         url: 'http://3.228.180.13/ZW1500_uf/app/components/PHP/Bundle/bundle' + date + '.json'
+      };
+      return $http(req);
+    }
+    function get1000potting(start, end) {
+      var req = {
+        method: 'GET',
+        url: 'app/components/PHP/ZW1000_Potting.php?startdate=' + start + '&enddate=' + end + '&filter=&phaseid=Brick Potting Init'
       };
       return $http(req);
     }
