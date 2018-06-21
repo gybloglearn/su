@@ -31,8 +31,8 @@
             </thead>
             <tbody md-body>
               <tr md-row>
-                <th md-head rowspan=8 style="border-top-style:solid;border-width: 1px;border-color:#ffffff">
-                  <span style="display:block;transform: rotate(-90deg);">ZW500</span>
+                <th md-head rowspan=3 style="border-top-style:solid;border-width: 1px;border-color:#ffffff">
+                  <span style="display:block;transform: rotate(-90deg);">500+ZB+ZL</span>
                 </th>
                 <th md-head style="border-top-style:solid;border-width: 1px;border-color:#ffffff">Braid</th>
                 <td md-cell ng-repeat="dat in vm.data">{{dat.rewinder|number:2}}</td>
@@ -46,7 +46,10 @@
                 <td md-cell ng-repeat="dat in vm.data">{{dat.spl2345|number:2}}</td>
               </tr>
               <tr md-row>
-                <th md-head>SM</th>
+                <th md-head rowspan=5 style="border-top-style:solid;border-width: 1px;border-color:#ffffff">
+                  <span style="display:block;transform: rotate(-90deg);">ZW500</span>
+                </th>
+                <th md-head style="border-top-style:solid;border-width: 1px;border-color:#ffffff">SM</th>
                 <td md-cell ng-repeat="dat in vm.data">{{dat.sm|number:2}}</td>
               </tr>
               <tr md-row>
@@ -65,6 +68,52 @@
               <tr md-row>
                 <th md-head>Minősített</th>
                 <td md-cell ng-repeat="dat in vm.data">{{dat.graded|number:2}}</td>
+              </tr>
+              <tr md-row>
+                <th md-head rowspan=5 style="border-top-style:solid;border-width: 1px;border-color:#ffffff">
+                  <span style="display:block;transform: rotate(-90deg);">ZB</span>
+                </th>
+                <th md-head style="border-top-style:solid;border-width: 1px;border-color:#ffffff">SM</th>
+                <td md-cell ng-repeat="dat in vm.data">{{dat.zbsm|number:2}}</td>
+              </tr>
+              <tr md-row>
+                <th md-head>Potting-ki</th>
+                <td md-cell ng-repeat="dat in vm.data">{{dat.zbpotting|number:2}}</td>
+              </tr>
+              <tr md-row>
+                <th md-head>BP</th>
+                <td md-cell ng-repeat="dat in vm.data">{{dat.zbbp|number:2}}</td>
+              </tr>
+              <tr md-row>
+                <th md-head>Rework</th>
+                <td md-cell ng-repeat="dat in vm.data">{{dat.zbrework|number:2}}</td>
+              </tr>
+              <tr md-row>
+                <th md-head>Minősített</th>
+                <td md-cell ng-repeat="dat in vm.data">{{dat.zbgraded|number:2}}</td>
+              </tr>
+              <tr md-row>
+                <th md-head rowspan=5 style="border-top-style:solid;border-width: 1px;border-color:#ffffff">
+                  <span style="display:block;transform: rotate(-90deg);">ZL</span>
+                </th>
+                <th md-head style="border-top-style:solid;border-width: 1px;border-color:#ffffff">SM</th>
+                <td md-cell ng-repeat="dat in vm.data">{{dat.zlsm|number:2}}</td>
+              </tr>
+              <tr md-row>
+                <th md-head>Potting-ki</th>
+                <td md-cell ng-repeat="dat in vm.data">{{dat.zlpotting|number:2}}</td>
+              </tr>
+              <tr md-row>
+                <th md-head>BP</th>
+                <td md-cell ng-repeat="dat in vm.data">{{dat.zlbp|number:2}}</td>
+              </tr>
+              <tr md-row>
+                <th md-head>Rework</th>
+                <td md-cell ng-repeat="dat in vm.data">{{dat.zlrework|number:2}}</td>
+              </tr>
+              <tr md-row>
+                <th md-head>Minősített</th>
+                <td md-cell ng-repeat="dat in vm.data">{{dat.zlgraded|number:2}}</td>
               </tr>
               <tr md-row>
                 <th md-head rowspan="5" style="border-top-style:solid;border-width: 1px;border-color:#ffffff">

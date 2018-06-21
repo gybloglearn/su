@@ -40,17 +40,32 @@
           rewinder: 0,
           spl36: 0,
           spl2345: 0,
+          //zw500
           sm: 0,
           potting: 0,
           cl: 0,
           bp: 0,
           rework: 0,
           graded: 0,
+          //zb
+          zbsm: 0,
+          zbpotting: 0,
+          zbbp: 0,
+          zbrework: 0,
+          zbgraded: 0,
+          //zl
+          zlsm: 0,
+          zlpotting: 0,
+          zlbp: 0,
+          zlrework: 0,
+          zlgraded: 0,
+          //zw1000
           spl1000: 0,
           pottingstatic1000: 0,
           centrifugeend1000: 0,
           bpend1000: 0,
           grade1000: 0,
+          //zw1500
           spl1500: 0,
           pottingflip1500: 0,
           centrifugeend1500: 0,
@@ -132,8 +147,14 @@
         }
         for (var i = 0; i < vm.data.length; i++) {
           for (var j = 0; j < response.data.length; j++) {
-            if (vm.data[i].date == response.data[j].Day) {
+            if (vm.data[i].date == response.data[j].Day && response.data[j].type != "3149069" && response.data[j].type != "3160038" && response.data[j].type != "3148766") {
               vm.data[i].sm += response.data[j].aeq;
+            }
+            else if (vm.data[i].date == response.data[j].Day && (response.data[j].type == "3149069" || response.data[j].type == "3160038")) {
+              vm.data[i].zbsm += response.data[j].aeq;
+            }
+            else if (vm.data[i].date == response.data[j].Day && response.data[j].type == "3148766") {
+              vm.data[i].zlsm += response.data[j].aeq;
             }
           }
         }
@@ -152,8 +173,14 @@
         }
         for (var i = 0; i < vm.data.length; i++) {
           for (var j = 0; j < response.data.length; j++) {
-            if (response.data[j].MachineName != "Potting" && vm.data[i].date == response.data[j].Day && response.data[j].aeq) {
+            if (response.data[j].MachineName != "Potting" && vm.data[i].date == response.data[j].Day && response.data[j].aeq && response.data[j].type != "3149069" && response.data[j].type != "3160038" && response.data[j].type != "3148766") {
               vm.data[i].potting = vm.data[i].potting + response.data[j].aeq;
+            }
+            else if (response.data[j].MachineName != "Potting" && vm.data[i].date == response.data[j].Day && response.data[j].aeq && (response.data[j].type == "3149069" || response.data[j].type == "3160038" || response.data[j].type == "3148766")) {
+              vm.data[i].zbpotting += response.data[j].aeq;
+            }
+            else if (response.data[j].MachineName != "Potting" && vm.data[i].date == response.data[j].Day && response.data[j].aeq && response.data[j].type == "3148766") {
+              vm.data[i].zlpotting += response.data[j].aeq;
             }
           }
         }
@@ -186,11 +213,23 @@
         }
         for (var i = 0; i < vm.data.length; i++) {
           for (var j = 0; j < response.data.length; j++) {
-            if (vm.data[i].date == response.data[j].shiftday && response.data[j].state == "BP") {
+            if (vm.data[i].date == response.data[j].shiftday && response.data[j].state == "BP" && response.data[j].BaaNCode != "3149069" && response.data[j].BaaNCode != "3160038" && response.data[j].BaaNCode != "3148766") {
               vm.data[i].bp += response.data[j].aeq;
             }
-            else if (vm.data[i].date == response.data[j].shiftday && response.data[j].state == "Rework") {
+            else if (vm.data[i].date == response.data[j].shiftday && response.data[j].state == "BP" && (response.data[j].BaaNCode == "3149069" || response.data[j].BaaNCode == "3160038")) {
+              vm.data[i].zbbp += response.data[j].aeq;
+            }
+            else if (vm.data[i].date == response.data[j].shiftday && response.data[j].state == "BP" && response.data[j].BaaNCode == "3148766") {
+              vm.data[i].zlbp += response.data[j].aeq;
+            }
+            else if (vm.data[i].date == response.data[j].shiftday && response.data[j].state == "Rework" && response.data[j].BaaNCode != "3149069" && response.data[j].BaaNCode != "3160038" && response.data[j].BaaNCode != "3148766") {
               vm.data[i].rework += response.data[j].aeq;
+            }
+            else if (vm.data[i].date == response.data[j].shiftday && response.data[j].state == "Rework" && (response.data[j].BaaNCode == "3149069" || response.data[j].BaaNCode == "3160038" || response.data[j].BaaNCode == "3148766")) {
+              vm.data[i].zbrework += response.data[j].aeq;
+            }
+            else if (vm.data[i].date == response.data[j].shiftday && response.data[j].state == "Rework" && response.data[j].BaaNCode == "3148766") {
+              vm.data[i].zlrework += response.data[j].aeq;
             }
           }
         }
@@ -209,8 +248,14 @@
         }
         for (var i = 0; i < vm.data.length; i++) {
           for (var j = 0; j < response.data.length; j++) {
-            if (vm.data[i].date == response.data[j].Day && response.data[j].aeq) {
+            if (vm.data[i].date == response.data[j].Day && response.data[j].aeq && response.data[j].type != "3149069" && response.data[j].type != "3160038" && response.data[j].type != "3148766") {
               vm.data[i].graded += response.data[j].aeq;
+            }
+            else if (vm.data[i].date == response.data[j].Day && response.data[j].aeq && (response.data[j].type == "3149069" || response.data[j].type == "3160038" || response.data[j].type == "3148766")) {
+              vm.data[i].zbgraded += response.data[j].aeq;
+            }
+            else if (vm.data[i].date == response.data[j].Day && response.data[j].aeq && response.data[j].type == "3148766") {
+              vm.data[i].zlgraded += response.data[j].aeq;
             }
           }
         }
@@ -227,42 +272,42 @@
               response.data[j].aeq = vm.partnumberszw1000[i].aeq;
             }
           }
-          var takeoutnum=new Date(response.data[j].Brick_Takeout).getHours()*60+new Date(response.data[j].Brick_Takeout).getMinutes();
-          var centrifugestopnum=new Date(response.data[j].Centrifuga_Stop).getHours()*60+new Date(response.data[j].Centrifuga_Stop).getMinutes();
-          var gradenum=new Date(response.data[j].Gradedate).getHours()*60+new Date(response.data[j].Gradedate).getMinutes();
+          var takeoutnum = new Date(response.data[j].Brick_Takeout).getHours() * 60 + new Date(response.data[j].Brick_Takeout).getMinutes();
+          var centrifugestopnum = new Date(response.data[j].Centrifuga_Stop).getHours() * 60 + new Date(response.data[j].Centrifuga_Stop).getMinutes();
+          var gradenum = new Date(response.data[j].Gradedate).getHours() * 60 + new Date(response.data[j].Gradedate).getMinutes();
 
-          if(takeoutnum<350){
-            response.data[j].Brick_Takeout_Day=$filter('date')(new Date(response.data[j].Brick_Takeout).getTime()-(24*3600*1000),'yyyy-MM-dd');
+          if (takeoutnum < 350) {
+            response.data[j].Brick_Takeout_Day = $filter('date')(new Date(response.data[j].Brick_Takeout).getTime() - (24 * 3600 * 1000), 'yyyy-MM-dd');
           }
-          else{
-            response.data[j].Brick_Takeout_Day=$filter('date')(new Date(response.data[j].Brick_Takeout).getTime(),'yyyy-MM-dd');
-          }
-
-          if(centrifugestopnum<350){
-            response.data[j].Centrifuga_Stop_Day=$filter('date')(new Date(response.data[j].Centrifuga_Stop).getTime()-(24*3600*1000),'yyyy-MM-dd');
-          }
-          else{
-            response.data[j].Centrifuga_Stop_Day=$filter('date')(new Date(response.data[j].Centrifuga_Stop).getTime(),'yyyy-MM-dd');
+          else {
+            response.data[j].Brick_Takeout_Day = $filter('date')(new Date(response.data[j].Brick_Takeout).getTime(), 'yyyy-MM-dd');
           }
 
-          if(gradenum<350){
-            response.data[j].Grade_Day=$filter('date')(new Date(response.data[j].Gradedate).getTime()-(24*3600*1000),'yyyy-MM-dd');
+          if (centrifugestopnum < 350) {
+            response.data[j].Centrifuga_Stop_Day = $filter('date')(new Date(response.data[j].Centrifuga_Stop).getTime() - (24 * 3600 * 1000), 'yyyy-MM-dd');
           }
-          else{
-            response.data[j].Grade_Day=$filter('date')(new Date(response.data[j].Gradedate).getTime(),'yyyy-MM-dd');
+          else {
+            response.data[j].Centrifuga_Stop_Day = $filter('date')(new Date(response.data[j].Centrifuga_Stop).getTime(), 'yyyy-MM-dd');
           }
 
-          for(var k=0;k<vm.data.length;k++){
-            if(vm.data[k].date==response.data[j].Brick_Takeout_Day){
-              vm.data[k].pottingstatic1000+=response.data[j].aeq
+          if (gradenum < 350) {
+            response.data[j].Grade_Day = $filter('date')(new Date(response.data[j].Gradedate).getTime() - (24 * 3600 * 1000), 'yyyy-MM-dd');
+          }
+          else {
+            response.data[j].Grade_Day = $filter('date')(new Date(response.data[j].Gradedate).getTime(), 'yyyy-MM-dd');
+          }
+
+          for (var k = 0; k < vm.data.length; k++) {
+            if (vm.data[k].date == response.data[j].Brick_Takeout_Day) {
+              vm.data[k].pottingstatic1000 += response.data[j].aeq
             }
 
-            if(vm.data[k].date==response.data[j].Centrifuga_Stop_Day){
-              vm.data[k].centrifugeend1000+=response.data[j].aeq
+            if (vm.data[k].date == response.data[j].Centrifuga_Stop_Day) {
+              vm.data[k].centrifugeend1000 += response.data[j].aeq
             }
 
-            if(vm.data[k].date==response.data[j].Grade_Day){
-              vm.data[k].grade1000+=response.data[j].aeq
+            if (vm.data[k].date == response.data[j].Grade_Day) {
+              vm.data[k].grade1000 += response.data[j].aeq
             }
           }
         }
@@ -270,7 +315,7 @@
       });
     }
 
-    function load1000etf(){
+    function load1000etf() {
       var sdate = $filter('date')(new Date(vm.startdatenum).getTime() - (24 * 3600 * 1000), 'yyyy-MM-dd');
       var edate = $filter('date')(new Date(vm.enddatenum).getTime() + (24 * 3600 * 1000), 'yyyy-MM-dd');
 
@@ -282,9 +327,9 @@
             }
           }
 
-          for(var k=0;k<vm.data.length;k++){
-            if(vm.data[k].date==response.data[j].BP_end_shiftday){
-              vm.data[k].bpend1000+=response.data[j].aeq;
+          for (var k = 0; k < vm.data.length; k++) {
+            if (vm.data[k].date == response.data[j].BP_end_shiftday) {
+              vm.data[k].bpend1000 += response.data[j].aeq;
             }
           }
         }
