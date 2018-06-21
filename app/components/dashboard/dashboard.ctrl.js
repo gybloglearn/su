@@ -13,8 +13,6 @@
     vm.enddate = new Date(new Date().getTime() - (24 * 3600 * 1000));
     vm.enddatenum = $filter('date')(new Date().getTime() - (24 * 3600 * 1000), 'yyyy-MM-dd');
     vm.maxdate = new Date(new Date().getTime() - (24 * 3600 * 1000));
-    /*var sheetmakers = ["SM1", "SM2", "SM4", "SM5", "SM6", "SM7", "SM8", "SM9"];
-    var pottings = ["Potting2", "Potting3", "Potting4"];*/
     vm.beallit = beallit;
     vm.loading = false;
 
@@ -72,6 +70,7 @@
       loadrework();
       loadmtf();
       load1000potting();
+      load1000etf();
       load1500etf();
       loadbundle();
     }
@@ -80,14 +79,12 @@
       vm.partnumbers = [];
       DashboardService.getpartnumber().then(function (response) {
         vm.partnumbers = response.data;
-        console.log(vm.partnumbers);
       });
     }
     function load1000Partnumbers() {
       vm.partnumberszw1000 = [];
       DashboardService.get1000partnumber().then(function (response) {
         vm.partnumberszw1000 = response.data;
-        console.log(vm.partnumberszw1000);
       });
     }
 
@@ -217,7 +214,6 @@
             }
           }
         }
-        vm.loading = false;
       });
     }
 
@@ -270,7 +266,28 @@
             }
           }
         }
-        console.log(response.data);
+        vm.loading = false;
+      });
+    }
+
+    function load1000etf(){
+      var sdate = $filter('date')(new Date(vm.startdatenum).getTime() - (24 * 3600 * 1000), 'yyyy-MM-dd');
+      var edate = $filter('date')(new Date(vm.enddatenum).getTime() + (24 * 3600 * 1000), 'yyyy-MM-dd');
+
+      DashboardService.get1000etf(sdate, edate).then(function (response) {
+        for (var j = 0; j < response.data.length; j++) {
+          for (var i = 0; i < vm.partnumberszw1000.length; i++) {
+            if (response.data[j].jobid.includes(vm.partnumberszw1000[i].modul)) {
+              response.data[j].aeq = vm.partnumberszw1000[i].aeq;
+            }
+          }
+
+          for(var k=0;k<vm.data.length;k++){
+            if(vm.data[k].date==response.data[j].BP_end_shiftday){
+              vm.data[k].bpend1000+=response.data[j].aeq;
+            }
+          }
+        }
       });
     }
 

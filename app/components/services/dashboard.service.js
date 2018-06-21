@@ -19,6 +19,7 @@
       getmtf: getmtf,
       getbundlefile: getbundlefile,
       get1000potting: get1000potting,
+      get1000etf: get1000etf,
       get1500etf: get1500etf
     };
 
@@ -98,7 +99,14 @@
     function get1000potting(start, end) {
       var req = {
         method: 'GET',
-        url: 'app/components/PHP/ZW1000_Potting.php?startdate=' + start + '&enddate=' + end + '&filter=&phaseid=Brick Potting Init'
+        url: 'app/components/PHP/ZW1000_Potting.php?startdate=' + start + '&enddate=' + end + '&filter=&phaseid=Centrifuge end'
+      };
+      return $http(req);
+    }
+    function get1000etf(sdate, edate) {
+      var req = {
+        method: 'GET',
+        url: 'app/components/PHP/ZW1000_ETF_Moduls.php?startdate=' + sdate + '&enddate=' + edate + '&filter=&phaseid=BP end'
       };
       return $http(req);
     }
