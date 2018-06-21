@@ -79,14 +79,14 @@
       }
       var targetobj = {
         date: $filter('date')(firstnum, 'yyyy-MM-dd'),
-        rewinder: 226*1.005*1.014*1.022*1.0178,
-        spl36: 194*1.005*1.014*1.022,
-        spl2345: 32*1.005*1.014*1.022,
+        rewinder: 226 * 1.005 * 1.014 * 1.022 * 1.0178,
+        spl36: 194 * 1.005 * 1.014 * 1.022,
+        spl2345: 32 * 1.005 * 1.014 * 1.022,
         //zw500
-        sm: 226*1.005*1.014,
-        potting: 226*1.005,
-        cl: 226*1.005,
-        bp: 226*1.005,
+        sm: 226 * 1.005 * 1.014,
+        potting: 226 * 1.005,
+        cl: 226 * 1.005,
+        bp: 226 * 1.005,
         rework: 0,
         graded: 226,
         //zb
@@ -102,15 +102,15 @@
         zlrework: 0,
         zlgraded: 0,
         //zw1000
-        spl1000: 70*1.003*1.006*1.007,
-        pottingstatic1000: 70*1.003*1.006,
-        centrifugeend1000: 70*1.003*1.006,
-        bpend1000: 70*1.003,
+        spl1000: 70 * 1.003 * 1.006 * 1.007,
+        pottingstatic1000: 70 * 1.003 * 1.006,
+        centrifugeend1000: 70 * 1.003 * 1.006,
+        bpend1000: 70 * 1.003,
         grade1000: 70,
         //zw1500
-        spl1500: 80*1.008*1.007,
-        pottingflip1500: 80*1.008,
-        centrifugeend1500: 80*1.008,
+        spl1500: 80 * 1.008 * 1.007,
+        pottingflip1500: 80 * 1.008,
+        centrifugeend1500: 80 * 1.008,
         bpend1500: 80,
         grade1500: 80
       };
@@ -217,7 +217,7 @@
               vm.data[i].potting = vm.data[i].potting + response.data[j].aeq;
             }
             else if (response.data[j].MachineName != "Potting" && vm.data[i].date == response.data[j].Day && response.data[j].aeq && (response.data[j].type == "3149069" || response.data[j].type == "3160038" || response.data[j].type == "3148766")) {
-              vm.data[i].zbpotting += response.data[j].aeq*4;
+              vm.data[i].zbpotting += response.data[j].aeq * 4;
             }
             else if (response.data[j].MachineName != "Potting" && vm.data[i].date == response.data[j].Day && response.data[j].aeq && response.data[j].type == "3148766") {
               vm.data[i].zlpotting += response.data[j].aeq;
@@ -253,23 +253,30 @@
         }
         for (var i = 0; i < vm.data.length; i++) {
           for (var j = 0; j < response.data.length; j++) {
-            if (vm.data[i].date == response.data[j].shiftday && response.data[j].state == "BP" && response.data[j].BaaNCode != "3149069" && response.data[j].BaaNCode != "3160038" && response.data[j].BaaNCode != "3148766") {
-              vm.data[i].bp += response.data[j].aeq;
-            }
-            else if (vm.data[i].date == response.data[j].shiftday && response.data[j].state == "BP" && (response.data[j].BaaNCode == "3149069" || response.data[j].BaaNCode == "3160038")) {
-              vm.data[i].zbbp += response.data[j].aeq;
-            }
-            else if (vm.data[i].date == response.data[j].shiftday && response.data[j].state == "BP" && response.data[j].BaaNCode == "3148766") {
-              vm.data[i].zlbp += response.data[j].aeq;
-            }
-            else if (vm.data[i].date == response.data[j].shiftday && response.data[j].state == "Rework" && response.data[j].BaaNCode != "3149069" && response.data[j].BaaNCode != "3160038" && response.data[j].BaaNCode != "3148766") {
-              vm.data[i].rework += response.data[j].aeq;
-            }
-            else if (vm.data[i].date == response.data[j].shiftday && response.data[j].state == "Rework" && (response.data[j].BaaNCode == "3149069" || response.data[j].BaaNCode == "3160038" || response.data[j].BaaNCode == "3148766")) {
-              vm.data[i].zbrework += response.data[j].aeq;
-            }
-            else if (vm.data[i].date == response.data[j].shiftday && response.data[j].state == "Rework" && response.data[j].BaaNCode == "3148766") {
-              vm.data[i].zlrework += response.data[j].aeq;
+            response.data[j].shiftday = $filter('date')(new Date(response.data[j].shiftstart).getTime(), 'yyyy-MM-dd');
+            if (vm.data[i].date == response.data[j].shiftday) {
+              if(response.data[j].state == "BP"){
+                if (response.data[j].BaaNCode != "3149069" && response.data[j].BaaNCode != "3160038" && response.data[j].BaaNCode != "3148766") {
+                  vm.data[i].bp += response.data[j].aeq;
+                }
+                else if ((response.data[j].BaaNCode == "3149069" || response.data[j].BaaNCode == "3160038")) {
+                  vm.data[i].zbbp += response.data[j].aeq;
+                }
+                else if (response.data[j].BaaNCode == "3148766") {
+                  vm.data[i].zlbp += response.data[j].aeq;
+                }
+              }
+              if(response.data[j].state == "Rework") {
+                if (response.data[j].BaaNCode != "3149069" && response.data[j].BaaNCode != "3160038" && response.data[j].BaaNCode != "3148766") {
+                  vm.data[i].rework += response.data[j].aeq;
+                }
+                else if ((response.data[j].BaaNCode == "3149069" || response.data[j].BaaNCode == "3160038" || response.data[j].BaaNCode == "3148766")) {
+                  vm.data[i].zbrework += response.data[j].aeq;
+                }
+                else if (response.data[j].BaaNCode == "3148766") {
+                  vm.data[i].zlrework += response.data[j].aeq;
+                }
+              }
             }
           }
         }
