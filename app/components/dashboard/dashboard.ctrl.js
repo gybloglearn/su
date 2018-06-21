@@ -77,6 +77,46 @@
         vm.datefile.push($filter('date')(firstnum, 'yyyyMMdd'));
         firstnum += 24 * 3600 * 1000;
       }
+      var targetobj = {
+        date: $filter('date')(firstnum, 'yyyy-MM-dd'),
+        rewinder: 226*1.005*1.014*1.022*1.0178,
+        spl36: 194*1.005*1.014*1.022,
+        spl2345: 32*1.005*1.014*1.022,
+        //zw500
+        sm: 226*1.005*1.014,
+        potting: 226*1.005,
+        cl: 226*1.005,
+        bp: 226*1.005,
+        rework: 0,
+        graded: 226,
+        //zb
+        zbsm: 0,
+        zbpotting: 0,
+        zbbp: 0,
+        zbrework: 0,
+        zbgraded: 0,
+        //zl
+        zlsm: 0,
+        zlpotting: 0,
+        zlbp: 0,
+        zlrework: 0,
+        zlgraded: 0,
+        //zw1000
+        spl1000: 70*1.003*1.006*1.007,
+        pottingstatic1000: 70*1.003*1.006,
+        centrifugeend1000: 70*1.003*1.006,
+        bpend1000: 70*1.003,
+        grade1000: 70,
+        //zw1500
+        spl1500: 80*1.008*1.007,
+        pottingflip1500: 80*1.008,
+        centrifugeend1500: 80*1.008,
+        bpend1500: 80,
+        grade1500: 80
+      };
+
+      vm.target = targetobj;
+
       loadrewinder();
       loadspinline();
       loadsm();
@@ -177,7 +217,7 @@
               vm.data[i].potting = vm.data[i].potting + response.data[j].aeq;
             }
             else if (response.data[j].MachineName != "Potting" && vm.data[i].date == response.data[j].Day && response.data[j].aeq && (response.data[j].type == "3149069" || response.data[j].type == "3160038" || response.data[j].type == "3148766")) {
-              vm.data[i].zbpotting += response.data[j].aeq;
+              vm.data[i].zbpotting += response.data[j].aeq*4;
             }
             else if (response.data[j].MachineName != "Potting" && vm.data[i].date == response.data[j].Day && response.data[j].aeq && response.data[j].type == "3148766") {
               vm.data[i].zlpotting += response.data[j].aeq;
@@ -368,7 +408,6 @@
             }
           }
         }
-        console.log(vm.data);
       });
     }
 

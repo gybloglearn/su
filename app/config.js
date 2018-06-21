@@ -10,6 +10,7 @@
     $mdDateLocaleProvider.formatDate = function(date){
       return moment(date).format('YYYY-MM-DD');
     }
+    $mdDateLocaleProvider.firstDayOfWeek = 1;
     var cp = new Date().getTime().toString().substr(-5);
     // routing
     //$urlRouterProvider.otherwise('/');

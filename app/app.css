@@ -3,6 +3,7 @@ h1,h2 { font-family: 'Open Sans Condensed'; font-weight: 100;}
 .md-display-1, .md-display-2 {font-weight: 100;}
 .grey { color: #aaa;}
 .green {color: #badb2a;}
+.red { color: #da5a5a;}
 .text-center { text-align: center;}
 .text-right { text-align: right;}
 
@@ -30,11 +31,21 @@ h1,h2 { font-family: 'Open Sans Condensed'; font-weight: 100;}
 .md-head{
   background-color: #000d42;
   color: #ffffff!important;
-  
+
 }
 .md-head .md-column {
   color: #ffffff!important;
 }
+.md-cell, .md-column {
+  text-align: center!important;
+  padding: 0!important;
+}
 .md-cell {
-  text-align: center;
+  border-right: 1px solid #eeeeee;
+  border-bottom: 1px solid #eeeeee;
+  color: #dddddd!important;
+  font-size: 1.2em!important;
+}
+.target {
+  background-color: #aaaaaa;
 }
