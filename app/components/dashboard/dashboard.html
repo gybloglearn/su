@@ -35,19 +35,19 @@
                 <th md-head rowspan=3 style="border-top-style:solid;border-width: 1px;border-color:#ffffff">
                   <span style="display:block;transform: rotate(-90deg);">500+ZB+ZL</span>
                 </th>
-                <th md-head style="border-top-style:solid;border-width: 1px;border-color:#ffffff">Braid</th>
+                <th md-head style="border-top-style:solid;border-width: 1px;border-color:#ffffff">Rewind</th>
                 <td class="target" md-cell style="border-top: 1px solid #888888;"><i>{{vm.target.rewinder|number:1}}</i></td>
-                <td md-cell style="border-top:1px solid #888888"ng-repeat="dat in vm.data"><span class="{{dat.rewinder >= vm.target.rewinder?'green':'red'}}">{{dat.rewinder|number:1}}</span></td>
+                <td md-cell style="border-top:1px solid #888888"ng-repeat="dat in vm.data"><span class="{{dat.rewinder >= vm.target.rewinder?'green':(dat.rewinder >= vm.target.rewinder*0.95?'yellow':'red')}}">{{dat.rewinder|number:1}}</span></td>
               </tr>
               <tr md-row>
                 <th md-head>SPL-136-236</th>
                 <td class="target" md-cell><i>{{vm.target.spl36|number:1}}</i></td>
-                <td md-cell ng-repeat="dat in vm.data"><span class="{{dat.spl36 >= vm.target.spl36?'green':'red'}}">{{dat.spl36|number:1}}</span></td>
+                <td md-cell ng-repeat="dat in vm.data"><span class="{{dat.spl36 >= vm.target.spl36?'green':(dat.spl36 >= vm.target.spl36*0.95?'yellow':'red')}}">{{dat.spl36|number:1}}</span></td>
               </tr>
               <tr md-row>
                 <th md-head>SPL-2-3-4-5</th>
                 <td class="target" md-cell><i>{{vm.target.spl2345|number:1}}</i></td>
-                <td md-cell ng-repeat="dat in vm.data"><span class="{{dat.spl2345 >= vm.target.spl2345?'green':'red'}}">{{dat.spl2345|number:1}}</span></td>
+                <td md-cell ng-repeat="dat in vm.data"><span class="{{dat.spl2345 >= vm.target.spl2345?'green':(dat.spl2345 >= vm.target.spl2345*0.95?'yellow':'red')}}">{{dat.spl2345|number:1}}</span></td>
               </tr>
               <tr md-row>
                 <th md-head rowspan=5 style="border-top-style:solid;border-width: 1px;border-color:#ffffff">
@@ -55,28 +55,28 @@
                 </th>
                 <th md-head style="border-top-style:solid;border-width: 1px;border-color:#ffffff">SM</th>
                 <td class="target" md-cell style="border-top: 1px solid #888888;"><i>{{vm.target.sm|number:1}}</i></td>
-                <td md-cell style="border-top:1px solid #888888" ng-repeat="dat in vm.data"><span class="{{dat.sm >= vm.target.sm ?'green':'red'}}">{{dat.sm|number:1}}</span></td>
+                <td md-cell style="border-top:1px solid #888888" ng-repeat="dat in vm.data"><span class="{{dat.sm >= vm.target.sm ?'green':(dat.sm >= vm.target.sm*0.95?'yellow':'red')}}">{{dat.sm|number:1}}</span></td>
               </tr>
               <tr md-row>
                 <th md-head>Potting-ki</th>
                 <td class="target" md-cell><i>{{vm.target.potting|number:1}}</i></td>
-                <td md-cell ng-repeat="dat in vm.data"><span class="{{dat.potting >= vm.target.potting ?'green':'red'}}">{{dat.potting|number:1}}</span></td>
+                <td md-cell ng-repeat="dat in vm.data"><span class="{{dat.potting >= vm.target.potting ?'green':(dat.potting >= vm.target.potting*0.95?'yellow':'red')}}">{{dat.potting|number:1}}</span></td>
               </tr>
               <tr md-row>
                 <th md-head>BP</th>
                 <td class="target" md-cell><i>{{vm.target.bp|number:1}}</i></td>
-                <td md-cell ng-repeat="dat in vm.data"><span class="{{dat.bp >= vm.target.bp ?'green':'red'}}">{{dat.bp|number:1}}</span></td>
+                <td md-cell ng-repeat="dat in vm.data"><span class="{{dat.bp >= vm.target.bp ?'green':(dat.bp >= vm.target.bp*0.95?'yellow':'red')}}">{{dat.bp|number:1}}</span></td>
               </tr>
               <tr md-row>
                 <th md-head>Rework</th>
                 <td class="target" md-cell>{{vm.target.rework|number:1}}</td>
-                <td md-cell ng-repeat="dat in vm.data"><span class="{{dat.rework >= vm.target.rework ?'green':'red'}}">{{dat.rework|number:1}}</span></td>
+                <td md-cell ng-repeat="dat in vm.data"><span class="{{dat.rework >= vm.target.rework ?'green':(dat.rework >= vm.target.rework?'yellow':'red')}}">{{dat.rework|number:1}}</span></td>
               </tr>
               </tr>
               <tr md-row>
                 <th md-head>Minősített</th>
                 <td class="target" md-cell><i>{{vm.target.graded|number:1}}</i></td>
-                <td md-cell ng-repeat="dat in vm.data"><span class="{{dat.graded >= vm.target.graded ?'green':'red'}}">{{dat.graded|number:1}}</span></td>
+                <td md-cell ng-repeat="dat in vm.data"><span class="{{dat.graded >= vm.target.graded ?'green':(dat.graded >= vm.target.graded?'yellow':'red')}}">{{dat.graded|number:1}}</span></td>
               </tr>
               <tr md-row>
                 <th md-head rowspan=5 style="border-top-style:solid;border-width: 1px;border-color:#ffffff">
@@ -84,27 +84,27 @@
                 </th>
                 <th md-head style="border-top-style:solid;border-width: 1px;border-color:#ffffff">SM</th>
                 <td class="target" md-cell><i>{{vm.target.zbsm|number:1}}</i></td>
-                <td md-cell style="border-top:1px solid #888888"ng-repeat="dat in vm.data"><span class="{{dat.zbsm >= vm.target.zbsm ?'green':'red'}}">{{dat.zbsm|number:1}}</span></td>
+                <td md-cell style="border-top:1px solid #888888"ng-repeat="dat in vm.data"><span class="{{dat.zbsm >= vm.target.zbsm ?'green':(dat.zbsm >= vm.target.zbsm*0.95?'yellow':'red')}}">{{dat.zbsm|number:1}}</span></td>
               </tr>
               <tr md-row>
                 <th md-head>Potting-ki</th>
                 <td class="target" md-cell><i>{{vm.target.zbpotting|number:1}}</i></td>
-                <td md-cell ng-repeat="dat in vm.data"><span class="{{dat.zbpotting >= vm.target.zbpotting ?'green':'red'}}">{{dat.zbpotting|number:1}}</span></td>
+                <td md-cell ng-repeat="dat in vm.data"><span class="{{dat.zbpotting >= vm.target.zbpotting ?'green':(dat.zbpotting >= vm.target.zbpotting?'yellow':'red')}}">{{dat.zbpotting|number:1}}</span></td>
               </tr>
               <tr md-row>
                 <th md-head>BP</th>
                 <td class="target" md-cell><i>{{vm.target.zbbp|number:1}}</i></td>
-                <td md-cell ng-repeat="dat in vm.data"><span class="{{dat.zbbp >= vm.target.zbbp ?'green':'red'}}">{{dat.zbbp|number:1}}</span></td>
+                <td md-cell ng-repeat="dat in vm.data"><span class="{{dat.zbbp >= vm.target.zbbp ?'green':(dat.zbbp >= vm.target.zbbp*0.95?'yellow':'red')}}">{{dat.zbbp|number:1}}</span></td>
               </tr>
               <tr md-row>
                 <th md-head>Rework</th>
                 <td class="target" md-cell><i>{{vm.target.zbrework|number:1}}</i></td>
-                <td md-cell ng-repeat="dat in vm.data"><span class="{{dat.zbrework >= vm.target.zbrework ?'green':'red'}}">{{dat.zbrework|number:1}}</span></td>
+                <td md-cell ng-repeat="dat in vm.data"><span class="{{dat.zbrework >= vm.target.zbrework ?'green':(dat.zbrework >= vm.target.zbrework*0.95?'yellow':'red')}}">{{dat.zbrework|number:1}}</span></td>
               </tr>
               <tr md-row>
                 <th md-head>Minősített</th>
                 <td class="target" md-cell><i>{{vm.target.zbgraded|number:1}}</i></td>
-                <td md-cell ng-repeat="dat in vm.data"><span class="{{dat.zbgraded >= vm.target.zbgraded ?'green':'red'}}">{{dat.zbgraded|number:1}}</span></td>
+                <td md-cell ng-repeat="dat in vm.data"><span class="{{dat.zbgraded >= vm.target.zbgraded ?'green':(dat.zbgraded >= vm.target.zbgraded*0.95?'yellow':'red')}}">{{dat.zbgraded|number:1}}</span></td>
               </tr>
               <tr md-row>
                 <th md-head rowspan=3 style="border-top-style:solid;border-width: 1px;border-color:#ffffff">
@@ -112,17 +112,17 @@
                 </th>
                 <th md-head style="border-top-style:solid;border-width: 1px;border-color:#ffffff">SM</th>
                 <td class="target" md-cell><i>{{vm.target.zlsm|number:1}}</i></td>
-                <td md-cell style="border-top:1px solid #888888" ng-repeat="dat in vm.data"><span class="{{dat.zlsm >= vm.target.zlsm ?'green':'red'}}">{{dat.zlsm|number:1}}</span></td>
+                <td md-cell style="border-top:1px solid #888888" ng-repeat="dat in vm.data"><span class="{{dat.zlsm >= vm.target.zlsm ?'green':(dat.zlsm >= vm.target.zlsm*0.95?'yellow':'red')}}">{{dat.zlsm|number:1}}</span></td>
               </tr>
               <tr md-row>
                 <th md-head>Potting-ki</th>
                 <td class="target" md-cell><i>{{vm.target.zlpotting|number:1}}</i></td>
-                <td md-cell ng-repeat="dat in vm.data"><span class="{{dat.zlpotting >= vm.target.zlpotting ?'green':'red'}}">{{dat.zlpotting|number:1}}</span></td>
+                <td md-cell ng-repeat="dat in vm.data"><span class="{{dat.zlpotting >= vm.target.zlpotting ?'green':(dat.zlpotting >= vm.target.zlpotting*0.95?'yellow':'red')}}">{{dat.zlpotting|number:1}}</span></td>
               </tr>
               <tr md-row>
                 <th md-head>Minősített</th>
                 <td class="target" md-cell><i>{{vm.target.zlgraded|number:1}}</i></td>
-                <td md-cell ng-repeat="dat in vm.data"><span class="{{dat.zlgraded >= vm.target.zlgraded ?'green':'red'}}">{{dat.zlgraded|number:1}}</span></td>
+                <td md-cell ng-repeat="dat in vm.data"><span class="{{dat.zlgraded >= vm.target.zlgraded ?'green':(dat.zlgraded >= vm.target.zlgraded*0.95?'yellow':'red')}}">{{dat.zlgraded|number:1}}</span></td>
               </tr>
               <tr md-row>
                 <th md-head rowspan="5" style="border-top-style:solid;border-width: 1px;border-color:#ffffff">
@@ -130,27 +130,27 @@
                 </th>
                 <th md-head style="border-top-style:solid;border-width: 1px;border-color:#ffffff">SPL</th>
                 <td class="target" md-cell><i>{{vm.target.spl1000|number:1}}</i></td>
-                <td md-cell style="border-top:1px solid #888888" ng-repeat="dat in vm.data"><span class="{{dat.spl1000 >= vm.target.spl1000 ?'green':'red'}}">{{dat.spl1000|number:1}}</span></td>
+                <td md-cell style="border-top:1px solid #888888" ng-repeat="dat in vm.data"><span class="{{dat.spl1000 >= vm.target.spl1000 ?'green':(dat.spl1000 >= vm.target.spl1000*0.95?'yellow':'red')}}">{{dat.spl1000|number:1}}</span></td>
               </tr>
               <tr md-row>
                 <th md-head>Static-Potting</th>
                 <td class="target" md-cell><i>{{vm.target.pottingstatic1000|number:1}}</i></td>
-                <td md-cell ng-repeat="dat in vm.data"><span class="{{dat.pottingstatic1000 >= vm.target.pottingstatic1000 ?'green':'red'}}">{{dat.pottingstatic1000|number:1}}</span></td>
+                <td md-cell ng-repeat="dat in vm.data"><span class="{{dat.pottingstatic1000 >= vm.target.pottingstatic1000 ?'green':(dat.pottingstatic1000 >= vm.target.pottingstatic1000*0.95?'yellow':'red')}}">{{dat.pottingstatic1000|number:1}}</span></td>
               </tr>
               <tr md-row>
                 <th md-head>Centrifuga</th>
                 <td class="target" md-cell><i>{{vm.target.centrifugeend1000|number:1}}</i></td>
-                <td md-cell ng-repeat="dat in vm.data"><span class="{{dat.centrifugeend1000 >= vm.target.centrifugeend1000 ?'green':'red'}}">{{dat.centrifugeend1000|number:1}}</span></td>
+                <td md-cell ng-repeat="dat in vm.data"><span class="{{dat.centrifugeend1000 >= vm.target.centrifugeend1000 ?'green':(dat.centrifugeend1000 >= vm.target.centrifugeend1000*0.95?'yellow':'red')}}">{{dat.centrifugeend1000|number:1}}</span></td>
               </tr>
               <tr md-row>
                 <th md-head>BP</th>
                 <td class="target" md-cell><i>{{vm.target.bpend1000|number:1}}</i></td>
-                <td md-cell ng-repeat="dat in vm.data"><span class="{{dat.bpend1000 >= vm.target.bpend1000 ?'green':'red'}}">{{dat.bpend1000|number:1}}</span></td>
+                <td md-cell ng-repeat="dat in vm.data"><span class="{{dat.bpend1000 >= vm.target.bpend1000 ?'green':(dat.bpend1000 >= vm.target.bpend1000*0.95?'yellow':'red')}}">{{dat.bpend1000|number:1}}</span></td>
               </tr>
               <tr md-row>
                 <th md-head>Minősített</th>
                 <td class="target" md-cell><i>{{vm.target.grade1000|number:1}}</i></td>
-                <td md-cell ng-repeat="dat in vm.data"><span class="{{dat.grade1000 >= vm.target.grade1000 ?'green':'red'}}">{{dat.grade1000|number:1}}</span></td>
+                <td md-cell ng-repeat="dat in vm.data"><span class="{{dat.grade1000 >= vm.target.grade1000 ?'green':(dat.grade1000 >= vm.target.grade1000*0.95?'yellow':'red')}}">{{dat.grade1000|number:1}}</span></td>
               </tr>
               <tr md-row>
                 <th md-head rowspan="5" style="border-top-style:solid;border-width: 1px;border-color:#ffffff">
@@ -158,27 +158,27 @@
                 </th>
                 <th md-head style="border-top-style:solid;border-width: 1px;border-color:#ffffff">SPL</th>
                 <td class="target" md-cell><i>{{vm.target.spl1500|number:1}}</i></td>
-                <td md-cell style="border-top:1px solid #888888" ng-repeat="dat in vm.data"><span class="{{dat.spl1500 >= vm.target.spl1500 ?'green':'red'}}">{{dat.spl1500|number:1}}</span></td>
+                <td md-cell style="border-top:1px solid #888888" ng-repeat="dat in vm.data"><span class="{{dat.spl1500 >= vm.target.spl1500 ?'green':(dat.spl1500 >= vm.target.spl1500*0.95?'yellow':'red')}}">{{dat.spl1500|number:1}}</span></td>
               </tr>
               <tr md-row>
                 <th md-head>Potting-flip</th>
                 <td class="target" md-cell><i>{{vm.target.pottingflip1500|number:1}}</i></td>
-                <td md-cell ng-repeat="dat in vm.data"><span class="{{dat.pottingflip1500 >= vm.target.pottingflip1500 ?'green':'red'}}">{{dat.pottingflip1500|number:1}}</span></td>
+                <td md-cell ng-repeat="dat in vm.data"><span class="{{dat.pottingflip1500 >= vm.target.pottingflip1500 ?'green':(dat.pottingflip1500 >= vm.target.pottingflip1500*0.95?'yellow':'red')}}">{{dat.pottingflip1500|number:1}}</span></td>
               </tr>
               <tr md-row>
                 <th md-head>Centrifuga</th>
                 <td class="target" md-cell><i>{{vm.target.centrifugeend1500|number:1}}</i></td>
-                <td md-cell ng-repeat="dat in vm.data"><span class="{{dat.centrifugeend1500 >= vm.target.centrifugeend1500 ?'green':'red'}}">{{dat.centrifugeend1500|number:1}}</span></td>
+                <td md-cell ng-repeat="dat in vm.data"><span class="{{dat.centrifugeend1500 >= vm.target.centrifugeend1500 ?'green':(dat.centrifugeend1500 >= vm.target.centrifugeend1500*0.95?'yellow':'red')}}">{{dat.centrifugeend1500|number:1}}</span></td>
               </tr>
               <tr md-row>
                 <th md-head>BP</th>
                 <td class="target" md-cell><i>{{vm.target.bpend1500|number:1}}</i></td>
-                <td md-cell ng-repeat="dat in vm.data"><span class="{{dat.bpend1500 >= vm.target.bpend1500 ?'green':'red'}}">{{dat.bpend1500|number:1}}</span></td>
+                <td md-cell ng-repeat="dat in vm.data"><span class="{{dat.bpend1500 >= vm.target.bpend1500 ?'green':(dat.bpend1500 >= vm.target.bpend1500*0.95?'yellow':'red')}}">{{dat.bpend1500|number:1}}</span></td>
               </tr>
               <tr md-row>
                 <th md-head>Minősített</th>
                 <td class="target" md-cell><i>{{vm.target.grade1500|number:1}}</i></td>
-                <td md-cell ng-repeat="dat in vm.data"><span class="{{dat.grade1500 >= vm.target.grade1500 ?'green':'red'}}">{{dat.grade1500|number:1}}</span></td>
+                <td md-cell ng-repeat="dat in vm.data"><span class="{{dat.grade1500 >= vm.target.grade1500 ?'green':(dat.grade1500 >= vm.target.grade1500*0.95?'yellow':'red')}}">{{dat.grade1500|number:1}}</span></td>
               </tr>
             </tbody>
           </table>

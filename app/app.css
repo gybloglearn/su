@@ -2,8 +2,9 @@ html { font-family: 'Roboto', sans-serif; font-weight: 400}
 h1,h2 { font-family: 'Open Sans Condensed'; font-weight: 100;}
 .md-display-1, .md-display-2 {font-weight: 100;}
 .grey { color: #aaa;}
-.green {color: #badb2a;}
+.green {color: #9adb2a;}
 .red { color: #da5a5a;}
+.yellow { color: #ffdd00;}
 .text-center { text-align: center;}
 .text-right { text-align: right;}
 
