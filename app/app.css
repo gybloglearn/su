@@ -39,14 +39,23 @@ h1,h2 { font-family: 'Open Sans Condensed'; font-weight: 100;}
 }
 .md-cell, .md-column {
   text-align: center!important;
-  padding: 0!important;
+  padding: 5px!important;
 }
 .md-cell {
-  border-right: 1px solid #eeeeee;
-  border-bottom: 1px solid #eeeeee;
   color: #dddddd!important;
   font-size: 1.2em!important;
+  padding: 3px!important;
 }
 .target {
   background-color: #aaa;
+}
+tr {
+  height: auto!important;
+}
+thead th {
+  padding: 5px!important;
+  font-size: 1.2em!important;
+}
+.divider .md-cell {
+  border-bottom: 1px solid #888;
 }

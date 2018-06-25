@@ -17,8 +17,28 @@
     vm.loading = false;
 
     activate();
+    vm.chartize = chartize;
 
     ////////////////
+
+    function chartize(field, text){
+      var seriesData = [];
+      var targetData = [];
+      for(var i=0;i<vm.data.length;i++){
+        seriesData.push([vm.data[i]['date'], vm.data[i][field]]);
+        targetData.push([vm.data[i]['date'], vm.target[field]]);
+      }
+
+      vm.chartoptions = {
+        chart: { type: "line"},
+        title: { text: text + " Adatok (" + vm.startdatenum + " - " + vm.enddatenum + ")"},
+        xAxis: { type: "category"},
+        series: [
+          {name: "Adatok", data: seriesData},
+          {name: "Cél", data: targetData}
+        ]
+      };
+    }
 
     function beallit() {
       vm.startdatenum = $filter('date')(new Date(vm.startdate), 'yyyy-MM-dd');
@@ -94,30 +114,35 @@
         bp: 226 * 1.005,
         rework: 0,
         graded: 226,
+        sap0500: 226,
         //zb
         zbsm: 0,
         zbpotting: 0,
         zbbp: 0,
         zbrework: 0,
         zbgraded: 0,
+        sapZB: 0,
         //zl
         zlsm: 0,
         zlpotting: 0,
         zlbp: 0,
         zlrework: 0,
         zlgraded: 0,
+        sapZL: 0,
         //zw1000
         spl1000: 70 * 1.003 * 1.006 * 1.007,
         pottingstatic1000: 70 * 1.003 * 1.006,
         centrifugeend1000: 70 * 1.003 * 1.006,
         bpend1000: 70 * 1.003,
         grade1000: 70,
+        sap1000: 70,
         //zw1500
         spl1500: 80 * 1.008 * 1.007,
         pottingflip1500: 80 * 1.008,
         centrifugeend1500: 80 * 1.008,
         bpend1500: 80,
-        grade1500: 80
+        grade1500: 80,
+        sap1500: 80
       };
 
       vm.target = targetobj;
@@ -144,7 +169,6 @@
           var t = $filter('date')(new Date(d.data[j].NAP).getTime(), 'yyyy-MM-dd');
           for(var i=0; i<vm.data.length;i++){
             if(t == vm.data[i].date){
-              console.log(d.data[j]);
               vm.data[i].sap0500 = d.data[j].ZW0500Actual;
               vm.data[i].sap1000 = d.data[j].ZW1000Actual;
               vm.data[i].sap1500 = d.data[j].ZW1500Actual;
