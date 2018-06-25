@@ -8,15 +8,15 @@
       </md-button>
     </h1>
     <md-divider>
-      <div flex-gt-xs>
+      <div flex-gt-xs layout="row" layout-align="center center">
         <md-input-container>
           <md-datepicker ng-model="vm.startdate" md-max-date="vm.maxdate"></md-datepicker>
         </md-input-container>
         <md-input-container>
           <md-datepicker ng-model="vm.enddate" md-max-date="vm.maxdate"></md-datepicker>
         </md-input-container>
-        <md-button class="md-primary md-raised" ng-click="vm.beallit()" ng-disabled="vm.loading">Betöltés</md-button>
-      </div>
+        <md-button class="md-primary md-raised" ng-click="vm.beallit()" ng-disabled="vm.loading"><md-icon class="material-icons">refresh</md-icon> Betöltés</md-button>
+        </div>
     </md-divider>
     <md-divider>
       <div layout="row">
@@ -50,7 +50,7 @@
                 <td md-cell ng-repeat="dat in vm.data"><span class="{{dat.spl2345 >= vm.target.spl2345?'green':(dat.spl2345 >= vm.target.spl2345*0.95?'yellow':'red')}}">{{dat.spl2345|number:1}}</span></td>
               </tr>
               <tr md-row>
-                <th md-head rowspan=5 style="border-top-style:solid;border-width: 1px;border-color:#ffffff">
+                <th md-head rowspan=6 style="border-top-style:solid;border-width: 1px;border-color:#ffffff">
                   <span style="display:block;transform: rotate(-90deg);">ZW500</span>
                 </th>
                 <th md-head style="border-top-style:solid;border-width: 1px;border-color:#ffffff">SM</th>
@@ -79,7 +79,12 @@
                 <td md-cell ng-repeat="dat in vm.data"><span class="{{dat.graded >= vm.target.graded ?'green':(dat.graded >= vm.target.graded?'yellow':'red')}}">{{dat.graded|number:1}}</span></td>
               </tr>
               <tr md-row>
-                <th md-head rowspan=5 style="border-top-style:solid;border-width: 1px;border-color:#ffffff">
+                <th md-head class="target">SAP lejelentett</th>
+                <td class="target" md-cell><i>{{vm.target.graded|number:1}}</i></td>
+                <td md-cell ng-repeat="dat in vm.data"><span class="{{dat.sap0500 >= vm.target.graded ?'green':(dat.sap0500 >= vm.target.graded?'yellow':'red')}}">{{dat.sap0500|number:1}}</span></td>
+              </tr>
+              <tr md-row>
+                <th md-head rowspan=6 style="border-top-style:solid;border-width: 1px;border-color:#ffffff">
                   <span style="display:block;transform: rotate(-90deg);">ZB</span>
                 </th>
                 <th md-head style="border-top-style:solid;border-width: 1px;border-color:#ffffff">SM</th>
@@ -107,7 +112,12 @@
                 <td md-cell ng-repeat="dat in vm.data"><span class="{{dat.zbgraded >= vm.target.zbgraded ?'green':(dat.zbgraded >= vm.target.zbgraded*0.95?'yellow':'red')}}">{{dat.zbgraded|number:1}}</span></td>
               </tr>
               <tr md-row>
-                <th md-head rowspan=3 style="border-top-style:solid;border-width: 1px;border-color:#ffffff">
+                <th md-head class="target">SAP lejelentett</th>
+                <td class="target" md-cell><i>{{vm.target.zbgraded|number:1}}</i></td>
+                <td md-cell ng-repeat="dat in vm.data"><span class="{{dat.sapZB >= vm.target.zbgraded ?'green':(dat.sapZB >= vm.target.zbgraded*0.95?'yellow':'red')}}">{{dat.sapZB|number:1}}</span></td>
+              </tr>
+              <tr md-row>
+                <th md-head rowspan=4 style="border-top-style:solid;border-width: 1px;border-color:#ffffff">
                   <span style="display:block;transform: rotate(-90deg);">ZL</span>
                 </th>
                 <th md-head style="border-top-style:solid;border-width: 1px;border-color:#ffffff">SM</th>
@@ -125,7 +135,12 @@
                 <td md-cell ng-repeat="dat in vm.data"><span class="{{dat.zlgraded >= vm.target.zlgraded ?'green':(dat.zlgraded >= vm.target.zlgraded*0.95?'yellow':'red')}}">{{dat.zlgraded|number:1}}</span></td>
               </tr>
               <tr md-row>
-                <th md-head rowspan="5" style="border-top-style:solid;border-width: 1px;border-color:#ffffff">
+                <th md-head class="target">SAP lejelentett</th>
+                <td class="target" md-cell><i>{{vm.target.zlgraded|number:1}}</i></td>
+                <td md-cell ng-repeat="dat in vm.data"><span class="{{dat.sapZL >= vm.target.zlgraded ?'green':(dat.sapZL >= vm.target.zlgraded*0.95?'yellow':'red')}}">{{dat.sapZL|number:1}}</span></td>
+              </tr>
+              <tr md-row>
+                <th md-head rowspan=6 style="border-top-style:solid;border-width: 1px;border-color:#ffffff">
                   <span style="display:block;transform: rotate(-90deg);">ZW1000</span>
                 </th>
                 <th md-head style="border-top-style:solid;border-width: 1px;border-color:#ffffff">SPL</th>
@@ -153,7 +168,12 @@
                 <td md-cell ng-repeat="dat in vm.data"><span class="{{dat.grade1000 >= vm.target.grade1000 ?'green':(dat.grade1000 >= vm.target.grade1000*0.95?'yellow':'red')}}">{{dat.grade1000|number:1}}</span></td>
               </tr>
               <tr md-row>
-                <th md-head rowspan="5" style="border-top-style:solid;border-width: 1px;border-color:#ffffff">
+                <th md-head class="target">SAP lejelentett</th>
+                <td class="target" md-cell><i>{{vm.target.grade1000|number:1}}</i></td>
+                <td md-cell ng-repeat="dat in vm.data"><span class="{{dat.sap1000 >= vm.target.grade1000 ?'green':(dat.sap1000 >= vm.target.grade1000*0.95?'yellow':'red')}}">{{dat.sap1000|number:1}}</span></td>
+              </tr>
+              <tr md-row>
+                <th md-head rowspan=6 style="border-top-style:solid;border-width: 1px;border-color:#ffffff">
                   <span style="display:block;transform: rotate(-90deg);">ZW1500</span>
                 </th>
                 <th md-head style="border-top-style:solid;border-width: 1px;border-color:#ffffff">SPL</th>
@@ -179,6 +199,11 @@
                 <th md-head>Minősített</th>
                 <td class="target" md-cell><i>{{vm.target.grade1500|number:1}}</i></td>
                 <td md-cell ng-repeat="dat in vm.data"><span class="{{dat.grade1500 >= vm.target.grade1500 ?'green':(dat.grade1500 >= vm.target.grade1500*0.95?'yellow':'red')}}">{{dat.grade1500|number:1}}</span></td>
+              </tr>
+              <tr md-row>
+                <th md-head class="target">SAP lejelentett</th>
+                <td class="target" md-cell><i>{{vm.target.grade1500|number:1}}</i></td>
+                <td md-cell ng-repeat="dat in vm.data"><span class="{{dat.sap1500 >= vm.target.grade1500 ?'green':(dat.sap1500 >= vm.target.grade1500*0.95?'yellow':'red')}}">{{dat.sap1500|number:1}}</span></td>
               </tr>
             </tbody>
           </table>

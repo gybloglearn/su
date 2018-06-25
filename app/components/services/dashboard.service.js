@@ -20,12 +20,20 @@
       getbundlefile: getbundlefile,
       get1000potting: get1000potting,
       get1000etf: get1000etf,
-      get1500etf: get1500etf
+      get1500etf: get1500etf,
+      getsap: getSAP
     };
 
     return service;
 
     ////////////////
+    function getSAP(){
+      var req = {
+        method: 'GET',
+        url: '../uf/app/components/PHP/sapdata.php'
+      };
+      return $http(req);
+    }
     function getpartnumber() {
       var req = {
         method: 'GET',

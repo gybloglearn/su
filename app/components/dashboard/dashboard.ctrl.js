@@ -47,30 +47,35 @@
           bp: 0,
           rework: 0,
           graded: 0,
+          sap0500: 0,
           //zb
           zbsm: 0,
           zbpotting: 0,
           zbbp: 0,
           zbrework: 0,
           zbgraded: 0,
+          sapZB: 0,
           //zl
           zlsm: 0,
           zlpotting: 0,
           zlbp: 0,
           zlrework: 0,
           zlgraded: 0,
+          sapZL: 0,
           //zw1000
           spl1000: 0,
           pottingstatic1000: 0,
           centrifugeend1000: 0,
           bpend1000: 0,
           grade1000: 0,
+          sap1000: 0,
           //zw1500
           spl1500: 0,
           pottingflip1500: 0,
           centrifugeend1500: 0,
           bpend1500: 0,
-          grade1500: 0
+          grade1500: 0,
+          sap1500: 0
         }
         vm.data.push(obj);
         vm.dates.push($filter('date')(firstnum, 'yyyy-MM-dd'));
@@ -128,6 +133,27 @@
       load1000etf();
       load1500etf();
       loadbundle();
+      loadsap();
+    }
+
+
+    function loadsap(){
+      DashboardService.getsap().then( function (response) {
+        var d = response.data;
+        for(var j=0;j< d.data.length;j++){
+          var t = $filter('date')(new Date(d.data[j].NAP).getTime(), 'yyyy-MM-dd');
+          for(var i=0; i<vm.data.length;i++){
+            if(t == vm.data[i].date){
+              console.log(d.data[j]);
+              vm.data[i].sap0500 = d.data[j].ZW0500Actual;
+              vm.data[i].sap1000 = d.data[j].ZW1000Actual;
+              vm.data[i].sap1500 = d.data[j].ZW1500Actual;
+              vm.data[i].sapZB = d.data[j].ZBActual;
+              vm.data[i].sapZL = d.data[j].ZLActual;
+            }
+          }
+        }
+      });
     }
 
     function loadPartnumbers() {
