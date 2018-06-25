@@ -76,12 +76,12 @@
               <tr md-row>
                 <th md-head>Minősített</th>
                 <td class="target" md-cell><i>{{vm.target.graded|number:1}}</i></td>
-                <td md-cell ng-repeat="dat in vm.data"><span class="{{dat.graded >= vm.target.graded ?'green':(dat.graded >= vm.target.graded?'yellow':'red')}}">{{dat.graded|number:1}}</span></td>
+                <td md-cell ng-repeat="dat in vm.data"><span class="{{dat.graded >= vm.target.graded ?'green':(dat.graded >= vm.target.graded*0.95?'yellow':'red')}}">{{dat.graded|number:1}}</span></td>
               </tr>
               <tr md-row>
                 <th md-head class="target">SAP lejelentett</th>
                 <td class="target" md-cell><i>{{vm.target.graded|number:1}}</i></td>
-                <td md-cell ng-repeat="dat in vm.data"><span class="{{dat.sap0500 >= vm.target.graded ?'green':(dat.sap0500 >= vm.target.graded?'yellow':'red')}}">{{dat.sap0500|number:1}}</span></td>
+                <td md-cell ng-repeat="dat in vm.data"><span class="{{dat.sap0500 >= vm.target.graded ?'green':(dat.sap0500 >= vm.target.graded*0.95?'yellow':'red')}}">{{dat.sap0500|number:1}}</span></td>
               </tr>
               <tr md-row>
                 <th md-head rowspan=6 style="border-top-style:solid;border-width: 1px;border-color:#ffffff">
