@@ -420,7 +420,7 @@
               response.data[j].day = $filter('date')(new Date(response.data[j].startdate).getTime() - (24 * 3600 * 1000), 'yyyy-MM-dd');
             }
             else {
-              response.data[j].day = $filter('date')(new Date(response.data[j].startdate), 'yyyy-MM-dd');
+              response.data[j].day = $filter('date')(new Date(response.data[j].startdate).getTime(), 'yyyy-MM-dd');
             }
           }
           response.data[j].Amount = 1;
