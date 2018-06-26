@@ -214,6 +214,9 @@
       </md-table-container>
     </div>
     <md-divider></md-divider>
-    <my-chart options="vm.chartoptions" id="chart" ng-show="vm.chartoptions"></my-chart>
+    <div ng-show="vm.chartoptions">
+      <md-button ng-click="vm.chartoptions=''">Elrejt</md-button>
+      <my-chart options="vm.chartoptions" id="chart"></my-chart>
+    </div>
   </div>
 </md-content>
