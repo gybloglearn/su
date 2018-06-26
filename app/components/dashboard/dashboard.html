@@ -18,6 +18,8 @@
         <md-button class="md-primary md-raised" ng-click="vm.beallit()" ng-disabled="vm.loading"><md-icon class="material-icons">refresh</md-icon> Betöltés</md-button>
       </div>
     <md-divider></md-divider>
+      <my-chart options="vm.weekChart" id="weekChart"></my-chart>
+    <md-divider></md-divider>
       <div layout="row">
         <md-table-container flex>
           <table md-table>
