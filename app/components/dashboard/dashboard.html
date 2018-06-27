@@ -52,7 +52,7 @@
                 <td md-cell ng-repeat="dat in vm.data"><span class="{{dat.spl2345 >= vm.target.spl2345?'green':(dat.spl2345 >= vm.target.spl2345*0.95?'yellow':'red')}}">{{dat.spl2345|number:1}}</span></td>
               </tr>
               <tr md-row>
-                <th md-head rowspan=6>
+                <th md-head rowspan=7>
                   <span style="display:block;transform: rotate(-90deg);">ZW500</span>
                 </th>
                 <th md-head>SM</th>
@@ -84,6 +84,11 @@
                 <th md-head class="target" style="cursor: pointer" ng-click="vm.chartize('sap0500', 'ZW500 SAP')">SAP lejelentett</th>
                 <td class="target" md-cell><i>{{vm.target.graded|number:1}}</i></td>
                 <td md-cell ng-repeat="dat in vm.data"><span class="{{dat.sap0500 >= vm.target.graded ?'green':(dat.sap0500 >= vm.target.graded*0.95?'yellow':'red')}}">{{dat.sap0500|number:1}}</span></td>
+              </tr>
+              <tr md-row class="divider">
+                <th md-head style="cursor: pointer">Kazetta</th>
+                <td class="target" md-cell><i>{{vm.target.casette|number:0}} %</i></td>
+                <td md-cell ng-repeat="dat in vm.data"><span class="{{dat.casette >= vm.target.casette ?'green':(dat.casette >= vm.target.casette*0.95?'yellow':'red')}}">{{dat.casette|number:1}} %</span></td>
               </tr>
       <!-- ZeeBlok -->
               <tr md-row>

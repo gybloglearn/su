@@ -125,6 +125,7 @@
           rework: 0,
           graded: 0,
           sap0500: 0,
+          casette: 0,
           //zb
           zbsm: 0,
           zbpotting: 0,
@@ -172,6 +173,7 @@
         rework: 0,
         graded: 226,
         sap0500: 226,
+        casette: 100,
         //zb
         zbsm: 0,
         zbpotting: 0,
@@ -232,6 +234,16 @@
               vm.data[i].sap1500 = d.data[j].ZW1500Actual;
               vm.data[i].sapZB = d.data[j].ZBActual;
               vm.data[i].sapZL = d.data[j].ZLActual;
+            }
+          }
+        }
+      });
+      DashboardService.getCassette().then(function (response){
+        var d = response.data;
+        for(var j=0;j<d.length;j++){
+          for(var i=0;i<vm.data.length;i++){
+            if(vm.data[i].date == d[j].day){
+              vm.data[i].casette = d[j].actual/d[j].plan * 100;
             }
           }
         }

@@ -21,12 +21,20 @@
       get1000potting: get1000potting,
       get1000etf: get1000etf,
       get1500etf: get1500etf,
-      getsap: getSAP
+      getsap: getSAP,
+      getCassette: getCassette
     };
 
     return service;
 
     ////////////////
+    function getCassette(){
+      var req = {
+        method: 'GET',
+        url: 'app/components/PHP/Cassette.json'
+      };
+      return $http(req);
+    }
     function getSAP(){
       var req = {
         method: 'GET',
