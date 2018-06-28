@@ -7,7 +7,7 @@
         <md-icon class="material-icons">dashboard</md-icon>
       </md-button>
     </h1>
-    <md-divider>
+    <md-divider></md-divider>
       <div flex-gt-xs layout="row" layout-align="center center">
         <md-input-container>
           <md-datepicker ng-model="vm.startdate" md-max-date="vm.maxdate"></md-datepicker>
@@ -16,9 +16,10 @@
           <md-datepicker ng-model="vm.enddate" md-max-date="vm.maxdate"></md-datepicker>
         </md-input-container>
         <md-button class="md-primary md-raised" ng-click="vm.beallit()" ng-disabled="vm.loading"><md-icon class="material-icons">refresh</md-icon> Betöltés</md-button>
-        </div>
-    </md-divider>
-    <md-divider>
+      </div>
+    <md-divider></md-divider>
+      <my-chart options="vm.weekChart" id="weekChart"></my-chart>
+    <md-divider></md-divider>
       <div layout="row">
         <md-table-container flex>
           <table md-table>
@@ -27,17 +28,18 @@
                 <th md-column style="width:10px!important;"></th>
                 <th md-column>Terület</th>
                 <th md-column class="target">Cél</th>
-                <th md-column ng-repeat="dt in vm.dates">{{dt}}</th>
+                <th md-column ng-repeat="dt in vm.dates">{{ dt | date: 'MM-dd'}}</th>
               </tr>
             </thead>
             <tbody md-body>
+      <!-- ZW500 -->
               <tr md-row>
-                <th md-head rowspan=3 style="border-top-style:solid;border-width: 1px;border-color:#ffffff">
-                  <span style="display:block;transform: rotate(-90deg);">500+ZB+ZL</span>
+                <th md-head rowspan=3>
+                  <span style="display:block;transform: rotate(-90deg);">ZW500 + ZB + ZL</span>
                 </th>
-                <th md-head style="border-top-style:solid;border-width: 1px;border-color:#ffffff">Rewind</th>
-                <td class="target" md-cell style="border-top: 1px solid #888888;"><i>{{vm.target.rewinder|number:1}}</i></td>
-                <td md-cell style="border-top:1px solid #888888"ng-repeat="dat in vm.data"><span class="{{dat.rewinder >= vm.target.rewinder?'green':(dat.rewinder >= vm.target.rewinder*0.95?'yellow':'red')}}">{{dat.rewinder|number:1}}</span></td>
+                <th md-head>Rewind</th>
+                <td class="target" md-cell><i>{{vm.target.rewinder|number:1}}</i></td>
+                <td md-cell ng-repeat="dat in vm.data"><span class="{{dat.rewinder >= vm.target.rewinder?'green':(dat.rewinder >= vm.target.rewinder*0.95?'yellow':'red')}}">{{dat.rewinder|number:1}}</span></td>
               </tr>
               <tr md-row>
                 <th md-head>SPL-136-236</th>
@@ -50,12 +52,12 @@
                 <td md-cell ng-repeat="dat in vm.data"><span class="{{dat.spl2345 >= vm.target.spl2345?'green':(dat.spl2345 >= vm.target.spl2345*0.95?'yellow':'red')}}">{{dat.spl2345|number:1}}</span></td>
               </tr>
               <tr md-row>
-                <th md-head rowspan=6 style="border-top-style:solid;border-width: 1px;border-color:#ffffff">
+                <th md-head rowspan=7>
                   <span style="display:block;transform: rotate(-90deg);">ZW500</span>
                 </th>
-                <th md-head style="border-top-style:solid;border-width: 1px;border-color:#ffffff">SM</th>
-                <td class="target" md-cell style="border-top: 1px solid #888888;"><i>{{vm.target.sm|number:1}}</i></td>
-                <td md-cell style="border-top:1px solid #888888" ng-repeat="dat in vm.data"><span class="{{dat.sm >= vm.target.sm ?'green':(dat.sm >= vm.target.sm*0.95?'yellow':'red')}}">{{dat.sm|number:1}}</span></td>
+                <th md-head>SM</th>
+                <td class="target" md-cell><i>{{vm.target.sm|number:1}}</i></td>
+                <td md-cell ng-repeat="dat in vm.data"><span class="{{dat.sm >= vm.target.sm ?'green':(dat.sm >= vm.target.sm*0.95?'yellow':'red')}}">{{dat.sm|number:1}}</span></td>
               </tr>
               <tr md-row>
                 <th md-head>Potting-ki</th>
@@ -70,26 +72,32 @@
               <tr md-row>
                 <th md-head>Rework</th>
                 <td class="target" md-cell>{{vm.target.rework|number:1}}</td>
-                <td md-cell ng-repeat="dat in vm.data"><span class="{{dat.rework >= vm.target.rework ?'green':(dat.rework >= vm.target.rework?'yellow':'red')}}">{{dat.rework|number:1}}</span></td>
+                <td md-cell ng-repeat="dat in vm.data"><!--<span class="{{dat.rework >= vm.target.rework ?'green':(dat.rework >= vm.target.rework?'yellow':'red')}}">--><span>{{dat.rework|number:1}}</span></td>
               </tr>
               </tr>
               <tr md-row>
                 <th md-head>Minősített</th>
                 <td class="target" md-cell><i>{{vm.target.graded|number:1}}</i></td>
-                <td md-cell ng-repeat="dat in vm.data"><span class="{{dat.graded >= vm.target.graded ?'green':(dat.graded >= vm.target.graded?'yellow':'red')}}">{{dat.graded|number:1}}</span></td>
+                <td md-cell ng-repeat="dat in vm.data"><span class="{{dat.graded >= vm.target.graded ?'green':(dat.graded >= vm.target.graded*0.95?'yellow':'red')}}">{{dat.graded|number:1}}</span></td>
               </tr>
-              <tr md-row>
-                <th md-head class="target">SAP lejelentett</th>
+              <tr md-row class="divider">
+                <th md-head class="target" style="cursor: pointer" ng-click="vm.chartize('sap0500', 'ZW500 SAP')">SAP lejelentett</th>
                 <td class="target" md-cell><i>{{vm.target.graded|number:1}}</i></td>
-                <td md-cell ng-repeat="dat in vm.data"><span class="{{dat.sap0500 >= vm.target.graded ?'green':(dat.sap0500 >= vm.target.graded?'yellow':'red')}}">{{dat.sap0500|number:1}}</span></td>
+                <td md-cell ng-repeat="dat in vm.data"><span class="{{dat.sap0500 >= vm.target.graded ?'green':(dat.sap0500 >= vm.target.graded*0.95?'yellow':'red')}}">{{dat.sap0500|number:1}}</span></td>
               </tr>
+              <tr md-row class="divider">
+                <th md-head style="cursor: pointer">Kazetta</th>
+                <td class="target" md-cell><i>{{vm.target.casette|number:0}} %</i></td>
+                <td md-cell ng-repeat="dat in vm.data"><span class="{{dat.casette >= vm.target.casette ?'green':(dat.casette >= vm.target.casette*0.95?'yellow':'red')}}">{{dat.casette|number:1}} %</span></td>
+              </tr>
+      <!-- ZeeBlok -->
               <tr md-row>
-                <th md-head rowspan=6 style="border-top-style:solid;border-width: 1px;border-color:#ffffff">
+                <th md-head rowspan=6>
                   <span style="display:block;transform: rotate(-90deg);">ZB</span>
                 </th>
-                <th md-head style="border-top-style:solid;border-width: 1px;border-color:#ffffff">SM</th>
+                <th md-head>SM</th>
                 <td class="target" md-cell><i>{{vm.target.zbsm|number:1}}</i></td>
-                <td md-cell style="border-top:1px solid #888888"ng-repeat="dat in vm.data"><span class="{{dat.zbsm >= vm.target.zbsm ?'green':(dat.zbsm >= vm.target.zbsm*0.95?'yellow':'red')}}">{{dat.zbsm|number:1}}</span></td>
+                <td md-cell ng-repeat="dat in vm.data"><span class="{{dat.zbsm >= vm.target.zbsm ?'green':(dat.zbsm >= vm.target.zbsm*0.95?'yellow':'red')}}">{{dat.zbsm|number:1}}</span></td>
               </tr>
               <tr md-row>
                 <th md-head>Potting-ki</th>
@@ -111,41 +119,43 @@
                 <td class="target" md-cell><i>{{vm.target.zbgraded|number:1}}</i></td>
                 <td md-cell ng-repeat="dat in vm.data"><span class="{{dat.zbgraded >= vm.target.zbgraded ?'green':(dat.zbgraded >= vm.target.zbgraded*0.95?'yellow':'red')}}">{{dat.zbgraded|number:1}}</span></td>
               </tr>
-              <tr md-row>
+              <tr md-row class="divider">
                 <th md-head class="target">SAP lejelentett</th>
                 <td class="target" md-cell><i>{{vm.target.zbgraded|number:1}}</i></td>
                 <td md-cell ng-repeat="dat in vm.data"><span class="{{dat.sapZB >= vm.target.zbgraded ?'green':(dat.sapZB >= vm.target.zbgraded*0.95?'yellow':'red')}}">{{dat.sapZB|number:1}}</span></td>
               </tr>
-              <tr md-row>
-                <th md-head rowspan=4 style="border-top-style:solid;border-width: 1px;border-color:#ffffff">
+      <!-- ZeeLung -->
+              <tr md-row style="display:none">
+                <th md-head rowspan=4>
                   <span style="display:block;transform: rotate(-90deg);">ZL</span>
                 </th>
-                <th md-head style="border-top-style:solid;border-width: 1px;border-color:#ffffff">SM</th>
+                <th md-head>SM</th>
                 <td class="target" md-cell><i>{{vm.target.zlsm|number:1}}</i></td>
-                <td md-cell style="border-top:1px solid #888888" ng-repeat="dat in vm.data"><span class="{{dat.zlsm >= vm.target.zlsm ?'green':(dat.zlsm >= vm.target.zlsm*0.95?'yellow':'red')}}">{{dat.zlsm|number:1}}</span></td>
+                <td md-cell ng-repeat="dat in vm.data"><span class="{{dat.zlsm >= vm.target.zlsm ?'green':(dat.zlsm >= vm.target.zlsm*0.95?'yellow':'red')}}">{{dat.zlsm|number:1}}</span></td>
               </tr>
-              <tr md-row>
+              <tr md-row style="display:none">
                 <th md-head>Potting-ki</th>
                 <td class="target" md-cell><i>{{vm.target.zlpotting|number:1}}</i></td>
                 <td md-cell ng-repeat="dat in vm.data"><span class="{{dat.zlpotting >= vm.target.zlpotting ?'green':(dat.zlpotting >= vm.target.zlpotting*0.95?'yellow':'red')}}">{{dat.zlpotting|number:1}}</span></td>
               </tr>
-              <tr md-row>
+              <tr md-row style="display:none">
                 <th md-head>Minősített</th>
                 <td class="target" md-cell><i>{{vm.target.zlgraded|number:1}}</i></td>
                 <td md-cell ng-repeat="dat in vm.data"><span class="{{dat.zlgraded >= vm.target.zlgraded ?'green':(dat.zlgraded >= vm.target.zlgraded*0.95?'yellow':'red')}}">{{dat.zlgraded|number:1}}</span></td>
               </tr>
-              <tr md-row>
+              <tr md-row class="divider" style="display:none">
                 <th md-head class="target">SAP lejelentett</th>
                 <td class="target" md-cell><i>{{vm.target.zlgraded|number:1}}</i></td>
                 <td md-cell ng-repeat="dat in vm.data"><span class="{{dat.sapZL >= vm.target.zlgraded ?'green':(dat.sapZL >= vm.target.zlgraded*0.95?'yellow':'red')}}">{{dat.sapZL|number:1}}</span></td>
               </tr>
+      <!-- ZW1000 -->
               <tr md-row>
-                <th md-head rowspan=6 style="border-top-style:solid;border-width: 1px;border-color:#ffffff">
+                <th md-head rowspan=6>
                   <span style="display:block;transform: rotate(-90deg);">ZW1000</span>
                 </th>
-                <th md-head style="border-top-style:solid;border-width: 1px;border-color:#ffffff">SPL</th>
+                <th md-head>SPL</th>
                 <td class="target" md-cell><i>{{vm.target.spl1000|number:1}}</i></td>
-                <td md-cell style="border-top:1px solid #888888" ng-repeat="dat in vm.data"><span class="{{dat.spl1000 >= vm.target.spl1000 ?'green':(dat.spl1000 >= vm.target.spl1000*0.95?'yellow':'red')}}">{{dat.spl1000|number:1}}</span></td>
+                <td md-cell ng-repeat="dat in vm.data"><span class="{{dat.spl1000 >= vm.target.spl1000 ?'green':(dat.spl1000 >= vm.target.spl1000*0.95?'yellow':'red')}}">{{dat.spl1000|number:1}}</span></td>
               </tr>
               <tr md-row>
                 <th md-head>Static-Potting</th>
@@ -167,18 +177,19 @@
                 <td class="target" md-cell><i>{{vm.target.grade1000|number:1}}</i></td>
                 <td md-cell ng-repeat="dat in vm.data"><span class="{{dat.grade1000 >= vm.target.grade1000 ?'green':(dat.grade1000 >= vm.target.grade1000*0.95?'yellow':'red')}}">{{dat.grade1000|number:1}}</span></td>
               </tr>
-              <tr md-row>
-                <th md-head class="target">SAP lejelentett</th>
+              <tr md-row class="divider">
+                <th md-head class="target" style="cursor: pointer" ng-click="vm.chartize('sap1000', 'ZW1000 SAP')">SAP lejelentett</th>
                 <td class="target" md-cell><i>{{vm.target.grade1000|number:1}}</i></td>
                 <td md-cell ng-repeat="dat in vm.data"><span class="{{dat.sap1000 >= vm.target.grade1000 ?'green':(dat.sap1000 >= vm.target.grade1000*0.95?'yellow':'red')}}">{{dat.sap1000|number:1}}</span></td>
               </tr>
+      <!-- ZW1500 -->
               <tr md-row>
-                <th md-head rowspan=6 style="border-top-style:solid;border-width: 1px;border-color:#ffffff">
+                <th md-head rowspan=6>
                   <span style="display:block;transform: rotate(-90deg);">ZW1500</span>
                 </th>
-                <th md-head style="border-top-style:solid;border-width: 1px;border-color:#ffffff">SPL</th>
+                <th md-head>SPL</th>
                 <td class="target" md-cell><i>{{vm.target.spl1500|number:1}}</i></td>
-                <td md-cell style="border-top:1px solid #888888" ng-repeat="dat in vm.data"><span class="{{dat.spl1500 >= vm.target.spl1500 ?'green':(dat.spl1500 >= vm.target.spl1500*0.95?'yellow':'red')}}">{{dat.spl1500|number:1}}</span></td>
+                <td md-cell ng-repeat="dat in vm.data"><span class="{{dat.spl1500 >= vm.target.spl1500 ?'green':(dat.spl1500 >= vm.target.spl1500*0.95?'yellow':'red')}}">{{dat.spl1500|number:1}}</span></td>
               </tr>
               <tr md-row>
                 <th md-head>Potting-flip</th>
@@ -200,15 +211,19 @@
                 <td class="target" md-cell><i>{{vm.target.grade1500|number:1}}</i></td>
                 <td md-cell ng-repeat="dat in vm.data"><span class="{{dat.grade1500 >= vm.target.grade1500 ?'green':(dat.grade1500 >= vm.target.grade1500*0.95?'yellow':'red')}}">{{dat.grade1500|number:1}}</span></td>
               </tr>
-              <tr md-row>
-                <th md-head class="target">SAP lejelentett</th>
+              <tr md-row class="divider">
+                <th md-head class="target" style="cursor: pointer" ng-click="vm.chartize('sap1500', 'ZW1500 SAP')">SAP lejelentett</th>
                 <td class="target" md-cell><i>{{vm.target.grade1500|number:1}}</i></td>
                 <td md-cell ng-repeat="dat in vm.data"><span class="{{dat.sap1500 >= vm.target.grade1500 ?'green':(dat.sap1500 >= vm.target.grade1500*0.95?'yellow':'red')}}">{{dat.sap1500|number:1}}</span></td>
               </tr>
-            </tbody>
-          </table>
-        </md-table-container>
-      </div>
-    </md-divider>
+          </tbody>
+        </table>
+      </md-table-container>
+    </div>
+    <md-divider></md-divider>
+    <div ng-show="vm.chartoptions">
+      <md-button ng-click="vm.chartoptions=''">Elrejt</md-button>
+      <my-chart options="vm.chartoptions" id="chart"></my-chart>
+    </div>
   </div>
 </md-content>

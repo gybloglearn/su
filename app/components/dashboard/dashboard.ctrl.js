@@ -17,13 +17,90 @@
     vm.loading = false;
 
     activate();
+    vm.chartize = chartize;
 
     ////////////////
+
+    Date.prototype.getWeekNumber = function(){
+      var d = new Date(Date.UTC(this.getFullYear(), this.getMonth(), this.getDate()));
+      var dayNum = d.getUTCDay() || 7;
+      d.setUTCDate(d.getUTCDate() + 4 - dayNum);
+      var yearStart = new Date(Date.UTC(d.getUTCFullYear(),0,1));
+      return Math.ceil((((d - yearStart) / 86400000) + 1)/7)
+    };
+
+    function createWeekChart(adat){
+      var wp = []; var wa = []; var wd = [];
+      var lwp = []; var lwm = [];
+      for (var w = 1; w < 53; w++){
+        wp.push([w,0]);
+        wa.push([w,0]);
+        if(w <= new Date().getWeekNumber())
+          wd.push([w,0]);
+        lwp.push([w,0]);
+        lwm.push([w,0]);
+        for (var i = 0; i < adat.data.length ; i++){
+          if(new Date(adat.data[i].NAP).getWeekNumber() == w && new Date(adat.data[i].NAP).getTime() < new Date().getTime()-(24*60*60*1000)){
+            if(new Date(adat.data[i].NAP).getWeekNumber() == new Date().getWeekNumber()-1){
+              lwp[w-1][1] = 3000;
+              lwm[w-1][1] = -1500;
+            }
+            wp[w-1][1] += adat.data[i].TotalPlan;
+            wa[w-1][1] += adat.data[i].TotalActual;
+            if(w >= 2 && wd[w-1][1] == 0)
+              wd[w-1][1] += wd[w-2][1] + adat.data[i].TotalDiff;
+            else
+              wd[w-1][1] +=adat.data[i].TotalDiff;
+          }
+        }
+      }
+      var ch = {
+        chart: {type: 'column', height: 600},
+        title: {text: '<p style="text-align: center">Heti SAP lejelentett mennyiségek<br>(Teljes UF terület)</p>', useHTML: true, align: "center"},
+        tooltip: { shared: true, headerFormat: '<span style="font-size: 10px"><b>{point.key}. hét</b></span><br/>', pointFormat: '<span> {series.name}: <span style="color:{point.color};font-weight:bold">{point.y:.1f}</span></span><br/>' },
+        plotOptions: {
+          column: {
+              groupPadding: 0.5,
+              pointWidth: 13
+          }
+        },
+        xAxis: { type: 'category', offset: -136, tickInterval: 1},
+        yAxis: { title: {text: "AEQ / HÉT"}, min: -1500, max: 3000, tickInterval: 500, plotLines: [{value: 0,width: 2,color: 'rgb(0,176,80)'}]},
+        series: [
+          {name: "Terv Összesen", color: "red", data: wp},
+          {name: "Aktuális Összesen", color: "rgb(0,176,80)", data: wa},
+          {name: "Különbség", color: "rgb(0,112,192)", type: "line", data: wd, dataLabels: {enabled: true, format: "{point.y:.1f}", rotation: -90, y: -20, style: {textOutline:"0px"}}},
+          {name: "ULH", color: "rgba(255,255,0,.5)", data: lwp, showInLegend: false, tooltip: {format: '', pointFormat:''}},
+          {name: "ULH", color: "rgba(255,255,0,.5)", data: lwm, showInLegend: false, tooltip: {format: '', pointFormat:''}}
+        ]
+      };
+      vm.weekChart = ch;
+    }
+
+    function chartize(field, text){
+      var seriesData = [];
+      var targetData = [];
+      for(var i=0;i<vm.data.length;i++){
+        seriesData.push([vm.data[i]['date'], vm.data[i][field]]);
+        targetData.push([vm.data[i]['date'], vm.target[field]]);
+      }
+
+      vm.chartoptions = {
+        chart: { type: "line"},
+        title: { text: text + " Adatok (" + vm.startdatenum + " - " + vm.enddatenum + ")"},
+        xAxis: { type: "category"},
+        series: [
+          {name: "Adatok", data: seriesData},
+          {name: "Cél", data: targetData}
+        ]
+      };
+    }
 
     function beallit() {
       vm.startdatenum = $filter('date')(new Date(vm.startdate), 'yyyy-MM-dd');
       vm.enddatenum = $filter('date')(new Date(vm.enddate), 'yyyy-MM-dd');
       createdataarray();
+      createWeekChart();
     }
 
     function createdataarray() {
@@ -48,6 +125,7 @@
           rework: 0,
           graded: 0,
           sap0500: 0,
+          casette: 0,
           //zb
           zbsm: 0,
           zbpotting: 0,
@@ -94,30 +172,36 @@
         bp: 226 * 1.005,
         rework: 0,
         graded: 226,
+        sap0500: 226,
+        casette: 100,
         //zb
         zbsm: 0,
         zbpotting: 0,
         zbbp: 0,
         zbrework: 0,
         zbgraded: 0,
+        sapZB: 0,
         //zl
         zlsm: 0,
         zlpotting: 0,
         zlbp: 0,
         zlrework: 0,
         zlgraded: 0,
+        sapZL: 0,
         //zw1000
         spl1000: 70 * 1.003 * 1.006 * 1.007,
         pottingstatic1000: 70 * 1.003 * 1.006,
         centrifugeend1000: 70 * 1.003 * 1.006,
         bpend1000: 70 * 1.003,
         grade1000: 70,
+        sap1000: 70,
         //zw1500
         spl1500: 80 * 1.008 * 1.007,
         pottingflip1500: 80 * 1.008,
         centrifugeend1500: 80 * 1.008,
         bpend1500: 80,
-        grade1500: 80
+        grade1500: 80,
+        sap1500: 80
       };
 
       vm.target = targetobj;
@@ -140,16 +224,26 @@
     function loadsap(){
       DashboardService.getsap().then( function (response) {
         var d = response.data;
+        createWeekChart(d);
         for(var j=0;j< d.data.length;j++){
           var t = $filter('date')(new Date(d.data[j].NAP).getTime(), 'yyyy-MM-dd');
           for(var i=0; i<vm.data.length;i++){
             if(t == vm.data[i].date){
-              console.log(d.data[j]);
               vm.data[i].sap0500 = d.data[j].ZW0500Actual;
               vm.data[i].sap1000 = d.data[j].ZW1000Actual;
               vm.data[i].sap1500 = d.data[j].ZW1500Actual;
               vm.data[i].sapZB = d.data[j].ZBActual;
               vm.data[i].sapZL = d.data[j].ZLActual;
+            }
+          }
+        }
+      });
+      DashboardService.getCassette().then(function (response){
+        var d = response.data;
+        for(var j=0;j<d.length;j++){
+          for(var i=0;i<vm.data.length;i++){
+            if(vm.data[i].date == d[j].day){
+              vm.data[i].casette = d[j].actual/d[j].plan * 100;
             }
           }
         }
