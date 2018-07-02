@@ -114,6 +114,7 @@
       while (firstnum <= endnum) {
         var obj = {
           date: $filter('date')(firstnum, 'yyyy-MM-dd'),
+          target: {},
           rewinder: 0,
           spl36: 0,
           spl2345: 0,
@@ -160,19 +161,31 @@
         vm.datefile.push($filter('date')(firstnum, 'yyyyMMdd'));
         firstnum += 24 * 3600 * 1000;
       }
+      var m = $filter('date')(new Date().getTime(), 'MM');
+      var targets = {};
+      switch(m){
+        case "06": targets = {zw500: 226, zw1000: 70, zw1500: 80, zb: 0, zl: 0}; break;
+        case "07": targets = {zw500: 235, zw1000: 80, zw1500: 80, zb: 0, zl: 0}; break;
+        case "08": targets = {zw500: 235, zw1000: 80, zw1500: 80, zb: 0, zl: 0}; break;
+        case "09": targets = {zw500: 235, zw1000: 80, zw1500: 80, zb: 0, zl: 0}; break;
+        case "10": targets = {zw500: 226, zw1000: 80, zw1500: 80, zb: 0, zl: 21}; break;
+        case "11": targets = {zw500: 226, zw1000: 86, zw1500: 74, zb: 0, zl: 21}; break;
+        case "12": targets = {zw500: 226, zw1000: 86, zw1500: 74, zb: 0, zl: 21}; break;
+      };
+      vm.m = m;
       var targetobj = {
-        date: $filter('date')(firstnum, 'yyyy-MM-dd'),
-        rewinder: 226 * 1.005 * 1.014 * 1.022 * 1.0178,
-        spl36: 194 * 1.005 * 1.014 * 1.022,
+        //date: $filter('date')(firstnum, 'yyyy-MM-dd'),
+        rewinder: targets.zw500 * 1.005 * 1.014 * 1.022 * 1.0178,
+        spl36: (targets.zw500-32) * 1.005 * 1.014 * 1.022,
         spl2345: 32 * 1.005 * 1.014 * 1.022,
         //zw500
-        sm: 226 * 1.005 * 1.014,
-        potting: 226 * 1.005,
-        cl: 226 * 1.005,
-        bp: 226 * 1.005,
+        sm: targets.zw500 * 1.005 * 1.014,
+        potting: targets.zw500 * 1.005,
+        cl: targets.zw500 * 1.005,
+        bp: targets.zw500 * 1.005,
         rework: 0,
-        graded: 226,
-        sap0500: 226,
+        graded: targets.zw500,
+        sap0500: targets.zw500,
         casette: 100,
         //zb
         zbsm: 0,
@@ -189,19 +202,19 @@
         zlgraded: 0,
         sapZL: 0,
         //zw1000
-        spl1000: 70 * 1.003 * 1.006 * 1.007,
-        pottingstatic1000: 70 * 1.003 * 1.006,
-        centrifugeend1000: 70 * 1.003 * 1.006,
-        bpend1000: 70 * 1.003,
-        grade1000: 70,
-        sap1000: 70,
+        spl1000: targets.zw1000 * 1.003 * 1.006 * 1.007,
+        pottingstatic1000: targets.zw1000 * 1.003 * 1.006,
+        centrifugeend1000: targets.zw1000 * 1.003 * 1.006,
+        bpend1000: targets.zw1000 * 1.003,
+        grade1000: targets.zw1000,
+        sap1000: targets.zw1000,
         //zw1500
-        spl1500: 80 * 1.008 * 1.007,
-        pottingflip1500: 80 * 1.008,
-        centrifugeend1500: 80 * 1.008,
-        bpend1500: 80,
-        grade1500: 80,
-        sap1500: 80
+        spl1500: targets.zw1500 * 1.008 * 1.007,
+        pottingflip1500: targets.zw1500 * 1.008,
+        centrifugeend1500: targets.zw1500 * 1.008,
+        bpend1500: targets.zw1500,
+        grade1500: targets.zw1500,
+        sap1500: targets.zw1500
       };
 
       vm.target = targetobj;
@@ -220,11 +233,71 @@
       loadsap();
     }
 
-
+    function setTargets(){
+      for (var i = 0; i < vm.data.length;i++){
+        var m = $filter('date')(new Date(vm.data[i].date).getTime(), 'MM');
+        var targets = {};
+        switch(m){
+          case "06": targets = {zw500: 226, zw1000: 70, zw1500: 80, zb: 0, zl: 0}; break;
+          case "07": targets = {zw500: 235, zw1000: 80, zw1500: 80, zb: 0, zl: 0}; break;
+          case "08": targets = {zw500: 235, zw1000: 80, zw1500: 80, zb: 0, zl: 0}; break;
+          case "09": targets = {zw500: 235, zw1000: 80, zw1500: 80, zb: 0, zl: 0}; break;
+          case "10": targets = {zw500: 226, zw1000: 80, zw1500: 80, zb: 0, zl: 21}; break;
+          case "11": targets = {zw500: 226, zw1000: 86, zw1500: 74, zb: 0, zl: 21}; break;
+          case "12": targets = {zw500: 226, zw1000: 86, zw1500: 74, zb: 0, zl: 21}; break;
+        };
+        var targetobj = {
+          //date: $filter('date')(firstnum, 'yyyy-MM-dd'),
+          rewinder: targets.zw500 * 1.005 * 1.014 * 1.022 * 1.0178,
+          spl36: (targets.zw500-32) * 1.005 * 1.014 * 1.022,
+          spl2345: 32 * 1.005 * 1.014 * 1.022,
+          //zw500
+          sm: targets.zw500 * 1.005 * 1.014,
+          potting: targets.zw500 * 1.005,
+          cl: targets.zw500 * 1.005,
+          bp: targets.zw500 * 1.005,
+          rework: 0,
+          graded: targets.zw500,
+          sap0500: targets.zw500,
+          casette: 100,
+          //zb
+          zbsm: 0,
+          zbpotting: 0,
+          zbbp: 0,
+          zbrework: 0,
+          zbgraded: 0,
+          sapZB: 0,
+          //zl
+          zlsm: 0,
+          zlpotting: 0,
+          zlbp: 0,
+          zlrework: 0,
+          zlgraded: 0,
+          sapZL: 0,
+          //zw1000
+          spl1000: targets.zw1000 * 1.003 * 1.006 * 1.007,
+          pottingstatic1000: targets.zw1000 * 1.003 * 1.006,
+          centrifugeend1000: targets.zw1000 * 1.003 * 1.006,
+          bpend1000: targets.zw1000 * 1.003,
+          grade1000: targets.zw1000,
+          sap1000: targets.zw1000,
+          //zw1500
+          spl1500: targets.zw1500 * 1.008 * 1.007,
+          pottingflip1500: targets.zw1500 * 1.008,
+          centrifugeend1500: targets.zw1500 * 1.008,
+          bpend1500: targets.zw1500,
+          grade1500: targets.zw1500,
+          sap1500: targets.zw1500
+        };
+        vm.data[i].target = targetobj;
+      }
+      console.log(vm.data);
+    }
     function loadsap(){
       DashboardService.getsap().then( function (response) {
         var d = response.data;
         createWeekChart(d);
+        setTargets();
         for(var j=0;j< d.data.length;j++){
           var t = $filter('date')(new Date(d.data[j].NAP).getTime(), 'yyyy-MM-dd');
           for(var i=0; i<vm.data.length;i++){
