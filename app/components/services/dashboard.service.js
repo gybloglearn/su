@@ -22,20 +22,23 @@
       get1000etf: get1000etf,
       get1500etf: get1500etf,
       getsap: getSAP,
-      getCassette: getCassette
+      getCassette: getCassette,
+      getAll: getAll,
+      post: post,
+      put, put
     };
 
     return service;
 
     ////////////////
-    function getCassette(){
+    function getCassette() {
       var req = {
         method: 'GET',
         url: 'app/components/PHP/Cassette.json'
       };
       return $http(req);
     }
-    function getSAP(){
+    function getSAP() {
       var req = {
         method: 'GET',
         url: '../uf/app/components/PHP/sapdata.php'
@@ -130,6 +133,29 @@
       var req = {
         method: 'GET',
         url: 'app/components/PHP/ZW1500_ETF_Moduls.php?startdate=' + sdate + '&enddate=' + edate
+      };
+      return $http(req);
+    }
+    function getAll() {
+      var req = {
+        method: 'GET',
+        url: 'app/components/PHP/Commentsave/allcomments'
+      };
+      return $http(req);
+    }
+    function post(data) {
+      var req = {
+        method: 'POST',
+        url: 'app/components/PHP/Commentsave/comment/' + data.id,
+        data: data
+      };
+      return $http(req);
+    }
+    function put(data) {
+      var req = {
+        method: 'PUT',
+        url: 'app/components/PHP/Commentsave/comment/' + data.id,
+        data: data
       };
       return $http(req);
     }

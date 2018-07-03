@@ -5,14 +5,16 @@
     .module('app')
     .controller('DashboardController', DashboardController);
 
-  DashboardController.$inject = ['$state', '$cookies', '$rootScope', '$filter', 'DashboardService'];
-  function DashboardController($state, $cookies, $rootScope, $filter, DashboardService) {
+  DashboardController.$inject = ['$state', '$cookies', '$rootScope', '$mdDialog', '$filter', 'DashboardService','$scope'];
+  function DashboardController($state, $cookies, $rootScope, $mdDialog, $filter, DashboardService,$scope) {
     var vm = this;
     vm.startdate = new Date(new Date().getTime() - (7 * 24 * 3600 * 1000));
     vm.startdatenum = $filter('date')(new Date().getTime() - (7 * 24 * 3600 * 1000), 'yyyy-MM-dd');
     vm.enddate = new Date(new Date().getTime() - (24 * 3600 * 1000));
     vm.enddatenum = $filter('date')(new Date().getTime() - (24 * 3600 * 1000), 'yyyy-MM-dd');
     vm.maxdate = new Date(new Date().getTime() - (24 * 3600 * 1000));
+    vm.item="";
+    vm.actmachine="";
     vm.beallit = beallit;
     vm.loading = false;
 
@@ -333,6 +335,14 @@
       vm.partnumberszw1000 = [];
       DashboardService.get1000partnumber().then(function (response) {
         vm.partnumberszw1000 = response.data;
+      });
+    }
+
+    function loadcomments() {
+      vm.comments = [];
+      DashboardService.getAll().then(function (response) {
+        vm.comments = response.data;
+        console.log(vm.comments);
       });
     }
 
@@ -658,6 +668,69 @@
       });
     }
 
+    //dialógus ablak kezdete
+
+    function DialogController($scope, $mdDialog) {
+      $scope.id=new Date().getTime();
+      $scope.date=vm.item.date;
+      $scope.machine=vm.actmachine;
+      var item = vm.item;
+      var field = vm.field;
+      $scope.date = item.date;
+      $scope.machine = field;
+      $scope.actual = item[field];
+      $scope.target = item.target[field];
+
+      $scope.description="";
+
+      /*console.log(vm.item);
+      console.log($scope.date);
+      console.log($scope.machine);*/
+      
+
+      $scope.hide = function() {
+        $mdDialog.hide();
+      };
+  
+      $scope.cancel = function() {
+        $mdDialog.cancel();
+      };
+  
+      $scope.answer = function(fhid,fhdate,fhmachine,fhdescription,fhtarget,fhactual) {
+        var data={
+          id:fhid,
+          date:fhdate,
+          machine:fhmachine,
+          description:fhdescription,
+          target:fhtarget,
+          actual:fhactual
+        }
+        DashboardService.post(data).then(function (resp) {
+          data={};
+        });
+        $mdDialog.hide(fhid,fhdate,fhmachine,fhdescription,fhtarget,fhactual);
+      };
+    }
+
+    //dialógus ablak vége
+    vm.saveData = saveData;
+    function saveData(item, field){
+      console.log(item[field] + " - " + item.target[field]);
+      vm.item = item;
+      vm.field = field;
+      $mdDialog.show({
+        controller: DialogController,
+        templateUrl: './app/components/dashboard/dialog.tmpl.html',
+        parent: angular.element(document.body),
+        clickOutsideToClose: true
+      })
+      .then(function(answer) {
+        $scope.status = 'You said the information was "' + answer + '".';
+      }, function() {
+        $scope.status = 'You cancelled the dialog.';
+      });
+    }
+
     function activate() {
       if (!$cookies.getObject('user', { path: '/' })) {
         $state.go('login')
@@ -667,6 +740,7 @@
         vm.user = $cookies.getObject('user', { path: '/' });
         vm.shift = $filter('shift')(1, new Date());
       }
+      loadcomments();
       loadPartnumbers();
       load1000Partnumbers();
       createdataarray();
