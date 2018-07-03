@@ -628,7 +628,7 @@
           for (var j = 0; j < response.data.length; j++) {
             var num = new Date(response.data[j].SPL_end).getHours() * 60 + new Date(response.data[j].SPL_end).getMinutes();
             if (num < 350) {
-              response.data[j].SPL_end = $filter('date')(new Date(response.data[j].SPL_end).getTime() + (24 * 3600 * 1000), 'yyyy-MM-dd');
+              response.data[j].SPL_end = $filter('date')(new Date(response.data[j].SPL_end).getTime() - (24 * 3600 * 1000), 'yyyy-MM-dd');
             }
             else {
               response.data[j].SPL_end = $filter('date')(new Date(response.data[j].SPL_end).getTime(), 'yyyy-MM-dd');
