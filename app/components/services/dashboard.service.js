@@ -10,6 +10,7 @@
     var service = {
       getpartnumber: getpartnumber,
       get1000partnumber: get1000partnumber,
+      getrewinderfile: getrewinderfile,
       getrewinder: getrewinder,
       getspinline: getspinline,
       getsm: getsm,
@@ -56,6 +57,13 @@
       var req = {
         method: 'GET',
         url: 'app/components/PHP/ZW1000_moduls.json'
+      };
+      return $http(req);
+    }
+    function getrewinderfile(num) {
+      var req = {
+        method: 'GET',
+        url: 'app/components/PHP/rewinderfile/rewinder' + num + '.json'
       };
       return $http(req);
     }

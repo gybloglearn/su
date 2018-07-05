@@ -347,11 +347,12 @@
     }
 
     function loadrewinder() {
-      angular.forEach(vm.dates, function (v, k) {
-        DashboardService.getrewinder(v).then(function (response) {
+      angular.forEach(vm.datefile, function (v, k) {
+        DashboardService.getrewinderfile(v).then(function (response) {
           for (var j = 0; j < response.data.length; j++) {
             for (var k = 0; k < vm.data.length; k++) {
-              if (vm.data[k].date == v) {
+              var dt=$filter('date')(new Date(vm.data[k].date).getTime(),'yyyyMMdd');
+              if (v == dt) {
                 vm.data[k].rewinder += response.data[j].ProducedLength / 9300;
               }
             }
