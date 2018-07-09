@@ -34,11 +34,11 @@
 				<md-list flex>
 					<md-list-item ui-sref="dashboard" ng-click="close()">
 						<div flex class="md-list-item-text">Vezérlőpult</div>
-						<md-icon class="material-icons">dashboardk</md-icon>
+						<md-icon class="material-icons">dashboard</md-icon>
 					</md-list-item>
 				</md-list>
 				<md-divider></md-divider>
-				<h1 class="md-headline">&nbsp;Gyorslinkek</h1>
+				<!--<h1 class="md-headline">&nbsp;Gyorslinkek</h1>
 				<md-grid-list class="gr" md-cols="2" md-row-height="1:1" md-gutter="0px">
 					<md-grid-tile ng-repeat="link in quicklinks" md-rowspan="1" md-colspan="1" class="quicklinks">
 						<p layout-padding="10" flex>
@@ -51,7 +51,7 @@
 							<h3>{{link.title}}</h3>
 						</md-grid-tile-footer>
 					</md-grid-tile>
-				</md-grid-list>
+				</md-grid-list>-->
 				<div layout="row">
 					<md-button class="md-icon-button" ui-sref="logout" ng-click="close()" hide-gt-xs>
 						<i class="material-icons">settings_power</i>
@@ -66,24 +66,24 @@
 		<md-content flex>
 			<md-toolbar>
 				<div class="md-toolbar-tools">
-					<md-button class="md-icon-button" aria-label="More" ng-click="open()" ng-show="user">
+					<!--<md-button class="md-icon-button" aria-label="More" ng-click="open()" ng-show="user">
 						<md-icon>
 							<i class="material-icons" style="color:#badb2a">apps</i>
 						</md-icon>
-					</md-button>
+					</md-button>-->
 					<h1 flex md-truncate style="padding-left: 10px;font-size: 24px;font-weight:bold;" class="myhead" layout="row">
 						<span flex hide-sm hide-xs style="line-height:64px;">WTS - ES - Oroszlány</span>
-						<span hide-sm hide-xs style="line-height:64px; font-size: 14px; font-weight: normal; font-family: Arial; padding-right: 20px;">{{user.displayname}}
+						<!--<span hide-sm hide-xs style="line-height:64px; font-size: 14px; font-weight: normal; font-family: Arial; padding-right: 20px;">{{user.displayname}}
 							<md-button class="md-icon-button" ui-sref="logout">
 								<md-icon class="material-icons" style="color:#badb2a">settings_power</md-icon>
 							</md-button>
-						</span>
+						</span>-->
 						<span flex hide-gt-sm hide-xs style="line-height:55px;">WTS - ES - Oroszlány</span>
-						<span hide-gt-sm hide-xs style="line-height:55px; font-size: 14px; font-weight: normal; font-family: Arial; padding-right: 20px;">{{user.displayname}}
+						<!--<span hide-gt-sm hide-xs style="line-height:55px; font-size: 14px; font-weight: normal; font-family: Arial; padding-right: 20px;">{{user.displayname}}
 							<md-button class="md-icon-button" ui-sref="logout">
 								<md-icon class="material-icons" style="color:#badb2a">settings_power</md-icon>
 							</md-button>
-						</span>
+						</span>-->
 					</h1>
 				</div>
 			</md-toolbar>

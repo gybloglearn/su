@@ -23,7 +23,8 @@
     function activate() {
       var url = $location.path();
       url = url.slice(1);
-      if (!$cookies.getObject('user')) {
+      $state.go('dashboard');
+      /*if (!$cookies.getObject('user')) {
         if (url != 'login') {
           $cookies.put('redir', url);
           $state.go('login');
@@ -45,7 +46,7 @@
         } else {
 
         }
-      }
+      }*/
     }
   }
 })();

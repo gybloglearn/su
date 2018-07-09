@@ -1,11 +1,76 @@
-<md-content layout="row" layout-sm="column" layout-xs="column" flex-gt-sm="80" flex-offset-gt-sm="10">
+<md-content layout="row" layout-sm="column" layout-xs="column" flex>
   <div layout-padding flex>
     <h1 class="md-display-2" layout="row">
-      <span flex>Vezérlőpult</span>
-      <md-button class="md-fab md-primary md-hue-2">
-        <md-icon class="material-icons">dashboard</md-icon>
-      </md-button>
+      <span class="md-display-4" flex>Teljesítménybónusz</span>
+      <b class="md-display-4 text-center" flex>JÚLIUS</b>
+      <span class="md-display-4" style="text-align: right" flex>
+        {{vm.today}}
+      </span>
+      <!--<md-button class="md-fab md-primary md-hue-2">
+        <md-icon class="material-icons">info</md-icon>
+      </md-button>-->
     </h1>
     <md-divider></md-divider>
+    <md-content layout="row">
+      <!--<md-whiteframe class="md-whiteframe-4dp" flex="45" layout layout-padding layout-align="center center">
+        <div layout="column" flex>
+          <b class="md-display-3 text-center" flex style="border-bottom: 1px solid #aaa;padding-bottom:10px;">Mennyiség</b>
+          <div layout="row">
+            <span class="md-display-2 text-center" flex>3 149 AEQ</span>
+            <span class="md-display-2 text-center green" flex>3 403 AEQ</span>
+          </div>
+          <b class="text-center"><span class="material-icons green" style="font-size: 100px;">mood</span></b>
+          <b class="md-display-3 text-center" flex>+ 7 500 Ft</b>
+        </div>
+      </md-whiteframe>
+      <span flex></span>
+      <md-whiteframe class="md-whiteframe-4dp" flex="45" layout layout-padding layout-align="center center">
+        <div layout="column" flex>
+          <b class="md-display-3 text-center" flex style="border-bottom: 1px solid #aaa;padding-bottom:10px;">Minőség</b>
+          <div layout="row">
+              <span class="md-display-2 text-center" flex>2.4 %</span>
+              <span class="md-display-2 text-center red" flex>2.5 %</span>
+            </div>
+            <b class="text-center"><span class="material-icons red" style="font-size: 100px;">mood_bad</span></b>
+            <b class="md-display-3 text-center" flex style="color:white">+ 7 500 Ft</b>
+        </div>
+      </md-whiteframe>-->
+    </md-content>
+    <md-content layout="row">
+      <md-whiteframe class="md-whiteframe-0dp" flex layout layout-padding layout-align="center center">
+        <div layout="column" flex>
+          <!--<b class="md-display-4 text-center" flex style="border-bottom: 1px solid #aaa;padding-bottom:10px;">Teljesítménybónusz</b>-->
+          <div layout="row" layout-align="center center" layout-padding="20" style="margin-bottom: 10px">
+            <div layout="column" flex>
+              <span class="md-display-3 text-center" flex>Jelenlét</span>
+              <span class="md-display-2 text-center" style="color: #aaa">15 000 Ft</span>
+              <span class="md-display-2 text-center">Tőled függ!</span>
+              <div layout="row">
+                <span class="material-icons green text-center" flex style="font-size: 150px;">mood</span>
+                <span class="text-center" style="font-size: 150px" flex>^</span>
+                <span class="material-icons red text-center" flex style="font-size: 150px;">mood_bad</span>
+              </div>
+            </div>
+            <div layout="column" flex>
+              <span class="md-display-3 text-center" flex>Mennyiség</span>
+              <span class="md-display-2 text-center" style="color: #aaa">7 500 Ft</span>
+              <div layout="row" layout-align="center center">
+                <span class="material-icons green text-center" flex style="font-size: 150px;">mood</span>
+              </div>
+            </div>
+            <div layout="column" flex>
+              <span class="md-display-3 text-center" flex>Minőség</span>
+              <span class="md-display-2 text-center" style="color: #aaa">7 500 Ft</span>
+              <div layout="row" layout-align="center center">
+                <span class="material-icons green text-center" flex style="font-size: 150px;">mood</span>
+              </div>
+            </div>
+          </div>
+          <md-divider></md-divider>
+          <span class="md-display-4 text-center" style="margin: 0px;background-color: rgb(0,13,66);color: white;padding: 20px;">Bent voltál: <span class="green">br. 30 000 Ft</span></span>
+          <span class="md-display-4 text-center" style="margin: 0px;background-color: rgb(0,13,66);color: white;padding: 20px;">Nem voltál bent: <span class="red">br. 0 Ft</span></span>
+        </div>
+      </md-whiteframe>
+    </md-content>
   </div>
 </md-content>

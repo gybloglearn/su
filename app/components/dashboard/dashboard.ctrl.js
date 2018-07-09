@@ -14,14 +14,15 @@
     ////////////////
 
     function activate() {
-      if (!$cookies.getObject('user', {path: '/'})) {
+      /*if (!$cookies.getObject('user', {path: '/'})) {
         $state.go('login')
-      } else {
+      } else {*/
         vm.loading = true;
-        $rootScope.user = $cookies.getObject('user',{path: '/'});
-        vm.user = $cookies.getObject('user', {path: '/'});
+        /*$rootScope.user = $cookies.getObject('user',{path: '/'});
+        vm.user = $cookies.getObject('user', {path: '/'});*/
         vm.shift = $filter('shift')(1, new Date());
-      }
+        vm.today = $filter('date')(new Date(), 'yyyy-MM-dd');
+      //}
     }
   }
 })();
