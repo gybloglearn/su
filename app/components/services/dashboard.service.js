@@ -57,9 +57,11 @@
       return $http(req);
     }
     function getrewinder(start) {
+      var d = start.replace("-", "");
       var req = {
         method: 'GET',
-        url: 'app/components/PHP/rewinder_01.php?startdate=' + start
+        //url: 'app/components/PHP/rewinder_01.php?startdate=' + start
+        url: '../Braid/app/components/PHP/Rewinder/rewinder' + d + '.json'
       };
       return $http(req);
     }
