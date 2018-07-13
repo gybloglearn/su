@@ -63,7 +63,7 @@
     function getrewinderfile(num) {
       var req = {
         method: 'GET',
-        url: 'app/components/PHP/rewinderfile/rewinder' + num + '.json'
+        url: '../Braid/app/components/PHP/Rewinder/rewinder' + num + '.json'
       };
       return $http(req);
     }
