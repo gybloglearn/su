@@ -39,17 +39,17 @@
                 </th>
                 <th md-head>Rewind</th>
                 <td class="target" md-cell><i>{{vm.target.rewinder|number:1}}</i></td>
-                <td md-cell ng-repeat="dat in vm.data"><span class="{{dat.rewinder >=  dat.target.rewinder?'green':(dat.rewinder >=  dat.target.rewinder*0.95?'yellow':'red')}}">{{dat.rewinder|number:1}}</span></td>
+                <td md-cell ng-repeat="dat in vm.data"><span class="{{dat.rewinder >=  dat.target.rewinder?'green':(dat.rewinder >=  dat.target.rewinder*0.95?'yellow':'red')}}" ng-click="vm.saveData(dat, 'rewinder')">{{dat.rewinder|number:1}}</span></td>
               </tr>
               <tr md-row>
                 <th md-head>SPL-136-236</th>
                 <td class="target" md-cell><i>{{vm.target.spl36|number:1}}</i></td>
-                <td md-cell ng-repeat="dat in vm.data"><span class="{{dat.spl36 >=  dat.target.spl36?'green':(dat.spl36 >=  dat.target.spl36*0.95?'yellow':'red')}}">{{dat.spl36|number:1}}</span></td>
+                <td md-cell ng-repeat="dat in vm.data"><span class="{{dat.spl36 >=  dat.target.spl36?'green':(dat.spl36 >=  dat.target.spl36*0.95?'yellow':'red')}}" ng-click="vm.saveData(dat, 'spl36')">{{dat.spl36|number:1}}</span></td>
               </tr>
               <tr md-row>
                 <th md-head>SPL-2-3-4-5</th>
                 <td class="target" md-cell><i>{{vm.target.spl2345|number:1}}</i></td>
-                <td md-cell ng-repeat="dat in vm.data"><span class="{{dat.spl2345 >=  dat.target.spl2345?'green':(dat.spl2345 >=  dat.target.spl2345*0.95?'yellow':'red')}}">{{dat.spl2345|number:1}}</span></td>
+                <td md-cell ng-repeat="dat in vm.data"><span class="{{dat.spl2345 >=  dat.target.spl2345?'green':(dat.spl2345 >=  dat.target.spl2345*0.95?'yellow':'red')}}" ng-click="vm.saveData(dat, 'spl2345')">{{dat.spl2345|number:1}}</span></td>
               </tr>
               <tr md-row>
                 <th md-head rowspan=7>
@@ -57,17 +57,17 @@
                 </th>
                 <th md-head>SM</th>
                 <td class="target" md-cell><i>{{vm.target.sm|number:1}}</i></td>
-                <td md-cell ng-repeat="dat in vm.data"><span class="{{dat.sm >=  dat.target.sm ?'green':(dat.sm >=  dat.target.sm*0.95?'yellow':'red')}}">{{dat.sm|number:1}}</span></td>
+                <td md-cell ng-repeat="dat in vm.data"><span class="{{dat.sm >=  dat.target.sm ?'green':(dat.sm >=  dat.target.sm*0.95?'yellow':'red')}}" ng-click="vm.saveData(dat, 'sm')">{{dat.sm|number:1}}</span></td>
               </tr>
               <tr md-row>
                 <th md-head>Potting-ki</th>
                 <td class="target" md-cell><i>{{vm.target.potting|number:1}}</i></td>
-                <td md-cell ng-repeat="dat in vm.data"><span class="{{dat.potting >=  dat.target.potting ?'green':(dat.potting >=  dat.target.potting*0.95?'yellow':'red')}}">{{dat.potting|number:1}}</span></td>
+                <td md-cell ng-repeat="dat in vm.data"><span class="{{dat.potting >=  dat.target.potting ?'green':(dat.potting >=  dat.target.potting*0.95?'yellow':'red')}}" ng-click="vm.saveData(dat, 'potting')">{{dat.potting|number:1}}</span></td>
               </tr>
               <tr md-row>
                 <th md-head>BP</th>
                 <td class="target" md-cell><i>{{vm.target.bp|number:1}}</i></td>
-                <td md-cell ng-repeat="dat in vm.data"><span class="{{dat.bp >=  dat.target.bp ?'green':(dat.bp >=  dat.target.bp*0.95?'yellow':'red')}}">{{dat.bp|number:1}}</span></td>
+                <td md-cell ng-repeat="dat in vm.data"><span class="{{dat.bp >=  dat.target.bp ?'green':(dat.bp >=  dat.target.bp*0.95?'yellow':'red')}}" ng-click="vm.saveData(dat, 'bp')">{{dat.bp|number:1}}</span></td>
               </tr>
               <tr md-row>
                 <th md-head>Rework</th>
@@ -78,7 +78,7 @@
               <tr md-row>
                 <th md-head>Minősített</th>
                 <td class="target" md-cell><i>{{vm.target.graded|number:1}}</i></td>
-                <td md-cell ng-repeat="dat in vm.data"><span class="{{dat.graded >=  dat.target.graded ?'green':(dat.graded >=  dat.target.graded*0.95?'yellow':'red')}}">{{dat.graded|number:1}}</span></td>
+                <td md-cell ng-repeat="dat in vm.data"><span class="{{dat.graded >=  dat.target.graded ?'green':(dat.graded >=  dat.target.graded*0.95?'yellow':'red')}}" ng-click="vm.saveData(dat, 'graded')">{{dat.graded|number:1}}</span></td>
               </tr>
               <tr md-row class="divider">
                 <th md-head class="target" style="cursor: pointer" ng-click="vm.chartize('sap0500', 'ZW500 SAP')">SAP lejelentett</th>
@@ -97,17 +97,17 @@
                 </th>
                 <th md-head>SM</th>
                 <td class="target" md-cell><i>{{vm.target.zbsm|number:1}}</i></td>
-                <td md-cell ng-repeat="dat in vm.data"><span class="{{dat.zbsm >=  dat.target.zbsm ?'green':(dat.zbsm >=  dat.target.zbsm*0.95?'yellow':'red')}}">{{dat.zbsm|number:1}}</span></td>
+                <td md-cell ng-repeat="dat in vm.data"><span class="{{dat.zbsm >=  dat.target.zbsm ?'green':(dat.zbsm >=  dat.target.zbsm*0.95?'yellow':'red')}}" ng-click="vm.saveData(dat, 'zbsm')">{{dat.zbsm|number:1}}</span></td>
               </tr>
               <tr md-row>
                 <th md-head>Potting-ki</th>
                 <td class="target" md-cell><i>{{vm.target.zbpotting|number:1}}</i></td>
-                <td md-cell ng-repeat="dat in vm.data"><span class="{{dat.zbpotting >=  dat.target.zbpotting ?'green':(dat.zbpotting >=  dat.target.zbpotting?'yellow':'red')}}">{{dat.zbpotting|number:1}}</span></td>
+                <td md-cell ng-repeat="dat in vm.data"><span class="{{dat.zbpotting >=  dat.target.zbpotting ?'green':(dat.zbpotting >=  dat.target.zbpotting?'yellow':'red')}}" ng-click="vm.saveData(dat, 'zbpotting')">{{dat.zbpotting|number:1}}</span></td>
               </tr>
               <tr md-row>
                 <th md-head>BP</th>
                 <td class="target" md-cell><i>{{vm.target.zbbp|number:1}}</i></td>
-                <td md-cell ng-repeat="dat in vm.data"><span class="{{dat.zbbp >=  dat.target.zbbp ?'green':(dat.zbbp >=  dat.target.zbbp*0.95?'yellow':'red')}}">{{dat.zbbp|number:1}}</span></td>
+                <td md-cell ng-repeat="dat in vm.data"><span class="{{dat.zbbp >=  dat.target.zbbp ?'green':(dat.zbbp >=  dat.target.zbbp*0.95?'yellow':'red')}}" ng-click="vm.saveData(dat, 'zbbp')">{{dat.zbbp|number:1}}</span></td>
               </tr>
               <tr md-row>
                 <th md-head>Rework</th>
@@ -117,7 +117,7 @@
               <tr md-row>
                 <th md-head>Minősített</th>
                 <td class="target" md-cell><i>{{vm.target.zbgraded|number:1}}</i></td>
-                <td md-cell ng-repeat="dat in vm.data"><span class="{{dat.zbgraded >=  dat.target.zbgraded ?'green':(dat.zbgraded >=  dat.target.zbgraded*0.95?'yellow':'red')}}">{{dat.zbgraded|number:1}}</span></td>
+                <td md-cell ng-repeat="dat in vm.data"><span class="{{dat.zbgraded >=  dat.target.zbgraded ?'green':(dat.zbgraded >=  dat.target.zbgraded*0.95?'yellow':'red')}}" ng-click="vm.saveData(dat, 'zbgraded')">{{dat.zbgraded|number:1}}</span></td>
               </tr>
               <tr md-row class="divider">
                 <th md-head class="target">SAP lejelentett</th>
@@ -155,27 +155,27 @@
                 </th>
                 <th md-head>SPL</th>
                 <td class="target" md-cell><i>{{vm.target.spl1000|number:1}}</i></td>
-                <td md-cell ng-repeat="dat in vm.data"><span class="{{dat.spl1000 >=  dat.target.spl1000 ?'green':(dat.spl1000 >=  dat.target.spl1000*0.95?'yellow':'red')}}">{{dat.spl1000|number:1}}</span></td>
+                <td md-cell ng-repeat="dat in vm.data"><span class="{{dat.spl1000 >=  dat.target.spl1000 ?'green':(dat.spl1000 >=  dat.target.spl1000*0.95?'yellow':'red')}}" ng-click="vm.saveData(dat, 'spl1000')">{{dat.spl1000|number:1}}</span></td>
               </tr>
               <tr md-row>
                 <th md-head>Static-Potting</th>
                 <td class="target" md-cell><i>{{vm.target.pottingstatic1000|number:1}}</i></td>
-                <td md-cell ng-repeat="dat in vm.data"><span class="{{dat.pottingstatic1000 >=  dat.target.pottingstatic1000 ?'green':(dat.pottingstatic1000 >=  dat.target.pottingstatic1000*0.95?'yellow':'red')}}">{{dat.pottingstatic1000|number:1}}</span></td>
+                <td md-cell ng-repeat="dat in vm.data"><span class="{{dat.pottingstatic1000 >=  dat.target.pottingstatic1000 ?'green':(dat.pottingstatic1000 >=  dat.target.pottingstatic1000*0.95?'yellow':'red')}}"ng-click="vm.saveData(dat, 'pottingstatic1000')">{{dat.pottingstatic1000|number:1}}</span></td>
               </tr>
               <tr md-row>
                 <th md-head>Centrifuga</th>
                 <td class="target" md-cell><i>{{vm.target.centrifugeend1000|number:1}}</i></td>
-                <td md-cell ng-repeat="dat in vm.data"><span class="{{dat.centrifugeend1000 >=  dat.target.centrifugeend1000 ?'green':(dat.centrifugeend1000 >=  dat.target.centrifugeend1000*0.95?'yellow':'red')}}">{{dat.centrifugeend1000|number:1}}</span></td>
+                <td md-cell ng-repeat="dat in vm.data"><span class="{{dat.centrifugeend1000 >=  dat.target.centrifugeend1000 ?'green':(dat.centrifugeend1000 >=  dat.target.centrifugeend1000*0.95?'yellow':'red')}}"ng-click="vm.saveData(dat, 'centrifugeend1000')">{{dat.centrifugeend1000|number:1}}</span></td>
               </tr>
               <tr md-row>
                 <th md-head>BP</th>
                 <td class="target" md-cell><i>{{vm.target.bpend1000|number:1}}</i></td>
-                <td md-cell ng-repeat="dat in vm.data"><span class="{{dat.bpend1000 >=  dat.target.bpend1000 ?'green':(dat.bpend1000 >=  dat.target.bpend1000*0.95?'yellow':'red')}}">{{dat.bpend1000|number:1}}</span></td>
+                <td md-cell ng-repeat="dat in vm.data"><span class="{{dat.bpend1000 >=  dat.target.bpend1000 ?'green':(dat.bpend1000 >=  dat.target.bpend1000*0.95?'yellow':'red')}}" ng-click="vm.saveData(dat, 'bpend1000')">{{dat.bpend1000|number:1}}</span></td>
               </tr>
               <tr md-row>
                 <th md-head>Minősített</th>
                 <td class="target" md-cell><i>{{vm.target.grade1000|number:1}}</i></td>
-                <td md-cell ng-repeat="dat in vm.data"><span class="{{dat.grade1000 >=  dat.target.grade1000 ?'green':(dat.grade1000 >=  dat.target.grade1000*0.95?'yellow':'red')}}">{{dat.grade1000|number:1}}</span></td>
+                <td md-cell ng-repeat="dat in vm.data"><span class="{{dat.grade1000 >=  dat.target.grade1000 ?'green':(dat.grade1000 >=  dat.target.grade1000*0.95?'yellow':'red')}}"ng-click="vm.saveData(dat, 'grade1000')">{{dat.grade1000|number:1}}</span></td>
               </tr>
               <tr md-row class="divider">
                 <th md-head class="target" style="cursor: pointer" ng-click="vm.chartize('sap1000', 'ZW1000 SAP')">SAP lejelentett</th>
@@ -189,27 +189,27 @@
                 </th>
                 <th md-head>SPL</th>
                 <td class="target" md-cell><i>{{vm.target.spl1500|number:1}}</i></td>
-                <td md-cell ng-repeat="dat in vm.data"><span class="{{dat.spl1500 >=  dat.target.spl1500 ?'green':(dat.spl1500 >=  dat.target.spl1500*0.95?'yellow':'red')}}">{{dat.spl1500|number:1}}</span></td>
+                <td md-cell ng-repeat="dat in vm.data"><span class="{{dat.spl1500 >=  dat.target.spl1500 ?'green':(dat.spl1500 >=  dat.target.spl1500*0.95?'yellow':'red')}}"ng-click="vm.saveData(dat, 'spl1500')">{{dat.spl1500|number:1}}</span></td>
               </tr>
               <tr md-row>
                 <th md-head>Potting-flip</th>
                 <td class="target" md-cell><i>{{vm.target.pottingflip1500|number:1}}</i></td>
-                <td md-cell ng-repeat="dat in vm.data"><span class="{{dat.pottingflip1500 >=  dat.target.pottingflip1500 ?'green':(dat.pottingflip1500 >=  dat.target.pottingflip1500*0.95?'yellow':'red')}}">{{dat.pottingflip1500|number:1}}</span></td>
+                <td md-cell ng-repeat="dat in vm.data"><span class="{{dat.pottingflip1500 >=  dat.target.pottingflip1500 ?'green':(dat.pottingflip1500 >=  dat.target.pottingflip1500*0.95?'yellow':'red')}}"ng-click="vm.saveData(dat, 'pottingflip1500')">{{dat.pottingflip1500|number:1}}</span></td>
               </tr>
               <tr md-row>
                 <th md-head>Centrifuga</th>
                 <td class="target" md-cell><i>{{vm.target.centrifugeend1500|number:1}}</i></td>
-                <td md-cell ng-repeat="dat in vm.data"><span class="{{dat.centrifugeend1500 >=  dat.target.centrifugeend1500 ?'green':(dat.centrifugeend1500 >=  dat.target.centrifugeend1500*0.95?'yellow':'red')}}">{{dat.centrifugeend1500|number:1}}</span></td>
+                <td md-cell ng-repeat="dat in vm.data"><span class="{{dat.centrifugeend1500 >=  dat.target.centrifugeend1500 ?'green':(dat.centrifugeend1500 >=  dat.target.centrifugeend1500*0.95?'yellow':'red')}}"ng-click="vm.saveData(dat, 'centrifugeend1500')">{{dat.centrifugeend1500|number:1}}</span></td>
               </tr>
               <tr md-row>
                 <th md-head>BP</th>
                 <td class="target" md-cell><i>{{vm.target.bpend1500|number:1}}</i></td>
-                <td md-cell ng-repeat="dat in vm.data"><span class="{{dat.bpend1500 >=  dat.target.bpend1500 ?'green':(dat.bpend1500 >=  dat.target.bpend1500*0.95?'yellow':'red')}}">{{dat.bpend1500|number:1}}</span></td>
+                <td md-cell ng-repeat="dat in vm.data"><span class="{{dat.bpend1500 >=  dat.target.bpend1500 ?'green':(dat.bpend1500 >=  dat.target.bpend1500*0.95?'yellow':'red')}}"ng-click="vm.saveData(dat, 'bpend1500')">{{dat.bpend1500|number:1}}</span></td>
               </tr>
               <tr md-row>
                 <th md-head>Minősített</th>
                 <td class="target" md-cell><i>{{vm.target.grade1500|number:1}}</i></td>
-                <td md-cell ng-repeat="dat in vm.data"><span class="{{dat.grade1500 >=  dat.target.grade1500 ?'green':(dat.grade1500 >=  dat.target.grade1500*0.95?'yellow':'red')}}">{{dat.grade1500|number:1}}</span></td>
+                <td md-cell ng-repeat="dat in vm.data"><span class="{{dat.grade1500 >=  dat.target.grade1500 ?'green':(dat.grade1500 >=  dat.target.grade1500*0.95?'yellow':'red')}}"ng-click="vm.saveData(dat, 'grade1500')">{{dat.grade1500|number:1}}</span></td>
               </tr>
               <tr md-row class="divider">
                 <th md-head class="target" style="cursor: pointer" ng-click="vm.chartize('sap1500', 'ZW1500 SAP')">SAP lejelentett</th>

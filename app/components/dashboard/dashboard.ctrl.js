@@ -5,14 +5,16 @@
     .module('app')
     .controller('DashboardController', DashboardController);
 
-  DashboardController.$inject = ['$state', '$cookies', '$rootScope', '$filter', 'DashboardService'];
-  function DashboardController($state, $cookies, $rootScope, $filter, DashboardService) {
+  DashboardController.$inject = ['$state', '$cookies', '$rootScope', '$mdDialog', '$filter', 'DashboardService','$scope'];
+  function DashboardController($state, $cookies, $rootScope, $mdDialog, $filter, DashboardService,$scope) {
     var vm = this;
     vm.startdate = new Date(new Date().getTime() - (7 * 24 * 3600 * 1000));
     vm.startdatenum = $filter('date')(new Date().getTime() - (7 * 24 * 3600 * 1000), 'yyyy-MM-dd');
     vm.enddate = new Date(new Date().getTime() - (24 * 3600 * 1000));
     vm.enddatenum = $filter('date')(new Date().getTime() - (24 * 3600 * 1000), 'yyyy-MM-dd');
     vm.maxdate = new Date(new Date().getTime() - (24 * 3600 * 1000));
+    vm.item="";
+    vm.actmachine="";
     vm.beallit = beallit;
     vm.loading = false;
 
@@ -21,77 +23,77 @@
 
     ////////////////
 
-    Date.prototype.getWeekNumber = function(){
+    Date.prototype.getWeekNumber = function () {
       var d = new Date(Date.UTC(this.getFullYear(), this.getMonth(), this.getDate()));
       var dayNum = d.getUTCDay() || 7;
       d.setUTCDate(d.getUTCDate() + 4 - dayNum);
-      var yearStart = new Date(Date.UTC(d.getUTCFullYear(),0,1));
-      return Math.ceil((((d - yearStart) / 86400000) + 1)/7)
+      var yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
+      return Math.ceil((((d - yearStart) / 86400000) + 1) / 7)
     };
 
-    function createWeekChart(adat){
+    function createWeekChart(adat) {
       var wp = []; var wa = []; var wd = [];
       var lwp = []; var lwm = [];
-      for (var w = 1; w < 53; w++){
-        wp.push([w,0]);
-        wa.push([w,0]);
-        if(w <= new Date().getWeekNumber())
-          wd.push([w,0]);
-        lwp.push([w,0]);
-        lwm.push([w,0]);
-        for (var i = 0; i < adat.data.length ; i++){
-          if(new Date(adat.data[i].NAP).getWeekNumber() == w && new Date(adat.data[i].NAP).getTime() < new Date().getTime()-(24*60*60*1000)){
-            if(new Date(adat.data[i].NAP).getWeekNumber() == new Date().getWeekNumber()-1){
-              lwp[w-1][1] = 3000;
-              lwm[w-1][1] = -1500;
+      for (var w = 1; w < 53; w++) {
+        wp.push([w, 0]);
+        wa.push([w, 0]);
+        if (w <= new Date().getWeekNumber())
+          wd.push([w, 0]);
+        lwp.push([w, 0]);
+        lwm.push([w, 0]);
+        for (var i = 0; i < adat.data.length; i++) {
+          if (new Date(adat.data[i].NAP).getWeekNumber() == w && new Date(adat.data[i].NAP).getTime() < new Date().getTime() - (24 * 60 * 60 * 1000)) {
+            if (new Date(adat.data[i].NAP).getWeekNumber() == new Date().getWeekNumber() - 1) {
+              lwp[w - 1][1] = 3000;
+              lwm[w - 1][1] = -1500;
             }
-            wp[w-1][1] += adat.data[i].TotalPlan;
-            wa[w-1][1] += adat.data[i].TotalActual;
-            if(w >= 2 && wd[w-1][1] == 0)
-              wd[w-1][1] += wd[w-2][1] + adat.data[i].TotalDiff;
+            wp[w - 1][1] += adat.data[i].TotalPlan;
+            wa[w - 1][1] += adat.data[i].TotalActual;
+            if (w >= 2 && wd[w - 1][1] == 0)
+              wd[w - 1][1] += wd[w - 2][1] + adat.data[i].TotalDiff;
             else
-              wd[w-1][1] +=adat.data[i].TotalDiff;
+              wd[w - 1][1] += adat.data[i].TotalDiff;
           }
         }
       }
       var ch = {
-        chart: {type: 'column', height: 600},
-        title: {text: '<p style="text-align: center">Heti SAP lejelentett mennyiségek<br>(Teljes UF terület)</p>', useHTML: true, align: "center"},
+        chart: { type: 'column', height: 600 },
+        title: { text: '<p style="text-align: center">Heti SAP lejelentett mennyiségek<br>(Teljes UF terület)</p>', useHTML: true, align: "center" },
         tooltip: { shared: true, headerFormat: '<span style="font-size: 10px"><b>{point.key}. hét</b></span><br/>', pointFormat: '<span> {series.name}: <span style="color:{point.color};font-weight:bold">{point.y:.1f}</span></span><br/>' },
         plotOptions: {
           column: {
-              groupPadding: 0.5,
-              pointWidth: 13
+            groupPadding: 0.5,
+            pointWidth: 13
           }
         },
-        xAxis: { type: 'category', offset: -136, tickInterval: 1},
-        yAxis: { title: {text: "AEQ / HÉT"}, min: -1500, max: 3000, tickInterval: 500, plotLines: [{value: 0,width: 2,color: 'rgb(0,176,80)'}]},
+        xAxis: { type: 'category', offset: -136, tickInterval: 1 },
+        yAxis: { title: { text: "AEQ / HÉT" }, min: -1500, max: 3000, tickInterval: 500, plotLines: [{ value: 0, width: 2, color: 'rgb(0,176,80)' }] },
         series: [
-          {name: "Terv Összesen", color: "red", data: wp},
-          {name: "Aktuális Összesen", color: "rgb(0,176,80)", data: wa},
-          {name: "Különbség", color: "rgb(0,112,192)", type: "line", data: wd, dataLabels: {enabled: true, format: "{point.y:.1f}", rotation: -90, y: -20, style: {textOutline:"0px"}}},
-          {name: "ULH", color: "rgba(255,255,0,.5)", data: lwp, showInLegend: false, tooltip: {format: '', pointFormat:''}},
-          {name: "ULH", color: "rgba(255,255,0,.5)", data: lwm, showInLegend: false, tooltip: {format: '', pointFormat:''}}
+          { name: "Terv Összesen", color: "red", data: wp },
+          { name: "Aktuális Összesen", color: "rgb(0,176,80)", data: wa },
+          { name: "Különbség", color: "rgb(0,112,192)", type: "line", data: wd, dataLabels: { enabled: true, format: "{point.y:.1f}", rotation: -90, y: -20, style: { textOutline: "0px" } } },
+          { name: "ULH", color: "rgba(255,255,0,.5)", data: lwp, showInLegend: false, tooltip: { format: '', pointFormat: '' } },
+          { name: "ULH", color: "rgba(255,255,0,.5)", data: lwm, showInLegend: false, tooltip: { format: '', pointFormat: '' } }
         ]
       };
       vm.weekChart = ch;
     }
 
-    function chartize(field, text){
+    function chartize(field, text) {
       var seriesData = [];
       var targetData = [];
-      for(var i=0;i<vm.data.length;i++){
+      for (var i = 0; i < vm.data.length; i++) {
         seriesData.push([vm.data[i]['date'], vm.data[i][field]]);
         targetData.push([vm.data[i]['date'], vm.target[field]]);
       }
 
       vm.chartoptions = {
-        chart: { type: "line"},
-        title: { text: text + " Adatok (" + vm.startdatenum + " - " + vm.enddatenum + ")"},
-        xAxis: { type: "category"},
+        chart: { type: "line" },
+        title: { text: text + " Adatok (" + vm.startdatenum + " - " + vm.enddatenum + ")" },
+        xAxis: { type: "category" },
         series: [
-          {name: "Adatok", data: seriesData},
-          {name: "Cél", data: targetData}
+          { name: "Adatok", data: seriesData },
+          { name: "Cél", data: targetData }
         ]
       };
     }
@@ -163,20 +165,20 @@
       }
       var m = $filter('date')(new Date().getTime(), 'MM');
       var targets = {};
-      switch(m){
-        case "06": targets = {zw500: 226, zw1000: 70, zw1500: 80, zb: 0, zl: 0}; break;
-        case "07": targets = {zw500: 235, zw1000: 80, zw1500: 80, zb: 0, zl: 0}; break;
-        case "08": targets = {zw500: 235, zw1000: 80, zw1500: 80, zb: 0, zl: 0}; break;
-        case "09": targets = {zw500: 235, zw1000: 80, zw1500: 80, zb: 0, zl: 0}; break;
-        case "10": targets = {zw500: 226, zw1000: 80, zw1500: 80, zb: 0, zl: 21}; break;
-        case "11": targets = {zw500: 226, zw1000: 86, zw1500: 74, zb: 0, zl: 21}; break;
-        case "12": targets = {zw500: 226, zw1000: 86, zw1500: 74, zb: 0, zl: 21}; break;
+      switch (m) {
+        case "06": targets = { zw500: 226, zw1000: 70, zw1500: 80, zb: 0, zl: 0 }; break;
+        case "07": targets = { zw500: 235, zw1000: 80, zw1500: 80, zb: 0, zl: 0 }; break;
+        case "08": targets = { zw500: 235, zw1000: 80, zw1500: 80, zb: 0, zl: 0 }; break;
+        case "09": targets = { zw500: 235, zw1000: 80, zw1500: 80, zb: 0, zl: 0 }; break;
+        case "10": targets = { zw500: 226, zw1000: 80, zw1500: 80, zb: 0, zl: 21 }; break;
+        case "11": targets = { zw500: 226, zw1000: 86, zw1500: 74, zb: 0, zl: 21 }; break;
+        case "12": targets = { zw500: 226, zw1000: 86, zw1500: 74, zb: 0, zl: 21 }; break;
       };
       vm.m = m;
       var targetobj = {
         //date: $filter('date')(firstnum, 'yyyy-MM-dd'),
         rewinder: targets.zw500 * 1.005 * 1.014 * 1.022 * 1.0178,
-        spl36: (targets.zw500-32) * 1.005 * 1.014 * 1.022,
+        spl36: (targets.zw500 - 32) * 1.005 * 1.014 * 1.022,
         spl2345: 32 * 1.005 * 1.014 * 1.022,
         //zw500
         sm: targets.zw500 * 1.005 * 1.014,
@@ -233,23 +235,23 @@
       loadsap();
     }
 
-    function setTargets(){
-      for (var i = 0; i < vm.data.length;i++){
+    function setTargets() {
+      for (var i = 0; i < vm.data.length; i++) {
         var m = $filter('date')(new Date(vm.data[i].date).getTime(), 'MM');
         var targets = {};
-        switch(m){
-          case "06": targets = {zw500: 226, zw1000: 70, zw1500: 80, zb: 0, zl: 0}; break;
-          case "07": targets = {zw500: 235, zw1000: 80, zw1500: 80, zb: 0, zl: 0}; break;
-          case "08": targets = {zw500: 235, zw1000: 80, zw1500: 80, zb: 0, zl: 0}; break;
-          case "09": targets = {zw500: 235, zw1000: 80, zw1500: 80, zb: 0, zl: 0}; break;
-          case "10": targets = {zw500: 226, zw1000: 80, zw1500: 80, zb: 0, zl: 21}; break;
-          case "11": targets = {zw500: 226, zw1000: 86, zw1500: 74, zb: 0, zl: 21}; break;
-          case "12": targets = {zw500: 226, zw1000: 86, zw1500: 74, zb: 0, zl: 21}; break;
+        switch (m) {
+          case "06": targets = { zw500: 226, zw1000: 70, zw1500: 80, zb: 0, zl: 0 }; break;
+          case "07": targets = { zw500: 235, zw1000: 80, zw1500: 80, zb: 0, zl: 0 }; break;
+          case "08": targets = { zw500: 235, zw1000: 80, zw1500: 80, zb: 0, zl: 0 }; break;
+          case "09": targets = { zw500: 235, zw1000: 80, zw1500: 80, zb: 0, zl: 0 }; break;
+          case "10": targets = { zw500: 226, zw1000: 80, zw1500: 80, zb: 0, zl: 21 }; break;
+          case "11": targets = { zw500: 226, zw1000: 86, zw1500: 74, zb: 0, zl: 21 }; break;
+          case "12": targets = { zw500: 226, zw1000: 86, zw1500: 74, zb: 0, zl: 21 }; break;
         };
         var targetobj = {
           //date: $filter('date')(firstnum, 'yyyy-MM-dd'),
           rewinder: targets.zw500 * 1.005 * 1.014 * 1.022 * 1.0178,
-          spl36: (targets.zw500-32) * 1.005 * 1.014 * 1.022,
+          spl36: (targets.zw500 - 32) * 1.005 * 1.014 * 1.022,
           spl2345: 32 * 1.005 * 1.014 * 1.022,
           //zw500
           sm: targets.zw500 * 1.005 * 1.014,
@@ -293,15 +295,15 @@
       }
       console.log(vm.data);
     }
-    function loadsap(){
-      DashboardService.getsap().then( function (response) {
+    function loadsap() {
+      DashboardService.getsap().then(function (response) {
         var d = response.data;
         createWeekChart(d);
         setTargets();
-        for(var j=0;j< d.data.length;j++){
+        for (var j = 0; j < d.data.length; j++) {
           var t = $filter('date')(new Date(d.data[j].NAP).getTime(), 'yyyy-MM-dd');
-          for(var i=0; i<vm.data.length;i++){
-            if(t == vm.data[i].date){
+          for (var i = 0; i < vm.data.length; i++) {
+            if (t == vm.data[i].date) {
               vm.data[i].sap0500 = d.data[j].ZW0500Actual;
               vm.data[i].sap1000 = d.data[j].ZW1000Actual;
               vm.data[i].sap1500 = d.data[j].ZW1500Actual;
@@ -311,12 +313,12 @@
           }
         }
       });
-      DashboardService.getCassette().then(function (response){
+      DashboardService.getCassette().then(function (response) {
         var d = response.data;
-        for(var j=0;j<d.length;j++){
-          for(var i=0;i<vm.data.length;i++){
-            if(vm.data[i].date == d[j].day){
-              vm.data[i].casette = d[j].actual/d[j].plan * 100;
+        for (var j = 0; j < d.length; j++) {
+          for (var i = 0; i < vm.data.length; i++) {
+            if (vm.data[i].date == d[j].day) {
+              vm.data[i].casette = d[j].actual / d[j].plan * 100;
             }
           }
         }
@@ -336,12 +338,21 @@
       });
     }
 
+    function loadcomments() {
+      vm.comments = [];
+      DashboardService.getAll().then(function (response) {
+        vm.comments = response.data;
+        console.log(vm.comments);
+      });
+    }
+
     function loadrewinder() {
-      angular.forEach(vm.dates, function (v, k) {
-        DashboardService.getrewinder(v).then(function (response) {
+      angular.forEach(vm.datefile, function (v, k) {
+        DashboardService.getrewinderfile(v).then(function (response) {
           for (var j = 0; j < response.data.length; j++) {
             for (var k = 0; k < vm.data.length; k++) {
-              if (vm.data[k].date == v) {
+              var dt=$filter('date')(new Date(vm.data[k].date).getTime(),'yyyyMMdd');
+              if (v == dt) {
                 vm.data[k].rewinder += response.data[j].ProducedLength / 9300;
               }
             }
@@ -448,7 +459,7 @@
           for (var j = 0; j < response.data.length; j++) {
             response.data[j].shiftday = $filter('date')(new Date(response.data[j].shiftstart).getTime(), 'yyyy-MM-dd');
             if (vm.data[i].date == response.data[j].shiftday) {
-              if(response.data[j].state == "BP"){
+              if (response.data[j].state == "BP") {
                 if (response.data[j].BaaNCode != "3149069" && response.data[j].BaaNCode != "3160038" && response.data[j].BaaNCode != "3148766") {
                   vm.data[i].bp += response.data[j].aeq;
                 }
@@ -459,7 +470,7 @@
                   vm.data[i].zlbp += response.data[j].aeq;
                 }
               }
-              if(response.data[j].state == "Rework") {
+              if (response.data[j].state == "Rework") {
                 if (response.data[j].BaaNCode != "3149069" && response.data[j].BaaNCode != "3160038" && response.data[j].BaaNCode != "3148766") {
                   vm.data[i].rework += response.data[j].aeq;
                 }
@@ -514,7 +525,7 @@
           }
           var takeoutnum = new Date(response.data[j].Brick_Takeout).getHours() * 60 + new Date(response.data[j].Brick_Takeout).getMinutes();
           var centrifugestopnum = new Date(response.data[j].Centrifuga_Stop).getHours() * 60 + new Date(response.data[j].Centrifuga_Stop).getMinutes();
-          var gradenum = new Date(response.data[j].Gradedate).getHours() * 60 + new Date(response.data[j].Gradedate).getMinutes();
+          //var gradenum = new Date(response.data[j].Gradedate).getHours() * 60 + new Date(response.data[j].Gradedate).getMinutes();
 
           if (takeoutnum < 350) {
             response.data[j].Brick_Takeout_Day = $filter('date')(new Date(response.data[j].Brick_Takeout).getTime() - (24 * 3600 * 1000), 'yyyy-MM-dd');
@@ -530,12 +541,12 @@
             response.data[j].Centrifuga_Stop_Day = $filter('date')(new Date(response.data[j].Centrifuga_Stop).getTime(), 'yyyy-MM-dd');
           }
 
-          if (gradenum < 350) {
-            response.data[j].Grade_Day = $filter('date')(new Date(response.data[j].Gradedate).getTime() - (24 * 3600 * 1000), 'yyyy-MM-dd');
-          }
-          else {
-            response.data[j].Grade_Day = $filter('date')(new Date(response.data[j].Gradedate).getTime(), 'yyyy-MM-dd');
-          }
+          /* if (gradenum < 350) {
+             response.data[j].Grade_Day = $filter('date')(new Date(response.data[j].Gradedate).getTime() - (24 * 3600 * 1000), 'yyyy-MM-dd');
+           }
+           else {
+             response.data[j].Grade_Day = $filter('date')(new Date(response.data[j].Gradedate).getTime(), 'yyyy-MM-dd');
+           }*/
 
           for (var k = 0; k < vm.data.length; k++) {
             if (vm.data[k].date == response.data[j].Brick_Takeout_Day) {
@@ -546,9 +557,9 @@
               vm.data[k].centrifugeend1000 += response.data[j].aeq
             }
 
-            if (vm.data[k].date == response.data[j].Grade_Day) {
+            /*if (vm.data[k].date == response.data[j].Grade_Day) {
               vm.data[k].grade1000 += response.data[j].aeq
-            }
+            }*/
           }
         }
         vm.loading = false;
@@ -566,10 +577,21 @@
               response.data[j].aeq = vm.partnumberszw1000[i].aeq;
             }
           }
+          var gradenum = new Date(response.data[j].Gradedate).getHours() * 60 + new Date(response.data[j].Gradedate).getMinutes();
+
+          if (gradenum < 350) {
+            response.data[j].Grade_Day = $filter('date')(new Date(response.data[j].Gradedate).getTime() - (24 * 3600 * 1000), 'yyyy-MM-dd');
+          }
+          else {
+            response.data[j].Grade_Day = $filter('date')(new Date(response.data[j].Gradedate).getTime(), 'yyyy-MM-dd');
+          }
 
           for (var k = 0; k < vm.data.length; k++) {
             if (vm.data[k].date == response.data[j].BP_end_shiftday) {
               vm.data[k].bpend1000 += response.data[j].aeq;
+            }
+            if (vm.data[k].date == response.data[j].Grade_Day && response.data[j].Grade != "Scrap" && response.data[j].Grade != "") {
+              vm.data[k].grade1000 += response.data[j].aeq
             }
           }
         }
@@ -587,7 +609,7 @@
               response.data[j].day = $filter('date')(new Date(response.data[j].startdate).getTime() - (24 * 3600 * 1000), 'yyyy-MM-dd');
             }
             else {
-              response.data[j].day = $filter('date')(new Date(response.data[j].startdate), 'yyyy-MM-dd');
+              response.data[j].day = $filter('date')(new Date(response.data[j].startdate).getTime(), 'yyyy-MM-dd');
             }
           }
           response.data[j].Amount = 1;
@@ -617,7 +639,7 @@
           for (var j = 0; j < response.data.length; j++) {
             var num = new Date(response.data[j].SPL_end).getHours() * 60 + new Date(response.data[j].SPL_end).getMinutes();
             if (num < 350) {
-              response.data[j].SPL_end = $filter('date')(new Date(response.data[j].SPL_end).getTime() + (24 * 3600 * 1000), 'yyyy-MM-dd');
+              response.data[j].SPL_end = $filter('date')(new Date(response.data[j].SPL_end).getTime() - (24 * 3600 * 1000), 'yyyy-MM-dd');
             }
             else {
               response.data[j].SPL_end = $filter('date')(new Date(response.data[j].SPL_end).getTime(), 'yyyy-MM-dd');
@@ -647,6 +669,69 @@
       });
     }
 
+    //dialógus ablak kezdete
+
+    function DialogController($scope, $mdDialog) {
+      $scope.id=new Date().getTime();
+      $scope.date=vm.item.date;
+      $scope.machine=vm.actmachine;
+      var item = vm.item;
+      var field = vm.field;
+      $scope.date = item.date;
+      $scope.machine = field;
+      $scope.actual = item[field];
+      $scope.target = item.target[field];
+
+      $scope.description="";
+
+      /*console.log(vm.item);
+      console.log($scope.date);
+      console.log($scope.machine);*/
+      
+
+      $scope.hide = function() {
+        $mdDialog.hide();
+      };
+  
+      $scope.cancel = function() {
+        $mdDialog.cancel();
+      };
+  
+      $scope.answer = function(fhid,fhdate,fhmachine,fhdescription,fhtarget,fhactual) {
+        var data={
+          id:fhid,
+          date:fhdate,
+          machine:fhmachine,
+          description:fhdescription,
+          target:fhtarget,
+          actual:fhactual
+        }
+        DashboardService.post(data).then(function (resp) {
+          data={};
+        });
+        $mdDialog.hide(fhid,fhdate,fhmachine,fhdescription,fhtarget,fhactual);
+      };
+    }
+
+    //dialógus ablak vége
+    vm.saveData = saveData;
+    function saveData(item, field){
+      console.log(item[field] + " - " + item.target[field]);
+      vm.item = item;
+      vm.field = field;
+      $mdDialog.show({
+        controller: DialogController,
+        templateUrl: './app/components/dashboard/dialog.tmpl.html',
+        parent: angular.element(document.body),
+        clickOutsideToClose: true
+      })
+      .then(function(answer) {
+        $scope.status = 'You said the information was "' + answer + '".';
+      }, function() {
+        $scope.status = 'You cancelled the dialog.';
+      });
+    }
+
     function activate() {
       if (!$cookies.getObject('user', { path: '/' })) {
         $state.go('login')
@@ -656,6 +741,7 @@
         vm.user = $cookies.getObject('user', { path: '/' });
         vm.shift = $filter('shift')(1, new Date());
       }
+      loadcomments();
       loadPartnumbers();
       load1000Partnumbers();
       createdataarray();

@@ -86,5 +86,21 @@
         "dinamik": "3111455",
         "modul": "3111340",
         "aeq": 1.4
+    },
+    {
+        "name": "Glicerin free",
+        "fiber": "3158147",
+        "bundle": "3158147",
+        "dinamik": "3158147",
+        "modul": "3158147",
+        "aeq": 1.1
+    },
+    {
+        "name": "Blue",
+        "fiber": "3164129",
+        "bundle": "3164129",
+        "dinamik": "3164129",
+        "modul": "3164129",
+        "aeq": 1.1
     }
 ]
