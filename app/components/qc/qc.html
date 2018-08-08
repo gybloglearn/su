@@ -1,3 +1,4 @@
+<md-progress-linear md-mode="indeterminate" ng-show="vm.loading"></md-progress-linear>
 <md-content layout="row" layout-sm="column" layout-xs="column">
   <div layout-padding flex>
     <h1 class="md-display-2" layout="row">
@@ -61,20 +62,20 @@
         </thead>
         <tbody md-body>
           <tr md-row ng-repeat="item in vm.data track by $index">
-            <td>{{item.date}}</td>
-            <td>{{item.aplus}}</td>
-            <td>{{(item.aplus/item.sum)*100|number:2}}</td>
-            <td>{{item.a}}</td>
-            <td>{{(item.a/item.sum)*100|number:2}}</td>
-            <td>{{item.b}}</td>
-            <td>{{(item.b/item.sum)*100|number:2}}</td>
-            <td>{{item.notgraded}}</td>
-            <td>{{(item.notgraded/item.sum)*100|number:2}}</td>
-            <td>{{item.rework}}</td>
-            <td>{{(item.rework/item.sum)*100|number:2}}</td>
-            <td>{{item.scrap}}</td>
-            <td>{{(item.scrap/item.sum)*100|number:2}}</td>
-            <td>{{item.sum}}</td>
+            <td md-cell>{{item.date}}</td>
+            <td md-cell>{{item.aplus}}</td>
+            <td md-cell>{{(item.aplus/item.sum)*100|number:2}}</td>
+            <td md-cell>{{item.a}}</td>
+            <td md-cell>{{(item.a/item.sum)*100|number:2}}</td>
+            <td md-cell>{{item.b}}</td>
+            <td md-cell>{{(item.b/item.sum)*100|number:2}}</td>
+            <td md-cell>{{item.notgraded}}</td>
+            <td md-cell>{{(item.notgraded/item.sum)*100|number:2}}</td>
+            <td md-cell>{{item.rework}}</td>
+            <td md-cell>{{(item.rework/item.sum)*100|number:2}}</td>
+            <td md-cell>{{item.scrap}}</td>
+            <td md-cell>{{(item.scrap/item.sum)*100|number:2}}</td>
+            <td md-cell>{{item.sum}}</td>
           </tr>
         </tbody>
       </table>

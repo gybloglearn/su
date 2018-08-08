@@ -1,4 +1,4 @@
-(function() {
+(function () {
   'use strict';
 
   angular
@@ -8,16 +8,16 @@
   ScrapService.$inject = ['$http'];
   function ScrapService($http) {
     var service = {
-      get:get
+      get: get
     };
 
     return service;
 
     ////////////////
-    function get() {
+    function get(startdat, enddat, categ) {
       var req = {
         method: 'GET',
-        url: './app/components/PHP/file.php'
+        url: 'app/components/php/ZW1500FGScrapData.php?startdate=' + startdat + '&enddate=' + enddat + '&cat=' + categ
       };
       return $http(req);
     }
