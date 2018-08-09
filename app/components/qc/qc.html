@@ -1,11 +1,80 @@
+<md-progress-linear md-mode="indeterminate" ng-show="vm.loading"></md-progress-linear>
 <md-content layout="row" layout-sm="column" layout-xs="column">
   <div layout-padding flex>
     <h1 class="md-display-2" layout="row">
-      <span flex>Qc</span>
+      <span flex>Minősített</span>
       <md-button class="md-fab md-primary md-hue-2">
         <md-icon class="material-icons">dashboard</md-icon>
       </md-button>
     </h1>
     <md-divider></md-divider>
+    <md-content>
+      <div layout-gt-xs="row">
+        <md-input-container>
+          <label>Időszak</label>
+          <md-select ng-model="vm.acttime" ng-change="vm.load()">
+            <md-option ng-repeat="at in vm.times" ng-value="at">{{at}}</md-option>
+          </md-select>
+        </md-input-container>
+        <md-input-container>
+          <label>Csoportosítás:</label>
+          <md-select ng-model="vm.acttype" ng-change="vm.load()">
+            <md-option ng-repeat="aty in vm.type" ng-value="aty">{{aty}}</md-option>
+          </md-select>
+        </md-input-container>
+        <md-input-container>
+          <label>Dátum tól:</label>
+          <md-datepicker ng-model="vm.startdate" md-max-date="vm.maxdate"></md-datepicker>
+        </md-input-container>
+        <md-input-container>
+          <label>Dátum ig:</label>
+          <md-datepicker ng-model="vm.enddate" md-max-date="vm.maxdate"></md-datepicker>
+        </md-input-container>
+        <md-input-container>
+          <md-button class="md-primary md-raised" ng-click="vm.load()" ng-disabled="vm.loading">Betöltés</md-button>
+        </md-input-container>
+      </div>
+    </md-content>
+    <md-content layout="row" layout-sm="column" layout-xs="column">
+      <div flex>
+        <my-chart id="chart" options="vm.chartconfig"></my-chart>
+      </div>
+    </md-content>
+    <md-table-container flex>
+      <table md-table>
+        <thead md-head>
+          <tr md-row>
+            <th md-column>Dátum</th>
+            <th md-column>A+</th>
+            <th md-column>A+/Összes</th>
+            <th md-column>A-</th>
+            <th md-column>A-/Összes</th>
+            <th md-column>B</th>
+            <th md-column>B/Összes</th>
+            <th md-column>Not Graded</th>
+            <th md-column>Not Graded/Összes</th>
+            <th md-column>Scrap</th>
+            <th md-column>Scrap/Összes</th>
+            <th md-column>Összes</th>
+          </tr>
+        </thead>
+        <tbody md-body>
+          <tr md-row ng-repeat="item in vm.data track by $index">
+            <td md-cell>{{item.date}}</td>
+            <td md-cell>{{item.aplus}}</td>
+            <td md-cell>{{(item.aplus/item.sum)*100|number:2}}</td>
+            <td md-cell>{{item.aminus}}</td>
+            <td md-cell>{{(item.aminus/item.sum)*100|number:2}}</td>
+            <td md-cell>{{item.b}}</td>
+            <td md-cell>{{(item.b/item.sum)*100|number:2}}</td>
+            <td md-cell>{{item.notgraded}}</td>
+            <td md-cell>{{(item.notgraded/item.sum)*100|number:2}}</td>
+            <td md-cell>{{item.scrap}}</td>
+            <td md-cell>{{(item.scrap/item.sum)*100|number:2}}</td>
+            <td md-cell>{{item.sum}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </md-table-container>
   </div>
 </md-content>

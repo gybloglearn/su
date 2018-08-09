@@ -16,5 +16,57 @@
     <div flex>
       <my-chart id="chart" options="vm.chartconfig"></my-chart>
     </div>
+    <md-content layout="row" layout-sm="column" layout-xs="column">
+      <div flex="45" flex-sm="100" flex-xs="100" layout="column" layout-sm="column" layout-xs="column">
+        <h2>Fluxus táblázat</h2>
+        <md-table-container>
+          <table md-table>
+            <thead md-head>
+              <tr md-row>
+                <th md-column>Modul</th>
+                <th md-column>Megnevezés</th>
+                <th md-column>Dátum</th>
+                <th md-column>Szak</th>
+                <th md-column>Aeq</th>
+              </tr>
+            </thead>
+            <tbody md-body>
+              <tr md-row ng-repeat="item in vm.data|orderBy:'Perm_test' track by $index">
+                <td md-cell>{{item.jobid}}</td>
+                <td md-cell>{{item.modulname}}</td>
+                <td md-cell>{{item.Perm_test}}</td>
+                <td md-cell>{{item.Perm_test_shift}}</td>
+                <td md-cell>{{item.aeq}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </md-table-container>
+      </div>
+      <div flex="45" flex-sm="100" flex-xs="100" layout="column" layout-sm="column" layout-xs="column">
+        <h2>Impregnálás táblázat</h2>
+        <md-table-container>
+          <table md-table>
+            <thead md-head>
+              <tr md-row>
+                <th md-column>Modul</th>
+                <th md-column>Megnevezés</th>
+                <th md-column>Dátum</th>
+                <th md-column>Szak</th>
+                <th md-column>Aeq</th>
+              </tr>
+            </thead>
+            <tbody md-body>
+              <tr md-row ng-repeat="item in vm.impdata|orderBy:'Impregnation_end' track by $index">
+                <td md-cell>{{item.jobid}}</td>
+                <td md-cell>{{item.modulname}}</td>
+                <td md-cell>{{item.Impregnation_end}}</td>
+                <td md-cell>{{item.Impregnation_end_shift}}</td>
+                <td md-cell>{{item.aeq}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </md-table-container>
+      </div>
+    </md-content>
   </div>
 </md-content>
