@@ -1,11 +1,73 @@
+<md-progress-linear md-mode="indeterminate" ng-show="vm.load"></md-progress-linear>
 <md-content layout="row" layout-sm="column" layout-xs="column">
   <div layout-padding flex>
     <h1 class="md-display-2" layout="row">
-      <span flex>Weeksum</span>
+      <span flex>Heti összesítő</span>
       <md-button class="md-fab md-primary md-hue-2">
         <md-icon class="material-icons">dashboard</md-icon>
       </md-button>
     </h1>
     <md-divider></md-divider>
+    <md-content layout="row" layout-sm="column" layout-xs="column">
+      <div flex="20" flex-sm="50" flex-xs="100" layout="column" layout-sm="column" layout-xs="column" layout-align="end">
+        <p flex>
+          Válassz az alábbi mezőből kijelezni kívánt hetet:
+        </p>
+        <md-input-container>
+          <md-datepicker ng-model="vm.startdate" md-max-date="vm.maxdate"></md-datepicker>
+        </md-input-container>
+        <md-input-container>
+          <md-datepicker ng-model="vm.enddate" md-max-date="vm.maxdate"></md-datepicker>
+        </md-input-container>
+        <md-button class="md-primary md-raised" ng-click="vm.createdates()" ng-disabled="vm.load">Szűrés</md-button>
+      </div>
+      <div flex>
+        <my-chart id="chart" options="vm.chartconfig"></my-chart>
+      </div>
+    </md-content>
+    <md-content layout="row" layout-sm="column" layout-xs="column">
+      <div flex="20" flex-sm="50" flex-xs="100" layout="column" layout-sm="column" layout-xs="column" layout-align="end"></div>
+      <md-table-container flex>
+        <table md-table>
+          <thead md-head>
+            <tr md-row>
+              <th colspan="13" md-column style="text-align: center">ZeeWeed 1000 (AEQ)</th>
+            </tr>
+            <tr md-row>
+              <th md-column>Dátum</th>
+              <th md-column>SL start</th>
+              <th md-column>SL end</th>
+              <th md-column>Potting start</th>
+              <th md-column>Potting flip</th>
+              <th md-column>Potting end</th>
+              <th md-column>Centrifuga start</th>
+              <th md-column>Centrifuga end</th>
+              <th md-column>BP start</th>
+              <th md-column>BP end</th>
+              <th md-column>Fluxus</th>
+              <th md-column>Grade</th>
+              <th md-column>Scrap</th>
+            </tr>
+          </thead>
+          <tbody md-body>
+            <tr ng-repeat="dt in vm.data track by $index">
+              <th md-head>{{dt.date}}</th>
+              <td md-cell>{{dt.splstart|number:2}}</td>
+              <td md-cell>{{dt.splend|number:2}}</td>
+              <td md-cell>{{dt.pottingin|number:2}}</td>
+              <td md-cell>{{dt.pottingp3|number:2}}</td>
+              <td md-cell>{{dt.pottingout|number:2}}</td>
+              <td md-cell>{{dt.centristart|number:2}}</td>
+              <td md-cell>{{dt.centriend|number:2}}</td>
+              <td md-cell>{{dt.bpstart|number:2}}</td>
+              <td md-cell>{{dt.bpend|number:2}}</td>
+              <td md-cell>{{dt.fluxus|number:2}}</td>
+              <td md-cell>{{dt.grade|number:2}}</td>
+              <td md-cell>{{dt.scrap|number:2}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </md-table-container>
+    </md-content>
   </div>
 </md-content>
