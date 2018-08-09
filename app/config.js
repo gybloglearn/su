@@ -24,6 +24,21 @@
 			templateUrl: './app/components/quicklinks/quicklinks.html' + '?' + cp,
 			controller: 'QuicklinksController',
 			controllerAs: 'vm'
+		}).state('weeksum', {
+			url: 'weeksum',
+			templateUrl: './app/components/weeksum/weeksum.html' + '?' + cp,
+			controller: 'WeeksumController',
+			controllerAs: 'vm'
+		}).state('qc', {
+			url: 'qc',
+			templateUrl: './app/components/qc/qc.html' + '?' + cp,
+			controller: 'QcController',
+			controllerAs: 'vm'
+		}).state('scrap', {
+			url: 'scrap',
+			templateUrl: './app/components/scrap/scrap.html' + '?' + cp,
+			controller: 'ScrapController',
+			controllerAs: 'vm'
 		}).state('login', {
       url: '/login',
       templateUrl: './app/components/login/login.html' + '?' + cp,
