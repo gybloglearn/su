@@ -1,0 +1,25 @@
+<md-progress-linear md-mode="indeterminate" ng-show="vm.loading"></md-progress-linear>
+<md-content layout="row" layout-sm="column" layout-xs="column">
+  <div layout-padding flex>
+    <h1 class="md-display-2" layout="row">
+      <span flex>Potting és Centrifuga adatok órai lebontása</span>
+      <md-button class="md-fab md-primary md-hue-2">
+        <md-icon class="material-icons">dashboard</md-icon>
+      </md-button>
+    </h1>
+    <md-divider></md-divider>
+    <md-content>
+      <div layout-gt-xs="row">
+        <md-input-container>
+          <label>Dátum:</label>
+          <md-datepicker ng-model="vm.date" ng-change="vm.beallit()" md-max-date="vm.maxdate"></md-datepicker>
+        </md-input-container>
+      </div>
+    </md-content>
+    <md-content layout="row" layout-sm="column" layout-xs="column">
+      <div flex>
+        <my-chart id="chart" options="vm.chartconfig"></my-chart>
+      </div>
+    </md-content>
+  </div>
+</md-content>

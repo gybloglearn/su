@@ -34,6 +34,11 @@
 			templateUrl: './app/components/qc/qc.html' + '?' + cp,
 			controller: 'QcController',
 			controllerAs: 'vm'
+		}).state('potting', {
+			url: 'potting',
+			templateUrl: './app/components/potting/potting.html' + '?' + cp,
+			controller: 'PottingController',
+			controllerAs: 'vm'
 		}).state('login', {
       url: '/login',
       templateUrl: './app/components/login/login.html' + '?' + cp,

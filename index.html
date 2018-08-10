@@ -36,6 +36,10 @@
 						<div flex class="md-list-item-text">Vezérlőpult</div>
 						<md-icon class="material-icons">dashboardk</md-icon>
 					</md-list-item>
+					<md-list-item ui-sref="potting" ng-click="close()">
+						<div flex class="md-list-item-text">Potting és Centrifuga adatok</div>
+						<md-icon class="material-icons">dashboard</md-icon>
+					</md-list-item>
 					<md-list-item ui-sref="weeksum" ng-click="close()">
 						<div flex class="md-list-item-text">Heti összesítő</div>
 						<md-icon class="material-icons">dashboard</md-icon>
@@ -132,6 +136,8 @@
 	<script src="app/components/qc/qc.ctrl.js"></script>
 	<script src="app/components/services/qc.service.js"></script>
 	<script src="app/components/services/fluxus.service.js"></script>
+	<script src="app/components/potting/potting.ctrl.js"></script>
+	<script src="app/components/services/potting.service.js"></script>
 	<!--endbuild--><!--adds-->
 	<script>
 		angular.bootstrap(document, ['app']);
