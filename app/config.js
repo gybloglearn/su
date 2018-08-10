@@ -34,11 +34,6 @@
 			templateUrl: './app/components/qc/qc.html' + '?' + cp,
 			controller: 'QcController',
 			controllerAs: 'vm'
-		}).state('scrap', {
-			url: 'scrap',
-			templateUrl: './app/components/scrap/scrap.html' + '?' + cp,
-			controller: 'ScrapController',
-			controllerAs: 'vm'
 		}).state('login', {
       url: '/login',
       templateUrl: './app/components/login/login.html' + '?' + cp,
