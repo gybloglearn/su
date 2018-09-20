@@ -37,7 +37,7 @@
       for (var w = 1; w < 53; w++) {
         wp.push([w, 0]);
         wa.push([w, 0]);
-        if (w <= new Date().getWeekNumber())
+        if (w < new Date().getWeekNumber() || (new Date().getWeekNumber() == w && new Date().getDay() > 1))
           wd.push([w, 0]);
         lwp.push([w, 0]);
         lwm.push([w, 0]);
@@ -63,7 +63,18 @@
         plotOptions: {
           column: {
             groupPadding: 0.5,
-            pointWidth: 13
+            pointWidth: 13, 
+						events: {
+							legendItemClick: function(ev){
+							 if(this.name == "Utolsó lezárt Hét") {
+								this.chart.series[3].visible == true ? this.chart.series[3].hide() : this.chart.series[3].show();
+								this.chart.series[4].visible == true ? this.chart.series[4].hide() : this.chart.series[4].show();
+								return false;
+							 } else {
+								 return true;
+							 }
+							}
+						}
           }
         },
         xAxis: { type: 'category', offset: -136, tickInterval: 1 },
@@ -72,7 +83,7 @@
           { name: "Terv Összesen", color: "red", data: wp },
           { name: "Aktuális Összesen", color: "rgb(0,176,80)", data: wa },
           { name: "Különbség", color: "rgb(0,112,192)", type: "line", data: wd, dataLabels: { enabled: true, format: "{point.y:.1f}", rotation: -90, y: -20, style: { textOutline: "0px" } } },
-          { name: "ULH", color: "rgba(255,255,0,.5)", data: lwp, showInLegend: false, tooltip: { format: '', pointFormat: '' } },
+          { name: "Utolsó lezárt Hét", color: "rgba(255,255,0,.5)", data: lwp, showInLegend: true, tooltip: { format: '', pointFormat: '' } },
           { name: "ULH", color: "rgba(255,255,0,.5)", data: lwm, showInLegend: false, tooltip: { format: '', pointFormat: '' } }
         ]
       };
@@ -166,13 +177,14 @@
       var m = $filter('date')(new Date().getTime(), 'MM');
       var targets = {};
       switch (m) {
+        case "05": targets = { zw500: 226, zw1000: 70, zw1500: 80, zb: 0, zl: 0 }; break;
         case "06": targets = { zw500: 226, zw1000: 70, zw1500: 80, zb: 0, zl: 0 }; break;
         case "07": targets = { zw500: 235, zw1000: 80, zw1500: 80, zb: 0, zl: 0 }; break;
         case "08": targets = { zw500: 235, zw1000: 80, zw1500: 80, zb: 0, zl: 0 }; break;
-        case "09": targets = { zw500: 235, zw1000: 80, zw1500: 80, zb: 0, zl: 0 }; break;
-        case "10": targets = { zw500: 226, zw1000: 80, zw1500: 80, zb: 0, zl: 21 }; break;
-        case "11": targets = { zw500: 226, zw1000: 86, zw1500: 74, zb: 0, zl: 21 }; break;
-        case "12": targets = { zw500: 226, zw1000: 86, zw1500: 74, zb: 0, zl: 21 }; break;
+        case "09": targets = { zw500: 235, zw1000: 80, zw1500: 80, zb: 14.4, zl: 0 }; break;
+        case "10": targets = { zw500: 226, zw1000: 80, zw1500: 80, zb: 21.6, zl: 0 }; break;
+        case "11": targets = { zw500: 226, zw1000: 86, zw1500: 74, zb: 14.4, zl: 0 }; break;
+        case "12": targets = { zw500: 226, zw1000: 86, zw1500: 74, zb: 14.4, zl: 0 }; break;
       };
       vm.m = m;
       var targetobj = {
@@ -190,12 +202,12 @@
         sap0500: targets.zw500,
         casette: 100,
         //zb
-        zbsm: 0,
-        zbpotting: 0,
-        zbbp: 0,
+        zbsm: targets.zb * 1.05 * 1.03 * 1.03,
+        zbpotting: targets.zb * 1.03 * 1.03,
+        zbbp: targets.zb * 1.03,
         zbrework: 0,
-        zbgraded: 0,
-        sapZB: 0,
+        zbgraded: targets.zb,
+        sapZB: targets.zb,
         //zl
         zlsm: 0,
         zlpotting: 0,
@@ -240,13 +252,14 @@
         var m = $filter('date')(new Date(vm.data[i].date).getTime(), 'MM');
         var targets = {};
         switch (m) {
+          case "05": targets = { zw500: 226, zw1000: 70, zw1500: 80, zb: 0, zl: 0 }; break;
           case "06": targets = { zw500: 226, zw1000: 70, zw1500: 80, zb: 0, zl: 0 }; break;
           case "07": targets = { zw500: 235, zw1000: 80, zw1500: 80, zb: 0, zl: 0 }; break;
           case "08": targets = { zw500: 235, zw1000: 80, zw1500: 80, zb: 0, zl: 0 }; break;
-          case "09": targets = { zw500: 235, zw1000: 80, zw1500: 80, zb: 0, zl: 0 }; break;
-          case "10": targets = { zw500: 226, zw1000: 80, zw1500: 80, zb: 0, zl: 21 }; break;
-          case "11": targets = { zw500: 226, zw1000: 86, zw1500: 74, zb: 0, zl: 21 }; break;
-          case "12": targets = { zw500: 226, zw1000: 86, zw1500: 74, zb: 0, zl: 21 }; break;
+          case "09": targets = { zw500: 235, zw1000: 80, zw1500: 80, zb: 14.4, zl: 0 }; break;
+          case "10": targets = { zw500: 226, zw1000: 80, zw1500: 80, zb: 21.6, zl: 21 }; break;
+          case "11": targets = { zw500: 226, zw1000: 86, zw1500: 74, zb: 14.4, zl: 21 }; break;
+          case "12": targets = { zw500: 226, zw1000: 86, zw1500: 74, zb: 14.4, zl: 21 }; break;
         };
         var targetobj = {
           //date: $filter('date')(firstnum, 'yyyy-MM-dd'),
@@ -263,12 +276,12 @@
           sap0500: targets.zw500,
           casette: 100,
           //zb
-          zbsm: 0,
-          zbpotting: 0,
-          zbbp: 0,
+          zbsm: targets.zb * 1.05*1.03*1.03,
+          zbpotting: targets.zb * 1.03*1.03,
+          zbbp: targets.zb * 1.03,
           zbrework: 0,
-          zbgraded: 0,
-          sapZB: 0,
+          zbgraded: targets.zb,
+          sapZB: targets.zb,
           //zl
           zlsm: 0,
           zlpotting: 0,

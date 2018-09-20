@@ -34,7 +34,7 @@
             <tbody md-body>
       <!-- ZW500 -->
               <tr md-row>
-                <th md-head rowspan=3>
+                <th md-head rowspan=3 class="divider">
                   <span style="display:block;transform: rotate(-90deg);">ZW500 + ZB + ZL</span>
                 </th>
                 <th md-head>Rewind</th>
@@ -46,7 +46,7 @@
                 <td class="target" md-cell><i>{{vm.target.spl36|number:1}}</i></td>
                 <td md-cell ng-repeat="dat in vm.data"><span class="{{dat.spl36 >=  dat.target.spl36?'green':(dat.spl36 >=  dat.target.spl36*0.95?'yellow':'red')}}" ng-click="vm.saveData(dat, 'spl36')">{{dat.spl36|number:1}}</span></td>
               </tr>
-              <tr md-row>
+              <tr md-row class="divider">
                 <th md-head>SPL-2-3-4-5</th>
                 <td class="target" md-cell><i>{{vm.target.spl2345|number:1}}</i></td>
                 <td md-cell ng-repeat="dat in vm.data"><span class="{{dat.spl2345 >=  dat.target.spl2345?'green':(dat.spl2345 >=  dat.target.spl2345*0.95?'yellow':'red')}}" ng-click="vm.saveData(dat, 'spl2345')">{{dat.spl2345|number:1}}</span></td>
@@ -112,7 +112,7 @@
               <tr md-row>
                 <th md-head>Rework</th>
                 <td class="target" md-cell><i>{{vm.target.zbrework|number:1}}</i></td>
-                <td md-cell ng-repeat="dat in vm.data"><span class="{{dat.zbrework >=  dat.target.zbrework ?'green':(dat.zbrework >=  dat.target.zbrework*0.95?'yellow':'red')}}">{{dat.zbrework|number:1}}</span></td>
+								<td md-cell ng-repeat="dat in vm.data"><!--<span class="{{dat.zbrework >=  dat.target.zbrework ?'green':(dat.zbrework >=  dat.target.zbrework*0.95?'yellow':'red')}}">--><span>{{dat.zbrework|number:1}}</span></td>
               </tr>
               <tr md-row>
                 <th md-head>Minősített</th>
