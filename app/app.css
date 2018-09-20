@@ -49,6 +49,15 @@ h1,h2 { font-family: 'Open Sans Condensed'; font-weight: 100;}
 .target {
   background-color: #aaa;
 }
+.total {
+  background-color: rgb(238,239,242);
+}
+.total b {
+  color: rgb(61,70,108);
+}
+.total i {
+  color: rgb(171,175,191);
+}
 tr {
   height: auto!important;
 }
