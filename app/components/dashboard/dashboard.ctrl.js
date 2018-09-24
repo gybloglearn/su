@@ -21,7 +21,13 @@
     activate();
     vm.chartize = chartize;
 
+    vm.redrawChart = redrawChart;
+
     ////////////////
+
+    function redrawChart(){
+      createWeekChart(vm.sapdata);
+    }
 
     Date.prototype.getWeekNumber = function () {
       var d = new Date(Date.UTC(this.getFullYear(), this.getMonth(), this.getDate()));
@@ -32,6 +38,7 @@
     };
 
     function createWeekChart(adat) {
+      var prodline = vm.prodline;
       var wp = []; var wa = []; var wd = [];
       var lwp = []; var lwm = [];
       for (var w = 1; w < 53; w++) {
@@ -44,26 +51,34 @@
         for (var i = 0; i < adat.data.length; i++) {
           if (new Date(adat.data[i].NAP).getWeekNumber() == w && new Date(adat.data[i].NAP).getTime() < new Date().getTime() - (24 * 60 * 60 * 1000)) {
             if (new Date(adat.data[i].NAP).getWeekNumber() == new Date().getWeekNumber() - 1) {
-              lwp[w - 1][1] = 3000;
-              lwm[w - 1][1] = -1500;
+              /*lwp[w - 1][1] = 3000;
+              lwm[w - 1][1] = -1500;*/
+              lwp[w - 1][1] = Math.max.apply(null, adat.data) + 100;
+              lwm[w - 1][1] = Math.min.apply(null, adat.data) - 100;
             }
-            wp[w - 1][1] += adat.data[i].TotalPlan;
+            /*wp[w - 1][1] += adat.data[i].TotalPlan;
             wa[w - 1][1] += adat.data[i].TotalActual;
             if (w >= 2 && wd[w - 1][1] == 0)
               wd[w - 1][1] += wd[w - 2][1] + adat.data[i].TotalDiff;
             else
-              wd[w - 1][1] += adat.data[i].TotalDiff;
+              wd[w - 1][1] += adat.data[i].TotalDiff;*/
+            wp[w - 1][1] += adat.data[i][vm.prodline + "Plan"];
+            wa[w - 1][1] += adat.data[i][vm.prodline + "Actual"];
+            if (w >= 2 && wd[w - 1][1] == 0)
+              wd[w - 1][1] += wd[w - 2][1] + adat.data[i][vm.prodline + "Diff"];
+            else
+              wd[w - 1][1] += adat.data[i][vm.prodline + "Diff"];
           }
         }
       }
       var ch = {
         chart: { type: 'column', height: 600 },
-        title: { text: '<p style="text-align: center">Heti SAP lejelentett mennyiségek<br>(Teljes UF terület)</p>', useHTML: true, align: "center" },
+        title: { text: '<p style="text-align: center">Heti SAP lejelentett mennyiségek<br>(' + (vm.prodline=='Total'?'Teljes UF':vm.prodline) + ' terület)</p>', useHTML: true, align: "center" },
         tooltip: { shared: true, headerFormat: '<span style="font-size: 10px"><b>{point.key}. hét</b></span><br/>', pointFormat: '<span> {series.name}: <span style="color:{point.color};font-weight:bold">{point.y:.1f}</span></span><br/>' },
         plotOptions: {
           column: {
             groupPadding: 0.5,
-            pointWidth: 13, 
+            pointWidth: 13,
 						events: {
 							legendItemClick: function(ev){
 							 if(this.name == "Utolsó lezárt Hét") {
@@ -77,14 +92,14 @@
 						}
           }
         },
-        xAxis: { type: 'category', offset: -136, tickInterval: 1 },
-        yAxis: { title: { text: "AEQ / HÉT" }, min: -1500, max: 3000, tickInterval: 500, plotLines: [{ value: 0, width: 2, color: 'rgb(0,176,80)' }] },
+        xAxis: { type: 'category', tickInterval: 1, gridLineWidth: 1 },
+        yAxis: { title: { text: "AEQ / HÉT" }, plotLines: [{ value: 0, width: 2, color: 'rgb(0,176,80)' }] },
         series: [
           { name: "Terv Összesen", color: "red", data: wp },
           { name: "Aktuális Összesen", color: "rgb(0,176,80)", data: wa },
-          { name: "Különbség", color: "rgb(0,112,192)", type: "line", data: wd, dataLabels: { enabled: true, format: "{point.y:.1f}", rotation: -90, y: -20, style: { textOutline: "0px" } } },
+          { name: "Különbség", color: "rgb(0,112,192)", type: "line", data: wd, dataLabels: { enabled: true, format: "{point.y:.1f}", rotation: -90, y: -20, style: { textOutline: "0px" } } }/*,
           { name: "Utolsó lezárt Hét", color: "rgba(255,255,0,.5)", data: lwp, showInLegend: true, tooltip: { format: '', pointFormat: '' } },
-          { name: "ULH", color: "rgba(255,255,0,.5)", data: lwm, showInLegend: false, tooltip: { format: '', pointFormat: '' } }
+          { name: "ULH", color: "rgba(255,255,0,.5)", data: lwm, showInLegend: false, tooltip: { format: '', pointFormat: '' } }*/
         ]
       };
       vm.weekChart = ch;
@@ -310,7 +325,9 @@
     }
     function loadsap() {
       DashboardService.getsap().then(function (response) {
+        vm.prodline = "Total";
         var d = response.data;
+        vm.sapdata = response.data;
         createWeekChart(d);
         setTargets();
         for (var j = 0; j < d.data.length; j++) {
@@ -703,16 +720,16 @@
       /*console.log(vm.item);
       console.log($scope.date);
       console.log($scope.machine);*/
-      
+
 
       $scope.hide = function() {
         $mdDialog.hide();
       };
-  
+
       $scope.cancel = function() {
         $mdDialog.cancel();
       };
-  
+
       $scope.answer = function(fhid,fhdate,fhmachine,fhdescription,fhtarget,fhactual) {
         var data={
           id:fhid,

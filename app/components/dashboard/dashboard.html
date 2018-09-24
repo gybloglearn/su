@@ -15,10 +15,32 @@
         <md-input-container>
           <md-datepicker ng-model="vm.enddate" md-max-date="vm.maxdate"></md-datepicker>
         </md-input-container>
-        <md-button class="md-primary md-raised" ng-click="vm.beallit()" ng-disabled="vm.loading"><md-icon class="material-icons">refresh</md-icon> Betöltés</md-button>
+        <md-input-container>
+          <md-button class="md-primary md-raised" ng-click="vm.beallit()" ng-disabled="vm.loading"><md-icon class="material-icons">refresh</md-icon> Betöltés</md-button>
+        </md-input-container>
       </div>
     <md-divider></md-divider>
-      <my-chart flex="80" options="vm.weekChart" id="weekChart"></my-chart>
+
+    <md-fab-toolbar md-open="vm.isOpen" md-direction="right">
+      <md-fab-trigger class="align-with-text">
+        <md-button aria-label="menu" class="md-primary md-fab md-hue-3">
+          <md-icon class="material-icons">insert_chart</md-icon>
+        </md-button>
+      </md-fab-trigger>
+
+      <md-toolbar>
+        <md-fab-actions class="md-toolbar-tools">
+          <md-button aria-label="comment" class="md-button md-primary md-hue-3 md-raised" ng-click="vm.prodline = 'Total';vm.redrawChart();">Total</md-button>
+          <md-button aria-label="comment" class="md-button md-primary md-hue-2 md-raised" ng-click="vm.prodline = 'ZW0500';vm.redrawChart();">ZW0500</md-button>
+          <md-button aria-label="comment" class="md-button md-primary md-hue-2 md-raised" ng-click="vm.prodline = 'ZW1000';vm.redrawChart();">ZW1000</md-button>
+          <md-button aria-label="comment" class="md-button md-primary md-hue-2 md-raised" ng-click="vm.prodline = 'ZW1500';vm.redrawChart();">ZW1500</md-button>
+          <md-button aria-label="comment" class="md-button md-primary md-hue-1 md-raised" ng-click="vm.prodline = 'ZB';vm.redrawChart();">ZB</md-button>
+          <md-button aria-label="comment" class="md-button md-primary md-hue-1 md-raised" ng-click="vm.prodline = 'ZL';vm.redrawChart();">ZL</md-button>
+        </md-fab-actions>
+      </md-toolbar>
+    </md-fab-toolbar>
+
+      <my-chart flex="90" options="vm.weekChart" id="weekChart"></my-chart>
     <md-divider></md-divider>
       <div layout="row">
         <md-table-container flex>
