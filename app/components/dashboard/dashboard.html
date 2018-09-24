@@ -40,7 +40,7 @@
                 </th>
                 <th md-head>Rewind</th>
                 <td class="total" md-cell><b>{{vm.data | sumField:'rewinder' | number:1}}</b> - <i>{{(vm.data | sumField:'rewinder')/(vm.dates.length) | number:1}}</i></td>
-                <td class="target" md-cell><i>{{vm.target.rewinder|number:1}}</i></td
+								<td class="target" md-cell><i>{{vm.target.rewinder|number:1}}</i></td>
                 <td md-cell ng-repeat="dat in vm.data"><span class="{{dat.rewinder >=  dat.target.rewinder?'green':(dat.rewinder >=  dat.target.rewinder*0.95?'yellow':'red')}}" ng-click="vm.saveData(dat, 'rewinder')">{{dat.rewinder|number:1}}</span></td>
               </tr>
               <tr md-row>
