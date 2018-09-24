@@ -398,6 +398,9 @@
         for (var i = 0; i < vm.partnumbers.length; i++) {
           for (var j = 0; j < response.data.length; j++) {
             if (vm.partnumbers[i].id == response.data[j].type) {
+							if(response.data[j].type == "3149069"){
+								response.data[j].SheetNum = 16;
+							}
               response.data[j].aeq = (response.data[j].Totalsheets / response.data[j].SheetNum) * vm.partnumbers[i].aeq;
             }
           }
