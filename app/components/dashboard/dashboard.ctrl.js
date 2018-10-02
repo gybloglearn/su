@@ -197,9 +197,9 @@
         case "07": targets = { zw500: 235, zw1000: 80, zw1500: 80, zb: 0, zl: 0 }; break;
         case "08": targets = { zw500: 235, zw1000: 80, zw1500: 80, zb: 0, zl: 0 }; break;
         case "09": targets = { zw500: 235, zw1000: 80, zw1500: 80, zb: 14.4, zl: 0 }; break;
-        case "10": targets = { zw500: 226, zw1000: 80, zw1500: 80, zb: 21.6, zl: 0 }; break;
-        case "11": targets = { zw500: 226, zw1000: 86, zw1500: 74, zb: 14.4, zl: 0 }; break;
-        case "12": targets = { zw500: 226, zw1000: 86, zw1500: 74, zb: 14.4, zl: 0 }; break;
+        case "10": targets = { zw500: 230, zw1000: 90, zw1500: 80, zb: 15.0, zl: 0 }; break;
+        case "11": targets = { zw500: 230, zw1000: 87, zw1500: 73, zb: 14.4, zl: 0 }; break;
+        case "12": targets = { zw500: 230, zw1000: 87, zw1500: 73, zb: 14.4, zl: 0 }; break;
       };
       vm.m = m;
       var targetobj = {
@@ -272,9 +272,9 @@
           case "07": targets = { zw500: 235, zw1000: 80, zw1500: 80, zb: 0, zl: 0 }; break;
           case "08": targets = { zw500: 235, zw1000: 80, zw1500: 80, zb: 0, zl: 0 }; break;
           case "09": targets = { zw500: 235, zw1000: 80, zw1500: 80, zb: 14.4, zl: 0 }; break;
-          case "10": targets = { zw500: 226, zw1000: 80, zw1500: 80, zb: 21.6, zl: 21 }; break;
-          case "11": targets = { zw500: 226, zw1000: 86, zw1500: 74, zb: 14.4, zl: 21 }; break;
-          case "12": targets = { zw500: 226, zw1000: 86, zw1500: 74, zb: 14.4, zl: 21 }; break;
+          case "10": targets = { zw500: 230, zw1000: 90, zw1500: 80, zb: 15.0, zl: 0 }; break;
+          case "11": targets = { zw500: 230, zw1000: 87, zw1500: 73, zb: 14.4, zl: 0 }; break;
+          case "12": targets = { zw500: 230, zw1000: 87, zw1500: 73, zb: 14.4, zl: 0 }; break;
         };
         var targetobj = {
           //date: $filter('date')(firstnum, 'yyyy-MM-dd'),
