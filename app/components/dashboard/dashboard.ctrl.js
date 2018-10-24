@@ -39,12 +39,12 @@
 
     function createWeekChart(adat) {
       var prodline = vm.prodline;
-      var wp = []; var wa = []; var wd = [];
+      var wp = []; var wa = []; var wd = []; var wq4 = [];
       var lwp = []; var lwm = [];
       for (var w = 1; w < 53; w++) {
         wp.push([w, 0]);
         wa.push([w, 0]);
-        if (w < new Date().getWeekNumber() || (new Date().getWeekNumber() == w && new Date().getDay() > 1))
+        if (w < new Date().getWeekNumber() || (new Date().getWeekNumber() == w && new Date().getDay() > 1)) 
           wd.push([w, 0]);
         lwp.push([w, 0]);
         lwm.push([w, 0]);
@@ -64,10 +64,16 @@
               wd[w - 1][1] += adat.data[i].TotalDiff;*/
             wp[w - 1][1] += adat.data[i][vm.prodline + "Plan"];
             wa[w - 1][1] += adat.data[i][vm.prodline + "Actual"];
-            if (w >= 2 && wd[w - 1][1] == 0)
-              wd[w - 1][1] += wd[w - 2][1] + adat.data[i][vm.prodline + "Diff"];
-            else
+            if (w >= 2 && wd[w - 1][1] == 0){
+              if (w == 40){
+                wd[w - 1][1] += adat.data[i][vm.prodline + "Diff"];
+              } else {
+                wd[w - 1][1] += wd[w - 2][1] + adat.data[i][vm.prodline + "Diff"];
+              }
+            }
+            else {
               wd[w - 1][1] += adat.data[i][vm.prodline + "Diff"];
+            }
           }
         }
       }
