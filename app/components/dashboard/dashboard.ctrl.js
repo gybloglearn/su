@@ -44,7 +44,7 @@
       for (var w = 1; w < 53; w++) {
         wp.push([w, 0]);
         wa.push([w, 0]);
-        if (w < new Date().getWeekNumber() || (new Date().getWeekNumber() == w && new Date().getDay() > 1)) 
+        if (w < new Date().getWeekNumber() || (new Date().getWeekNumber() == w && new Date().getDay() > 1))
           wd.push([w, 0]);
         lwp.push([w, 0]);
         lwm.push([w, 0]);
@@ -257,14 +257,13 @@
       loadrewinder();
       loadspinline();
       loadsm();
-      lodpotting();
-      //loadclorination();
+      /*lodpotting();
       loadrework();
       loadmtf();
       load1000potting();
       load1000etf();
       load1500etf();
-      loadbundle();
+      loadbundle();*/
       loadsap();
     }
 
@@ -439,6 +438,9 @@
             else if (vm.data[i].date == response.data[j].Day && response.data[j].type == "3148766") {
               vm.data[i].zlsm += response.data[j].aeq;
             }
+            if (i == vm.data.length-1 && j == response.data.length-1){
+              lodpotting();
+            }
           }
         }
       });
@@ -464,6 +466,9 @@
             }
             else if (response.data[j].MachineName != "Potting" && vm.data[i].date == response.data[j].Day && response.data[j].aeq && response.data[j].type == "3148766") {
               vm.data[i].zlpotting += response.data[j].aeq;
+            }
+            if (i == vm.data.length-1 && j == response.data.length-1){
+              loadrework();
             }
           }
         }
@@ -521,6 +526,9 @@
                 }
               }
             }
+            if (i == vm.data.length-1 && j == response.data.length-1){
+              loadmtf();
+            }
           }
         }
       });
@@ -546,6 +554,9 @@
             }
             else if (vm.data[i].date == response.data[j].Day && response.data[j].aeq && response.data[j].type == "3148766") {
               vm.data[i].zlgraded += response.data[j].aeq;
+            }
+            if (i == vm.data.length-1 && j == response.data.length-1){
+              load1000potting();
             }
           }
         }
@@ -599,9 +610,11 @@
             /*if (vm.data[k].date == response.data[j].Grade_Day) {
               vm.data[k].grade1000 += response.data[j].aeq
             }*/
+            if (k == vm.data.length-1 && j == response.data.length-1){
+              load1000etf();
+            }
           }
         }
-        vm.loading = false;
       });
     }
 
@@ -631,6 +644,9 @@
             }
             if (vm.data[k].date == response.data[j].Grade_Day && response.data[j].Grade != "Scrap" && response.data[j].Grade != "") {
               vm.data[k].grade1000 += response.data[j].aeq
+            }
+            if (k == vm.data.length-1 && j == response.data.length-1){
+              load1500etf();
             }
           }
         }
@@ -667,6 +683,9 @@
             else if (vm.data[i].date == response.data[j].day && response.data[j].PhaseName == "Grade") {
               vm.data[i].grade1500 += response.data[j].AEQ;
             }
+            if (i == vm.data.length-1 && j == response.data.length-1){
+              loadbundle();
+            }
           }
         }
       });
@@ -701,6 +720,9 @@
               }
               else if (vm.data[i].date == response.data[j].SPL_end && !response.data[j].bundle.includes("3132313")) {
                 vm.data[i].spl1000 += response.data[j].AEQ;
+              }
+              if (i == vm.data.length-1 && j == response.data.length-1){
+               vm.loading = false;
               }
             }
           }
