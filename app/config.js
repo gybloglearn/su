@@ -39,6 +39,16 @@
 			templateUrl: './app/components/scrap/scrap.html' + '?' + cp,
 			controller: 'ScrapController',
 			controllerAs: 'vm'
+		}).state('downtimepotting', {
+			url: 'downtimepotting',
+			templateUrl: './app/components/downtimepotting/downtimepotting.html' + '?' + cp,
+			controller: 'DowntimepottingController',
+			controllerAs: 'vm'
+		}).state('downtimechlor', {
+			url: 'downtimechlor',
+			templateUrl: './app/components/downtimechlor/downtimechlor.html' + '?' + cp,
+			controller: 'DowntimechlorController',
+			controllerAs: 'vm'
 		}).state('login', {
       url: '/login',
       templateUrl: './app/components/login/login.html' + '?' + cp,

@@ -5,13 +5,11 @@
     .module('app')
     .controller('DashboardController', DashboardController);
 
-  DashboardController.$inject = ['$state', '$cookies', '$rootScope', '$filter', 'WeeksumService'];
-  function DashboardController($state, $cookies, $rootScope, $filter, WeeksumService) {
+  DashboardController.$inject = ['$state', '$cookies', '$rootScope', '$mdDialog', '$filter', 'WeeksumService'];
+  function DashboardController($state, $cookies, $rootScope, $mdDialog, $filter, WeeksumService) {
     var vm = this;
     vm.date = new Date();
-    vm.maxdate=new Date();
-    //vm.startdatenum = $filter('date')(new Date().getTime(), 'yyyy-MM-dd');
-    //vm.enddatenum = $filter('date')(new Date().getTime() + (24 * 60 * 60 * 1000), 'yyyy-MM-dd');
+    vm.maxdate = new Date();
     vm.now = $filter('date')(new Date().getTime(), 'yyyy-MM-dd HH:mm');
     vm.days = [];
     vm.data = [];
@@ -101,7 +99,14 @@
             },
             plotOptions: {
               column: {
-                stacking: 'normal'
+                stacking: 'normal',
+                events: {
+                  click: function (ev) {
+                    /*console.log(ev.point.category);
+                    console.log(ev.point.options.cat + " - " + ev.point.series.name);*/
+                    createinfo(ev.point.category, ev.point.series.name);
+                  }
+                }
               }
             },
             xAxis: { type: 'category', categories: vm.xAxisData },
@@ -127,6 +132,188 @@
           vm.load = false;
         });
       });
+    }
+
+    function loadinfo() {
+      vm.pottinginfo = [];
+
+      WeeksumService.getpotting().then(function (resp) {
+        vm.pottinginfo = resp.data;
+      });
+    }
+    function loadclorinationinfo() {
+      vm.clorinationinfo = [];
+
+      WeeksumService.getclorination().then(function (resp) {
+        vm.clorinationinfo = resp.data;
+      });
+    }
+
+    function createinfo(categ, name) {
+      if (name == "Potting flip" || name == "Centrifuga End") {
+        vm.startinfo = vm.startdatenum + " " + categ + ":" + "00";
+        vm.endinfo = vm.startdatenum + " " + categ + ":" + "00";
+
+        loadinfo();
+        create_potting_dialog(vm.createinfodata);
+      }
+      else if (name == "Klórozó ki") {
+        vm.createinfodata = {};
+        //vm.actplace = "";
+        vm.cat = "";
+        vm.descriptioninfo = "";
+        vm.startclor = vm.startdatenum + " " + categ + ":" + "00";
+        vm.endclor = vm.startdatenum + " " + categ + ":" + "00";
+
+        loadclorinationinfo();
+        create_chlorination_dialog(vm.createinfodata);
+      }
+    }
+
+    function create_potting_dialog(item) {
+      console.log(item);
+      vm.item = item;
+      $mdDialog.show({
+        controller: DialogController,
+        templateUrl: './app/components/dashboard/dialog.potting.html',
+        parent: angular.element(document.body),
+        clickOutsideToClose: true
+      })
+        .then(function (answer) {
+          $scope.status = 'You said the information was "' + answer + '".';
+        }, function () {
+          $scope.status = 'You cancelled the dialog.';
+        });
+    }
+
+    function create_chlorination_dialog(item) {
+      console.log(item);
+      vm.item = item;
+      $mdDialog.show({
+        controller: DialogController,
+        templateUrl: './app/components/dashboard/dialog.chlorination.html',
+        parent: angular.element(document.body),
+        clickOutsideToClose: true
+      })
+        .then(function (canswer) {
+          $scope.status = 'You said the information was "' + canswer + '".';
+        }, function () {
+          $scope.status = 'You cancelled the dialog.';
+        });
+    }
+
+    function DialogController($scope, $mdDialog) {
+      $scope.pottings = ["Statik", "Dinamik"];
+      $scope.categories = [
+        { id: "Statik", cat: "Robot" },
+        { id: "Statik", cat: "Uretánhőmérséklet" },
+        { id: "Statik", cat: "Anyaghiány" },
+        { id: "Statik", cat: "Mobil klíma vízelvezetés" },
+        { id: "Statik", cat: "Keverési arány hiba" },
+        { id: "Statik", cat: "Komponens beszáradás" },
+        { id: "Statik", cat: "Munkahenger hiba" },
+        { id: "Statik", cat: "Uretánkötési hiba" },
+        { id: "Statik", cat: "Klemp hiba" },
+        { id: "Statik", cat: "Létszámhiány" },
+        { id: "Statik", cat: "Mold hiány" },
+        { id: "Statik", cat: "Alapanyaghiba" },
+        { id: "Statik", cat: "Egyéb" },
+        { id: "Dinamik", cat: "Burkolat nyitás és csukási hiba" },
+        { id: "Dinamik", cat: "Frekiváltó nem pörget" },
+        { id: "Dinamik", cat: "Frekiváltó vészkör hiba" },
+        { id: "Dinamik", cat: "Stukt fejet nem veszi fel/ teszi le uretán" },
+        { id: "Dinamik", cat: "Soft fejet nem veszi fel/ teszi le" },
+        { id: "Dinamik", cat: "Uretán keverési arány hiba" },
+        { id: "Dinamik", cat: "Uretán „B” frekiváltó hiba" },
+        { id: "Dinamik", cat: "55g után az öntés megáll" },
+        { id: "Dinamik", cat: "Uretánkifolyás" },
+        { id: "Dinamik", cat: "Uretánhőmérséklet" },
+        { id: "Dinamik", cat: "Hiba nélküli megállás" },
+        { id: "Dinamik", cat: "PLC szerint uretán beadagolva, valóságban nem" },
+        { id: "Dinamik", cat: "Centri cső alapanyaghiba" },
+        { id: "Dinamik", cat: "Anyaghiány Statikról" },
+        { id: "Dinamik", cat: "Létszámhiány" },
+        { id: "Dinamik", cat: "Próbapörgetés" },
+        { id: "Dinamik", cat: "Rossz pozícióba önt" },
+        { id: "Dinamik", cat: "Egyéb" }
+      ];
+      $scope.subcategories = [
+        { main: "Robot", sub: "Nem veszi fel a fésűt" },
+        { main: "Robot", sub: "Nem kezdi el a fésülési folyamatot" },
+        { main: "Robot", sub: "Nem teszi le a fésűt" },
+        { main: "Robot", sub: "Nem veszi fel az öntőfejet" },
+        { main: "Robot", sub: "Nem kezdi el az öntési folyamatot" },
+        { main: "Robot", sub: "Nem teszi le az öntőfejet" },
+        { main: "Robot", sub: "9-es ág öntési út állítás" },
+        { main: "Robot", sub: "Lefagy" },
+        { main: "Uretánhőmérséklet", sub: "magas" },
+        { main: "Uretánhőmérséklet", sub: "alacsony" },
+        { main: "Anyaghiány", sub: "Nedves bundle" },
+        { main: "Anyaghiány", sub: "SPL anyaghiány" },
+        { main: "Anyaghiány", sub: "Egyéb" },
+      ];
+      $scope.chlorcategories = ["Anyaghiány Pottingról","Létszámhiány","Kamlock csatlakozó hiba","Szivárgás","Szivattyú","PH beállítás","Érzékelő hiba","Segédeszköz hiány","Egyéb"];
+      $scope.mch = "";
+      $scope.cat = "";
+      $scope.scat = "";
+      $scope.descriptioninfo = "";
+
+      $scope.id = new Date().getTime();
+      $scope.sso = $rootScope.user.username;
+      $scope.operator_name = $rootScope.user.displayname
+      $scope.start = vm.startinfo;
+      $scope.end = vm.endinfo;
+      
+      $scope.cstart = vm.startclor;
+      $scope.cend = vm.endclor;
+      $scope.ccat = "";
+      $scope.descriptionchlor = "";
+
+      $scope.hide = function () {
+        $mdDialog.hide();
+      };
+
+      $scope.cancel = function () {
+        $mdDialog.cancel();
+      };
+
+      $scope.answer = function (fhid, fhsso, fhopname, fhstart, fhend, fhmch, fhcat, fhscat, fhdescr) {
+        var data = {
+          id: fhid,
+          sso: fhsso,
+          operator_name: fhopname,
+          start: fhstart,
+          end: fhend,
+          time: (new Date(fhend).getTime() - new Date(fhstart).getTime()) / 60000,
+          pottingid: fhmch,
+          category: fhcat,
+          subcategory: fhscat,
+          description: fhdescr
+        }
+        console.log(data);
+        WeeksumService.postpotting(data).then(function (resp) {
+          data = {};
+        });
+        $mdDialog.hide(fhid, fhsso, fhopname, fhstart, fhend, fhmch, fhcat, fhscat, fhdescr);
+      };
+
+      $scope.chlor_answer = function (cid, csso, copname, cstart, cend, ccat, cdescr) {
+        var data = {
+          id: cid,
+          sso: csso,
+          operator_name: copname,
+          start: cstart,
+          end: cend,
+          time: (new Date(cend).getTime() - new Date(cstart).getTime()) / 60000,
+          category: ccat,
+          description: cdescr
+        }
+        console.log(data);
+        WeeksumService.postclorination(data).then(function (resp) {
+          data = {};
+        });
+        $mdDialog.hide(cid, csso, copname, cstart, cend, ccat, cdescr);
+      };
     }
 
     function activate() {

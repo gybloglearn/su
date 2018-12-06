@@ -1,0 +1,52 @@
+<md-dialog>
+    <form ng-cloak>
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>Klórozó</h2>
+                <span flex></span>
+                <md-icon class="material-icons" ng-click="cancel()">cancel</md-icon>
+            </div>
+        </md-toolbar>
+
+        <md-dialog-content>
+            <div layout="row" style="margin-top:10px">
+                <span style="margin:10px" class="input-group-addon">Kezdő Dátum</span>
+                <input type="text" class="form-control" ng-model="cstart">
+                <span style="margin:10px" class="input-group-addon">Vége Dátum</span>
+                <input type="text" class="form-control" ng-model="cend">
+                <span style="margin:10px" class="input-group-addon">Kategória</span>
+                <md-select ng-model="ccat">
+                    <md-option ng-repeat="cct in chlorcategories" ng-value="cct">{{cct}}</md-option>
+                </md-select>
+            </div>
+            <div layout=row style="margin-top:10px">
+                <span style="margin:10px" class="input-group-addon">Megjegyzés</span>
+                <textarea class="form-control" rows="4" ng-model="descriptionchlor"></textarea>
+                <span style="margin:10px">
+                    <h3>Feltöltési segédlet Klórozó</h3>
+                    <p>Adatokat akkor lehet rögzíteni ha a következő kritériumoknak felelnek meg az input mezők:
+                        <br> -vége dátumnak nagyobbnak kell lenni mint a kezdő dátumnak (mindkettő szerkeszthető
+                        kézzel,de a formátumnak
+                        meg kell egyeznie az alábbival:yyyy-MM-dd HH:mm:mm)
+                        <br> -pottingot kell választani ahol a hiba történt(statik/dinamik)
+                        <br> -kategória mezőt kell választani ami a kieső idő okát jelenti,amennyiben nincs a listában
+                        úgy az egyéb mező
+                        választásával a megjegyzés mezőbe lehet beírni az okot
+                        <br> -alkategória mező választható,de ennek a kitöltése nem kötelező,a megjegyzés mező
+                        használható kiegészítésre is
+                    </p>
+                </span>
+            </div>
+        </md-dialog-content>
+
+        <md-dialog-actions layout="row">
+            <span flex></span>
+            <md-button ng-click="chlor_answer(id,sso,operator_name,cstart,cend,ccat,descriptionchlor)" ng-disabled="ccat=='' || cstart>=cend">
+                Mentés
+            </md-button>
+            <md-button ng-click="cancel()" class="md-primary">
+                Mégse
+            </md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>

@@ -48,6 +48,14 @@
 						<div flex class="md-list-item-text">Selejt</div>
 						<md-icon class="material-icons">dashboard</md-icon>
 					</md-list-item>
+					<md-list-item ui-sref="downtimepotting" ng-click="close()">
+						<div flex class="md-list-item-text">Potting állásidők</div>
+						<md-icon class="material-icons">dashboard</md-icon>
+					</md-list-item>
+					<md-list-item ui-sref="downtimechlor" ng-click="close()">
+						<div flex class="md-list-item-text">Klórozó állásidők</div>
+						<md-icon class="material-icons">dashboard</md-icon>
+					</md-list-item>
 				</md-list>
 				<md-divider></md-divider>
 				<!--h1 class="md-headline">&nbsp;Gyorslinkek</h1>
@@ -137,6 +145,10 @@
 	<script src="app/components/services/qc.service.js"></script>
 	<script src="app/components/scrap/scrap.ctrl.js"></script>
 	<script src="app/components/services/scrap.service.js"></script>
+	<script src="app/components/downtimepotting/downtimepotting.ctrl.js"></script>
+	<script src="app/components/services/downtimepotting.service.js"></script>
+	<script src="app/components/downtimechlor/downtimechlor.ctrl.js"></script>
+	<script src="app/components/services/downtimechlor.service.js"></script>
 	<!--endbuild-->
 	<!--adds-->
 	<script>
