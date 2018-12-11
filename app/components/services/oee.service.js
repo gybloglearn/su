@@ -10,7 +10,9 @@
     var service = {
       getpartnumber: getpartnumber,
       getsmfile: getsmfile,
-      getsm: getsm
+      getsm: getsm,
+      getsmtoday: getsmtoday,
+      getsheet: getsheet
     };
 
     return service;
@@ -30,10 +32,24 @@
       };
       return $http(req);
     }
+    function getsmtoday(date) {
+      var req = {
+        method: 'GET',
+        url: 'app/components/PHP/sumsmjsontoday.php?startdate=' + date
+      };
+      return $http(req);
+    }
     function getsm(start, end, mch) {
       var req = {
         method: 'GET',
         url: 'app/components/PHP/ZW500_SM.php?startdate=' + start + '&enddate=' + end + '&report_id=' + mch
+      };
+      return $http(req);
+    }
+    function getsheet(start, end) {
+      var req = {
+        method: 'GET',
+        url: 'app/components/PHP/Smtable.php?startdate=' + start + '&enddate=' + end
       };
       return $http(req);
     }
