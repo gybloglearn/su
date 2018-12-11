@@ -56,6 +56,14 @@
 						<div flex class="md-list-item-text">Klórozó állásidők</div>
 						<md-icon class="material-icons">dashboard</md-icon>
 					</md-list-item>
+					<md-list-item ui-sref="putmoduls" ng-click="close()" ng-show="user.displayname && (user.username=='212434909'||user.username=='502678184' || user.username=='113005942'|| user.username=='212360352'|| user.username=='113010769'|| user.username=='113008605'|| user.username=='113009708'|| user.username=='113009907'|| user.username=='113010478'|| user.username=='113010132'|| user.username=='113010400'|| user.username=='212552899'|| user.username=='113005507')">
+						<div flex class="md-list-item-text">Modul tárolás</div>
+						<md-icon class="material-icons">dashboard</md-icon>
+					</md-list-item>
+					<md-list-item ui-sref="checkmoduls" ng-click="close()" ng-show="user.displayname && (user.username=='212434909'||user.username=='502678184' || user.username=='113005942')">
+							<div flex class="md-list-item-text">Tárolt modulok követése</div>
+							<md-icon class="material-icons">dashboard</md-icon>
+						</md-list-item>
 				</md-list>
 				<md-divider></md-divider>
 				<!--h1 class="md-headline">&nbsp;Gyorslinkek</h1>
@@ -149,6 +157,11 @@
 	<script src="app/components/services/downtimepotting.service.js"></script>
 	<script src="app/components/downtimechlor/downtimechlor.ctrl.js"></script>
 	<script src="app/components/services/downtimechlor.service.js"></script>
+	<script src="app/components/putmoduls/putmoduls.ctrl.js"></script>
+	<script src="app/components/services/putmoduls.service.js"></script>
+	<script src="app/components/checkmoduls/checkmoduls.ctrl.js"></script>
+	<script src="app/components/services/checkmoduls.service.js"></script>
+	<script src="app/components/directives/Places/place.js"></script>
 	<!--endbuild-->
 	<!--adds-->
 	<script>

@@ -1,0 +1,14 @@
+<md-content layout="row" layout-sm="column" layout-xs="column">
+  <div layout-padding flex>
+    <h1 class="md-display-2" layout="row">
+      <span flex>Modul tárolás</span>
+      <md-button class="md-fab md-primary md-hue-2">
+        <md-icon class="material-icons">dashboard</md-icon>
+      </md-button>
+    </h1>
+    <md-divider></md-divider>
+      <div flex=75 ng-repeat="item in [0,1,2,3,4]">
+        <place-dir nm="item" data="vm.data[item]"></place-dir>
+      </div>
+  </div>
+</md-content>

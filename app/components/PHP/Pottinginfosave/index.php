@@ -184,8 +184,8 @@ class positions{
     function put($app,$params)
     {
         $data=json_decode($app['BODY']);
-        $db = new \DB\SQL('pgsql:host=localhost;dbname=ZW1500Place','postgres','abcd');
-        //$db=new \DB\SQL('pgsql:host=localhost;dbname=zw1500place','postgres','abc912');
+        //$db = new \DB\SQL('pgsql:host=localhost;dbname=ZW1500Place','postgres','abcd');
+        $db=new \DB\SQL('pgsql:host=localhost;dbname=zw1500place','postgres','abc912');
         $mapper=new \DB\SQL\Mapper($db,'positions');
         $info=$mapper->load(Array('id=?',$params['id']));
         $info->outsso=$data->outsso; //ki sso
@@ -202,8 +202,8 @@ class positions{
     }
     function delete($app,$params)
     {
-        $db = new \DB\SQL('pgsql:host=localhost;dbname=ZW1500Place','postgres','abcd');
-        //$db=new \DB\SQL('pgsql:host=localhost;dbname=zw1500place','postgres','abc912');
+        //$db = new \DB\SQL('pgsql:host=localhost;dbname=ZW1500Place','postgres','abcd');
+        $db=new \DB\SQL('pgsql:host=localhost;dbname=zw1500place','postgres','abc912');
         $mapper=new DB\SQL\Mapper($db,'positions');
         $info=$mapper->find(Array('id=?',$params['id']));
         $info[0]->erase();

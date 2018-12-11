@@ -49,6 +49,16 @@
 			templateUrl: './app/components/downtimechlor/downtimechlor.html' + '?' + cp,
 			controller: 'DowntimechlorController',
 			controllerAs: 'vm'
+		}).state('putmoduls', {
+			url: 'putmoduls',
+			templateUrl: './app/components/putmoduls/putmoduls.html' + '?' + cp,
+			controller: 'PutmodulsController',
+			controllerAs: 'vm'
+		}).state('checkmoduls', {
+			url: 'checkmoduls',
+			templateUrl: './app/components/checkmoduls/checkmoduls.html' + '?' + cp,
+			controller: 'CheckmodulsController',
+			controllerAs: 'vm'
 		}).state('login', {
       url: '/login',
       templateUrl: './app/components/login/login.html' + '?' + cp,

@@ -1,0 +1,82 @@
+<md-content layout="row" layout-sm="column" layout-xs="column">
+  <div layout-padding flex>
+    <h1 class="md-display-2" layout="row">
+      <span flex>Rögzített modulok nyomonkövetése</span>
+      <md-button class="md-fab md-primary md-hue-2">
+        <md-icon class="material-icons">dashboard</md-icon>
+      </md-button>
+    </h1>
+    <md-divider></md-divider>
+    <md-content>
+      <div layout-gt-xs="row">
+        <md-input-container>
+          <label>Év</label>
+          <md-select ng-model="search.inyear">
+            <md-option ng-value="">Mind</md-option>
+            <md-option ng-repeat="yr in vm.years" ng-value="yr">{{yr}}</md-option>
+          </md-select>
+        </md-input-container>
+        <md-input-container>
+          <label>Minősítése</label>
+          <md-select ng-model="search.quality">
+            <md-option ng-value="">Mind</md-option>
+            <md-option ng-repeat="q in vm.qual" ng-value="q">{{q}}</md-option>
+          </md-select>
+        </md-input-container>
+        <md-input-container>
+          <label>Modul</label>
+          <md-select ng-model="search.item">
+            <md-option ng-value="">Mind</md-option>
+            <md-option ng-repeat="mo in vm.moduls" ng-value="{{mo.Values}}">{{mo.Label}}-{{mo.Values}}</md-option>
+          </md-select>
+        </md-input-container>
+        <md-input-container>
+          <label>Modul</label>
+          <input type="text" ng-model="search.dose" maxlength="10">
+        </md-input-container>
+      </div>
+    </md-content>
+    <md-content>
+        <md-table-container flex>
+          <table md-table>
+            <thead md-head>
+              <tr md-row>
+                  <th md-column>Pozíció</th>
+                  <th md-column>Hely</th>
+                  <th md-column>Modul</th>
+                  <th md-column>Adagszám</th>
+                  <th md-column>Minősítés</th>
+                  <th md-column>SSO be</th>
+                  <th md-column>Név be</th>
+                  <th md-column>Szak be</th>
+                  <th md-column>Felvétel ideje</th>
+                  <th md-column>SSO ki</th>
+                  <th md-column>Név ki</th>
+                  <th md-column>Szak ki</th>
+                  <th md-column>Kiadás ideje</th>
+                  <th md-column>Megjegyzés</th>
+              </tr>
+            </thead>
+            <tbody md-body>
+              <tr md-row ng-repeat="piece in vm.data | filter: search track by $index">
+                  <td md-cell>{{piece.code}}</td>
+                  <td md-cell>{{piece.place}}</td>
+                  <td md-cell>{{piece.item}}</td>
+                  <td md-cell>{{piece.dose}}</td>
+                  <td md-cell>{{piece.quality}}</td>
+                  <td md-cell>{{piece.insso}}</td>
+                  <td md-cell>{{piece.inname}}</td>
+                  <td md-cell>{{piece.inshift}}</td>
+                  <td md-cell>{{piece.indate}}</td>
+                  <td md-cell>{{piece.outsso}}</td>
+                  <td md-cell>{{piece.outname}}</td>
+                  <td md-cell>{{piece.outshift}}</td>
+                  <td md-cell>{{piece.outdate}}</td>
+                  <td md-cell>{{piece.description}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </md-table-container>
+    </md-content>
+  </div>
+</md-content>

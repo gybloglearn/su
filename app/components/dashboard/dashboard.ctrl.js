@@ -104,7 +104,9 @@
                   click: function (ev) {
                     /*console.log(ev.point.category);
                     console.log(ev.point.options.cat + " - " + ev.point.series.name);*/
-                    createinfo(ev.point.category, ev.point.series.name);
+                    if ($rootScope.user.displayname && ($rootScope.user.username == '212434909' || $rootScope.user.username == '502678184' || $rootScope.user.username == '212360352' || $rootScope.user.username == '113010769' || $rootScope.user.username == '113008605' || $rootScope.user.username == '113009708' || $rootScope.user.username == '113009907' || $rootScope.user.username == '113010478' || $rootScope.user.username == '113010132' || $rootScope.user.username == '113010400' || $rootScope.user.username == '212552899' || $rootScope.user.username == '113005507')) {
+                      createinfo(ev.point.category, ev.point.series.name);
+                    }
                   }
                 }
               }
@@ -252,7 +254,7 @@
         { main: "Anyaghiány", sub: "SPL anyaghiány" },
         { main: "Anyaghiány", sub: "Egyéb" },
       ];
-      $scope.chlorcategories = ["Anyaghiány Pottingról","Létszámhiány","Kamlock csatlakozó hiba","Szivárgás","Szivattyú","PH beállítás","Érzékelő hiba","Segédeszköz hiány","Egyéb"];
+      $scope.chlorcategories = ["Anyaghiány Pottingról", "Létszámhiány", "Kamlock csatlakozó hiba", "Szivárgás", "Szivattyú", "PH beállítás", "Érzékelő hiba", "Segédeszköz hiány", "Egyéb"];
       $scope.mch = "";
       $scope.cat = "";
       $scope.scat = "";
@@ -263,7 +265,7 @@
       $scope.operator_name = $rootScope.user.displayname
       $scope.start = vm.startinfo;
       $scope.end = vm.endinfo;
-      
+
       $scope.cstart = vm.startclor;
       $scope.cend = vm.endclor;
       $scope.ccat = "";

@@ -1,0 +1,67 @@
+<!--direktíva-->
+<md-content>
+    <div layout=row>
+        <div flex=75 style="margin:10px">
+            <md-input-container>
+                <md-button class="md-primary md-raised" ng-click="select();ok='true'">Lekérdezés</md-button>
+            </md-input-container>
+        </div>
+    </div>
+    <md-table-container flex>
+        <table md-table>
+            <thead md-head>
+                <tr md-row>
+                    <th colspan="9">{{nm+1}}. Pozíció</th>
+                </tr>
+                <tr md-row>
+                    <th>Hely</th>
+                    <th>Cikkszám</th>
+                    <th>Adagszám</th>
+                    <th>Minősítés</th>
+                    <th>Dátum</th>
+                    <th>Szak</th>
+                    <th>Megjegyzés</th>
+                    <th ng-show="ok=='true'">Felvétel</th>
+                    <th ng-show="ok=='true'">Kiadás</th>
+                </tr>
+            </thead>
+            <tbody md-body>
+                <tr md-row ng-repeat="pln in [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]">
+                    <td md-cell>{{pln+1}}</td>
+                    <td md-cell ng-hide="ok=='true'&&!tabledata[pln].item">{{tabledata[pln].item}}</td>
+                    <td md-cell ng-show="ok=='true'&&!tabledata[pln].item">
+                        <md-select class="form-control" ng-model="nowitem">
+                            <md-option ng-repeat="cn in moduls" value="{{cn.Values}}">{{cn.Values}}-{{cn.Label}}</md-option>
+                        </md-select>
+                    </td>
+                    <td md-cell ng-hide="ok=='true'&&!tabledata[pln].dose">{{tabledata[pln].dose}}</td>
+                    <td md-cell ng-show="ok=='true'&& !tabledata[pln].dose">
+                        <input class="form-control" type="text" ng-model="nowdose" ng-change="check(nowitem,nowdose,pln)"
+                            maxlength="10">
+                    </td>
+                    <td md-cell>{{tabledata[pln].quality}}</td>
+                    <td md-cell>{{tabledata[pln].indate}}</td>
+                    <td md-cell>{{tabledata[pln].inshift}}</td>
+                    <td md-cell>
+                        <textarea class="form-control" rows="1" ng-model="tabledata[pln].description"></textarea>
+                    </td>
+                    <td md-cell ng-show="ok=='true'">
+                        <md-button class="md-fab md-success md-hue-2" ng-disabled="tabledata[pln].inshift || !nowitem ||!tabledata[pln].quality||tabledata[pln].quality=='A+'|| !beviheto"
+                            ng-click="createinfo(pln,nowitem,nowdose,tabledata[pln].quality,tabledata[pln].description)">
+                            <md-icon class="material-icons">
+                                edit
+                            </md-icon>
+                        </md-button>
+                    </td>
+                    <td md-cell ng-show="ok=='true'">
+                        <md-button class="md-fab md-primary md-hue-2" ng-disabled="!tabledata[pln].inshift" ng-click="outinfo(tabledata[pln])">
+                            <md-icon class="material-icons">
+                                play_arrow
+                            </md-icon>
+                        </md-button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </md-table-container>
+</md-content>
