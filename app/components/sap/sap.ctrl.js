@@ -57,10 +57,10 @@
           zw500kd.push({ x: new Date(data.data[i].NAP).getTime(), y: data.data[i].ZW0500kummDIFF, color: data.data[i].ZW0500kummDIFF < 0 ? '#de2533' : '#46ad00', highlight: data.data[i].ZW0500kummDIFF < 0 ? '#de2533' : '#46ad00' });
           vm.zw500chconfig = returnChartConf('ZW500', data.crdate, zw500a, zw500d, zw500kd, zeroline, zw500p);
 
-          zbp.push({ x: new Date(data.data[i].NAP).getTime(), y: data.data[i].ZBPlan, color: '#005CB9' });
-          zba.push({ x: new Date(data.data[i].NAP).getTime(), y: data.data[i].ZBActual, highlight: data.data[i].ZBDiff < 0 ? '#de2533' : '#46ad00' });
-          zbd.push({ x: new Date(data.data[i].NAP).getTime(), y: data.data[i].ZBDiff, color: data.data[i].ZBDiff < 0 ? '#de2533' : '#46ad00', highlight: data.data[i].ZBDiff < 0 ? '#de2533' : '#46ad00' });
-          zbkd.push({ x: new Date(data.data[i].NAP).getTime(), y: data.data[i].ZBkummDiff, color: data.data[i].ZBkummDiff < 0 ? '#de2533' : '#46ad00', highlight: data.data[i].ZBkummDiff < 0 ? '#de2533' : '#46ad00' });
+          zbp.push({ x: new Date(data.data[i].NAP).getTime(), y: data.data[i].ZW500SPlan, color: '#005CB9' });
+          zba.push({ x: new Date(data.data[i].NAP).getTime(), y: data.data[i].ZW500SActual, highlight: data.data[i].ZW500SDiff < 0 ? '#de2533' : '#46ad00' });
+          zbd.push({ x: new Date(data.data[i].NAP).getTime(), y: data.data[i].ZW500SDiff, color: data.data[i].ZW500SDiff < 0 ? '#de2533' : '#46ad00', highlight: data.data[i].ZW500SDiff < 0 ? '#de2533' : '#46ad00' });
+          zbkd.push({ x: new Date(data.data[i].NAP).getTime(), y: data.data[i].ZW500SkummDiff, color: data.data[i].ZW500SkummDiff < 0 ? '#de2533' : '#46ad00', highlight: data.data[i].ZW500SkummDiff < 0 ? '#de2533' : '#46ad00'});
           vm.zbchconfig = returnChartConf('ZeeBlok', data.crdate, zba, zbd, zbkd, zeroline, zbp);
 
           zlp.push({ x: new Date(data.data[i].NAP).getTime(), y: data.data[i].ZLPlan, color: '#005CB9' });
