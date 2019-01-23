@@ -34,6 +34,11 @@
 			templateUrl: './app/components/rewindersum/rewindersum.html' + '?' + cp,
 			controller: 'RewindersumController',
 			controllerAs: 'vm'
+		}).state('plan', {
+			url: 'plan',
+			templateUrl: './app/components/plan/plan.html' + '?' + cp,
+			controller: 'PlanController',
+			controllerAs: 'vm'
 		}).state('login', {
       url: '/login',
       templateUrl: './app/components/login/login.html' + '?' + cp,

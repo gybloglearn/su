@@ -71,11 +71,11 @@
       for (var j = 0; j < vm.chartdata.length; j++) {
         for (var k = 0; k < arr.length; k++) {
           if (vm.chartdata[j].date == arr[k].date && arr[k].ShiftNum == "1") {
-            vm.chartdata[j].dayaeq += (arr[k].ProducedLength / 9300);
+            vm.chartdata[j].dayaeq += (arr[k].ProducedLength / 8900);
             vm.chartdata[j].daycount += arr[k].P_Count;
           }
           else if (vm.chartdata[j].date == arr[k].date && arr[k].ShiftNum == "3") {
-            vm.chartdata[j].nightaeq += (arr[k].ProducedLength / 9300);
+            vm.chartdata[j].nightaeq += (arr[k].ProducedLength / 8900);
             vm.chartdata[j].nightcount += arr[k].P_Count;
           }
         }
@@ -180,11 +180,11 @@
         var edob = [];
         for (var j = 0; j < t2.length; j++) {
           if (t1[i].date == t2[j].date && t2[j].ShiftNum == "1") {
-            naeq.push([t2[j].MachineName, parseInt(t2[j].ProducedLength / 9300)]);
+            naeq.push([t2[j].MachineName, parseInt(t2[j].ProducedLength / 8900)]);
             ndob.push([t2[j].MachineName, parseInt(t2[j].P_Count)]);
           }
           else if (t1[i].date == t2[j].date && t2[j].ShiftNum == "3") {
-            eaeq.push([t2[j].MachineName, parseInt(t2[j].ProducedLength / 9300)]);
+            eaeq.push([t2[j].MachineName, parseInt(t2[j].ProducedLength / 8900)]);
             edob.push([t2[j].MachineName, parseInt(t2[j].P_Count)]);
           }
         }

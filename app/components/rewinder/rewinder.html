@@ -42,27 +42,27 @@
                 <td md-cell>
                   <a style="cursor: pointer" ng-click="vm.actmch=item.nev;vm.actshift='1';vm.loaddetails();">{{item.meternappal}}</a>
                 </td>
-                <td md-cell>{{item.meternappal/9300|number:0}}</td>
+                <td md-cell>{{item.meternappal/8900|number:0}}</td>
                 <td md-cell>{{item.cnappal}}</td>
                 <td md-cell>
                   <a style="cursor: pointer" ng-click="vm.actmch=item.nev;vm.actshift='3';vm.loaddetails();">{{item.meterejszaka}}</a>
                 </td>
-                <td md-cell>{{item.meterejszaka/9300|number:0}}</td>
+                <td md-cell>{{item.meterejszaka/8900|number:0}}</td>
                 <td md-cell>{{item.cejszaka|number:0}}</td>
                 <td md-cell>{{item.meternapi}}</td>
-                <td md-cell>{{item.meternapi/9300|number:0}}</td>
+                <td md-cell>{{item.meternapi/8900|number:0}}</td>
                 <td md-cell>{{item.cnapi}}</td>
               </tr>
               <tr md-row>
                 <td md-cell>Összesen</td>
                 <td md-cell>{{vm.selectdata| sumField:'meternappal'|number:0}}</td>
-                <td md-cell>{{(vm.selectdata| sumField:'meternappal')/9300|number:0}}</td>
+                <td md-cell>{{(vm.selectdata| sumField:'meternappal')/8900|number:0}}</td>
                 <td md-cell>{{vm.selectdata| sumField:'cnappal'|number:0}}</td>
                 <td md-cell>{{vm.selectdata| sumField:'meterejszaka'|number:0}}</td>
-                <td md-cell>{{(vm.selectdata| sumField:'meterejszaka')/9300|number:0}}</td>
+                <td md-cell>{{(vm.selectdata| sumField:'meterejszaka')/8900|number:0}}</td>
                 <td md-cell>{{vm.selectdata| sumField:'cejszaka'|number:0}}</td>
                 <td md-cell>{{vm.selectdata| sumField:'meternapi'|number:0}}</td>
-                <td md-cell>{{(vm.selectdata| sumField:'meternapi')/9300|number:0}}</td>
+                <td md-cell>{{(vm.selectdata| sumField:'meternapi')/8900|number:0}}</td>
                 <td md-cell>{{vm.selectdata| sumField:'cnapi'|number:0}}</td>
               </tr>
             </tbody>
