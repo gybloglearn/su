@@ -39,6 +39,11 @@
 			templateUrl: './app/components/plan/plan.html' + '?' + cp,
 			controller: 'PlanController',
 			controllerAs: 'vm'
+		}).state('day', {
+			url: 'day',
+			templateUrl: './app/components/day/day.html' + '?' + cp,
+			controller: 'DayController',
+			controllerAs: 'vm'
 		}).state('login', {
       url: '/login',
       templateUrl: './app/components/login/login.html' + '?' + cp,

@@ -1,0 +1,125 @@
+<md-content layout="row" layout-sm="column" layout-xs="column" flex-gt-sm="80" flex-offset-gt-sm="10">
+  <div layout-padding flex>
+    <h1 class="md-display-2" layout="row">
+      <span flex>Napi összesítő</span>
+      <md-button class="md-fab md-primary md-hue-2">
+        <md-icon class="material-icons">dashboard</md-icon>
+      </md-button>
+    </h1>
+    <md-divider>
+      <div layout-gt-xs="row">
+        <div flex=25>
+          <h2>
+            <i class="material-icons">filter_list</i> Szűrő</h2>
+          <p>
+            Válassz az alábbi dátum mezőből kijelezni kívánt napot:
+          </p>
+          <br>
+          <md-input-container>
+            <md-datepicker ng-model="vm.date" md-max-date="vm.maxdate" ng-change="vm.getrewinder()"></md-datepicker>
+          </md-input-container>
+          <md-input-container>
+            <span>Méter/AEQ</span>
+            <md-select ng-model="vm.meteraeq">
+              <md-option value="aeq">AEQ</md-option>
+              <md-option value="meter">Méter</md-option>
+            </md-select>
+          </md-input-container>
+        </div>
+        <div flex=40>
+          <md-table-container flex>
+            <table md-table>
+              <thead md-head>
+                <tr md-row>
+                  <th md-column>Szak</th>
+                  <th md-column>Áthengerlő</th>
+                </tr>
+              </thead>
+              <tbody md-body>
+                <tr md-row ng-repeat="shn in [1,3] track by $index">
+                  <td md-cell>
+                    <h3><strong>{{shn | shift:vm.datenum}}</strong> - {{shn==1?'DE':'ÉJ'}}</h3>
+                  </td>
+                  <td md-cell ng-if="vm.meteraeq=='aeq'">
+                    <h3 class="{{vm.iconize(((vm.data | filter:{ ShiftNum: shn}) | sumField:'ProducedLength_aeq'),shn)}}"><sup
+                        class="targetTag">{{vm.target(shn) | number:2 }}</sup><strong>{{(vm.data | filter:{ ShiftNum:
+                        shn}) | sumField:'ProducedLength_aeq'|number:2}}</strong></h3>
+                  </td>
+                  <td md-cell ng-if="vm.meteraeq=='meter'">
+                    <h3 class="{{vm.iconize(((vm.data | filter:{ ShiftNum: shn}) | sumField:'ProducedLength'),shn)}}"><sup
+                        class="targetTag">{{vm.target(shn)|number:2}}</sup><strong>{{(vm.data | filter:{ ShiftNum:
+                        shn})| sumField:'ProducedLength'}}</strong></h3>
+                  </td>
+                </tr>
+                <tr md-row>
+                  <td md-cell>
+                    <h3><strong>Össz:</strong></h3>
+                  </td>
+                  <td md-cell ng-if="vm.meteraeq=='aeq'">
+                    <h3 class="{{vm.iconize((vm.data  | sumField:'ProducedLength_aeq'),0)}}"><sup class="targetTag">{{vm.target(0)
+                        | number:2 }}</sup><strong>{{(vm.data | sumField:'ProducedLength_aeq')|number:2}}</strong></h3>
+                  </td>
+                  <td md-cell ng-if="vm.meteraeq=='meter'">
+                    <h3 class="{{vm.iconize((vm.data  | sumField:'ProducedLength'),0)}}"><sup class="targetTag">{{vm.target(0)|number:2}}</sup><strong>{{(vm.data
+                        | sumField:'ProducedLength')}}</strong></h3>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </md-table-container>
+        </div>
+      </div>
+    </md-divider>
+    <md-divider>
+      <div layout-gt-xs="row">
+        <div flex=25>
+          <strong>Szűrés Szakra</strong>
+          <br>
+          <md-input-container>
+            <span>Szak</span>
+            <md-select ng-model="vm.actshiftnum" ng-change="vm.rewindertarget()">
+              <md-option value="">Mind</md-option>
+              <md-option ng-repeat="sh in vm.shifts" value="{{sh}}">{{sh == 1?'DE':'ÉJ'}}</md-option>
+            </md-select>
+          </md-input-container>
+        </div>
+        <div flex=50>
+          <md-table-container>
+            <table md-table>
+              <thead md-head>
+                <tr md-row>
+                  <th md-column>Rewinder</th>
+                  <th md-column>Méter(terv)</th>
+                  <th md-column>Méter(tényleges)</th>
+                  <th md-column>AEQ</th>
+                </tr>
+              </thead>
+              <tbody md-body>
+                <tr md-row ng-repeat="rw in vm.rewinders track by $index">
+                  <td md-cell>{{rw|name_change}}</td>
+                  <td md-cell>{{vm.rwtarget|number:0}}</td>
+                  <td md-cell>{{(vm.data | filter:{ ShiftNum: vm.actshiftnum,MachineName:rw}) |
+                    sumField:'ProducedLength'|number:0}}
+                    <span class="icongreen" ng-show="vm.rwtarget <= ((vm.data | filter:{ ShiftNum: vm.actshiftnum,MachineName:rw}) | sumField:'ProducedLength')">
+                      <i class="material-icons">done</i>
+                    </span>
+                    <span class="iconred" ng-show="vm.rwtarget > ((vm.data | filter:{ ShiftNum: vm.actshiftnum,MachineName:rw}) | sumField:'ProducedLength')">
+                      <i class="material-icons">clear</i>
+                    </span></td>
+                  <td md-cell>{{(vm.data | filter:{ ShiftNum: vm.actshiftnum,MachineName:rw}) |
+                    sumField:'ProducedLength_aeq'|number:2}}
+                    <span class="icongreen" ng-show="vm.rwtarget <= ((vm.data | filter:{ ShiftNum: vm.actshiftnum,MachineName:rw}) | sumField:'ProducedLength')">
+                      <i class="material-icons">done</i>
+                    </span>
+                    <span class="iconred" ng-show="vm.rwtarget > ((vm.data | filter:{ ShiftNum: vm.actshiftnum,MachineName:rw}) | sumField:'ProducedLength')">
+                      <i class="material-icons">clear</i>
+                    </span></td>
+                </tr>
+              </tbody>
+            </table>
+          </md-table-container>
+        </div>
+      </div>
+    </md-divider>
+  </div>
+</md-content>

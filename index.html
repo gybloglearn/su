@@ -32,12 +32,16 @@
 			</md-toolbar>
 			<md-content>
 				<md-list flex>
-					<md-list-item ui-sref="rewindersum" ng-click="close()">
-						<div flex class="md-list-item-text">Rewinder összesítő</div>
+					<md-list-item ui-sref="day" ng-click="close()">
+						<div flex class="md-list-item-text">Napi jelentés</div>
 						<md-icon class="material-icons">dashboard</md-icon>
 					</md-list-item>
 					<md-list-item ui-sref="rewinder" ng-click="close()">
 						<div flex class="md-list-item-text">Rewinder</div>
+						<md-icon class="material-icons">dashboard</md-icon>
+					</md-list-item>
+					<md-list-item ui-sref="rewindersum" ng-click="close()">
+						<div flex class="md-list-item-text">Rewinder összesítő</div>
 						<md-icon class="material-icons">dashboard</md-icon>
 					</md-list-item>
 					<md-list-item ng-show="user.displayname && (user.username == '212434909' || user.username == '502678184'||user.username=='212613864' || user.username=='113008037')"
@@ -46,7 +50,7 @@
 						<md-icon class="material-icons">dashboard</md-icon>
 					</md-list-item>
 					<md-list-item ui-sref="dashboard" ng-click="close()">
-						<div flex class="md-list-item-text">Vezérlőpult</div>
+						<div flex class="md-list-item-text">Heti összesítő</div>
 						<md-icon class="material-icons">dashboardk</md-icon>
 					</md-list-item>
 				</md-list>
@@ -131,6 +135,7 @@
 	<script src="app/components/services/login.service.js"></script>
 	<script src="app/components/login/login.ctrl.js"></script>
 	<script src="app/components/dashboard/dashboard.ctrl.js"></script>
+	<script src="app/components/day/day.ctrl.js"></script>
 	<!--script src="app/components/quicklinks/quicklinks.ctrl.js"></script-->
 	<script src="app/components/rewinder/rewinder.ctrl.js"></script>
 	<script src="app/components/services/rewinder.service.js"></script>
@@ -139,6 +144,8 @@
 	<script src="app/components/plan/plan.ctrl.js"></script>
 	<script src="app/components/services/plan.service.js"></script>
 	<script src="app/components/services/dashboard.service.js"></script>
+	<script src="app/components/services/day.service.js"></script>
+	<script src="app/components/filters/name_change.js"></script>
 	<!--endbuild-->
 	<!--adds-->
 	<script>

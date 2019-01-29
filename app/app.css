@@ -43,3 +43,9 @@ h1,h2 { font-family: 'Open Sans Condensed'; font-weight: 100;}
 .iconred{
   color: red;
 }
+.targetTag {
+  display: block;
+  float: left;
+  font-size: 0.5em;
+  margin-left: -10px;
+}
