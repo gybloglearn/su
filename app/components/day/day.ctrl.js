@@ -20,6 +20,7 @@
     vm.actshiftnum = "";
     vm.meteraeq = "aeq";
     vm.rewindernum = 152000;
+    vm.loading = false;
 
     $rootScope.close = function () {
       $mdSidenav('left').close();
@@ -52,6 +53,7 @@
     }
 
     function getrewinder() {
+      vm.loading = true;
       vm.datenum = $filter('date')(new Date(vm.date), 'yyyy-MM-dd');
       vm.data = [];
       vm.load = true;
@@ -69,13 +71,14 @@
         vm.load = false;
         console.log(vm.data);
         rewindertarget();
+        vm.loading = false;
       });
     }
 
     function rewindertarget() {
       vm.rwtarget = 0;
-      var mdate=$filter('date')(new Date(vm.maxdate).getTime(), 'yyyy-MM-dd');
-      var ddate=$filter('date')(new Date(vm.date).getTime(), 'yyyy-MM-dd');
+      var mdate = $filter('date')(new Date(vm.maxdate).getTime(), 'yyyy-MM-dd');
+      var ddate = $filter('date')(new Date(vm.date).getTime(), 'yyyy-MM-dd');
 
       if (mdate == ddate) {
         var num = new Date().getHours() * 60 + new Date().getMinutes();
@@ -115,8 +118,8 @@
     }
 
     function target(shiftnum) {
-      var mdate=$filter('date')(new Date(vm.maxdate).getTime(), 'yyyy-MM-dd');
-      var ddate=$filter('date')(new Date(vm.date).getTime(), 'yyyy-MM-dd');
+      var mdate = $filter('date')(new Date(vm.maxdate).getTime(), 'yyyy-MM-dd');
+      var ddate = $filter('date')(new Date(vm.date).getTime(), 'yyyy-MM-dd');
       var target = 0;
       var dayaeq = 0;
       var daymeter = 0;
@@ -198,8 +201,8 @@
     }
 
     function iconize(number, shiftnum) {
-      var mdate=$filter('date')(new Date(vm.maxdate).getTime(), 'yyyy-MM-dd');
-      var ddate=$filter('date')(new Date(vm.date).getTime(), 'yyyy-MM-dd');
+      var mdate = $filter('date')(new Date(vm.maxdate).getTime(), 'yyyy-MM-dd');
+      var ddate = $filter('date')(new Date(vm.date).getTime(), 'yyyy-MM-dd');
       var target = 0;
       var dayaeq = 0;
       var daymeter = 0;
@@ -278,17 +281,9 @@
           }
         }
       }
-      
+
       if (number > 0) {
-       /* console.log(target);
-        console.log(number);
-        return number < target ? 'red' : 'green';*/
-        if(number<target){
-          return 'red';
-        }
-        else{
-          return 'green'
-        }
+        return number < target ? 'iconred' : 'icongreen';
       }
 
     }

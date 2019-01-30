@@ -1,3 +1,4 @@
+<md-progress-linear md-mode="indeterminate" ng-show="vm.loading"></md-progress-linear>
 <md-content layout="row" layout-sm="column" layout-xs="column" flex-gt-sm="80" flex-offset-gt-sm="10">
   <div layout-padding flex>
     <h1 class="md-display-2" layout="row">
@@ -22,7 +23,7 @@
             <md-datepicker ng-model="vm.enddate" md-max-date="vm.maxdate"></md-datepicker>
           </md-input-container>
           <br>
-          <md-button class="md-primary md-raised" ng-click="vm.create_dates()">Szűrés</md-button>
+          <md-button class="md-primary md-raised"  ng-disable="vm.loading" ng-click="vm.create_dates()">Szűrés</md-button>
           <hr>
           <h2>
             <i class="material-icons">gps_fixed</i>Célok</h2>

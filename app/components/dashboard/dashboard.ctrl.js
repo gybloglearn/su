@@ -12,12 +12,14 @@
     vm.startdate = $filter('date')(new Date().getTime() - 7 * 24 * 1000 * 60 * 60, 'yyyy-MM-dd');
     vm.enddate = $filter('date')(new Date().getTime() - 24 * 1000 * 60 * 60, 'yyyy-MM-dd');
     vm.create_dates = create_dates;
+    vm.loading=false;
 
     activate();
 
     ////////////////
 
     function create_dates() {
+      vm.loading=true;
       vm.dates = [];
       vm.loaddates = [];
       vm.size = 0;
@@ -59,6 +61,7 @@
             vm.data.push(d[k]);
           }
           console.log(vm.data);
+          vm.loading=false;
         });
       }
       console.log(vm.acttarget);

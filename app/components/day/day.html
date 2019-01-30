@@ -9,6 +9,7 @@
     <md-divider>
       <div layout-gt-xs="row">
         <div flex=25>
+            <md-progress-linear md-mode="indeterminate" ng-show="vm.loading"></md-progress-linear>
           <h2>
             <i class="material-icons">filter_list</i> Szűrő</h2>
           <p>
@@ -16,7 +17,7 @@
           </p>
           <br>
           <md-input-container>
-            <md-datepicker ng-model="vm.date" md-max-date="vm.maxdate" ng-change="vm.getrewinder()"></md-datepicker>
+            <md-datepicker ng-model="vm.date" md-max-date="vm.maxdate" ng-disable="vm.loading" ng-change="vm.getrewinder()"></md-datepicker>
           </md-input-container>
           <md-input-container>
             <span>Méter/AEQ</span>
