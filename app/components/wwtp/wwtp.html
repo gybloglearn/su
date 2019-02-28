@@ -1,0 +1,64 @@
+<md-content layout="row" layout-sm="column" layout-xs="column" flex="100" flex-gt-sm="80" flex-offset-gt-sm="10">
+  <div layout-padding flex>
+    <h1 class="md-display-2" layout="row">
+      <span flex>Szennyvít telep</span>
+      <md-button class="md-fab md-primary md-hue-2">
+        <md-icon class="material-icons">insert_chart_outlined</md-icon>
+      </md-button>
+    </h1>
+    <md-divider></md-divider>
+
+    <iframe width="100%" height="600" frameborder="0" scrolling="no" src="https://one4u.sharepoint.com/sites/Termels-IWWTPsttusz/_layouts/15/Doc.aspx?sourcedoc={c178399b-9ba5-418f-bacb-f0c815aae6a8}&action=embedview&wdAllowInteractivity=False&wdHideGridlines=True&wdHideHeaders=True&wdDownloadButton=True&wdInConfigurator=True"></iframe>
+
+<!--
+    <md-fab-toolbar md-open="vm.isOpen" md-direction="right">
+      <md-fab-trigger class="align-with-text">
+        <md-button aria-label="menu" class="md-primary md-fab md-hue-3">
+          <md-icon class="material-icons">insert_chart</md-icon>
+        </md-button>
+      </md-fab-trigger>
+      <md-toolbar>
+      <md-fab-actions class="md-toolbar-tools md-primary md-hue-3">
+        <md-button aria-label="comment" class="md-button md-primary md-hue-3 md-raised" ng-click="vm.ch = 'Nyers víz';vm.load();">Nyers víz</md-button>
+        <md-button aria-label="comment" class="md-button md-accent md-hue-2 md-raised" ng-click="vm.ch = 'Szűrt víz';vm.load();">Szűrt víz</md-button>
+      </md-fab-actions>
+    </md-toolbar>
+    </md-fab-toolbar>
+
+    <my-chart flex="90" options="vm.wwtpChart" id="wwtpChart"></my-chart>
+
+    <md-table-container>
+      <table md-table>
+        <thead md-head>
+          <tr md-row>
+            <th width="10%" rowspan="2" md-column style="background: #888"><span>Dátum</span></th>
+            <th width="40%" colspan="4" md-column><span>Nyers Víz</span></th>
+            <th width="30%" colspan="3" md-column style="background: #badb2a"><span>Szűrt Víz</span></th>
+          </tr>
+          <tr md-row>
+            <th width="10%" md-column md-numeric><span style="color:red">KOI</span></th>
+            <th width="10%" md-column md-numeric><span style="color: rgb(0,176,80)">TN</span></th>
+            <th width="10%" md-column md-numeric><span style="color: rgb(0,112,192)">FCl</span></th>
+            <th width="10%" md-column md-numeric><span style="color: rgb(250,230,0)">DeFCl</span></th>
+            <th width="10%" md-column md-numeric style="background: #badb2a"><span style="color:rgb(0,112,192)">KOI</span></th>
+            <th width="10%" md-column md-numeric style="background: #badb2a"><span style="color: rgb(0,176,80)">Ammónia</span></th>
+            <th width="10%" md-column md-numeric style="background: #badb2a"><span style="color: red">Hőmérséklet</span></th>
+          </tr>
+        </thead>
+        <tbody md-body>
+          <tr md-row ng-repeat="da in vm.data track by $index">
+            <td md-cell><span style="color:#888">{{da.day}}</span></td>
+            <td md-cell><span style="color:red">{{da.nykoi}}</span></td>
+            <td md-cell><span style="color:rgb(0,176,80)">{{da.nytn}}</span></td>
+            <td md-cell><span style="color:rgb(0,112,192)">{{da.nyfcl}}</span></td>
+            <td md-cell><span style="color:rgb(250,230,0)">{{da.nydecl}}</span></td>
+            <td md-cell><span style="color:rgb(0,112,192)">{{da.szkoi}}</span></td>
+            <td md-cell><span style="color:rgb(0,176,80)">{{da.szam}}</span></td>
+            <td md-cell><span style="color:red">{{da.szhom}}</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </md-table-container>-->
+
+  </div>
+</md-content>
