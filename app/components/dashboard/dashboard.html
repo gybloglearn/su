@@ -34,8 +34,9 @@
           <md-button aria-label="comment" class="md-button md-primary md-hue-2 md-raised" ng-click="vm.prodline = 'ZW0500';vm.redrawChart();">ZW0500</md-button>
           <md-button aria-label="comment" class="md-button md-primary md-hue-2 md-raised" ng-click="vm.prodline = 'ZW1000';vm.redrawChart();">ZW1000</md-button>
           <md-button aria-label="comment" class="md-button md-primary md-hue-2 md-raised" ng-click="vm.prodline = 'ZW1500';vm.redrawChart();">ZW1500</md-button>
-          <md-button aria-label="comment" class="md-button md-primary md-hue-1 md-raised" ng-click="vm.prodline = 'ZB';vm.redrawChart();">ZB</md-button>
+          <md-button aria-label="comment" class="md-button md-primary md-hue-1 md-raised" ng-click="vm.prodline = 'ZW500S';vm.redrawChart();">ZB</md-button>
           <md-button aria-label="comment" class="md-button md-primary md-hue-1 md-raised" ng-click="vm.prodline = 'ZL';vm.redrawChart();">ZL</md-button>
+          <md-button aria-label="comment" class="md-button md-primary md-hue-1 md-raised" ng-click="vm.prodline = 'ZW700B';vm.redrawChart();">ZW700B</md-button>
         </md-fab-actions>
       </md-toolbar>
     </md-fab-toolbar>
@@ -267,6 +268,16 @@
                 <td class="target" md-cell><i>{{vm.target.grade1500|number:1}}</i></td>
                 <td md-cell ng-repeat="dat in vm.data"><span class="{{dat.sap1500 >=  dat.target.grade1500 ?'green':(dat.sap1500 >=  dat.target.grade1500*0.95?'yellow':'red')}}">{{dat.sap1500|number:1}}</span></td>
               </tr>
+			<!-- ZW700B -->
+							<tr md-row>
+								<th md-head>
+									<span style="display:block;transform: rotate(0deg);">ZW700B</span>
+								</th>
+                <th md-head class="target" style="cursor: pointer" ng-click="vm.chartize('sap700B', 'ZW700B SAP')">SAP lejelentett</th>
+                <td class="total" md-cell><b>{{vm.data | sumField:'sap700B' | number:1}}</b> - <i>{{(vm.data | sumField:'sap700B')/(vm.dates.length) | number:1}}</i></td>
+                <td class="target" md-cell><i>{{vm.target.grade700B|number:1}}</i></td>
+                <td md-cell ng-repeat="dat in vm.data"><span class="{{dat.sap700B >=  dat.target.grade700B ?'green':(dat.sap700B >=  dat.target.grade700B*0.95?'yellow':'red')}}">{{dat.sap700B|number:1}}</span></td>
+							</tr>
           </tbody>
         </table>
       </md-table-container>

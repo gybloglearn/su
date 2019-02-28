@@ -62,18 +62,14 @@
               wd[w - 1][1] += wd[w - 2][1] + adat.data[i].TotalDiff;
             else
               wd[w - 1][1] += adat.data[i].TotalDiff;*/
-            wp[w - 1][1] += adat.data[i][vm.prodline + "Plan"];
+						wp[w - 1][1] += adat.data[i][vm.prodline + "Plan"];
             wa[w - 1][1] += adat.data[i][vm.prodline + "Actual"];
             if (w >= 2 && wd[w - 1][1] == 0){
-              if (w == 40){
-                wd[w - 1][1] += adat.data[i][vm.prodline + "Diff"];
-              } else {
-                wd[w - 1][1] += wd[w - 2][1] + adat.data[i][vm.prodline + "Diff"];
-              }
+              wd[w - 1][1] += wd[w - 2][1] + adat.data[i][vm.prodline + "Diff"];
             }
             else {
               wd[w - 1][1] += adat.data[i][vm.prodline + "Diff"];
-            }
+						}
           }
         }
       }
@@ -188,7 +184,10 @@
           centrifugeend1500: 0,
           bpend1500: 0,
           grade1500: 0,
-          sap1500: 0
+          sap1500: 0,
+					//zw700B
+					grade700B: 0,
+					zw700B: 0
         }
         vm.data.push(obj);
         vm.dates.push($filter('date')(firstnum, 'yyyy-MM-dd'));
@@ -198,14 +197,9 @@
       var m = $filter('date')(new Date().getTime(), 'MM');
       var targets = {};
       switch (m) {
-        case "05": targets = { zw500: 226, zw1000: 70, zw1500: 80, zb: 0, zl: 0 }; break;
-        case "06": targets = { zw500: 226, zw1000: 70, zw1500: 80, zb: 0, zl: 0 }; break;
-        case "07": targets = { zw500: 235, zw1000: 80, zw1500: 80, zb: 0, zl: 0 }; break;
-        case "08": targets = { zw500: 235, zw1000: 80, zw1500: 80, zb: 0, zl: 0 }; break;
-        case "09": targets = { zw500: 235, zw1000: 80, zw1500: 80, zb: 14.4, zl: 0 }; break;
-        case "10": targets = { zw500: 235, zw1000: 82.5, zw1500: 80, zb: 15.0, zl: 0 }; break;
-        case "11": targets = { zw500: 235, zw1000: 85, zw1500: 67, zb: 15.0, zl: 0 }; break;
-        case "12": targets = { zw500: 235, zw1000: 75, zw1500: 67, zb: 15.0, zl: 0 }; break;
+				case "01": targets = { zw500: 230, zw1000: 75, zw1500: 67, zb: 15, zl: 0, zw700B:15 }; break;
+				case "02": targets = { zw500: 230, zw1000: 75, zw1500: 67, zb: 15, zl: 0, zw700B:15 }; break;
+				case "03": targets = { zw500: 230, zw1000: 75, zw1500: 67, zb: 0, zl: 0, zw700B:10 }; break;
       };
       vm.m = m;
       var targetobj = {
@@ -249,7 +243,10 @@
         centrifugeend1500: targets.zw1500 * 1.008,
         bpend1500: targets.zw1500,
         grade1500: targets.zw1500,
-        sap1500: targets.zw1500
+        sap1500: targets.zw1500,
+				//zw700B
+				grade700B: targets.zw700B,
+				sap700B: targets.zw700B
       };
 
       vm.target = targetobj;
@@ -272,14 +269,9 @@
         var m = $filter('date')(new Date(vm.data[i].date).getTime(), 'MM');
         var targets = {};
         switch (m) {
-          case "05": targets = { zw500: 226, zw1000: 70, zw1500: 80, zb: 0, zl: 0 }; break;
-          case "06": targets = { zw500: 226, zw1000: 70, zw1500: 80, zb: 0, zl: 0 }; break;
-          case "07": targets = { zw500: 235, zw1000: 80, zw1500: 80, zb: 0, zl: 0 }; break;
-          case "08": targets = { zw500: 235, zw1000: 80, zw1500: 80, zb: 0, zl: 0 }; break;
-          case "09": targets = { zw500: 235, zw1000: 80, zw1500: 80, zb: 14.4, zl: 0 }; break;
-          case "10": targets = { zw500: 235, zw1000: 82.5, zw1500: 80, zb: 15.0, zl: 0 }; break;
-          case "11": targets = { zw500: 235, zw1000: 85, zw1500: 67, zb: 15.0, zl: 0 }; break;
-          case "12": targets = { zw500: 235, zw1000: 75, zw1500: 67, zb: 15.0, zl: 0 }; break;
+					case "01": targets = { zw500: 230, zw1000: 75, zw1500: 67, zb: 15, zl: 0, zw700B: 15 }; break;
+					case "02": targets = { zw500: 230, zw1000: 75, zw1500: 67, zb: 15, zl: 0, zw700B: 15 }; break;
+					case "03": targets = { zw500: 230, zw1000: 75, zw1500: 67, zb: 0, zl: 0, zw700B: 10 }; break;
         };
         var targetobj = {
           //date: $filter('date')(firstnum, 'yyyy-MM-dd'),
@@ -322,7 +314,10 @@
           centrifugeend1500: targets.zw1500 * 1.008,
           bpend1500: targets.zw1500,
           grade1500: targets.zw1500,
-          sap1500: targets.zw1500
+          sap1500: targets.zw1500,
+					//zw700B
+					grade700B: targets.zw700B,
+					sap700B: targets.zw700B
         };
         vm.data[i].target = targetobj;
       }
@@ -342,8 +337,9 @@
               vm.data[i].sap0500 = d.data[j].ZW0500Actual;
               vm.data[i].sap1000 = d.data[j].ZW1000Actual;
               vm.data[i].sap1500 = d.data[j].ZW1500Actual;
-              vm.data[i].sapZB = d.data[j].ZBActual;
+              vm.data[i].sapZB = d.data[j].ZW500SActual;
               vm.data[i].sapZL = d.data[j].ZLActual;
+							vm.data[i].sap700B = d.data[j].ZW700BActual;
             }
           }
         }
@@ -388,7 +384,7 @@
             for (var k = 0; k < vm.data.length; k++) {
               var dt=$filter('date')(new Date(vm.data[k].date).getTime(),'yyyyMMdd');
               if (v == dt) {
-                vm.data[k].rewinder += response.data[j].ProducedLength / 9300;
+                vm.data[k].rewinder += response.data[j].ProducedLength / 8900;
               }
             }
           }
