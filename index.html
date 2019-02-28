@@ -32,6 +32,10 @@
 			</md-toolbar>
 			<md-content>
 				<md-list flex>
+					<md-list-item ui-sref="wwtp" ng-click="close()">
+						<div flex class="md-list-item-text">Szennyvíz telep</div>
+						<md-icon class="material-icons">dashboard</md-icon>
+					</md-list-item>
 					<md-list-item ui-sref="dashboard" ng-click="close()">
 						<div flex class="md-list-item-text">Vezérlőpult</div>
 						<md-icon class="material-icons">dashboardk</md-icon>
@@ -120,6 +124,8 @@
 	<script src="app/components/dashboard/dashboard.ctrl.js"></script>
 	<script src="app/components/quicklinks/quicklinks.ctrl.js"></script>
 		<script src="app/components/services/dashboard.service.js"></script>
+	<script src="app/components/wwtp/wwtp.ctrl.js"></script>
+	<script src="app/components/services/wwtpdata.service.js"></script>
 	<!--endbuild--><!--adds-->
 	<script>
 		angular.bootstrap(document, ['app']);

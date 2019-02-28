@@ -25,6 +25,11 @@
 			templateUrl: './app/components/quicklinks/quicklinks.html' + '?' + cp,
 			controller: 'QuicklinksController',
 			controllerAs: 'vm'
+		}).state('wwtp', {
+			url: 'wwtp',
+			templateUrl: './app/components/wwtp/wwtp.html' + '?' + cp,
+			controller: 'WwtpController',
+			controllerAs: 'vm'
 		}).state('login', {
       url: '/login',
       templateUrl: './app/components/login/login.html' + '?' + cp,
