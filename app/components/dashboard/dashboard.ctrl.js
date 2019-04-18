@@ -199,7 +199,10 @@
       switch (m) {
 				case "01": targets = { zw500: 230, zw1000: 75, zw1500: 67, zb: 15, zl: 0, zw700B:15 }; break;
 				case "02": targets = { zw500: 230, zw1000: 75, zw1500: 67, zb: 15, zl: 0, zw700B:15 }; break;
-				case "03": targets = { zw500: 230, zw1000: 75, zw1500: 67, zb: 0, zl: 0, zw700B:10 }; break;
+				case "03": targets = { zw500: 238, zw1000: 85, zw1500: 67, zb: 0, zl: 0, zw700B:10 }; break;
+				case "04": targets = { zw500: 238, zw1000: 85, zw1500: 43, zb: 0, zl: 0, zw700B:10 }; break;
+				case "05": targets = { zw500: 238, zw1000: 85, zw1500: 43, zb: 0, zl: 0, zw700B:10 }; break;
+				case "06": targets = { zw500: 238, zw1000: 85, zw1500: 43, zb: 0, zl: 0, zw700B:10 }; break;
       };
       vm.m = m;
       var targetobj = {
@@ -272,6 +275,9 @@
 					case "01": targets = { zw500: 230, zw1000: 75, zw1500: 67, zb: 15, zl: 0, zw700B: 15 }; break;
 					case "02": targets = { zw500: 230, zw1000: 75, zw1500: 67, zb: 15, zl: 0, zw700B: 15 }; break;
 					case "03": targets = { zw500: 230, zw1000: 75, zw1500: 67, zb: 0, zl: 0, zw700B: 10 }; break;
+					case "04": targets = { zw500: 238, zw1000: 85, zw1500: 43, zb: 0, zl: 0, zw700B:10 }; break;
+					case "05": targets = { zw500: 238, zw1000: 85, zw1500: 43, zb: 0, zl: 0, zw700B:10 }; break;
+					case "06": targets = { zw500: 238, zw1000: 85, zw1500: 43, zb: 0, zl: 0, zw700B:10 }; break;
         };
         var targetobj = {
           //date: $filter('date')(firstnum, 'yyyy-MM-dd'),
@@ -419,7 +425,7 @@
 							if(response.data[j].type == "3149069"){
 								response.data[j].SheetNum = 16;
 							}
-              response.data[j].aeq = (response.data[j].Totalsheets / response.data[j].SheetNum) * vm.partnumbers[i].aeq;
+              response.data[j].aeq = ((response.data[j].Totalsheets - response.data[j].ScrapSheets) / response.data[j].SheetNum) * vm.partnumbers[i].aeq;
             }
           }
         }

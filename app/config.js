@@ -30,6 +30,11 @@
 			templateUrl: './app/components/wwtp/wwtp.html' + '?' + cp,
 			controller: 'WwtpController',
 			controllerAs: 'vm'
+		}).state('evaluation', {
+			url: 'evaluation',
+			templateUrl: './app/components/evaluation/evaluation.html' + '?' + cp,
+			controller: 'EvaluationController',
+			controllerAs: 'vm'
 		}).state('login', {
       url: '/login',
       templateUrl: './app/components/login/login.html' + '?' + cp,

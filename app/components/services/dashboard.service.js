@@ -56,7 +56,7 @@
     function get1000partnumber() {
       var req = {
         method: 'GET',
-        url: 'app/components/PHP/ZW1000_moduls.json'
+        url: 'app/components/PHP/ZW1000_moduls.json?' + new Date().getTime().toString()
       };
       return $http(req);
     }
