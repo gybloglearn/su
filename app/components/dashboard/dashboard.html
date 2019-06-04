@@ -1,15 +1,16 @@
 <md-content layout="row" layout-sm="column" layout-xs="column" flex>
   <div layout-padding flex>
     <h1 class="md-display-2" layout="row">
-      <span class="md-display-4" flex>Teljesítménybónusz</span>
-      <b class="md-display-4 text-center" flex>JÚLIUS</b>
+      <span class="md-display-3" flex>Teljesítménybónusz</span>
+      <b class="md-display-4 text-center" flex>MÁJUS</b>
       <span class="md-display-4" style="text-align: right" flex>
-        {{vm.today}}
+        2019-06-04
       </span>
       <!--<md-button class="md-fab md-primary md-hue-2">
         <md-icon class="material-icons">info</md-icon>
       </md-button>-->
     </h1>
+		<div style="margin-top: -50px; margin-bottom: -10px;" layout="row" layout-align="end center"><b>Következő frissítés ideje: 2019-06-11</b></div>
     <md-divider></md-divider>
     <md-content layout="row">
       <!--<md-whiteframe class="md-whiteframe-4dp" flex="45" layout layout-padding layout-align="center center">
@@ -52,23 +53,36 @@
               </div>
             </div>
             <div layout="column" flex>
-              <span class="md-display-3 text-center" flex>Mennyiség</span>
-              <span class="md-display-2 text-center" style="color: #aaa">7 500 Ft</span>
-              <div layout="row" layout-align="center center">
-                <span class="material-icons green text-center" flex style="font-size: 150px;">mood</span>
+              <span class="md-display-3 text-center" flex style="margin-top: -40px">Mennyiség</span>
+							<span class="md-display-2 text-center" style="color: #aaa">7 500 Ft</span>
+							<!--<span class="md-display-2 text-center" style="color: #aaa">0 Ft</span>-->
+					    <div layout="row" layout-align="center center">
+								<span class="material-icons green text-center" flex style="font-size: 150px;">mood</span>
+								<!--<span class="material-icons red text-center" flex style="font-size: 150px;">mood_bad</span>-->
               </div>
+							<p style="text-align:center;margin-bottom:-10px;margin-top: -15px;"><span style="font-size:3.5em;">+171 AEQ</span><br><br>
+								<!--<table style="font-size:1.2em; margin-bottom: -60px">
+									<tr><td>ZW500: -42 AEQ</td><td>+ 140 AEQ jóváírás az Evolve gyártás miatt</td></tr>
+									<tr><td>ZeeBlok: -174 AEQ</td><td>Nem számít a bónuszba</td></tr>
+									<tr><td>ZW1000: -118 AEQ</td><td></td></tr>
+									<tr><td>ZW1500: -70 AEQ</td><td></td></tr>
+									</table>-->
+							<!--</p>-->
             </div>
             <div layout="column" flex>
               <span class="md-display-3 text-center" flex>Minőség</span>
-              <span class="md-display-2 text-center" style="color: #aaa">7 500 Ft</span>
+							<span class="md-display-2 text-center" style="color: #aaa">7 500 Ft</span>
+							<!--<span class="md-display-2 text-center" style="color: #aaa">0 Ft</span>-->
               <div layout="row" layout-align="center center">
-                <span class="material-icons green text-center" flex style="font-size: 150px;">mood</span>
+								<span class="material-icons green text-center" flex style="font-size: 150px;">mood</span>
+								<!--<span class="material-icons red text-center" flex style="font-size: 150px;">mood_bad</span>-->
               </div>
+							<!--<p style="text-align:center;margin-bottom:-10px;margin-top: -15px;"><span style="font-size:1.5em;">A lépcsős rendszer miatt nem jár</span><br><br>-->
             </div>
           </div>
           <md-divider></md-divider>
-          <span class="md-display-4 text-center" style="margin: 0px;background-color: rgb(0,13,66);color: white;padding: 20px;">Bent voltál: <span class="green">br. 30 000 Ft</span></span>
-          <span class="md-display-4 text-center" style="margin: 0px;background-color: rgb(0,13,66);color: white;padding: 20px;">Nem voltál bent: <span class="red">br. 0 Ft</span></span>
+					<span class="md-display-4 text-center" style="margin: 0px;background-color: rgb(0,13,66);color: white;padding: 20px;">Bent voltál: <span class="green">br. 40.000 Ft</span></span>
+						<span class="md-display-4 text-center" style="margin: 0px;background-color: rgb(0,13,66);color: white;padding: 20px;">Nem voltál bent: <span class="red">br. 0 Ft</span></span>
         </div>
       </md-whiteframe>
     </md-content>

@@ -21,7 +21,7 @@
         /*$rootScope.user = $cookies.getObject('user',{path: '/'});
         vm.user = $cookies.getObject('user', {path: '/'});*/
         vm.shift = $filter('shift')(1, new Date());
-        vm.today = $filter('date')(new Date(), 'yyyy-MM-dd');
+        vm.today = "2018-08-20"; //$filter('date')(new Date(), 'yyyy-MM-dd');
       //}
     }
   }
