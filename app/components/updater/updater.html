@@ -1,0 +1,93 @@
+<md-content layout="row" layout-sm="column" layout-xs="column">
+  <div layout-padding flex>
+		<md-content layout-padding>
+			<div layout="row">
+				<md-input-container flex>
+					<label>Hónap:</label>
+					<md-select ng-model="vm.month">
+						<md-option value="Január">Január</md-option>
+						<md-option value="Február">Február</md-option>
+						<md-option value="Március">Március</md-option>
+						<md-option value="Április">Áprlis</md-option>
+						<md-option value="Május">Május</md-option>
+						<md-option value="Június">Június</md-option>
+						<md-option value="Július">Július</md-option>
+						<md-option value="Augusztus">Augusztus</md-option>
+						<md-option value="Szeptember">Szeptember</md-option>
+						<md-option value="Október">Október</md-option>
+						<md-option value="November">November</md-option>
+						<md-option value="December">December</md-option>
+					</md-select>
+				</md-input-container>	
+				<md-input-container flex>
+					<label>Frissítés dátuma</label>
+					<input ng-model="vm.today" />
+				</md-input-container>
+				<md-input-container flex>
+					<label>Következő frissítés</label>
+					<input ng-model="vm.nextupdate" />
+				</md-input-container>
+				<md-input-container flex>
+					<md-switch name="quantity" ng-model="vm.quantity" ng-change="vm.sethuf()">Mennyiségi mutató</md-switch>
+				</md-input-container>
+				<md-input-container flex>
+					<label>Plusz / Mínusz AEQ</label>
+					<input ng-model="vm.pluszminusz" />
+				</md-input-container>
+				<md-input-container flex>
+					<md-switch name="quality" ng-model="vm.quality" ng-change="vm.sethuf()">Minőségi mutató</md-switch>
+				</md-input-container>
+				<md-button class="md-primary" ng-click="vm.save()">Mentés</md-button>
+			</div>
+		</md-content>
+  </div>
+</md-content>
+<md-divider></md-divider>
+<md-content layout="row" layout-sm="column" layout-xs="column" flex>
+  <div layout-padding flex>
+    <h1 class="md-display-2" layout="row">
+      <span class="md-display-3" flex>Teljesítménybónusz</span>
+			<b class="md-display-4 text-center" flex>{{vm.month|uppercase}}</b>
+			<span class="md-display-4" style="text-align: right" flex>{{vm.today}}</span>
+    </h1>
+		<div style="margin-top: -50px; margin-bottom: -10px;" layout="row" layout-align="end center"><b>Következő frissítés ideje: {{vm.nextupdate}}</b></div>
+    <md-divider></md-divider>
+    <md-content layout="row">
+      <md-whiteframe class="md-whiteframe-0dp" flex layout layout-padding layout-align="center center">
+        <div layout="column" flex>
+          <div layout="row" layout-align="center center" layout-padding="20" style="margin-bottom: 10px">
+            <div layout="column" flex>
+              <span class="md-display-3 text-center" flex>Jelenlét</span>
+              <span class="md-display-2 text-center" style="color: #aaa">20 000 Ft</span>
+              <div layout="row">
+                <span class="material-icons green text-center" flex style="font-size: 150px;">mood</span>
+                <span class="text-center" style="font-size: 150px" flex>^</span>
+                <span class="material-icons red text-center" flex style="font-size: 150px;">mood_bad</span>
+              </div>
+              <span class="md-display-2 text-center">Tőled függ!</span>
+            </div>
+            <div layout="column" flex>
+              <span class="md-display-3 text-center" flex style="margin-top: -40px">Mennyiség</span>
+							<span class="md-display-2 text-center" style="color: #aaa">{{vm.quantity?"10.000":"0"}} Ft</span>
+					    <div layout="row" layout-align="center center">
+								<span class="material-icons {{vm.quantity?'green':'red'}} text-center" flex style="font-size: 150px;">{{vm.quantity?'mood':'mood_bad'}}</span>
+              </div>
+							<p style="text-align:center;margin-bottom:-10px;margin-top: -15px;"><span style="font-size:3.5em;">{{vm.pluszminusz}} AEQ</span><br><br>
+            </div>
+            <div layout="column" flex>
+              <span class="md-display-3 text-center" flex stlye="margin-top: -40px">Minőség</span>
+							<span class="md-display-2 text-center" style="color: #aaa">{{vm.quality?"10.000":"0"}} Ft</span>
+              <div layout="row" layout-align="center center">
+								<span class="material-icons {{vm.quality?'green':'red'}} text-center" flex style="font-size: 150px;">{{vm.quality?'mood':'mood_bad'}}</span>
+              </div>
+							<p style="text-align:center;margin-bottom:-10px;margin-top: -15px;"><span style="font-size:3.5em;">&nbsp;</span><br><br>
+            </div>
+          </div>
+          <md-divider></md-divider>
+					<span class="md-display-4 text-center" style="margin: 0px;background-color: rgb(0,13,66);color: white;padding: 20px;">Bent voltál: <span class="green">br. {{vm.huf}} Ft</span></span>
+						<span class="md-display-4 text-center" style="margin: 0px;background-color: rgb(0,13,66);color: white;padding: 20px;">Nem voltál bent: <span class="red">br. 0 Ft</span></span>
+        </div>
+      </md-whiteframe>
+    </md-content>
+  </div>
+</md-content>
