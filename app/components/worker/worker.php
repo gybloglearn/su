@@ -8,8 +8,8 @@ if(isset($_POST)){
     echo $_POST["month"];
     echo $_POST["hufvalue"];
 } else {
-    echo "".
-        ."<md-content layout-padding>
+    echo
+        "<html><body><md-content layout-padding>
             <form name='userform' action='worker.php' method='post'>
                 <div layout='row'>
                     <md-input-container class='md-block' flex>
@@ -24,8 +24,7 @@ if(isset($_POST)){
                     </md-input-container>
                 </div>
             </form>
-        </md-content>".
-    "";
+        </md-content></body></html>";
 }
 
 

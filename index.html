@@ -32,6 +32,10 @@
 			</md-toolbar>
 			<md-content>
 				<md-list flex>
+					<md-list-item ui-sref="updater" ng-click="close()">
+						<div flex class="md-list-item-text">Updater</div>
+						<md-icon class="material-icons">dashboard</md-icon>
+					</md-list-item>
 					<md-list-item ui-sref="dashboard" ng-click="close()">
 						<div flex class="md-list-item-text">Vezérlőpult</div>
 						<md-icon class="material-icons">dashboard</md-icon>
@@ -119,7 +123,9 @@
 	<script src="app/components/login/login.ctrl.js"></script>
 	<script src="app/components/dashboard/dashboard.ctrl.js"></script>
 	<script src="app/components/quicklinks/quicklinks.ctrl.js"></script>
-		<!--endbuild--><!--adds-->
+		<script src="app/components/updater/updater.ctrl.js"></script>
+	<script src="app/components/services/update.service.js"></script>
+	<!--endbuild--><!--adds-->
 	<script>
 		angular.bootstrap(document, ['app']);
 	</script>

@@ -2,10 +2,10 @@
   <div layout-padding flex>
     <h1 class="md-display-2" layout="row">
       <span class="md-display-3" flex>Teljesítménybónusz</span>
-      <b class="md-display-4 text-center" flex>MÁJUS</b>
-      <span class="md-display-4" style="text-align: right" flex>2019-06-04</span>
+			<b class="md-display-4 text-center" flex>{{vm.month|uppercase}}</b>
+			<span class="md-display-4" style="text-align: right" flex>{{vm.today}}</span>
     </h1>
-		<div style="margin-top: -50px; margin-bottom: -10px;" layout="row" layout-align="end center"><b>Következő frissítés ideje: 2019-06-11</b></div>
+		<div style="margin-top: -50px; margin-bottom: -10px;" layout="row" layout-align="end center"><b>Következő frissítés ideje: {{vm.nextupdate}}</b></div>
     <md-divider></md-divider>
     <md-content layout="row">
       <md-whiteframe class="md-whiteframe-0dp" flex layout layout-padding layout-align="center center">
@@ -13,36 +13,33 @@
           <div layout="row" layout-align="center center" layout-padding="20" style="margin-bottom: 10px">
             <div layout="column" flex>
               <span class="md-display-3 text-center" flex>Jelenlét</span>
-              <span class="md-display-2 text-center" style="color: #aaa">15 000 Ft</span>
-              <span class="md-display-2 text-center">Tőled függ!</span>
+              <span class="md-display-2 text-center" style="color: #aaa">20 000 Ft</span>
               <div layout="row">
                 <span class="material-icons green text-center" flex style="font-size: 150px;">mood</span>
                 <span class="text-center" style="font-size: 150px" flex>^</span>
                 <span class="material-icons red text-center" flex style="font-size: 150px;">mood_bad</span>
               </div>
+              <span class="md-display-2 text-center">Tőled függ!</span>
             </div>
             <div layout="column" flex>
               <span class="md-display-3 text-center" flex style="margin-top: -40px">Mennyiség</span>
-							<span class="md-display-2 text-center" style="color: #aaa">7 500 Ft</span>
-							<!--<span class="md-display-2 text-center" style="color: #aaa">0 Ft</span>-->
+							<span class="md-display-2 text-center" style="color: #aaa">{{vm.quantity?"10.000":"0"}} Ft</span>
 					    <div layout="row" layout-align="center center">
-								<span class="material-icons green text-center" flex style="font-size: 150px;">mood</span>
-								<!--<span class="material-icons red text-center" flex style="font-size: 150px;">mood_bad</span>-->
+								<span class="material-icons {{vm.quantity?'green':'red'}} text-center" flex style="font-size: 150px;">{{vm.quantity?'mood':'mood_bad'}}</span>
               </div>
-							<p style="text-align:center;margin-bottom:-10px;margin-top: -15px;"><span style="font-size:3.5em;">+171 AEQ</span><br><br>
+							<p style="text-align:center;margin-bottom:-10px;margin-top: -15px;"><span style="font-size:3.5em;">{{vm.pluszminusz}} AEQ</span><br><br>
             </div>
             <div layout="column" flex>
-              <span class="md-display-3 text-center" flex>Minőség</span>
-							<span class="md-display-2 text-center" style="color: #aaa">7 500 Ft</span>
-							<!--<span class="md-display-2 text-center" style="color: #aaa">0 Ft</span>-->
+              <span class="md-display-3 text-center" flex stlye="margin-top: -40px">Minőség</span>
+							<span class="md-display-2 text-center" style="color: #aaa">{{vm.quality?"10.000":"0"}} Ft</span>
               <div layout="row" layout-align="center center">
-								<span class="material-icons green text-center" flex style="font-size: 150px;">mood</span>
-								<!--<span class="material-icons red text-center" flex style="font-size: 150px;">mood_bad</span>-->
+								<span class="material-icons {{vm.quality?'green':'red'}} text-center" flex style="font-size: 150px;">{{vm.quality?'mood':'mood_bad'}}</span>
               </div>
+							<p style="text-align:center;margin-bottom:-10px;margin-top: -15px;"><span style="font-size:3.5em;">&nbsp;</span><br><br>
             </div>
           </div>
           <md-divider></md-divider>
-					<span class="md-display-4 text-center" style="margin: 0px;background-color: rgb(0,13,66);color: white;padding: 20px;">Bent voltál: <span class="green">br. 40.000 Ft</span></span>
+					<span class="md-display-4 text-center" style="margin: 0px;background-color: rgb(0,13,66);color: white;padding: 20px;">Bent voltál: <span class="green">br. {{vm.huf}} Ft</span></span>
 						<span class="md-display-4 text-center" style="margin: 0px;background-color: rgb(0,13,66);color: white;padding: 20px;">Nem voltál bent: <span class="red">br. 0 Ft</span></span>
         </div>
       </md-whiteframe>

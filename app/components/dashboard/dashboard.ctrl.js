@@ -5,11 +5,22 @@
     .module('app')
     .controller('DashboardController', DashboardController);
 
-  DashboardController.$inject = ['$state', '$cookies', '$rootScope', '$filter'];
-  function DashboardController($state, $cookies, $rootScope, $filter) {
+  DashboardController.$inject = ['$state', '$cookies', '$rootScope', '$filter', 'UpdateService'];
+  function DashboardController($state, $cookies, $rootScope, $filter, UpdateService) {
     var vm = this;
 
     activate();
+
+		UpdateService.get().then(function(response){
+			console.log(response.data);
+			vm.month = response.data.month;
+			vm.today = response.data.today;
+			vm.nextupdate = response.data.nextupdate;
+			vm.quantity = response.data.quantity;
+			vm.quality = response.data.quality;
+			vm.pluszminusz = response.data.pluszminusz;
+			vm.huf = response.data.huf;
+		});
 
     ////////////////
 

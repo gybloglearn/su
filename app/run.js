@@ -23,7 +23,11 @@
     function activate() {
       var url = $location.path();
       url = url.slice(1);
-      $state.go('dashboard');
+			if(url == 'updater'){
+				$state.go('updater');
+			} else {
+	      $state.go('dashboard');
+			}
       /*if (!$cookies.getObject('user')) {
         if (url != 'login') {
           $cookies.put('redir', url);
